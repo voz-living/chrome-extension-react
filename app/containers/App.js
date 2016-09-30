@@ -39,7 +39,7 @@ class App extends Component {
       <div id="voz-living">
         <AdsControl />
         <WideScreenControl />
-        <ThreadListControl />
+        <ThreadListControl dispatch={this.dispatch} />
       </div>
     );
   }

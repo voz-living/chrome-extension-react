@@ -196,6 +196,7 @@ class ThreadPreview extends Component {
       <div className="preview-wrapper">
         <div className="left-preview pull-left" style={{ width: 'calc(100% - 45px)' }}>
           <div className="preview-control">
+            Use left and right arrow key to control, Esc key to close
             <div
               className="btn pull-right btn-next-post"
               onClick={this.nextPost}
