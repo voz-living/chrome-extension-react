@@ -1,0 +1,57 @@
+@import './mixins';
+
+td[id^="td_threadtitle_"]{
+  position: relative;
+}
+
+.btn-view{
+  float: right;
+  margin-top: -33px;
+  background: #ddd;
+  z-index: 1000;
+  .border-radius(40px);
+}
+
+.btn-open{
+  background: #ddd;
+  margin-top: 5px;
+  .border-radius(40px);
+}
+
+.btn-next-post, .btn-prev-post{
+  background: #ddd;
+  height: 30px !important;
+  width: 30px !important;
+  line-height: 33px !important;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  .border-radius(40px);
+}
+
+.preview-wrapper{
+  width: 100%;
+  overflow: hidden;
+
+  .left-preview{
+    padding: 10px;
+    box-sizing: border-box;
+    background: #E1E4F2;
+
+    .preview-control{
+      overflow: hidden;
+      padding: 6px;
+    }
+
+    .preview-content{
+      min-height: 100px;
+      max-height: 300px;
+      width: 100%;
+      overflow-y: scroll;
+    }
+  }
+
+  .right-preview{
+    width: 40px;
+  }
+}

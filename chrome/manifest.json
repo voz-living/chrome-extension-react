@@ -1,0 +1,51 @@
+{
+  "name": "Voz Living",
+  "version": "3.0.0",
+  "manifest_version": 2,
+  "description": "Another VOZ Living extension",
+  "homepage_url": "https://www.facebook.com/VozLiving/",
+  "icons": {
+    "16": "assert/icon/16.png",
+    "32": "assert/icon/32.png",
+    "64": "assert/icon/64.png",
+    "128": "assert/icon/128.png",
+    "256": "assert/icon/256.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "assert/icon/16.png",
+      "38": "assert/icon/64.png"
+    },
+    "default_title": "Voz Living"
+  },
+  "permissions": [
+    "http://vozforums.com/*",
+    "https://vozforums.com/*",
+    "http://www.vozforums.com/*",
+    "https://www.vozforums.com/*",
+    "notifications",
+    "storage",
+    "tabs"
+  ],
+  "content_scripts": [{
+    "all_frames": false,
+    "js": [
+      "voz-living.js"
+    ],
+    "matches": [
+      "http://localhost-voz/",
+      "http://localhost-voz/*",
+      "*://*.localhost-voz/*",
+      "*://*.vozforums.com/*",
+      "http://*.vozforums.com/*",
+      "http://www.vozforums.com/*"
+    ],
+    "run_at": "document_start"
+  }],
+  "web_accessible_resources": []
+}

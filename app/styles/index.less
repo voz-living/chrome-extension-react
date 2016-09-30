@@ -1,0 +1,27 @@
+@import './thread-preview';
+
+.pull-right{
+  float: right;
+}
+
+.pull-left{
+  float: left;
+}
+
+.btn{
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover{
+    transform: translateZ(0);
+    transition-duration: 0.3s;
+    transition-property: box-shadow;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  }
+}
