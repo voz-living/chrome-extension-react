@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { GET } from '../utils/http';
 import $ from 'jquery';
 import { autobind } from 'core-decorators';
+import Mousetrap from 'mousetrap';
 
 class ThreadPreview extends Component {
   static propTypes = {
@@ -73,6 +74,7 @@ class ThreadPreview extends Component {
     }
   }
 
+  @autobind
   viewLastPost() {
     const { pageNum } = this.props;
     const { currentPageIndex, currentHTMLViewPosts } = this.state;
@@ -84,6 +86,7 @@ class ThreadPreview extends Component {
     }
   }
 
+  @autobind
   viewFirstPost() {
     const { currentPageIndex, currentHTMLViewPosts } = this.state;
 
@@ -110,11 +113,29 @@ class ThreadPreview extends Component {
   }
 
   closeThreadPreview() {
+    Mousetrap.unbind('right');
+    Mousetrap.bind('left');
+    Mousetrap.bind('esc');
     this.setState({ show: false });
   }
 
   openThreadPreview() {
     const { currentHTMLViewPosts } = this.state;
+
+    // close other thread preview
+    $('.btn-view.active').click();
+
+    Mousetrap.bind('right', () => {
+      this.nextPost();
+    });
+
+    Mousetrap.bind('left', () => {
+      this.prevPost();
+    });
+
+    Mousetrap.bind('esc', () => {
+      this.closeThreadPreview();
+    });
 
     if (currentHTMLViewPosts.length === 0) {
       this.viewFirstPost();
@@ -191,8 +212,16 @@ class ThreadPreview extends Component {
         <div className="right-preview pull-right">
           <div
             className="btn btn-open"
-            onClick={() => this.openNewTab()}
+            onClick={this.openNewTab}
           >Open</div>
+          <div
+            className="btn btn-open"
+            onClick={this.viewFirstPost}
+          >First</div>
+          <div
+            className="btn btn-open"
+            onClick={this.viewLastPost}
+          >Last</div>
         </div>
       </div>
     );
@@ -201,12 +230,17 @@ class ThreadPreview extends Component {
   render() {
     const { show } = this.state;
     let text = 'View';
-    if (show) text = 'Close';
+    let className = 'btn btn-view';
+
+    if (show) {
+      text = 'Close';
+      className += ' active';
+    }
 
     return (
       <div className="thread-preview-inner">
         <div
-          className="btn btn-view"
+          className={className}
           onClick={() => this.toggleThreadPreview()}
         >{text}</div>
         {this.renderThreadContent()}
