@@ -1,14 +1,9 @@
 import { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import $ from 'jquery';
 
 class AdsControl extends Component {
   static propTypes = {
     isRemoveAds: PropTypes.bool,
-  }
-
-  componentDidMount() {
-    this.removeAds();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,12 +26,4 @@ class AdsControl extends Component {
   render() { return null; }
 }
 
-const mapStateToProps = state => {
-  const { isRemoveAds } = state.vozLiving;
-
-  return {
-    isRemoveAds,
-  };
-};
-
-export default connect(mapStateToProps)(AdsControl);
+export default AdsControl;

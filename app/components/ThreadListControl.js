@@ -47,7 +47,7 @@ class ThreadListControl extends Component {
     threadPreviewDiv.id = `thread-preview-${id}`;
     threadPreviewDiv.className = 'thread-preview-wrapper';
     element.append(threadPreviewDiv);
-    render(<ThreadPreview id={id} pageNum={pageNum} />, threadPreviewDiv);
+    render(<ThreadPreview id={id} pageNum={pageNum} element={element} />, threadPreviewDiv);
   }
 
   render() { return null; }

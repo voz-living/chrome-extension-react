@@ -8,6 +8,7 @@ class ThreadPreview extends Component {
   static propTypes = {
     id: PropTypes.string,
     pageNum: PropTypes.number,
+    element: PropTypes.any,
   }
 
   constructor(comProps) {

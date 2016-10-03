@@ -6,6 +6,16 @@ import {
   VOZ_LIVING_GET_THREAD_LIST,
 } from '../constants/actionType';
 
+import {
+  getChromeLocalStore,
+  setChromeLocalStore,
+} from '../../background/index';
+
+export {
+  getChromeLocalStore,
+  setChromeLocalStore,
+};
+
 export const init = () => ({
   type: VOZ_LIVING_INIT,
 });

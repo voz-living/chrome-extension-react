@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {
   init,
   getThreadList,
+  getChromeLocalStore,
 } from '../actions/voz';
 
 class App extends Component {
@@ -17,6 +18,11 @@ class App extends Component {
     super(comProps);
     const { dispatch } = comProps;
     this.dispatch = dispatch;
+
+    this.state = {
+      wideScreen: false,
+      adsRemove: false,
+    };
   }
 
   componentDidMount() {
@@ -29,16 +35,23 @@ class App extends Component {
   componentWillReceiveProps(nextProps) {
     const { currentView } = nextProps;
 
-    if (currentView === 'thread-list') {
-      this.dispatch(getThreadList());
-    }
+    getChromeLocalStore().then(allSettings => {
+      this.setState({ wideScreen: allSettings.wideScreen });
+      this.setState({ adsRemove: allSettings.adsRemove });
+
+      if (currentView === 'thread-list') {
+        if (allSettings.threadPreview) this.dispatch(getThreadList());
+      }
+    });
   }
 
   render() {
+    const { wideScreen, adsRemove } = this.state;
+
     return (
       <div id="voz-living">
-        <AdsControl />
-        <WideScreenControl />
+        <AdsControl isRemoveAds={adsRemove} />
+        <WideScreenControl isWideScreen={wideScreen} />
         <ThreadListControl dispatch={this.dispatch} />
       </div>
     );
