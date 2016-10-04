@@ -3,6 +3,7 @@ import { GET } from '../utils/http';
 import $ from 'jquery';
 import { autobind } from 'core-decorators';
 import Mousetrap from 'mousetrap';
+import PostContent from './PostContent';
 
 class ThreadPreview extends Component {
   static propTypes = {
@@ -59,7 +60,7 @@ class ThreadPreview extends Component {
         this.setState({
           currentHTMLViewPosts: posts,
           currentPostIndex: pIndex,
-          content: posts[pIndex],
+          content: posts.eq(pIndex),
           show: true,
           isLoading: false,
           currentPageIndex: pageIndex,
@@ -68,7 +69,7 @@ class ThreadPreview extends Component {
     } else {
       this.setState({
         currentPostIndex: postIndex,
-        content: currentHTMLViewPosts[postIndex],
+        content: currentHTMLViewPosts.eq(postIndex),
         show: true,
         isLoading: false,
       });
@@ -208,7 +209,7 @@ class ThreadPreview extends Component {
             >◀</div>
           </div>
           <div className="preview-content">
-            <div dangerouslySetInnerHTML={{ __html: content.innerHTML }}></div>
+            <PostContent html={content} />
           </div>
         </div>
         <div className="right-preview pull-right">
