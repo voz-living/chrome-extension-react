@@ -214,15 +214,15 @@ class ThreadPreview extends Component {
         </div>
         <div className="right-preview pull-right">
           <div
-            className="btn btn-open"
+            className="btn"
             onClick={this.openNewTab}
           >Open</div>
           <div
-            className="btn btn-open"
+            className="btn"
             onClick={this.viewFirstPost}
           >First</div>
           <div
-            className="btn btn-open"
+            className="btn"
             onClick={this.viewLastPost}
           >Last</div>
         </div>

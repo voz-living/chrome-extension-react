@@ -16,9 +16,27 @@ export {
   setChromeLocalStore,
 };
 
-export const init = () => ({
-  type: VOZ_LIVING_INIT,
-});
+export function getCurrentView() {
+  let currentView = null;
+  if (/forumdisplay/.test(window.location.pathname)) {
+    currentView = 'thread-list';
+  } else if (/showthread/.test(window.location.pathname)) {
+    currentView = 'thread';
+  } else if (/newreply/.test(window.location.pathname)) {
+    currentView = 'new-reply';
+  }
+  return currentView;
+}
+
+export const init = settings => {
+  const currentView = getCurrentView();
+
+  return {
+    type: VOZ_LIVING_INIT,
+    currentView,
+    settings,
+  };
+};
 
 export const getThreadList = () => {
   const titleList = $('#threadslist tbody[id^="threadbits_forum"] tr td[id^="td_threadtitle_"]');

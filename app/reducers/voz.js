@@ -4,23 +4,15 @@ import {
 } from '../constants/actionType';
 
 const initState = {
-  isRemoveAds: true,
-  isWideScreen: true,
-  currentView: null,
+  settings: {},
   threadList: [],
+  currentView: null,
 };
 
 const actionsMap = {
-  [VOZ_LIVING_INIT](state) {
-    let currentView = null;
-    if (/forumdisplay/.test(window.location.pathname)) {
-      currentView = 'thread-list';
-    } else if (/showthread/.test(window.location.pathname)) {
-      currentView = 'thread';
-    } else if (/newreply/.test(window.location.pathname)) {
-      currentView = 'new-reply';
-    }
-    return { ...state, currentView };
+  [VOZ_LIVING_INIT](state, action) {
+    const { currentView, settings } = action;
+    return { ...state, currentView, settings };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {
     const { threadList } = action;

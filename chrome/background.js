@@ -2939,7 +2939,8 @@
 
 /***/ },
 /* 124 */,
-/* 125 */
+/* 125 */,
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(2).nextTick;
@@ -3018,10 +3019,9 @@
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(125).setImmediate, __webpack_require__(125).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(126).setImmediate, __webpack_require__(126).clearImmediate))
 
 /***/ },
-/* 126 */,
 /* 127 */,
 /* 128 */,
 /* 129 */
@@ -4082,13 +4082,7 @@
 	};
 
 /***/ },
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -20990,6 +20984,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(430)(module)))
 
 /***/ },
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
 /* 176 */,
 /* 177 */,
 /* 178 */,
@@ -21008,7 +21008,7 @@
 	});
 	exports.setChromeLocalStore = exports.getChromeLocalStore = undefined;
 
-	var _lodash = __webpack_require__(175);
+	var _lodash = __webpack_require__(169);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -21063,7 +21063,8 @@
 	var defaultSettings = {
 	  wideScreen: true,
 	  threadPreview: true,
-	  adsRemove: true
+	  adsRemove: true,
+	  linkHelper: true
 	};
 
 	exports.default = defaultSettings;
@@ -32329,7 +32330,7 @@
 
 	},{"./es5":13}]},{},[4])(4)
 	});                    ;if (typeof window !== 'undefined' && window !== null) {                               window.P = window.Promise;                                                     } else if (typeof self !== 'undefined' && self !== null) {                             self.P = self.Promise;                                                         }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), (function() { return this; }()), __webpack_require__(125).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), (function() { return this; }()), __webpack_require__(126).setImmediate))
 
 /***/ },
 /* 404 */,

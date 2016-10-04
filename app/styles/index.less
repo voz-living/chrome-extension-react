@@ -1,4 +1,4 @@
-@import './thread-preview';
+@import './mixins';
 
 .pull-right{
   float: right;
@@ -17,6 +17,8 @@
   line-height: 40px;
   font-size: 12px;
   cursor: pointer;
+  background: #ddd;
+  .border-radius(40px);
 
   &:hover{
     transform: translateZ(0);
@@ -25,3 +27,6 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
   }
 }
+
+@import './thread-preview';
+@import './side-menu';
