@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {
   VOZ_LIVING_INIT,
   VOZ_LIVING_GET_THREAD_LIST,
+  VOZ_LIVING_CHANGE_OPTION,
 } from '../constants/actionType';
 
 import {
@@ -16,27 +17,15 @@ export {
   setChromeLocalStore,
 };
 
-export function getCurrentView() {
-  let currentView = null;
-  if (/forumdisplay/.test(window.location.pathname)) {
-    currentView = 'thread-list';
-  } else if (/showthread/.test(window.location.pathname)) {
-    currentView = 'thread';
-  } else if (/newreply/.test(window.location.pathname)) {
-    currentView = 'new-reply';
-  }
-  return currentView;
-}
+export const init = settings => ({
+  type: VOZ_LIVING_INIT,
+  settings,
+});
 
-export const init = settings => {
-  const currentView = getCurrentView();
-
-  return {
-    type: VOZ_LIVING_INIT,
-    currentView,
-    settings,
-  };
-};
+export const changeOption = option => ({
+  type: VOZ_LIVING_CHANGE_OPTION,
+  option,
+});
 
 export const getThreadList = () => {
   const titleList = $('#threadslist tbody[id^="threadbits_forum"] tr td[id^="td_threadtitle_"]');

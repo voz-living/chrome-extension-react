@@ -6,13 +6,36 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    width: 40px;
+    width: 45px;
     height: 100%;
-    margin: 0 0 0 10px;
+    padding: 0 0 0 5px;
 
-    .btn{
-      margin-top: 5px;
-      color: #000 !important;
+    .btn-group{
+      position: relative;
+
+      .btn{
+        margin-top: 5px;
+        color: #000 !important;
+      }
+
+      .btn-options{
+        position: absolute;
+        top: 5px;
+        left: 50px;
+        width: 300px;
+        padding: 10px 20px;
+        background: #ddd;
+        color: #000;
+        border: 1px solid #ccc;
+
+        .control-wrapper{
+          line-height: 28px;
+          input{
+            float: left;
+            margin: 8px 8px 0 0;
+          }
+        }
+      }
     }
   }
 }

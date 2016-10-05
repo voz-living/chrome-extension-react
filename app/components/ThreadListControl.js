@@ -54,10 +54,9 @@ class ThreadListControl extends Component {
 }
 
 const mapStateToProps = state => {
-  const { threadList, currentView } = state.vozLiving;
+  const { threadList } = state.vozLiving;
 
   return {
-    currentView,
     threadList,
   };
 };

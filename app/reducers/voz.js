@@ -1,22 +1,32 @@
 import {
   VOZ_LIVING_INIT,
   VOZ_LIVING_GET_THREAD_LIST,
+  VOZ_LIVING_CHANGE_OPTION,
 } from '../constants/actionType';
 
 const initState = {
   settings: {},
   threadList: [],
-  currentView: null,
 };
 
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
-    const { currentView, settings } = action;
-    return { ...state, currentView, settings };
+    const { settings } = action;
+    return { ...state, settings };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {
     const { threadList } = action;
     return { ...state, threadList };
+  },
+  [VOZ_LIVING_CHANGE_OPTION](state, action) {
+    const { settings } = state;
+    return {
+      ...state,
+      settings: {
+        ...settings,
+        [action.option]: !settings[action.option],
+      },
+    };
   },
 };
 

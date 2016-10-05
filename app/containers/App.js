@@ -2,7 +2,7 @@ import AdsControl from '../components/AdsControl';
 import WideScreenControl from '../components/WideScreenControl';
 import ThreadListControl from '../components/ThreadListControl';
 import LinkHelperControl from '../components/LinkHelperControl';
-import SideMenu from '../components/SideMenu';
+import SideMenu from './SideMenu';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -11,10 +11,10 @@ import {
   getThreadList,
   getChromeLocalStore,
 } from '../actions/voz';
+import { getCurrentView } from '../utils';
 
 class App extends Component {
   static propTypes = {
-    currentView: PropTypes.any,
     settings: PropTypes.object,
     dispatch: PropTypes.func,
   }
@@ -23,30 +23,35 @@ class App extends Component {
     settings: {},
   }
 
-  componentDidMount() {
-    getChromeLocalStore().then(settings => this.props.dispatch(init(settings)));
-    // import css here to avoid null head ;(
-    require('../styles/index.less'); // eslint-disable-line
+  constructor(comProps) {
+    super(comProps);
+    this.currentView = getCurrentView();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { currentView, settings, dispatch } = nextProps;
+  componentDidMount() {
+    // import css here to avoid null head ;(
+    require('../styles/index.less'); // eslint-disable-line
 
-    if (settings.threadPreview && currentView === 'thread-list') {
-      dispatch(getThreadList());
-    }
+    getChromeLocalStore().then(settings => {
+      this.props.dispatch(init(settings));
+
+      if (settings.threadPreview === true && this.currentView === 'thread-list') {
+        this.props.dispatch(getThreadList());
+      }
+    });
   }
 
   render() {
-    const { wideScreen, adsRemove, linkHelper, dispatch } = this.props.settings;
+    const { settings } = this.props;
+    const { wideScreen, adsRemove, linkHelper, dispatch } = settings;
 
     return (
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreen} />
         <LinkHelperControl linkHelper={linkHelper} />
-        <ThreadListControl dispatch={dispatch} />
-        <SideMenu />
+        <ThreadListControl dispatch={dispatch} currentView={this.currentView} />
+        <SideMenu dispatch={dispatch} />
       </div>
     );
   }
