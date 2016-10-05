@@ -1,17 +1,23 @@
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+
 import AdsControl from '../components/AdsControl';
 import WideScreenControl from '../components/WideScreenControl';
 import ThreadListControl from '../components/ThreadListControl';
 import LinkHelperControl from '../components/LinkHelperControl';
 import SideMenu from './SideMenu';
-
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import {
   init,
   getThreadList,
-  getChromeLocalStore,
 } from '../actions/voz';
-import { getCurrentView } from '../utils';
+
+import {
+  getChromeLocalStore,
+} from '../../background/index';
+
+import {
+  getCurrentView,
+} from '../utils';
 
 class App extends Component {
   static propTypes = {
@@ -58,8 +64,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { currentView, settings } = state.vozLiving;
-  return { currentView, settings };
+  const { settings } = state.vozLiving;
+  return { settings };
 };
 
 export default connect(mapStateToProps)(App);

@@ -54,6 +54,7 @@ class SettingOptions extends Component {
           if (this.state.showConfig) {
             return (
               <div className="btn-options">
+                <small>Note: You need to refresh browser to apply settings</small>
                 {configSideMenu.map(config => this.renderConfig(config))}
               </div>
             );

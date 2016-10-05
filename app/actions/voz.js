@@ -7,16 +7,6 @@ import {
   VOZ_LIVING_CHANGE_OPTION,
 } from '../constants/actionType';
 
-import {
-  getChromeLocalStore,
-  setChromeLocalStore,
-} from '../../background/index';
-
-export {
-  getChromeLocalStore,
-  setChromeLocalStore,
-};
-
 export const init = settings => ({
   type: VOZ_LIVING_INIT,
   settings,

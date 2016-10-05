@@ -1,4 +1,8 @@
 import {
+  setChromeLocalStore,
+} from '../../background/index';
+
+import {
   VOZ_LIVING_INIT,
   VOZ_LIVING_GET_THREAD_LIST,
   VOZ_LIVING_CHANGE_OPTION,
@@ -20,12 +24,13 @@ const actionsMap = {
   },
   [VOZ_LIVING_CHANGE_OPTION](state, action) {
     const { settings } = state;
+    const newSettings = { ...settings, [action.option]: !settings[action.option] };
+
+    setChromeLocalStore(newSettings);
+
     return {
       ...state,
-      settings: {
-        ...settings,
-        [action.option]: !settings[action.option],
-      },
+      settings: newSettings,
     };
   },
 };
