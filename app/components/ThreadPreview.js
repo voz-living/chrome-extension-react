@@ -103,7 +103,8 @@ class ThreadPreview extends Component {
     return new Promise(resolve => {
       this.getPageByIndex(pageIndex).then(response => {
         if (response === null) resolve([]);
-        const posts = $(response).find('[id^="post_message"]');
+        // const posts = $(response).find('[id^="post_message"]');
+        const posts = $(response).find('table.voz-postbit');
         resolve(posts);
       });
     });
@@ -190,7 +191,7 @@ class ThreadPreview extends Component {
   }
 
   renderThreadContent() {
-    const { show, content } = this.state;
+    const { show, content, currentPostIndex, currentPageIndex } = this.state;
 
     if (!show) return null;
 
@@ -207,6 +208,9 @@ class ThreadPreview extends Component {
               className="btn pull-right btn-prev-post"
               onClick={this.prevPost}
             >◀</div>
+            <div className="pull-right">
+              Current Post: {(currentPageIndex * 10) + currentPostIndex + 1}
+            </div>
           </div>
           <div className="preview-content">
             <PostContent html={content} />
