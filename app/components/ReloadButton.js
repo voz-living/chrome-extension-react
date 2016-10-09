@@ -3,6 +3,7 @@ import { autobind } from 'core-decorators';
 import $ from 'jquery';
 import Mousetrap from 'mousetrap';
 import { GET } from '../utils/http';
+import { getCurrentView } from '../utils';
 import {
   getThreadList,
 } from '../actions/voz';
@@ -12,11 +13,18 @@ class ReloadButton extends Component {
     dispatch: PropTypes.func,
   }
 
+  constructor(comProps) {
+    super(comProps);
+    this.view = getCurrentView();
+  }
+
   componentDidMount() {
-    Mousetrap.bind('command+r', event => {
-      event.preventDefault();
-      this.reloadPage();
-    });
+    if (this.view === 'thread-list') {
+      Mousetrap.bind('command+r', event => {
+        event.preventDefault();
+        this.reloadPage();
+      });
+    }
   }
 
   @autobind
@@ -33,15 +41,18 @@ class ReloadButton extends Component {
   }
 
   render() {
-    return (
-      <div className="btn-group">
-        <div
-          className="btn"
-          onClick={this.reloadPage}
-          style={{ fontSize: '20px' }}
-        >⟳</div>
-      </div>
-    );
+    if (this.view === 'thread-list') {
+      return (
+        <div className="btn-group">
+          <div
+            className="btn"
+            onClick={this.reloadPage}
+            style={{ fontSize: '20px' }}
+          >⟳</div>
+        </div>
+      );
+    }
+    return null;
   }
 }
 
