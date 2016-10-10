@@ -5,16 +5,23 @@ import {
   VOZ_LIVING_INIT,
   VOZ_LIVING_GET_THREAD_LIST,
   VOZ_LIVING_CHANGE_OPTION,
+  VOZ_LIVING_UDATE_QUOTE_LIST,
 } from '../constants/actionType';
 
-export const init = settings => ({
+export const init = (settings, quotes) => ({
   type: VOZ_LIVING_INIT,
   settings,
+  quotes,
 });
 
 export const changeOption = option => ({
   type: VOZ_LIVING_CHANGE_OPTION,
   option,
+});
+
+export const updateQuotes = quotes => ({
+  type: VOZ_LIVING_UDATE_QUOTE_LIST,
+  quotes,
 });
 
 export const getThreadList = () => {

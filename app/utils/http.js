@@ -20,11 +20,7 @@ const GET = requestFactory({
 
 const POST = requestFactory({
   method: 'post',
-  credentials: 'same-origin',
-  headers: new Headers({
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  }),
+  credentials: 'include',
 });
 
 const PUT = requestFactory({

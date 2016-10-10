@@ -19,6 +19,11 @@ const config = [
     name: 'Link Helper',
     type: 'bool',
   },
+  {
+    key: 'notifyQuote',
+    name: 'Notify Quotes',
+    type: 'bool',
+  },
 ];
 
 export default config;

@@ -9,14 +9,17 @@ import SideMenu from './SideMenu';
 import {
   init,
   getThreadList,
+  updateQuotes,
 } from '../actions/voz';
 
 import {
   getChromeLocalStore,
-} from '../../background/index';
+  setChromeLocalStore,
+} from '../utils/settings';
 
 import {
   getCurrentView,
+  getAuthenticationInformation,
 } from '../utils';
 
 class App extends Component {
@@ -31,33 +34,46 @@ class App extends Component {
 
   constructor(comProps) {
     super(comProps);
+    this.dispatch = comProps.dispatch;
     this.currentView = getCurrentView();
+    this.authInfo = getAuthenticationInformation();
   }
 
   componentDidMount() {
     // import css here to avoid null head ;(
     require('../styles/index.less'); // eslint-disable-line
 
-    getChromeLocalStore().then(settings => {
-      this.props.dispatch(init(settings));
+    getChromeLocalStore().then(({ quotes, ...settings }) => {
+      this.props.dispatch(init(settings, quotes));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
         this.props.dispatch(getThreadList());
       }
+
+      if (_.isEmpty(settings.authInfo) || !_.isEqual(settings.authInfo, this.authInfo)) {
+        setChromeLocalStore({ authInfo: this.authInfo });
+      }
     });
+
+    /* eslint-disable no-undef */
+    chrome.runtime.onMessage.addListener((request) => {
+      if (request.quotes) {
+        this.dispatch(updateQuotes(request.quotes));
+      }
+    });
+    /* eslint-enable no-undef */
   }
 
   render() {
-    const { settings } = this.props;
-    const { wideScreen, adsRemove, linkHelper, dispatch } = settings;
+    const { wideScreen, adsRemove, linkHelper } = this.props.settings;
 
     return (
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreen} />
         <LinkHelperControl linkHelper={linkHelper} />
-        <ThreadListControl dispatch={dispatch} currentView={this.currentView} />
-        <SideMenu dispatch={dispatch} />
+        <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
+        <SideMenu dispatch={this.dispatch} />
       </div>
     );
   }

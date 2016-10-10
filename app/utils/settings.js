@@ -6,12 +6,15 @@ const defaultSettings = {
   adsRemove: true,
   linkHelper: true,
   notifyQuote: true,
+  authInfo: {},
+  quotes: [],
 };
 
 export default defaultSettings;
 
 const defaultSettingKeys = _.keys(defaultSettings);
 
+/* eslint-disable no-undef */
 export const getChromeLocalStore = (keys = defaultSettingKeys) => (
   new Promise(resolve => {
     chrome.storage.local.get(keys, items => {
@@ -43,3 +46,4 @@ export const setChromeLocalStore = items => (
     chrome.storage.local.set(items, () => resolve(true));
   })
 );
+/* eslint-enable no-undef */
