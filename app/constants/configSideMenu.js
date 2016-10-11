@@ -24,6 +24,11 @@ const config = [
     name: 'Notify Quotes',
     type: 'bool',
   },
+  {
+    key: 'delay',
+    name: 'Get quotes delay (minute)',
+    type: 'number',
+  },
 ];
 
 export default config;

@@ -7,7 +7,7 @@ const defaultStoreStructure = {
     adsRemove: true,
     linkHelper: true,
     notifyQuote: true,
-    delay: 60000,
+    delay: 10, // minute
   },
   authInfo: {},
   quotes: [],

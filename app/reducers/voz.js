@@ -31,7 +31,9 @@ const actionsMap = {
   },
   [VOZ_LIVING_CHANGE_OPTION](state, action) {
     const { settings } = state;
-    const newSettings = { ...settings, [action.option]: !settings[action.option] };
+    const { option, value } = action;
+    const newValue = value || !settings[option];
+    const newSettings = { ...settings, [option]: newValue };
 
     setChromeLocalStore({ settings: newSettings });
 

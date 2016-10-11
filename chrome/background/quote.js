@@ -80,16 +80,18 @@ class QuoteBackground {
 
   checkGetQuotes() {
     console.log('VOZliving check quotes');
-    getChromeLocalStore().then(settings => {
-      const { notifyQuote, delay = 600000, authInfo = {} } = settings;
+    getChromeLocalStore(['authInfo', 'settings']).then(({ settings, authInfo }) => {
+      const { notifyQuote, delay = 10 } = settings;
+      let intDelay = delay !== '' ? delay : 1;
+      intDelay = parseInt(intDelay, 10) > 1 ? parseInt(intDelay, 10) : 1;
 
       if (notifyQuote && !_.isEmpty(authInfo)) {
         this.getQuoteList(authInfo).then(quotes => {
           this.updateQuotes(quotes);
-          setTimeout(() => this.checkGetQuotes(), delay);
+          setTimeout(() => this.checkGetQuotes(), intDelay * 60 * 1000);
         });
       } else {
-        setTimeout(() => this.checkGetQuotes(), delay);
+        setTimeout(() => this.checkGetQuotes(), intDelay * 60 * 1000);
       }
     });
   }

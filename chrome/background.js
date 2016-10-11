@@ -31296,8 +31296,7 @@
 	    adsRemove: true,
 	    linkHelper: true,
 	    notifyQuote: true,
-	    delay: 60000
-	  },
+	    delay: 10 },
 	  authInfo: {},
 	  quotes: []
 	};
@@ -43366,25 +43365,27 @@
 	      var _this2 = this;
 
 	      console.log('VOZliving check quotes');
-	      (0, _settings.getChromeLocalStore)().then(function (settings) {
+	      (0, _settings.getChromeLocalStore)(['authInfo', 'settings']).then(function (_ref) {
+	        var settings = _ref.settings;
+	        var authInfo = _ref.authInfo;
 	        var notifyQuote = settings.notifyQuote;
 	        var _settings$delay = settings.delay;
-	        var delay = _settings$delay === undefined ? 600000 : _settings$delay;
-	        var _settings$authInfo = settings.authInfo;
-	        var authInfo = _settings$authInfo === undefined ? {} : _settings$authInfo;
+	        var delay = _settings$delay === undefined ? 10 : _settings$delay;
 
+	        var intDelay = delay !== '' ? delay : 1;
+	        intDelay = parseInt(intDelay, 10) > 1 ? parseInt(intDelay, 10) : 1;
 
 	        if (notifyQuote && !_.isEmpty(authInfo)) {
 	          _this2.getQuoteList(authInfo).then(function (quotes) {
 	            _this2.updateQuotes(quotes);
 	            setTimeout(function () {
 	              return _this2.checkGetQuotes();
-	            }, delay);
+	            }, intDelay * 60 * 1000);
 	          });
 	        } else {
 	          setTimeout(function () {
 	            return _this2.checkGetQuotes();
-	          }, delay);
+	          }, intDelay * 60 * 1000);
 	        }
 	      });
 	    }

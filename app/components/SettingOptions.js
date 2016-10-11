@@ -23,22 +23,39 @@ class SettingOptions extends Component {
     this.props.dispatch(changeOption(config.key));
   }
 
+  changeTextConfig(config, event) {
+    this.props.dispatch(changeOption(config.key, event.target.value));
+  }
+
   renderConfig(config) {
     const { settings } = this.props;
     const value = settings[config.key];
 
-    if (!_.isUndefined(value) && config.type === 'bool') {
-      return (
-        <div className="control-wrapper" key={config.key}>
-          <label>{config.name}
-            <input
-              className="control"
-              type="checkbox" checked={value}
-              onChange={() => this.changeConfig(config)}
-            />
-          </label>
-        </div>
-      );
+    if (!_.isUndefined(value)) {
+      if (config.type === 'bool') {
+        return (
+          <div className="control-wrapper" key={config.key}>
+            <label>{config.name}
+              <input
+                className="control"
+                type="checkbox" checked={value}
+                onChange={() => this.changeConfig(config)}
+              />
+            </label>
+          </div>
+        );
+      } else if (config.type === 'number') {
+        return (
+          <div className="control-wrapper" key={config.key}>
+            <label>{config.name}
+              <input
+                className="control" type="number" value={value}
+                onChange={(event) => this.changeTextConfig(config, event)}
+              />
+            </label>
+          </div>
+        );
+      }
     }
     return null;
   }

@@ -15,9 +15,10 @@ export const init = (settings, quotes) => ({
   quotes,
 });
 
-export const changeOption = option => ({
+export const changeOption = (option, value) => ({
   type: VOZ_LIVING_CHANGE_OPTION,
   option,
+  value,
 });
 
 export const updateQuotes = quotes => ({
