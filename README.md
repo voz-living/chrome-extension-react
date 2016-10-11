@@ -21,12 +21,13 @@ TODO Features:
 - [x] +   Link detection (then convert to link)
 - [x] +   Embed Youtube Link
 - [x] +   Embed Image Link
+- [ ] Quick Links
 - [ ] Options Page
 - [ ] Quick post quotation
 - [ ] Add full emoticon into editor (both advanced and quick reply)
+- [ ] Monitor(Notify) followed threads
 - [ ] Smart quote minification
 - [ ] Facebook Sharing (Post)
-- [ ] Monitor(Notify) followed threads
 
 Mics:
 - [ ] Quick add to ignore list
