@@ -5,6 +5,7 @@ import { proccessLink } from '../utils/link';
 class LinkHelperControl extends Component {
   static propTypes = {
     linkHelper: PropTypes.bool,
+    currentView: PropTypes.string,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -12,9 +13,9 @@ class LinkHelperControl extends Component {
   }
 
   linkHelper(nextProps = this.props) {
-    const { linkHelper } = nextProps;
+    const { linkHelper, currentView } = nextProps;
 
-    if (linkHelper) {
+    if (linkHelper && currentView === 'thread') {
       const body = $('body');
       proccessLink(body);
     }

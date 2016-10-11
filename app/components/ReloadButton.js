@@ -20,7 +20,7 @@ class ReloadButton extends Component {
 
   componentDidMount() {
     if (this.view === 'thread-list') {
-      Mousetrap.bind('command+r', event => {
+      Mousetrap.bind(['command+r', 'ctrl+r'], event => {
         event.preventDefault();
         this.reloadPage();
       });

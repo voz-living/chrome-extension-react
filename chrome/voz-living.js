@@ -56202,9 +56202,10 @@
 	    value: function linkHelper() {
 	      var nextProps = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
 	      var linkHelper = nextProps.linkHelper;
+	      var currentView = nextProps.currentView;
 
 
-	      if (linkHelper) {
+	      if (linkHelper && currentView === 'thread') {
 	        var body = (0, _jquery2.default)('body');
 	        (0, _link.proccessLink)(body);
 	      }
@@ -56218,7 +56219,8 @@
 
 	  return LinkHelperControl;
 	}(_react.Component), _class.propTypes = {
-	  linkHelper: _react.PropTypes.bool
+	  linkHelper: _react.PropTypes.bool,
+	  currentView: _react.PropTypes.string
 	}, _temp);
 	exports.default = LinkHelperControl;
 
@@ -56354,7 +56356,19 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'quote-title' },
-	          quote.thread.title
+	          _react2.default.createElement(
+	            'a',
+	            { href: '/showthread.php?t=' + quote.thread.id, target: '_blank' },
+	            quote.thread.title
+	          ),
+	          _react2.default.createElement(
+	            'a',
+	            {
+	              className: 'pull-right', target: '_blank',
+	              href: 'showthread.php?p=' + quote.post.id + '#post' + quote.post.id
+	            },
+	            _react2.default.createElement('i', { className: 'fa fa-share' })
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -56556,7 +56570,7 @@
 	      var _this2 = this;
 
 	      if (this.view === 'thread-list') {
-	        _mousetrap2.default.bind('command+r', function (event) {
+	        _mousetrap2.default.bind(['command+r', 'ctrl+r'], function (event) {
 	          event.preventDefault();
 	          _this2.reloadPage();
 	        });
@@ -57500,7 +57514,7 @@
 	        { id: 'voz-living' },
 	        _react2.default.createElement(_AdsControl2.default, { isRemoveAds: adsRemove }),
 	        _react2.default.createElement(_WideScreenControl2.default, { isWideScreen: wideScreen }),
-	        _react2.default.createElement(_LinkHelperControl2.default, { linkHelper: linkHelper }),
+	        _react2.default.createElement(_LinkHelperControl2.default, { linkHelper: linkHelper, currentView: this.currentView }),
 	        _react2.default.createElement(_ThreadListControl2.default, { dispatch: this.dispatch, currentView: this.currentView }),
 	        _react2.default.createElement(_SideMenu2.default, { dispatch: this.dispatch })
 	      );

@@ -70,7 +70,7 @@ class App extends Component {
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreen} />
-        <LinkHelperControl linkHelper={linkHelper} />
+        <LinkHelperControl linkHelper={linkHelper} currentView={this.currentView} />
         <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
         <SideMenu dispatch={this.dispatch} />
       </div>
