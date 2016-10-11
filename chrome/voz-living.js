@@ -353,7 +353,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var anObject       = __webpack_require__(3)
-	  , IE8_DOM_DEFINE = __webpack_require__(140)
+	  , IE8_DOM_DEFINE = __webpack_require__(139)
 	  , toPrimitive    = __webpack_require__(30)
 	  , dP             = Object.defineProperty;
 
@@ -673,7 +673,7 @@
 	  , toIObject      = __webpack_require__(20)
 	  , toPrimitive    = __webpack_require__(30)
 	  , has            = __webpack_require__(15)
-	  , IE8_DOM_DEFINE = __webpack_require__(140)
+	  , IE8_DOM_DEFINE = __webpack_require__(139)
 	  , gOPD           = Object.getOwnPropertyDescriptor;
 
 	exports.f = __webpack_require__(8) ? gOPD : function getOwnPropertyDescriptor(O, P){
@@ -828,8 +828,8 @@
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var store      = __webpack_require__(168)('wks')
-	  , uid        = __webpack_require__(171)
+	var store      = __webpack_require__(167)('wks')
+	  , uid        = __webpack_require__(170)
 	  , Symbol     = __webpack_require__(31).Symbol
 	  , USE_SYMBOL = typeof Symbol == 'function';
 
@@ -949,8 +949,8 @@
 
 	var _prodInvariant = __webpack_require__(13);
 
-	var DOMProperty = __webpack_require__(126);
-	var ReactDOMComponentFlags = __webpack_require__(448);
+	var DOMProperty = __webpack_require__(125);
+	var ReactDOMComponentFlags = __webpack_require__(447);
 
 	var invariant = __webpack_require__(10);
 
@@ -1160,10 +1160,10 @@
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Map     = __webpack_require__(156)
+	var Map     = __webpack_require__(155)
 	  , $export = __webpack_require__(1)
 	  , shared  = __webpack_require__(80)('metadata')
-	  , store   = shared.store || (shared.store = new (__webpack_require__(159)));
+	  , store   = shared.store || (shared.store = new (__webpack_require__(158)));
 
 	var getOrCreateMetadataMap = function(target, targetKey, create){
 	  var targetMetadata = store.get(target);
@@ -1234,7 +1234,7 @@
 	    , toIndex             = __webpack_require__(50)
 	    , toPrimitive         = __webpack_require__(30)
 	    , has                 = __webpack_require__(15)
-	    , same                = __webpack_require__(153)
+	    , same                = __webpack_require__(152)
 	    , classof             = __webpack_require__(61)
 	    , isObject            = __webpack_require__(6)
 	    , toObject            = __webpack_require__(14)
@@ -1253,7 +1253,7 @@
 	    , $iterDetect         = __webpack_require__(77)
 	    , setSpecies          = __webpack_require__(49)
 	    , arrayFill           = __webpack_require__(92)
-	    , arrayCopyWithin     = __webpack_require__(133)
+	    , arrayCopyWithin     = __webpack_require__(132)
 	    , $DP                 = __webpack_require__(9)
 	    , $GOPD               = __webpack_require__(21)
 	    , dP                  = $DP.f
@@ -1845,7 +1845,7 @@
 
 	function _defineDecoratedPropertyDescriptor(target, key, descriptors) { var _descriptor = descriptors[key]; if (!_descriptor) return; var descriptor = {}; for (var _key in _descriptor) descriptor[_key] = _descriptor[_key]; descriptor.value = descriptor.initializer ? descriptor.initializer.call(target) : undefined; Object.defineProperty(target, key, descriptor); }
 
-	var _lazyInitialize = __webpack_require__(439);
+	var _lazyInitialize = __webpack_require__(438);
 
 	var _lazyInitialize2 = _interopRequireDefault(_lazyInitialize);
 
@@ -1993,7 +1993,7 @@
 
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 	var anObject    = __webpack_require__(3)
-	  , dPs         = __webpack_require__(146)
+	  , dPs         = __webpack_require__(145)
 	  , enumBugKeys = __webpack_require__(95)
 	  , IE_PROTO    = __webpack_require__(107)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
@@ -2039,7 +2039,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-	var $keys      = __webpack_require__(148)
+	var $keys      = __webpack_require__(147)
 	  , hiddenKeys = __webpack_require__(95).concat('length', 'prototype');
 
 	exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
@@ -2051,7 +2051,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-	var $keys       = __webpack_require__(148)
+	var $keys       = __webpack_require__(147)
 	  , enumBugKeys = __webpack_require__(95);
 
 	module.exports = Object.keys || function keys(O){
@@ -2125,7 +2125,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var ctx         = __webpack_require__(34)
-	  , call        = __webpack_require__(142)
+	  , call        = __webpack_require__(141)
 	  , isArrayIter = __webpack_require__(99)
 	  , anObject    = __webpack_require__(3)
 	  , toLength    = __webpack_require__(12)
@@ -2218,7 +2218,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var dP         = __webpack_require__(86)
-	  , createDesc = __webpack_require__(167);
+	  , createDesc = __webpack_require__(166);
 	module.exports = __webpack_require__(65) ? function(object, key, value){
 	  return dP.f(object, key, createDesc(1, value));
 	} : function(object, key, value){
@@ -12535,7 +12535,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	// Thank's IE8 for his funny defineProperty
-	module.exports = !__webpack_require__(163)(function(){
+	module.exports = !__webpack_require__(162)(function(){
 	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
@@ -13310,11 +13310,11 @@
 	var _prodInvariant = __webpack_require__(13),
 	    _assign = __webpack_require__(23);
 
-	var CallbackQueue = __webpack_require__(444);
+	var CallbackQueue = __webpack_require__(443);
 	var PooledClass = __webpack_require__(90);
-	var ReactFeatureFlags = __webpack_require__(452);
+	var ReactFeatureFlags = __webpack_require__(451);
 	var ReactReconciler = __webpack_require__(129);
-	var Transaction = __webpack_require__(177);
+	var Transaction = __webpack_require__(176);
 
 	var invariant = __webpack_require__(10);
 
@@ -15265,7 +15265,7 @@
 	var global         = __webpack_require__(4)
 	  , core           = __webpack_require__(33)
 	  , LIBRARY        = __webpack_require__(44)
-	  , wksExt         = __webpack_require__(155)
+	  , wksExt         = __webpack_require__(154)
 	  , defineProperty = __webpack_require__(9).f;
 	module.exports = function(name){
 	  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -15291,7 +15291,7 @@
 
 	'use strict';
 	var addToUnscopables = __webpack_require__(52)
-	  , step             = __webpack_require__(143)
+	  , step             = __webpack_require__(142)
 	  , Iterators        = __webpack_require__(54)
 	  , toIObject        = __webpack_require__(20);
 
@@ -15371,8 +15371,8 @@
 /* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var shared = __webpack_require__(168)('keys')
-	  , uid    = __webpack_require__(171);
+	var shared = __webpack_require__(167)('keys')
+	  , uid    = __webpack_require__(170);
 	module.exports = function(key){
 	  return shared[key] || (shared[key] = uid(key));
 	};
@@ -15401,6 +15401,300 @@
 
 /***/ },
 /* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DOMProperty
+	 */
+
+	'use strict';
+
+	var _prodInvariant = __webpack_require__(13);
+
+	var invariant = __webpack_require__(10);
+
+	function checkMask(value, bitmask) {
+	  return (value & bitmask) === bitmask;
+	}
+
+	var DOMPropertyInjection = {
+	  /**
+	   * Mapping from normalized, camelcased property names to a configuration that
+	   * specifies how the associated DOM property should be accessed or rendered.
+	   */
+	  MUST_USE_PROPERTY: 0x1,
+	  HAS_BOOLEAN_VALUE: 0x4,
+	  HAS_NUMERIC_VALUE: 0x8,
+	  HAS_POSITIVE_NUMERIC_VALUE: 0x10 | 0x8,
+	  HAS_OVERLOADED_BOOLEAN_VALUE: 0x20,
+
+	  /**
+	   * Inject some specialized knowledge about the DOM. This takes a config object
+	   * with the following properties:
+	   *
+	   * isCustomAttribute: function that given an attribute name will return true
+	   * if it can be inserted into the DOM verbatim. Useful for data-* or aria-*
+	   * attributes where it's impossible to enumerate all of the possible
+	   * attribute names,
+	   *
+	   * Properties: object mapping DOM property name to one of the
+	   * DOMPropertyInjection constants or null. If your attribute isn't in here,
+	   * it won't get written to the DOM.
+	   *
+	   * DOMAttributeNames: object mapping React attribute name to the DOM
+	   * attribute name. Attribute names not specified use the **lowercase**
+	   * normalized name.
+	   *
+	   * DOMAttributeNamespaces: object mapping React attribute name to the DOM
+	   * attribute namespace URL. (Attribute names not specified use no namespace.)
+	   *
+	   * DOMPropertyNames: similar to DOMAttributeNames but for DOM properties.
+	   * Property names not specified use the normalized name.
+	   *
+	   * DOMMutationMethods: Properties that require special mutation methods. If
+	   * `value` is undefined, the mutation method should unset the property.
+	   *
+	   * @param {object} domPropertyConfig the config as described above.
+	   */
+	  injectDOMPropertyConfig: function (domPropertyConfig) {
+	    var Injection = DOMPropertyInjection;
+	    var Properties = domPropertyConfig.Properties || {};
+	    var DOMAttributeNamespaces = domPropertyConfig.DOMAttributeNamespaces || {};
+	    var DOMAttributeNames = domPropertyConfig.DOMAttributeNames || {};
+	    var DOMPropertyNames = domPropertyConfig.DOMPropertyNames || {};
+	    var DOMMutationMethods = domPropertyConfig.DOMMutationMethods || {};
+
+	    if (domPropertyConfig.isCustomAttribute) {
+	      DOMProperty._isCustomAttributeFunctions.push(domPropertyConfig.isCustomAttribute);
+	    }
+
+	    for (var propName in Properties) {
+	      !!DOMProperty.properties.hasOwnProperty(propName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
+
+	      var lowerCased = propName.toLowerCase();
+	      var propConfig = Properties[propName];
+
+	      var propertyInfo = {
+	        attributeName: lowerCased,
+	        attributeNamespace: null,
+	        propertyName: propName,
+	        mutationMethod: null,
+
+	        mustUseProperty: checkMask(propConfig, Injection.MUST_USE_PROPERTY),
+	        hasBooleanValue: checkMask(propConfig, Injection.HAS_BOOLEAN_VALUE),
+	        hasNumericValue: checkMask(propConfig, Injection.HAS_NUMERIC_VALUE),
+	        hasPositiveNumericValue: checkMask(propConfig, Injection.HAS_POSITIVE_NUMERIC_VALUE),
+	        hasOverloadedBooleanValue: checkMask(propConfig, Injection.HAS_OVERLOADED_BOOLEAN_VALUE)
+	      };
+	      !(propertyInfo.hasBooleanValue + propertyInfo.hasNumericValue + propertyInfo.hasOverloadedBooleanValue <= 1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s', propName) : _prodInvariant('50', propName) : void 0;
+
+	      if (process.env.NODE_ENV !== 'production') {
+	        DOMProperty.getPossibleStandardName[lowerCased] = propName;
+	      }
+
+	      if (DOMAttributeNames.hasOwnProperty(propName)) {
+	        var attributeName = DOMAttributeNames[propName];
+	        propertyInfo.attributeName = attributeName;
+	        if (process.env.NODE_ENV !== 'production') {
+	          DOMProperty.getPossibleStandardName[attributeName] = propName;
+	        }
+	      }
+
+	      if (DOMAttributeNamespaces.hasOwnProperty(propName)) {
+	        propertyInfo.attributeNamespace = DOMAttributeNamespaces[propName];
+	      }
+
+	      if (DOMPropertyNames.hasOwnProperty(propName)) {
+	        propertyInfo.propertyName = DOMPropertyNames[propName];
+	      }
+
+	      if (DOMMutationMethods.hasOwnProperty(propName)) {
+	        propertyInfo.mutationMethod = DOMMutationMethods[propName];
+	      }
+
+	      DOMProperty.properties[propName] = propertyInfo;
+	    }
+	  }
+	};
+
+	/* eslint-disable max-len */
+	var ATTRIBUTE_NAME_START_CHAR = ':A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD';
+	/* eslint-enable max-len */
+
+	/**
+	 * DOMProperty exports lookup objects that can be used like functions:
+	 *
+	 *   > DOMProperty.isValid['id']
+	 *   true
+	 *   > DOMProperty.isValid['foobar']
+	 *   undefined
+	 *
+	 * Although this may be confusing, it performs better in general.
+	 *
+	 * @see http://jsperf.com/key-exists
+	 * @see http://jsperf.com/key-missing
+	 */
+	var DOMProperty = {
+
+	  ID_ATTRIBUTE_NAME: 'data-reactid',
+	  ROOT_ATTRIBUTE_NAME: 'data-reactroot',
+
+	  ATTRIBUTE_NAME_START_CHAR: ATTRIBUTE_NAME_START_CHAR,
+	  ATTRIBUTE_NAME_CHAR: ATTRIBUTE_NAME_START_CHAR + '\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040',
+
+	  /**
+	   * Map from property "standard name" to an object with info about how to set
+	   * the property in the DOM. Each object contains:
+	   *
+	   * attributeName:
+	   *   Used when rendering markup or with `*Attribute()`.
+	   * attributeNamespace
+	   * propertyName:
+	   *   Used on DOM node instances. (This includes properties that mutate due to
+	   *   external factors.)
+	   * mutationMethod:
+	   *   If non-null, used instead of the property or `setAttribute()` after
+	   *   initial render.
+	   * mustUseProperty:
+	   *   Whether the property must be accessed and mutated as an object property.
+	   * hasBooleanValue:
+	   *   Whether the property should be removed when set to a falsey value.
+	   * hasNumericValue:
+	   *   Whether the property must be numeric or parse as a numeric and should be
+	   *   removed when set to a falsey value.
+	   * hasPositiveNumericValue:
+	   *   Whether the property must be positive numeric or parse as a positive
+	   *   numeric and should be removed when set to a falsey value.
+	   * hasOverloadedBooleanValue:
+	   *   Whether the property can be used as a flag as well as with a value.
+	   *   Removed when strictly equal to false; present without a value when
+	   *   strictly equal to true; present with a value otherwise.
+	   */
+	  properties: {},
+
+	  /**
+	   * Mapping from lowercase property names to the properly cased version, used
+	   * to warn in the case of missing properties. Available only in __DEV__.
+	   * @type {Object}
+	   */
+	  getPossibleStandardName: process.env.NODE_ENV !== 'production' ? {} : null,
+
+	  /**
+	   * All of the isCustomAttribute() functions that have been injected.
+	   */
+	  _isCustomAttributeFunctions: [],
+
+	  /**
+	   * Checks whether a property name is a custom attribute.
+	   * @method
+	   */
+	  isCustomAttribute: function (attributeName) {
+	    for (var i = 0; i < DOMProperty._isCustomAttributeFunctions.length; i++) {
+	      var isCustomAttributeFn = DOMProperty._isCustomAttributeFunctions[i];
+	      if (isCustomAttributeFn(attributeName)) {
+	        return true;
+	      }
+	    }
+	    return false;
+	  },
+
+	  injection: DOMPropertyInjection
+	};
+
+	module.exports = DOMProperty;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(2).nextTick;
+	var apply = Function.prototype.apply;
+	var slice = Array.prototype.slice;
+	var immediateIds = {};
+	var nextImmediateId = 0;
+
+	// DOM APIs, for completeness
+
+	exports.setTimeout = function() {
+	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+	};
+	exports.setInterval = function() {
+	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+	};
+	exports.clearTimeout =
+	exports.clearInterval = function(timeout) { timeout.close(); };
+
+	function Timeout(id, clearFn) {
+	  this._id = id;
+	  this._clearFn = clearFn;
+	}
+	Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+	Timeout.prototype.close = function() {
+	  this._clearFn.call(window, this._id);
+	};
+
+	// Does not start the time, just sets up the members needed.
+	exports.enroll = function(item, msecs) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = msecs;
+	};
+
+	exports.unenroll = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = -1;
+	};
+
+	exports._unrefActive = exports.active = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+
+	  var msecs = item._idleTimeout;
+	  if (msecs >= 0) {
+	    item._idleTimeoutId = setTimeout(function onTimeout() {
+	      if (item._onTimeout)
+	        item._onTimeout();
+	    }, msecs);
+	  }
+	};
+
+	// That's not how node.js implements it but the exposed api is the same.
+	exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
+	  var id = nextImmediateId++;
+	  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+
+	  immediateIds[id] = true;
+
+	  nextTick(function onNextTick() {
+	    if (immediateIds[id]) {
+	      // fn.call() is faster so we optimize for the common use-case
+	      // @see http://jsperf.com/call-apply-segu
+	      if (args) {
+	        fn.apply(null, args);
+	      } else {
+	        fn.call(null);
+	      }
+	      // Prevent ids from leaking
+	      exports.clearImmediate(id);
+	    }
+	  });
+
+	  return id;
+	};
+
+	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
+	  delete immediateIds[id];
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(126).setImmediate, __webpack_require__(126).clearImmediate))
+
+/***/ },
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -32302,300 +32596,6 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(432)(module)))
 
 /***/ },
-/* 126 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DOMProperty
-	 */
-
-	'use strict';
-
-	var _prodInvariant = __webpack_require__(13);
-
-	var invariant = __webpack_require__(10);
-
-	function checkMask(value, bitmask) {
-	  return (value & bitmask) === bitmask;
-	}
-
-	var DOMPropertyInjection = {
-	  /**
-	   * Mapping from normalized, camelcased property names to a configuration that
-	   * specifies how the associated DOM property should be accessed or rendered.
-	   */
-	  MUST_USE_PROPERTY: 0x1,
-	  HAS_BOOLEAN_VALUE: 0x4,
-	  HAS_NUMERIC_VALUE: 0x8,
-	  HAS_POSITIVE_NUMERIC_VALUE: 0x10 | 0x8,
-	  HAS_OVERLOADED_BOOLEAN_VALUE: 0x20,
-
-	  /**
-	   * Inject some specialized knowledge about the DOM. This takes a config object
-	   * with the following properties:
-	   *
-	   * isCustomAttribute: function that given an attribute name will return true
-	   * if it can be inserted into the DOM verbatim. Useful for data-* or aria-*
-	   * attributes where it's impossible to enumerate all of the possible
-	   * attribute names,
-	   *
-	   * Properties: object mapping DOM property name to one of the
-	   * DOMPropertyInjection constants or null. If your attribute isn't in here,
-	   * it won't get written to the DOM.
-	   *
-	   * DOMAttributeNames: object mapping React attribute name to the DOM
-	   * attribute name. Attribute names not specified use the **lowercase**
-	   * normalized name.
-	   *
-	   * DOMAttributeNamespaces: object mapping React attribute name to the DOM
-	   * attribute namespace URL. (Attribute names not specified use no namespace.)
-	   *
-	   * DOMPropertyNames: similar to DOMAttributeNames but for DOM properties.
-	   * Property names not specified use the normalized name.
-	   *
-	   * DOMMutationMethods: Properties that require special mutation methods. If
-	   * `value` is undefined, the mutation method should unset the property.
-	   *
-	   * @param {object} domPropertyConfig the config as described above.
-	   */
-	  injectDOMPropertyConfig: function (domPropertyConfig) {
-	    var Injection = DOMPropertyInjection;
-	    var Properties = domPropertyConfig.Properties || {};
-	    var DOMAttributeNamespaces = domPropertyConfig.DOMAttributeNamespaces || {};
-	    var DOMAttributeNames = domPropertyConfig.DOMAttributeNames || {};
-	    var DOMPropertyNames = domPropertyConfig.DOMPropertyNames || {};
-	    var DOMMutationMethods = domPropertyConfig.DOMMutationMethods || {};
-
-	    if (domPropertyConfig.isCustomAttribute) {
-	      DOMProperty._isCustomAttributeFunctions.push(domPropertyConfig.isCustomAttribute);
-	    }
-
-	    for (var propName in Properties) {
-	      !!DOMProperty.properties.hasOwnProperty(propName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
-
-	      var lowerCased = propName.toLowerCase();
-	      var propConfig = Properties[propName];
-
-	      var propertyInfo = {
-	        attributeName: lowerCased,
-	        attributeNamespace: null,
-	        propertyName: propName,
-	        mutationMethod: null,
-
-	        mustUseProperty: checkMask(propConfig, Injection.MUST_USE_PROPERTY),
-	        hasBooleanValue: checkMask(propConfig, Injection.HAS_BOOLEAN_VALUE),
-	        hasNumericValue: checkMask(propConfig, Injection.HAS_NUMERIC_VALUE),
-	        hasPositiveNumericValue: checkMask(propConfig, Injection.HAS_POSITIVE_NUMERIC_VALUE),
-	        hasOverloadedBooleanValue: checkMask(propConfig, Injection.HAS_OVERLOADED_BOOLEAN_VALUE)
-	      };
-	      !(propertyInfo.hasBooleanValue + propertyInfo.hasNumericValue + propertyInfo.hasOverloadedBooleanValue <= 1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s', propName) : _prodInvariant('50', propName) : void 0;
-
-	      if (process.env.NODE_ENV !== 'production') {
-	        DOMProperty.getPossibleStandardName[lowerCased] = propName;
-	      }
-
-	      if (DOMAttributeNames.hasOwnProperty(propName)) {
-	        var attributeName = DOMAttributeNames[propName];
-	        propertyInfo.attributeName = attributeName;
-	        if (process.env.NODE_ENV !== 'production') {
-	          DOMProperty.getPossibleStandardName[attributeName] = propName;
-	        }
-	      }
-
-	      if (DOMAttributeNamespaces.hasOwnProperty(propName)) {
-	        propertyInfo.attributeNamespace = DOMAttributeNamespaces[propName];
-	      }
-
-	      if (DOMPropertyNames.hasOwnProperty(propName)) {
-	        propertyInfo.propertyName = DOMPropertyNames[propName];
-	      }
-
-	      if (DOMMutationMethods.hasOwnProperty(propName)) {
-	        propertyInfo.mutationMethod = DOMMutationMethods[propName];
-	      }
-
-	      DOMProperty.properties[propName] = propertyInfo;
-	    }
-	  }
-	};
-
-	/* eslint-disable max-len */
-	var ATTRIBUTE_NAME_START_CHAR = ':A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD';
-	/* eslint-enable max-len */
-
-	/**
-	 * DOMProperty exports lookup objects that can be used like functions:
-	 *
-	 *   > DOMProperty.isValid['id']
-	 *   true
-	 *   > DOMProperty.isValid['foobar']
-	 *   undefined
-	 *
-	 * Although this may be confusing, it performs better in general.
-	 *
-	 * @see http://jsperf.com/key-exists
-	 * @see http://jsperf.com/key-missing
-	 */
-	var DOMProperty = {
-
-	  ID_ATTRIBUTE_NAME: 'data-reactid',
-	  ROOT_ATTRIBUTE_NAME: 'data-reactroot',
-
-	  ATTRIBUTE_NAME_START_CHAR: ATTRIBUTE_NAME_START_CHAR,
-	  ATTRIBUTE_NAME_CHAR: ATTRIBUTE_NAME_START_CHAR + '\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040',
-
-	  /**
-	   * Map from property "standard name" to an object with info about how to set
-	   * the property in the DOM. Each object contains:
-	   *
-	   * attributeName:
-	   *   Used when rendering markup or with `*Attribute()`.
-	   * attributeNamespace
-	   * propertyName:
-	   *   Used on DOM node instances. (This includes properties that mutate due to
-	   *   external factors.)
-	   * mutationMethod:
-	   *   If non-null, used instead of the property or `setAttribute()` after
-	   *   initial render.
-	   * mustUseProperty:
-	   *   Whether the property must be accessed and mutated as an object property.
-	   * hasBooleanValue:
-	   *   Whether the property should be removed when set to a falsey value.
-	   * hasNumericValue:
-	   *   Whether the property must be numeric or parse as a numeric and should be
-	   *   removed when set to a falsey value.
-	   * hasPositiveNumericValue:
-	   *   Whether the property must be positive numeric or parse as a positive
-	   *   numeric and should be removed when set to a falsey value.
-	   * hasOverloadedBooleanValue:
-	   *   Whether the property can be used as a flag as well as with a value.
-	   *   Removed when strictly equal to false; present without a value when
-	   *   strictly equal to true; present with a value otherwise.
-	   */
-	  properties: {},
-
-	  /**
-	   * Mapping from lowercase property names to the properly cased version, used
-	   * to warn in the case of missing properties. Available only in __DEV__.
-	   * @type {Object}
-	   */
-	  getPossibleStandardName: process.env.NODE_ENV !== 'production' ? {} : null,
-
-	  /**
-	   * All of the isCustomAttribute() functions that have been injected.
-	   */
-	  _isCustomAttributeFunctions: [],
-
-	  /**
-	   * Checks whether a property name is a custom attribute.
-	   * @method
-	   */
-	  isCustomAttribute: function (attributeName) {
-	    for (var i = 0; i < DOMProperty._isCustomAttributeFunctions.length; i++) {
-	      var isCustomAttributeFn = DOMProperty._isCustomAttributeFunctions[i];
-	      if (isCustomAttributeFn(attributeName)) {
-	        return true;
-	      }
-	    }
-	    return false;
-	  },
-
-	  injection: DOMPropertyInjection
-	};
-
-	module.exports = DOMProperty;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ },
-/* 127 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(2).nextTick;
-	var apply = Function.prototype.apply;
-	var slice = Array.prototype.slice;
-	var immediateIds = {};
-	var nextImmediateId = 0;
-
-	// DOM APIs, for completeness
-
-	exports.setTimeout = function() {
-	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-	};
-	exports.setInterval = function() {
-	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-	};
-	exports.clearTimeout =
-	exports.clearInterval = function(timeout) { timeout.close(); };
-
-	function Timeout(id, clearFn) {
-	  this._id = id;
-	  this._clearFn = clearFn;
-	}
-	Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-	Timeout.prototype.close = function() {
-	  this._clearFn.call(window, this._id);
-	};
-
-	// Does not start the time, just sets up the members needed.
-	exports.enroll = function(item, msecs) {
-	  clearTimeout(item._idleTimeoutId);
-	  item._idleTimeout = msecs;
-	};
-
-	exports.unenroll = function(item) {
-	  clearTimeout(item._idleTimeoutId);
-	  item._idleTimeout = -1;
-	};
-
-	exports._unrefActive = exports.active = function(item) {
-	  clearTimeout(item._idleTimeoutId);
-
-	  var msecs = item._idleTimeout;
-	  if (msecs >= 0) {
-	    item._idleTimeoutId = setTimeout(function onTimeout() {
-	      if (item._onTimeout)
-	        item._onTimeout();
-	    }, msecs);
-	  }
-	};
-
-	// That's not how node.js implements it but the exposed api is the same.
-	exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
-	  var id = nextImmediateId++;
-	  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
-
-	  immediateIds[id] = true;
-
-	  nextTick(function onNextTick() {
-	    if (immediateIds[id]) {
-	      // fn.call() is faster so we optimize for the common use-case
-	      // @see http://jsperf.com/call-apply-segu
-	      if (args) {
-	        fn.apply(null, args);
-	      } else {
-	        fn.call(null);
-	      }
-	      // Prevent ids from leaking
-	      exports.clearImmediate(id);
-	    }
-	  });
-
-	  return id;
-	};
-
-	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
-	  delete immediateIds[id];
-	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(127).setImmediate, __webpack_require__(127).clearImmediate))
-
-/***/ },
 /* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32616,7 +32616,7 @@
 	var setInnerHTML = __webpack_require__(186);
 
 	var createMicrosoftUnsafeLocalFunction = __webpack_require__(421);
-	var setTextContent = __webpack_require__(468);
+	var setTextContent = __webpack_require__(467);
 
 	var ELEMENT_NODE_TYPE = 1;
 	var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
@@ -32901,74 +32901,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getThreadList = exports.updateQuotes = exports.changeOption = exports.init = undefined;
-
-	var _jquery = __webpack_require__(59);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _lodash = __webpack_require__(125);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _actionType = __webpack_require__(434);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var init = exports.init = function init(settings, quotes) {
-	  return {
-	    type: _actionType.VOZ_LIVING_INIT,
-	    settings: settings,
-	    quotes: quotes
-	  };
-	};
-
-	var changeOption = exports.changeOption = function changeOption(option) {
-	  return {
-	    type: _actionType.VOZ_LIVING_CHANGE_OPTION,
-	    option: option
-	  };
-	};
-
-	var updateQuotes = exports.updateQuotes = function updateQuotes(quotes) {
-	  return {
-	    type: _actionType.VOZ_LIVING_UDATE_QUOTE_LIST,
-	    quotes: quotes
-	  };
-	};
-
-	var getThreadList = exports.getThreadList = function getThreadList() {
-	  var titleList = (0, _jquery2.default)('#threadslist tbody[id^="threadbits_forum"] tr td[id^="td_threadtitle_"]');
-	  var threadList = _lodash2.default.map(titleList, function (titleTD) {
-	    var $title = (0, _jquery2.default)(titleTD);
-	    var id = $title.attr('id').match(/\d+/)[0];
-	    var pages = $title.find('>div span > a');
-	    var lastPageHref = pages.eq(pages.length - 1).attr('href');
-	    var lastPage = 1;
-
-	    if (lastPageHref) {
-	      var match = lastPageHref.match(/&page=(\d+)/);
-	      if (match) lastPage = match[1];
-	    }
-
-	    return { id: id, pageNum: parseInt(lastPage, 10), element: $title };
-	  });
-
-	  return {
-	    type: _actionType.VOZ_LIVING_GET_THREAD_LIST,
-	    threadList: threadList
-	  };
-	};
-
-/***/ },
-/* 131 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.PUT = exports.POST = exports.GET = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* eslint-disable import/no-unresolved */
@@ -33017,7 +32949,7 @@
 	exports.PUT = PUT;
 
 /***/ },
-/* 132 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var cof = __webpack_require__(24);
@@ -33027,7 +32959,7 @@
 	};
 
 /***/ },
-/* 133 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
@@ -33058,7 +32990,7 @@
 	};
 
 /***/ },
-/* 134 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var forOf = __webpack_require__(53);
@@ -33071,7 +33003,7 @@
 
 
 /***/ },
-/* 135 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var aFunction = __webpack_require__(16)
@@ -33104,7 +33036,7 @@
 	};
 
 /***/ },
-/* 136 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33133,7 +33065,7 @@
 	};
 
 /***/ },
-/* 137 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33145,7 +33077,7 @@
 	  , defined     = __webpack_require__(25)
 	  , forOf       = __webpack_require__(53)
 	  , $iterDefine = __webpack_require__(102)
-	  , step        = __webpack_require__(143)
+	  , step        = __webpack_require__(142)
 	  , setSpecies  = __webpack_require__(49)
 	  , DESCRIPTORS = __webpack_require__(8)
 	  , fastKey     = __webpack_require__(37).fastKey
@@ -33280,12 +33212,12 @@
 	};
 
 /***/ },
-/* 138 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://github.com/DavidBruant/Map-Set.prototype.toJSON
 	var classof = __webpack_require__(61)
-	  , from    = __webpack_require__(134);
+	  , from    = __webpack_require__(133);
 	module.exports = function(NAME){
 	  return function toJSON(){
 	    if(classof(this) != NAME)throw TypeError(NAME + "#toJSON isn't generic");
@@ -33294,7 +33226,7 @@
 	};
 
 /***/ },
-/* 139 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33382,7 +33314,7 @@
 	};
 
 /***/ },
-/* 140 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = !__webpack_require__(8) && !__webpack_require__(5)(function(){
@@ -33390,7 +33322,7 @@
 	});
 
 /***/ },
-/* 141 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 20.1.2.3 Number.isInteger(number)
@@ -33401,7 +33333,7 @@
 	};
 
 /***/ },
-/* 142 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// call something on iterator step with safe closing on error
@@ -33418,7 +33350,7 @@
 	};
 
 /***/ },
-/* 143 */
+/* 142 */
 /***/ function(module, exports) {
 
 	module.exports = function(done, value){
@@ -33426,7 +33358,7 @@
 	};
 
 /***/ },
-/* 144 */
+/* 143 */
 /***/ function(module, exports) {
 
 	// 20.2.2.20 Math.log1p(x)
@@ -33435,7 +33367,7 @@
 	};
 
 /***/ },
-/* 145 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33473,7 +33405,7 @@
 	} : $assign;
 
 /***/ },
-/* 146 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var dP       = __webpack_require__(9)
@@ -33491,7 +33423,7 @@
 	};
 
 /***/ },
-/* 147 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -33516,7 +33448,7 @@
 
 
 /***/ },
-/* 148 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var has          = __webpack_require__(15)
@@ -33538,7 +33470,7 @@
 	};
 
 /***/ },
-/* 149 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var getKeys   = __webpack_require__(47)
@@ -33559,7 +33491,7 @@
 	};
 
 /***/ },
-/* 150 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// all object keys, includes non-enumerable and symbols
@@ -33574,7 +33506,7 @@
 	};
 
 /***/ },
-/* 151 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $parseFloat = __webpack_require__(4).parseFloat
@@ -33587,7 +33519,7 @@
 	} : $parseFloat;
 
 /***/ },
-/* 152 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $parseInt = __webpack_require__(4).parseInt
@@ -33601,7 +33533,7 @@
 	} : $parseInt;
 
 /***/ },
-/* 153 */
+/* 152 */
 /***/ function(module, exports) {
 
 	// 7.2.9 SameValue(x, y)
@@ -33610,7 +33542,7 @@
 	};
 
 /***/ },
-/* 154 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://github.com/tc39/proposal-string-pad-start-end
@@ -33632,17 +33564,17 @@
 
 
 /***/ },
-/* 155 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports.f = __webpack_require__(7);
 
 /***/ },
-/* 156 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strong = __webpack_require__(137);
+	var strong = __webpack_require__(136);
 
 	// 23.1 Map Objects
 	module.exports = __webpack_require__(72)('Map', function(get){
@@ -33660,7 +33592,7 @@
 	}, strong, true);
 
 /***/ },
-/* 157 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 21.2.5.3 get RegExp.prototype.flags()
@@ -33670,11 +33602,11 @@
 	});
 
 /***/ },
-/* 158 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strong = __webpack_require__(137);
+	var strong = __webpack_require__(136);
 
 	// 23.2 Set Objects
 	module.exports = __webpack_require__(72)('Set', function(get){
@@ -33687,15 +33619,15 @@
 	}, strong);
 
 /***/ },
-/* 159 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var each         = __webpack_require__(28)(0)
 	  , redefine     = __webpack_require__(18)
 	  , meta         = __webpack_require__(37)
-	  , assign       = __webpack_require__(145)
-	  , weak         = __webpack_require__(139)
+	  , assign       = __webpack_require__(144)
+	  , weak         = __webpack_require__(138)
 	  , isObject     = __webpack_require__(6)
 	  , getWeak      = meta.getWeak
 	  , isExtensible = Object.isExtensible
@@ -33748,7 +33680,7 @@
 	}
 
 /***/ },
-/* 160 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
@@ -33776,7 +33708,7 @@
 	};
 
 /***/ },
-/* 161 */
+/* 160 */
 /***/ function(module, exports) {
 
 	// IE 8- don't enum bug keys
@@ -33785,7 +33717,7 @@
 	).split(',');
 
 /***/ },
-/* 162 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(31)
@@ -33851,7 +33783,7 @@
 	module.exports = $export;
 
 /***/ },
-/* 163 */
+/* 162 */
 /***/ function(module, exports) {
 
 	module.exports = function(exec){
@@ -33863,18 +33795,18 @@
 	};
 
 /***/ },
-/* 164 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(31).document && document.documentElement;
 
 /***/ },
-/* 165 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY        = __webpack_require__(166)
-	  , $export        = __webpack_require__(162)
+	var LIBRARY        = __webpack_require__(165)
+	  , $export        = __webpack_require__(161)
 	  , redefine       = __webpack_require__(392)
 	  , hide           = __webpack_require__(58)
 	  , has            = __webpack_require__(84)
@@ -33944,13 +33876,13 @@
 	};
 
 /***/ },
-/* 166 */
+/* 165 */
 /***/ function(module, exports) {
 
 	module.exports = true;
 
 /***/ },
-/* 167 */
+/* 166 */
 /***/ function(module, exports) {
 
 	module.exports = function(bitmap, value){
@@ -33963,7 +33895,7 @@
 	};
 
 /***/ },
-/* 168 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var global = __webpack_require__(31)
@@ -33974,12 +33906,12 @@
 	};
 
 /***/ },
-/* 169 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ctx                = __webpack_require__(83)
 	  , invoke             = __webpack_require__(378)
-	  , html               = __webpack_require__(164)
+	  , html               = __webpack_require__(163)
 	  , cel                = __webpack_require__(120)
 	  , global             = __webpack_require__(31)
 	  , process            = global.process
@@ -34054,7 +33986,7 @@
 	};
 
 /***/ },
-/* 170 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
@@ -34065,7 +33997,7 @@
 	};
 
 /***/ },
-/* 171 */
+/* 170 */
 /***/ function(module, exports) {
 
 	var id = 0
@@ -34075,7 +34007,7 @@
 	};
 
 /***/ },
-/* 172 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34097,7 +34029,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 173 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -34119,8 +34051,8 @@
 	var EventPluginUtils = __webpack_require__(410);
 	var ReactErrorUtils = __webpack_require__(415);
 
-	var accumulateInto = __webpack_require__(461);
-	var forEachAccumulated = __webpack_require__(463);
+	var accumulateInto = __webpack_require__(460);
+	var forEachAccumulated = __webpack_require__(462);
 	var invariant = __webpack_require__(10);
 
 	/**
@@ -34354,7 +34286,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 174 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -34371,11 +34303,11 @@
 	'use strict';
 
 	var EventConstants = __webpack_require__(87);
-	var EventPluginHub = __webpack_require__(173);
+	var EventPluginHub = __webpack_require__(172);
 	var EventPluginUtils = __webpack_require__(410);
 
-	var accumulateInto = __webpack_require__(461);
-	var forEachAccumulated = __webpack_require__(463);
+	var accumulateInto = __webpack_require__(460);
+	var forEachAccumulated = __webpack_require__(462);
 	var warning = __webpack_require__(11);
 
 	var PropagationPhases = EventConstants.PropagationPhases;
@@ -34497,7 +34429,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports) {
 
 	/**
@@ -34550,7 +34482,7 @@
 	module.exports = ReactInstanceMap;
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -34614,7 +34546,7 @@
 	module.exports = SyntheticUIEvent;
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -34853,7 +34785,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -34878,6 +34810,80 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getThreadList = exports.markAllQuoteSeen = exports.updateQuotes = exports.changeOption = exports.init = undefined;
+
+	var _jquery = __webpack_require__(59);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _lodash = __webpack_require__(127);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _actionType = __webpack_require__(434);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var init = exports.init = function init(settings, quotes) {
+	  return {
+	    type: _actionType.VOZ_LIVING_INIT,
+	    settings: settings,
+	    quotes: quotes
+	  };
+	};
+
+	var changeOption = exports.changeOption = function changeOption(option) {
+	  return {
+	    type: _actionType.VOZ_LIVING_CHANGE_OPTION,
+	    option: option
+	  };
+	};
+
+	var updateQuotes = exports.updateQuotes = function updateQuotes(quotes) {
+	  return {
+	    type: _actionType.VOZ_LIVING_UDATE_QUOTE_LIST,
+	    quotes: quotes
+	  };
+	};
+
+	var markAllQuoteSeen = exports.markAllQuoteSeen = function markAllQuoteSeen() {
+	  return {
+	    type: _actionType.VOZ_LIVING_SEEN_ALL_QUOTE
+	  };
+	};
+
+	var getThreadList = exports.getThreadList = function getThreadList() {
+	  var titleList = (0, _jquery2.default)('#threadslist tbody[id^="threadbits_forum"] tr td[id^="td_threadtitle_"]');
+	  var threadList = _lodash2.default.map(titleList, function (titleTD) {
+	    var $title = (0, _jquery2.default)(titleTD);
+	    var id = $title.attr('id').match(/\d+/)[0];
+	    var pages = $title.find('>div span > a');
+	    var lastPageHref = pages.eq(pages.length - 1).attr('href');
+	    var lastPage = 1;
+
+	    if (lastPageHref) {
+	      var match = lastPageHref.match(/&page=(\d+)/);
+	      if (match) lastPage = match[1];
+	    }
+
+	    return { id: id, pageNum: parseInt(lastPage, 10), element: $title };
+	  });
+
+	  return {
+	    type: _actionType.VOZ_LIVING_GET_THREAD_LIST,
+	    threadList: threadList
+	  };
+	};
+
+/***/ },
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -34888,7 +34894,7 @@
 	});
 	exports.setChromeLocalStore = exports.getChromeLocalStore = undefined;
 
-	var _lodash = __webpack_require__(125);
+	var _lodash = __webpack_require__(127);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -35283,7 +35289,7 @@
 	var EventConstants = __webpack_require__(87);
 	var EventPluginRegistry = __webpack_require__(181);
 	var ReactEventEmitterMixin = __webpack_require__(559);
-	var ViewportMetrics = __webpack_require__(460);
+	var ViewportMetrics = __webpack_require__(459);
 
 	var getVendorPrefixedEventName = __webpack_require__(591);
 	var isEventSupported = __webpack_require__(426);
@@ -35640,8 +35646,8 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(176);
-	var ViewportMetrics = __webpack_require__(460);
+	var SyntheticUIEvent = __webpack_require__(175);
+	var ViewportMetrics = __webpack_require__(459);
 
 	var getEventModifierState = __webpack_require__(423);
 
@@ -36175,7 +36181,7 @@
 	// 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 	var $export = __webpack_require__(1);
 
-	$export($export.P, 'Array', {copyWithin: __webpack_require__(133)});
+	$export($export.P, 'Array', {copyWithin: __webpack_require__(132)});
 
 	__webpack_require__(52)('copyWithin');
 
@@ -36282,7 +36288,7 @@
 	var ctx            = __webpack_require__(34)
 	  , $export        = __webpack_require__(1)
 	  , toObject       = __webpack_require__(14)
-	  , call           = __webpack_require__(142)
+	  , call           = __webpack_require__(141)
 	  , isArrayIter    = __webpack_require__(99)
 	  , toLength       = __webpack_require__(12)
 	  , createProperty = __webpack_require__(93)
@@ -36435,7 +36441,7 @@
 
 	'use strict';
 	var $export = __webpack_require__(1)
-	  , $reduce = __webpack_require__(135);
+	  , $reduce = __webpack_require__(134);
 
 	$export($export.P + $export.F * !__webpack_require__(26)([].reduceRight, true), 'Array', {
 	  // 22.1.3.19 / 15.4.4.22 Array.prototype.reduceRight(callbackfn [, initialValue])
@@ -36450,7 +36456,7 @@
 
 	'use strict';
 	var $export = __webpack_require__(1)
-	  , $reduce = __webpack_require__(135);
+	  , $reduce = __webpack_require__(134);
 
 	$export($export.P + $export.F * !__webpack_require__(26)([].reduce, true), 'Array', {
 	  // 22.1.3.18 / 15.4.4.21 Array.prototype.reduce(callbackfn [, initialValue])
@@ -36634,7 +36640,7 @@
 	// 19.2.3.2 / 15.3.4.5 Function.prototype.bind(thisArg, args...)
 	var $export = __webpack_require__(1);
 
-	$export($export.P, 'Function', {bind: __webpack_require__(136)});
+	$export($export.P, 'Function', {bind: __webpack_require__(135)});
 
 /***/ },
 /* 225 */
@@ -36690,7 +36696,7 @@
 
 	// 20.2.2.3 Math.acosh(x)
 	var $export = __webpack_require__(1)
-	  , log1p   = __webpack_require__(144)
+	  , log1p   = __webpack_require__(143)
 	  , sqrt    = Math.sqrt
 	  , $acosh  = Math.acosh;
 
@@ -36891,7 +36897,7 @@
 	// 20.2.2.20 Math.log1p(x)
 	var $export = __webpack_require__(1);
 
-	$export($export.S, 'Math', {log1p: __webpack_require__(144)});
+	$export($export.S, 'Math', {log1p: __webpack_require__(143)});
 
 /***/ },
 /* 239 */
@@ -37069,7 +37075,7 @@
 	// 20.1.2.3 Number.isInteger(number)
 	var $export = __webpack_require__(1);
 
-	$export($export.S, 'Number', {isInteger: __webpack_require__(141)});
+	$export($export.S, 'Number', {isInteger: __webpack_require__(140)});
 
 /***/ },
 /* 248 */
@@ -37090,7 +37096,7 @@
 
 	// 20.1.2.5 Number.isSafeInteger(number)
 	var $export   = __webpack_require__(1)
-	  , isInteger = __webpack_require__(141)
+	  , isInteger = __webpack_require__(140)
 	  , abs       = Math.abs;
 
 	$export($export.S, 'Number', {
@@ -37122,7 +37128,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var $export     = __webpack_require__(1)
-	  , $parseFloat = __webpack_require__(151);
+	  , $parseFloat = __webpack_require__(150);
 	// 20.1.2.12 Number.parseFloat(string)
 	$export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', {parseFloat: $parseFloat});
 
@@ -37131,7 +37137,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var $export   = __webpack_require__(1)
-	  , $parseInt = __webpack_require__(152);
+	  , $parseInt = __webpack_require__(151);
 	// 20.1.2.13 Number.parseInt(string, radix)
 	$export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', {parseInt: $parseInt});
 
@@ -37142,7 +37148,7 @@
 	'use strict';
 	var $export      = __webpack_require__(1)
 	  , toInteger    = __webpack_require__(39)
-	  , aNumberValue = __webpack_require__(132)
+	  , aNumberValue = __webpack_require__(131)
 	  , repeat       = __webpack_require__(111)
 	  , $toFixed     = 1..toFixed
 	  , floor        = Math.floor
@@ -37260,7 +37266,7 @@
 	'use strict';
 	var $export      = __webpack_require__(1)
 	  , $fails       = __webpack_require__(5)
-	  , aNumberValue = __webpack_require__(132)
+	  , aNumberValue = __webpack_require__(131)
 	  , $toPrecision = 1..toPrecision;
 
 	$export($export.P + $export.F * ($fails(function(){
@@ -37283,7 +37289,7 @@
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(1);
 
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(145)});
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(144)});
 
 /***/ },
 /* 257 */
@@ -37299,7 +37305,7 @@
 
 	var $export = __webpack_require__(1);
 	// 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
-	$export($export.S + $export.F * !__webpack_require__(8), 'Object', {defineProperties: __webpack_require__(146)});
+	$export($export.S + $export.F * !__webpack_require__(8), 'Object', {defineProperties: __webpack_require__(145)});
 
 /***/ },
 /* 259 */
@@ -37343,7 +37349,7 @@
 
 	// 19.1.2.7 Object.getOwnPropertyNames(O)
 	__webpack_require__(29)('getOwnPropertyNames', function(){
-	  return __webpack_require__(147).f;
+	  return __webpack_require__(146).f;
 	});
 
 /***/ },
@@ -37405,7 +37411,7 @@
 
 	// 19.1.3.10 Object.is(value1, value2)
 	var $export = __webpack_require__(1);
-	$export($export.S, 'Object', {is: __webpack_require__(153)});
+	$export($export.S, 'Object', {is: __webpack_require__(152)});
 
 /***/ },
 /* 268 */
@@ -37477,7 +37483,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var $export     = __webpack_require__(1)
-	  , $parseFloat = __webpack_require__(151);
+	  , $parseFloat = __webpack_require__(150);
 	// 18.2.4 parseFloat(string)
 	$export($export.G + $export.F * (parseFloat != $parseFloat), {parseFloat: $parseFloat});
 
@@ -37486,7 +37492,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var $export   = __webpack_require__(1)
-	  , $parseInt = __webpack_require__(152);
+	  , $parseInt = __webpack_require__(151);
 	// 18.2.5 parseInt(string, radix)
 	$export($export.G + $export.F * (parseInt != $parseInt), {parseInt: $parseInt});
 
@@ -37826,7 +37832,7 @@
 	  , anObject   = __webpack_require__(3)
 	  , isObject   = __webpack_require__(6)
 	  , fails      = __webpack_require__(5)
-	  , bind       = __webpack_require__(136)
+	  , bind       = __webpack_require__(135)
 	  , rConstruct = (__webpack_require__(4).Reflect || {}).construct;
 
 	// MS Edge supports only 2 arguments and argumentsList argument is optional
@@ -38033,7 +38039,7 @@
 	// 26.1.11 Reflect.ownKeys(target)
 	var $export = __webpack_require__(1);
 
-	$export($export.S, 'Reflect', {ownKeys: __webpack_require__(150)});
+	$export($export.S, 'Reflect', {ownKeys: __webpack_require__(149)});
 
 /***/ },
 /* 287 */
@@ -38287,7 +38293,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	__webpack_require__(157);
+	__webpack_require__(156);
 	var anObject    = __webpack_require__(3)
 	  , $flags      = __webpack_require__(74)
 	  , DESCRIPTORS = __webpack_require__(8)
@@ -38660,7 +38666,7 @@
 	  , setToStringTag = __webpack_require__(55)
 	  , uid            = __webpack_require__(51)
 	  , wks            = __webpack_require__(7)
-	  , wksExt         = __webpack_require__(155)
+	  , wksExt         = __webpack_require__(154)
 	  , wksDefine      = __webpack_require__(115)
 	  , keyOf          = __webpack_require__(194)
 	  , enumKeys       = __webpack_require__(193)
@@ -38670,7 +38676,7 @@
 	  , toPrimitive    = __webpack_require__(30)
 	  , createDesc     = __webpack_require__(38)
 	  , _create        = __webpack_require__(45)
-	  , gOPNExt        = __webpack_require__(147)
+	  , gOPNExt        = __webpack_require__(146)
 	  , $GOPD          = __webpack_require__(21)
 	  , $DP            = __webpack_require__(9)
 	  , $keys          = __webpack_require__(47)
@@ -39038,7 +39044,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var weak = __webpack_require__(139);
+	var weak = __webpack_require__(138);
 
 	// 23.4 WeakSet Objects
 	__webpack_require__(72)('WeakSet', function(get){
@@ -39105,7 +39111,7 @@
 	// https://github.com/DavidBruant/Map-Set.prototype.toJSON
 	var $export  = __webpack_require__(1);
 
-	$export($export.P + $export.R, 'Map', {toJSON: __webpack_require__(138)('Map')});
+	$export($export.P + $export.R, 'Map', {toJSON: __webpack_require__(137)('Map')});
 
 /***/ },
 /* 335 */
@@ -39221,7 +39227,7 @@
 
 	// https://github.com/tc39/proposal-object-values-entries
 	var $export  = __webpack_require__(1)
-	  , $entries = __webpack_require__(149)(true);
+	  , $entries = __webpack_require__(148)(true);
 
 	$export($export.S, 'Object', {
 	  entries: function entries(it){
@@ -39235,7 +39241,7 @@
 
 	// https://github.com/tc39/proposal-object-getownpropertydescriptors
 	var $export        = __webpack_require__(1)
-	  , ownKeys        = __webpack_require__(150)
+	  , ownKeys        = __webpack_require__(149)
 	  , toIObject      = __webpack_require__(20)
 	  , gOPD           = __webpack_require__(21)
 	  , createProperty = __webpack_require__(93);
@@ -39305,7 +39311,7 @@
 
 	// https://github.com/tc39/proposal-object-values-entries
 	var $export = __webpack_require__(1)
-	  , $values = __webpack_require__(149)(false);
+	  , $values = __webpack_require__(148)(false);
 
 	$export($export.S, 'Object', {
 	  values: function values(it){
@@ -39554,8 +39560,8 @@
 /* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Set                     = __webpack_require__(158)
-	  , from                    = __webpack_require__(134)
+	var Set                     = __webpack_require__(157)
+	  , from                    = __webpack_require__(133)
 	  , metadata                = __webpack_require__(35)
 	  , anObject                = __webpack_require__(3)
 	  , getPrototypeOf          = __webpack_require__(22)
@@ -39685,7 +39691,7 @@
 	// https://github.com/DavidBruant/Map-Set.prototype.toJSON
 	var $export  = __webpack_require__(1);
 
-	$export($export.P + $export.R, 'Set', {toJSON: __webpack_require__(138)('Set')});
+	$export($export.P + $export.R, 'Set', {toJSON: __webpack_require__(137)('Set')});
 
 /***/ },
 /* 357 */
@@ -39744,7 +39750,7 @@
 	'use strict';
 	// https://github.com/tc39/proposal-string-pad-start-end
 	var $export = __webpack_require__(1)
-	  , $pad    = __webpack_require__(154);
+	  , $pad    = __webpack_require__(153);
 
 	$export($export.P, 'String', {
 	  padEnd: function padEnd(maxLength /*, fillString = ' ' */){
@@ -39759,7 +39765,7 @@
 	'use strict';
 	// https://github.com/tc39/proposal-string-pad-start-end
 	var $export = __webpack_require__(1)
-	  , $pad    = __webpack_require__(154);
+	  , $pad    = __webpack_require__(153);
 
 	$export($export.P, 'String', {
 	  padStart: function padStart(maxLength /*, fillString = ' ' */){
@@ -39981,15 +39987,15 @@
 	__webpack_require__(117);
 	__webpack_require__(290);
 	__webpack_require__(295);
-	__webpack_require__(157);
+	__webpack_require__(156);
 	__webpack_require__(291);
 	__webpack_require__(292);
 	__webpack_require__(293);
 	__webpack_require__(294);
 	__webpack_require__(275);
-	__webpack_require__(156);
+	__webpack_require__(155);
+	__webpack_require__(157);
 	__webpack_require__(158);
-	__webpack_require__(159);
 	__webpack_require__(330);
 	__webpack_require__(319);
 	__webpack_require__(320);
@@ -40770,7 +40776,7 @@
 	// false -> Array#indexOf
 	// true  -> Array#includes
 	var toIObject = __webpack_require__(124)
-	  , toLength  = __webpack_require__(170)
+	  , toLength  = __webpack_require__(169)
 	  , toIndex   = __webpack_require__(396);
 	module.exports = function(IS_INCLUDES){
 	  return function($this, el, fromIndex){
@@ -40797,7 +40803,7 @@
 	  , call        = __webpack_require__(381)
 	  , isArrayIter = __webpack_require__(380)
 	  , anObject    = __webpack_require__(57)
-	  , toLength    = __webpack_require__(170)
+	  , toLength    = __webpack_require__(169)
 	  , getIterFn   = __webpack_require__(399)
 	  , BREAK       = {}
 	  , RETURN      = {};
@@ -40823,7 +40829,7 @@
 /* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = !__webpack_require__(65) && !__webpack_require__(163)(function(){
+	module.exports = !__webpack_require__(65) && !__webpack_require__(162)(function(){
 	  return Object.defineProperty(__webpack_require__(120)('div'), 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
@@ -40894,7 +40900,7 @@
 
 	'use strict';
 	var create         = __webpack_require__(386)
-	  , descriptor     = __webpack_require__(167)
+	  , descriptor     = __webpack_require__(166)
 	  , setToStringTag = __webpack_require__(121)
 	  , IteratorPrototype = {};
 
@@ -40945,7 +40951,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(31)
-	  , macrotask = __webpack_require__(169).set
+	  , macrotask = __webpack_require__(168).set
 	  , Observer  = global.MutationObserver || global.WebKitMutationObserver
 	  , process   = global.process
 	  , Promise   = global.Promise
@@ -41020,7 +41026,7 @@
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 	var anObject    = __webpack_require__(57)
 	  , dPs         = __webpack_require__(387)
-	  , enumBugKeys = __webpack_require__(161)
+	  , enumBugKeys = __webpack_require__(160)
 	  , IE_PROTO    = __webpack_require__(122)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
 	  , PROTOTYPE   = 'prototype';
@@ -41034,7 +41040,7 @@
 	    , gt     = '>'
 	    , iframeDocument;
 	  iframe.style.display = 'none';
-	  __webpack_require__(164).appendChild(iframe);
+	  __webpack_require__(163).appendChild(iframe);
 	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
 	  // createDict = iframe.contentWindow.Object;
 	  // html.removeChild(iframe);
@@ -41124,7 +41130,7 @@
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
 	var $keys       = __webpack_require__(389)
-	  , enumBugKeys = __webpack_require__(161);
+	  , enumBugKeys = __webpack_require__(160);
 
 	module.exports = Object.keys || function keys(O){
 	  return $keys(O, enumBugKeys);
@@ -41245,7 +41251,7 @@
 /* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var classof   = __webpack_require__(160)
+	var classof   = __webpack_require__(159)
 	  , ITERATOR  = __webpack_require__(27)('iterator')
 	  , Iterators = __webpack_require__(66);
 	module.exports = __webpack_require__(64).getIteratorMethod = function(it){
@@ -41268,7 +41274,7 @@
 	// 22.1.3.13 Array.prototype.keys()
 	// 22.1.3.29 Array.prototype.values()
 	// 22.1.3.30 Array.prototype[@@iterator]()
-	module.exports = __webpack_require__(165)(Array, 'Array', function(iterated, kind){
+	module.exports = __webpack_require__(164)(Array, 'Array', function(iterated, kind){
 	  this._t = toIObject(iterated); // target
 	  this._i = 0;                   // next index
 	  this._k = kind;                // kind
@@ -41304,17 +41310,17 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY            = __webpack_require__(166)
+	var LIBRARY            = __webpack_require__(165)
 	  , global             = __webpack_require__(31)
 	  , ctx                = __webpack_require__(83)
-	  , classof            = __webpack_require__(160)
-	  , $export            = __webpack_require__(162)
+	  , classof            = __webpack_require__(159)
+	  , $export            = __webpack_require__(161)
 	  , isObject           = __webpack_require__(85)
 	  , aFunction          = __webpack_require__(118)
 	  , anInstance         = __webpack_require__(374)
 	  , forOf              = __webpack_require__(376)
 	  , speciesConstructor = __webpack_require__(394)
-	  , task               = __webpack_require__(169).set
+	  , task               = __webpack_require__(168).set
 	  , microtask          = __webpack_require__(385)()
 	  , PROMISE            = 'Promise'
 	  , TypeError          = global.TypeError
@@ -41611,7 +41617,7 @@
 	var $at  = __webpack_require__(395)(true);
 
 	// 21.1.3.27 String.prototype[@@iterator]()
-	__webpack_require__(165)(String, 'String', function(iterated){
+	__webpack_require__(164)(String, 'String', function(iterated){
 	  this._t = String(iterated); // target
 	  this._i = 0;                // next index
 	// 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -47245,7 +47251,7 @@
 
 	},{"./es5":13}]},{},[4])(4)
 	});                    ;if (typeof window !== 'undefined' && window !== null) {                               window.P = window.Promise;                                                     } else if (typeof self !== 'undefined' && self !== null) {                             self.P = self.Promise;                                                         }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), (function() { return this; }()), __webpack_require__(127).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), (function() { return this; }()), __webpack_require__(126).setImmediate))
 
 /***/ },
 /* 406 */
@@ -48384,13 +48390,13 @@
 
 	var DOMLazyTree = __webpack_require__(128);
 	var Danger = __webpack_require__(530);
-	var ReactMultiChildUpdateTypes = __webpack_require__(456);
+	var ReactMultiChildUpdateTypes = __webpack_require__(455);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var ReactInstrumentation = __webpack_require__(60);
 
 	var createMicrosoftUnsafeLocalFunction = __webpack_require__(421);
 	var setInnerHTML = __webpack_require__(186);
-	var setTextContent = __webpack_require__(468);
+	var setTextContent = __webpack_require__(467);
 
 	function getNodeAfter(parentNode, node) {
 	  // Special case for text components, which return [open, close] comments
@@ -48908,7 +48914,7 @@
 
 	var _prodInvariant = __webpack_require__(13);
 
-	var ReactPropTypes = __webpack_require__(458);
+	var ReactPropTypes = __webpack_require__(457);
 	var ReactPropTypeLocations = __webpack_require__(183);
 	var ReactPropTypesSecret = __webpack_require__(418);
 
@@ -49053,7 +49059,7 @@
 	var ReactNoopUpdateQueue = __webpack_require__(416);
 
 	var canDefineProperty = __webpack_require__(420);
-	var emptyObject = __webpack_require__(178);
+	var emptyObject = __webpack_require__(177);
 	var invariant = __webpack_require__(10);
 	var warning = __webpack_require__(11);
 
@@ -49461,7 +49467,7 @@
 	var _prodInvariant = __webpack_require__(13);
 
 	var ReactCurrentOwner = __webpack_require__(88);
-	var ReactInstanceMap = __webpack_require__(175);
+	var ReactInstanceMap = __webpack_require__(174);
 	var ReactInstrumentation = __webpack_require__(60);
 	var ReactUpdates = __webpack_require__(70);
 
@@ -50682,7 +50688,7 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(474);
+	var _createStore = __webpack_require__(473);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -50698,11 +50704,11 @@
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(473);
+	var _compose = __webpack_require__(472);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _warning = __webpack_require__(475);
+	var _warning = __webpack_require__(474);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -51193,42 +51199,10 @@
 	var VOZ_LIVING_GET_THREAD_LIST = exports.VOZ_LIVING_GET_THREAD_LIST = 'VOZ_LIVING_GET_THREAD_LIST';
 	var VOZ_LIVING_CHANGE_OPTION = exports.VOZ_LIVING_CHANGE_OPTION = 'VOZ_LIVING_CHANGE_OPTION';
 	var VOZ_LIVING_UDATE_QUOTE_LIST = exports.VOZ_LIVING_UDATE_QUOTE_LIST = 'VOZ_LIVING_UDATE_QUOTE_LIST';
+	var VOZ_LIVING_SEEN_ALL_QUOTE = exports.VOZ_LIVING_SEEN_ALL_QUOTE = 'VOZ_LIVING_SEEN_ALL_QUOTE';
 
 /***/ },
 /* 435 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var config = [{
-	  key: 'wideScreen',
-	  name: 'Wide Screen',
-	  type: 'bool'
-	}, {
-	  key: 'threadPreview',
-	  name: 'Thread Preview',
-	  type: 'bool'
-	}, {
-	  key: 'adsRemove',
-	  name: 'Ads Remove',
-	  type: 'bool'
-	}, {
-	  key: 'linkHelper',
-	  name: 'Link Helper',
-	  type: 'bool'
-	}, {
-	  key: 'notifyQuote',
-	  name: 'Notify Quotes',
-	  type: 'bool'
-	}];
-
-	exports.default = config;
-
-/***/ },
-/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51267,7 +51241,7 @@
 	}
 
 /***/ },
-/* 437 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51286,7 +51260,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _lodash = __webpack_require__(125);
+	var _lodash = __webpack_require__(127);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -51401,7 +51375,7 @@
 	}
 
 /***/ },
-/* 438 */
+/* 437 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51473,7 +51447,7 @@
 	exports.mixin = _interopRequire(_mixin);
 	exports.mixins = _interopRequire(_mixin);
 
-	var _lazyInitialize = __webpack_require__(439);
+	var _lazyInitialize = __webpack_require__(438);
 
 	exports.lazyInitialize = _interopRequire(_lazyInitialize);
 
@@ -51492,7 +51466,7 @@
 	exports.applyDecorators = _interopRequire(_applyDecorators);
 
 /***/ },
-/* 439 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51548,7 +51522,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 440 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51557,7 +51531,7 @@
 
 
 /***/ },
-/* 441 */
+/* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51573,7 +51547,7 @@
 	});
 
 /***/ },
-/* 442 */
+/* 441 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -51602,7 +51576,7 @@
 	}
 
 /***/ },
-/* 443 */
+/* 442 */
 /***/ function(module, exports) {
 
 	/**
@@ -51755,7 +51729,7 @@
 	module.exports = CSSProperty;
 
 /***/ },
-/* 444 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -51867,7 +51841,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 445 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -51883,7 +51857,7 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(126);
+	var DOMProperty = __webpack_require__(125);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var ReactInstrumentation = __webpack_require__(60);
 
@@ -52094,7 +52068,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 446 */
+/* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52290,7 +52264,7 @@
 	module.exports = ReactChildren;
 
 /***/ },
-/* 447 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -52315,7 +52289,7 @@
 	var ReactPropTypeLocationNames = __webpack_require__(417);
 	var ReactNoopUpdateQueue = __webpack_require__(416);
 
-	var emptyObject = __webpack_require__(178);
+	var emptyObject = __webpack_require__(177);
 	var invariant = __webpack_require__(10);
 	var keyMirror = __webpack_require__(187);
 	var keyOf = __webpack_require__(91);
@@ -53028,7 +53002,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 448 */
+/* 447 */
 /***/ function(module, exports) {
 
 	/**
@@ -53051,7 +53025,7 @@
 	module.exports = ReactDOMComponentFlags;
 
 /***/ },
-/* 449 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -53258,7 +53232,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 450 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -53286,7 +53260,7 @@
 	var ReactElement = __webpack_require__(68);
 	var ReactPropTypeLocations = __webpack_require__(183);
 
-	var checkReactTypeSpec = __webpack_require__(462);
+	var checkReactTypeSpec = __webpack_require__(461);
 
 	var canDefineProperty = __webpack_require__(420);
 	var getIteratorFn = __webpack_require__(425);
@@ -53492,7 +53466,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 451 */
+/* 450 */
 /***/ function(module, exports) {
 
 	/**
@@ -53527,7 +53501,7 @@
 	module.exports = ReactEmptyComponent;
 
 /***/ },
-/* 452 */
+/* 451 */
 /***/ function(module, exports) {
 
 	/**
@@ -53554,7 +53528,7 @@
 	module.exports = ReactFeatureFlags;
 
 /***/ },
-/* 453 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -53636,7 +53610,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 454 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53655,8 +53629,8 @@
 	var ReactDOMSelection = __webpack_require__(551);
 
 	var containsNode = __webpack_require__(597);
-	var focusNode = __webpack_require__(470);
-	var getActiveElement = __webpack_require__(471);
+	var focusNode = __webpack_require__(469);
+	var getActiveElement = __webpack_require__(470);
 
 	function isInDocument(node) {
 	  return containsNode(document.documentElement, node);
@@ -53765,7 +53739,7 @@
 	module.exports = ReactInputSelection;
 
 /***/ },
-/* 455 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -53784,23 +53758,23 @@
 	var _prodInvariant = __webpack_require__(13);
 
 	var DOMLazyTree = __webpack_require__(128);
-	var DOMProperty = __webpack_require__(126);
+	var DOMProperty = __webpack_require__(125);
 	var ReactBrowserEventEmitter = __webpack_require__(182);
 	var ReactCurrentOwner = __webpack_require__(88);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var ReactDOMContainerInfo = __webpack_require__(543);
 	var ReactDOMFeatureFlags = __webpack_require__(546);
 	var ReactElement = __webpack_require__(68);
-	var ReactFeatureFlags = __webpack_require__(452);
-	var ReactInstanceMap = __webpack_require__(175);
+	var ReactFeatureFlags = __webpack_require__(451);
+	var ReactInstanceMap = __webpack_require__(174);
 	var ReactInstrumentation = __webpack_require__(60);
 	var ReactMarkupChecksum = __webpack_require__(564);
 	var ReactReconciler = __webpack_require__(129);
 	var ReactUpdateQueue = __webpack_require__(419);
 	var ReactUpdates = __webpack_require__(70);
 
-	var emptyObject = __webpack_require__(178);
-	var instantiateReactComponent = __webpack_require__(466);
+	var emptyObject = __webpack_require__(177);
+	var instantiateReactComponent = __webpack_require__(465);
 	var invariant = __webpack_require__(10);
 	var setInnerHTML = __webpack_require__(186);
 	var shouldUpdateReactComponent = __webpack_require__(427);
@@ -54305,7 +54279,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 456 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54342,7 +54316,7 @@
 	module.exports = ReactMultiChildUpdateTypes;
 
 /***/ },
-/* 457 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -54388,7 +54362,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 458 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -54825,7 +54799,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 459 */
+/* 458 */
 /***/ function(module, exports) {
 
 	/**
@@ -54844,7 +54818,7 @@
 	module.exports = '15.3.2';
 
 /***/ },
-/* 460 */
+/* 459 */
 /***/ function(module, exports) {
 
 	/**
@@ -54876,7 +54850,7 @@
 	module.exports = ViewportMetrics;
 
 /***/ },
-/* 461 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -54940,7 +54914,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 462 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -55033,7 +55007,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 463 */
+/* 462 */
 /***/ function(module, exports) {
 
 	/**
@@ -55069,7 +55043,7 @@
 	module.exports = forEachAccumulated;
 
 /***/ },
-/* 464 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55085,7 +55059,7 @@
 
 	'use strict';
 
-	var ReactNodeTypes = __webpack_require__(457);
+	var ReactNodeTypes = __webpack_require__(456);
 
 	function getHostComponentFromComposite(inst) {
 	  var type;
@@ -55104,7 +55078,7 @@
 	module.exports = getHostComponentFromComposite;
 
 /***/ },
-/* 465 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55142,7 +55116,7 @@
 	module.exports = getTextContentAccessor;
 
 /***/ },
-/* 466 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -55162,8 +55136,8 @@
 	    _assign = __webpack_require__(23);
 
 	var ReactCompositeComponent = __webpack_require__(539);
-	var ReactEmptyComponent = __webpack_require__(451);
-	var ReactHostComponent = __webpack_require__(453);
+	var ReactEmptyComponent = __webpack_require__(450);
+	var ReactHostComponent = __webpack_require__(452);
 
 	var invariant = __webpack_require__(10);
 	var warning = __webpack_require__(11);
@@ -55267,7 +55241,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 467 */
+/* 466 */
 /***/ function(module, exports) {
 
 	/**
@@ -55323,7 +55297,7 @@
 	module.exports = isTextInputElement;
 
 /***/ },
-/* 468 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55376,7 +55350,7 @@
 	module.exports = setTextContent;
 
 /***/ },
-/* 469 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -55465,7 +55439,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 470 */
+/* 469 */
 /***/ function(module, exports) {
 
 	/**
@@ -55496,7 +55470,7 @@
 	module.exports = focusNode;
 
 /***/ },
-/* 471 */
+/* 470 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -55535,7 +55509,7 @@
 	module.exports = getActiveElement;
 
 /***/ },
-/* 472 */
+/* 471 */
 /***/ function(module, exports) {
 
 	/**
@@ -55770,7 +55744,7 @@
 
 
 /***/ },
-/* 473 */
+/* 472 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -55813,7 +55787,7 @@
 	}
 
 /***/ },
-/* 474 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56079,7 +56053,7 @@
 	}
 
 /***/ },
-/* 475 */
+/* 474 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56109,7 +56083,7 @@
 	}
 
 /***/ },
-/* 476 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56180,7 +56154,7 @@
 	exports.default = AdsControl;
 
 /***/ },
-/* 477 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56199,7 +56173,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _link = __webpack_require__(437);
+	var _link = __webpack_require__(436);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56249,7 +56223,7 @@
 	exports.default = LinkHelperControl;
 
 /***/ },
-/* 478 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56266,7 +56240,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _link = __webpack_require__(437);
+	var _link = __webpack_require__(436);
 
 	var _jquery = __webpack_require__(59);
 
@@ -56309,7 +56283,7 @@
 	exports.default = PostContent;
 
 /***/ },
-/* 479 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56326,7 +56300,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(172);
+	var _reactRedux = __webpack_require__(171);
+
+	var _voz = __webpack_require__(178);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56355,7 +56331,19 @@
 	    key: 'getTime',
 	    value: function getTime(timeStamp) {
 	      var date = new Date(timeStamp);
-	      return date.getHours() + ':' + date.getMinutes() + ' ' + date.getDay() + '-\n            ' + (date.getMonth() + 1) + '-' + date.getFullYear();
+	      return date.getHours() + ':' + date.getMinutes() + ' ' + date.getDay() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+	    }
+	  }, {
+	    key: 'toggleQuoteList',
+	    value: function toggleQuoteList() {
+	      var showQuoteList = this.state.showQuoteList;
+	      var countUnseen = this.props.countUnseen;
+
+
+	      if (showQuoteList === false && countUnseen !== 0) {
+	        this.dispatch((0, _voz.markAllQuoteSeen)());
+	      }
+	      this.setState({ showQuoteList: !showQuoteList });
 	    }
 	  }, {
 	    key: 'renderQuote',
@@ -56379,7 +56367,10 @@
 	          'By ',
 	          _react2.default.createElement(
 	            'a',
-	            { className: 'quote-item-author' },
+	            {
+	              className: 'quote-item-author',
+	              href: '/member.php?u=' + quote.author.userid, target: '_blank'
+	            },
 	            '(',
 	            quote.author.username,
 	            ')'
@@ -56399,7 +56390,9 @@
 
 	      if (!notifyQuote) return null;
 
-	      var quoteList = this.props.quoteList;
+	      var _props = this.props;
+	      var quoteList = _props.quoteList;
+	      var countUnseen = _props.countUnseen;
 
 
 	      return _react2.default.createElement(
@@ -56410,10 +56403,15 @@
 	          {
 	            className: 'btn',
 	            onClick: function onClick() {
-	              return _this2.setState({ showQuoteList: !_this2.state.showQuoteList });
+	              return _this2.toggleQuoteList();
 	            }
 	          },
-	          _react2.default.createElement('i', { className: 'fa fa-quote-right' })
+	          _react2.default.createElement('i', { className: 'fa fa-quote-right' }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'badge' },
+	            countUnseen
+	          )
 	        ),
 	        function () {
 	          if (_this2.state.showQuoteList) {
@@ -56425,9 +56423,13 @@
 	                null,
 	                'Quotes'
 	              ),
-	              quoteList.map(function (quote) {
-	                return _this2.renderQuote(quote);
-	              })
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'quote-list' },
+	                quoteList.map(function (quote) {
+	                  return _this2.renderQuote(quote);
+	                })
+	              )
 	            );
 	          }
 	          return null;
@@ -56440,10 +56442,12 @@
 	}(_react.Component), _class.propTypes = {
 	  settings: _react.PropTypes.object,
 	  dispatch: _react.PropTypes.func,
-	  quoteList: _react.PropTypes.array
+	  quoteList: _react.PropTypes.array,
+	  countUnseen: _react.PropTypes.number
 	}, _class.defaultProps = {
 	  quoteList: [],
-	  settings: {}
+	  settings: {},
+	  countUnseen: 0
 	}, _temp);
 
 
@@ -56452,13 +56456,19 @@
 	  var quoteList = _state$vozLiving.quoteList;
 	  var settings = _state$vozLiving.settings;
 
-	  return { quoteList: quoteList, settings: settings };
+	  var countUnseen = quoteList.reduce(function (r, q) {
+	    var outResult = r;
+	    if (q.hasSeen === false) outResult += 1;
+	    return outResult;
+	  }, 0);
+
+	  return { quoteList: quoteList, settings: settings, countUnseen: countUnseen };
 	};
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(QuoteList);
 
 /***/ },
-/* 480 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56475,7 +56485,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _coreDecorators = __webpack_require__(438);
+	var _coreDecorators = __webpack_require__(437);
 
 	var _jquery = __webpack_require__(59);
 
@@ -56485,11 +56495,11 @@
 
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 
-	var _http = __webpack_require__(131);
+	var _http = __webpack_require__(130);
 
-	var _utils = __webpack_require__(436);
+	var _utils = __webpack_require__(435);
 
-	var _voz = __webpack_require__(130);
+	var _voz = __webpack_require__(178);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56596,7 +56606,7 @@
 	exports.default = ReloadButton;
 
 /***/ },
-/* 481 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56609,7 +56619,7 @@
 
 	var _class, _temp;
 
-	var _lodash = __webpack_require__(125);
+	var _lodash = __webpack_require__(127);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -56617,11 +56627,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _configSideMenu = __webpack_require__(435);
+	var _configSideMenu = __webpack_require__(484);
 
 	var _configSideMenu2 = _interopRequireDefault(_configSideMenu);
 
-	var _voz = __webpack_require__(130);
+	var _voz = __webpack_require__(178);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56731,7 +56741,7 @@
 	exports.default = SettingOptions;
 
 /***/ },
-/* 482 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56748,15 +56758,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(172);
+	var _reactRedux = __webpack_require__(171);
 
-	var _reactDom = __webpack_require__(440);
+	var _reactDom = __webpack_require__(439);
 
 	var _jquery = __webpack_require__(59);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _ThreadPreview = __webpack_require__(483);
+	var _ThreadPreview = __webpack_require__(482);
 
 	var _ThreadPreview2 = _interopRequireDefault(_ThreadPreview);
 
@@ -56764,9 +56774,9 @@
 
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 
-	var _http = __webpack_require__(131);
+	var _http = __webpack_require__(130);
 
-	var _voz = __webpack_require__(130);
+	var _voz = __webpack_require__(178);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56856,7 +56866,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ThreadListControl);
 
 /***/ },
-/* 483 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56873,19 +56883,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _http = __webpack_require__(131);
+	var _http = __webpack_require__(130);
 
 	var _jquery = __webpack_require__(59);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _coreDecorators = __webpack_require__(438);
+	var _coreDecorators = __webpack_require__(437);
 
 	var _mousetrap = __webpack_require__(407);
 
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 
-	var _PostContent = __webpack_require__(478);
+	var _PostContent = __webpack_require__(477);
 
 	var _PostContent2 = _interopRequireDefault(_PostContent);
 
@@ -57277,7 +57287,7 @@
 	exports.default = ThreadPreview;
 
 /***/ },
-/* 484 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57346,6 +57356,39 @@
 	exports.default = WideScreenControl;
 
 /***/ },
+/* 484 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var config = [{
+	  key: 'wideScreen',
+	  name: 'Wide Screen',
+	  type: 'bool'
+	}, {
+	  key: 'threadPreview',
+	  name: 'Thread Preview',
+	  type: 'bool'
+	}, {
+	  key: 'adsRemove',
+	  name: 'Ads Remove',
+	  type: 'bool'
+	}, {
+	  key: 'linkHelper',
+	  name: 'Link Helper',
+	  type: 'bool'
+	}, {
+	  key: 'notifyQuote',
+	  name: 'Notify Quotes',
+	  type: 'bool'
+	}];
+
+	exports.default = config;
+
+/***/ },
 /* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -57363,21 +57406,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(172);
+	var _reactRedux = __webpack_require__(171);
 
-	var _AdsControl = __webpack_require__(476);
+	var _AdsControl = __webpack_require__(475);
 
 	var _AdsControl2 = _interopRequireDefault(_AdsControl);
 
-	var _WideScreenControl = __webpack_require__(484);
+	var _WideScreenControl = __webpack_require__(483);
 
 	var _WideScreenControl2 = _interopRequireDefault(_WideScreenControl);
 
-	var _ThreadListControl = __webpack_require__(482);
+	var _ThreadListControl = __webpack_require__(481);
 
 	var _ThreadListControl2 = _interopRequireDefault(_ThreadListControl);
 
-	var _LinkHelperControl = __webpack_require__(477);
+	var _LinkHelperControl = __webpack_require__(476);
 
 	var _LinkHelperControl2 = _interopRequireDefault(_LinkHelperControl);
 
@@ -57385,11 +57428,11 @@
 
 	var _SideMenu2 = _interopRequireDefault(_SideMenu);
 
-	var _voz = __webpack_require__(130);
+	var _voz = __webpack_require__(178);
 
 	var _settings = __webpack_require__(179);
 
-	var _utils = __webpack_require__(436);
+	var _utils = __webpack_require__(435);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57497,7 +57540,7 @@
 
 	var _redux = __webpack_require__(431);
 
-	var _reactRedux = __webpack_require__(172);
+	var _reactRedux = __webpack_require__(171);
 
 	var _reduxThunk = __webpack_require__(616);
 
@@ -57553,17 +57596,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(172);
+	var _reactRedux = __webpack_require__(171);
 
-	var _SettingOptions = __webpack_require__(481);
+	var _SettingOptions = __webpack_require__(480);
 
 	var _SettingOptions2 = _interopRequireDefault(_SettingOptions);
 
-	var _ReloadButton = __webpack_require__(480);
+	var _ReloadButton = __webpack_require__(479);
 
 	var _ReloadButton2 = _interopRequireDefault(_ReloadButton);
 
-	var _QuoteList = __webpack_require__(479);
+	var _QuoteList = __webpack_require__(478);
 
 	var _QuoteList2 = _interopRequireDefault(_QuoteList);
 
@@ -57626,7 +57669,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(440);
+	var _reactDom = __webpack_require__(439);
 
 	var _Root = __webpack_require__(486);
 
@@ -57718,6 +57761,19 @@
 	  return _extends({}, state, {
 	    settings: newSettings
 	  });
+	}), _defineProperty(_actionsMap, _actionType.VOZ_LIVING_SEEN_ALL_QUOTE, function (state) {
+	  var quoteList = state.quoteList;
+
+	  var clone = _.cloneDeep(quoteList);
+
+	  clone.forEach(function (quote) {
+	    var outQuote = quote;
+	    outQuote.hasSeen = true;
+	  });
+
+	  (0, _settings.setChromeLocalStore)({ quotes: clone });
+
+	  return _extends({}, state, { quoteList: clone });
 	}), _actionsMap);
 
 	function vozReducer() {
@@ -59031,7 +59087,7 @@
 
 
 	// module
-	exports.push([module.id, "/*!\n *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome\n *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)\n */\n/* FONT PATH\n * -------------------------- */\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(495) + ");\n  src: url(" + __webpack_require__(494) + "?#iefix&v=4.6.3) format('embedded-opentype'), url(" + __webpack_require__(497) + ") format('woff2'), url(" + __webpack_require__(498) + ") format('woff'), url(" + __webpack_require__(496) + ") format('truetype'), url(" + __webpack_require__(625) + "#fontawesomeregular) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n.fa {\n  display: inline-block;\n  font: normal normal normal 14px/1 FontAwesome;\n  font-size: inherit;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n/* makes the font 33% larger relative to the icon container */\n.fa-lg {\n  font-size: 1.33333333em;\n  line-height: 0.75em;\n  vertical-align: -15%;\n}\n.fa-2x {\n  font-size: 2em;\n}\n.fa-3x {\n  font-size: 3em;\n}\n.fa-4x {\n  font-size: 4em;\n}\n.fa-5x {\n  font-size: 5em;\n}\n.fa-fw {\n  width: 1.28571429em;\n  text-align: center;\n}\n.fa-ul {\n  padding-left: 0;\n  margin-left: 2.14285714em;\n  list-style-type: none;\n}\n.fa-ul > li {\n  position: relative;\n}\n.fa-li {\n  position: absolute;\n  left: -2.14285714em;\n  width: 2.14285714em;\n  top: 0.14285714em;\n  text-align: center;\n}\n.fa-li.fa-lg {\n  left: -1.85714286em;\n}\n.fa-border {\n  padding: .2em .25em .15em;\n  border: solid 0.08em #eee;\n  border-radius: .1em;\n}\n.fa-pull-left {\n  float: left;\n}\n.fa-pull-right {\n  float: right;\n}\n.fa.fa-pull-left {\n  margin-right: .3em;\n}\n.fa.fa-pull-right {\n  margin-left: .3em;\n}\n/* Deprecated as of 4.4.0 */\n.pull-right {\n  float: right;\n}\n.pull-left {\n  float: left;\n}\n.fa.pull-left {\n  margin-right: .3em;\n}\n.fa.pull-right {\n  margin-left: .3em;\n}\n.fa-spin {\n  -webkit-animation: fa-spin 2s infinite linear;\n  animation: fa-spin 2s infinite linear;\n}\n.fa-pulse {\n  -webkit-animation: fa-spin 1s infinite steps(8);\n  animation: fa-spin 1s infinite steps(8);\n}\n@-webkit-keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(359deg);\n    transform: rotate(359deg);\n  }\n}\n@keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(359deg);\n    transform: rotate(359deg);\n  }\n}\n.fa-rotate-90 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)\";\n  -webkit-transform: rotate(90deg);\n  -ms-transform: rotate(90deg);\n  transform: rotate(90deg);\n}\n.fa-rotate-180 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)\";\n  -webkit-transform: rotate(180deg);\n  -ms-transform: rotate(180deg);\n  transform: rotate(180deg);\n}\n.fa-rotate-270 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)\";\n  -webkit-transform: rotate(270deg);\n  -ms-transform: rotate(270deg);\n  transform: rotate(270deg);\n}\n.fa-flip-horizontal {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)\";\n  -webkit-transform: scale(-1, 1);\n  -ms-transform: scale(-1, 1);\n  transform: scale(-1, 1);\n}\n.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(1, -1);\n  -ms-transform: scale(1, -1);\n  transform: scale(1, -1);\n}\n:root .fa-rotate-90,\n:root .fa-rotate-180,\n:root .fa-rotate-270,\n:root .fa-flip-horizontal,\n:root .fa-flip-vertical {\n  filter: none;\n}\n.fa-stack {\n  position: relative;\n  display: inline-block;\n  width: 2em;\n  height: 2em;\n  line-height: 2em;\n  vertical-align: middle;\n}\n.fa-stack-1x,\n.fa-stack-2x {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  text-align: center;\n}\n.fa-stack-1x {\n  line-height: inherit;\n}\n.fa-stack-2x {\n  font-size: 2em;\n}\n.fa-inverse {\n  color: #fff;\n}\n/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen\n   readers do not read off random characters that represent icons */\n.fa-glass:before {\n  content: \"\\F000\";\n}\n.fa-music:before {\n  content: \"\\F001\";\n}\n.fa-search:before {\n  content: \"\\F002\";\n}\n.fa-envelope-o:before {\n  content: \"\\F003\";\n}\n.fa-heart:before {\n  content: \"\\F004\";\n}\n.fa-star:before {\n  content: \"\\F005\";\n}\n.fa-star-o:before {\n  content: \"\\F006\";\n}\n.fa-user:before {\n  content: \"\\F007\";\n}\n.fa-film:before {\n  content: \"\\F008\";\n}\n.fa-th-large:before {\n  content: \"\\F009\";\n}\n.fa-th:before {\n  content: \"\\F00A\";\n}\n.fa-th-list:before {\n  content: \"\\F00B\";\n}\n.fa-check:before {\n  content: \"\\F00C\";\n}\n.fa-remove:before,\n.fa-close:before,\n.fa-times:before {\n  content: \"\\F00D\";\n}\n.fa-search-plus:before {\n  content: \"\\F00E\";\n}\n.fa-search-minus:before {\n  content: \"\\F010\";\n}\n.fa-power-off:before {\n  content: \"\\F011\";\n}\n.fa-signal:before {\n  content: \"\\F012\";\n}\n.fa-gear:before,\n.fa-cog:before {\n  content: \"\\F013\";\n}\n.fa-trash-o:before {\n  content: \"\\F014\";\n}\n.fa-home:before {\n  content: \"\\F015\";\n}\n.fa-file-o:before {\n  content: \"\\F016\";\n}\n.fa-clock-o:before {\n  content: \"\\F017\";\n}\n.fa-road:before {\n  content: \"\\F018\";\n}\n.fa-download:before {\n  content: \"\\F019\";\n}\n.fa-arrow-circle-o-down:before {\n  content: \"\\F01A\";\n}\n.fa-arrow-circle-o-up:before {\n  content: \"\\F01B\";\n}\n.fa-inbox:before {\n  content: \"\\F01C\";\n}\n.fa-play-circle-o:before {\n  content: \"\\F01D\";\n}\n.fa-rotate-right:before,\n.fa-repeat:before {\n  content: \"\\F01E\";\n}\n.fa-refresh:before {\n  content: \"\\F021\";\n}\n.fa-list-alt:before {\n  content: \"\\F022\";\n}\n.fa-lock:before {\n  content: \"\\F023\";\n}\n.fa-flag:before {\n  content: \"\\F024\";\n}\n.fa-headphones:before {\n  content: \"\\F025\";\n}\n.fa-volume-off:before {\n  content: \"\\F026\";\n}\n.fa-volume-down:before {\n  content: \"\\F027\";\n}\n.fa-volume-up:before {\n  content: \"\\F028\";\n}\n.fa-qrcode:before {\n  content: \"\\F029\";\n}\n.fa-barcode:before {\n  content: \"\\F02A\";\n}\n.fa-tag:before {\n  content: \"\\F02B\";\n}\n.fa-tags:before {\n  content: \"\\F02C\";\n}\n.fa-book:before {\n  content: \"\\F02D\";\n}\n.fa-bookmark:before {\n  content: \"\\F02E\";\n}\n.fa-print:before {\n  content: \"\\F02F\";\n}\n.fa-camera:before {\n  content: \"\\F030\";\n}\n.fa-font:before {\n  content: \"\\F031\";\n}\n.fa-bold:before {\n  content: \"\\F032\";\n}\n.fa-italic:before {\n  content: \"\\F033\";\n}\n.fa-text-height:before {\n  content: \"\\F034\";\n}\n.fa-text-width:before {\n  content: \"\\F035\";\n}\n.fa-align-left:before {\n  content: \"\\F036\";\n}\n.fa-align-center:before {\n  content: \"\\F037\";\n}\n.fa-align-right:before {\n  content: \"\\F038\";\n}\n.fa-align-justify:before {\n  content: \"\\F039\";\n}\n.fa-list:before {\n  content: \"\\F03A\";\n}\n.fa-dedent:before,\n.fa-outdent:before {\n  content: \"\\F03B\";\n}\n.fa-indent:before {\n  content: \"\\F03C\";\n}\n.fa-video-camera:before {\n  content: \"\\F03D\";\n}\n.fa-photo:before,\n.fa-image:before,\n.fa-picture-o:before {\n  content: \"\\F03E\";\n}\n.fa-pencil:before {\n  content: \"\\F040\";\n}\n.fa-map-marker:before {\n  content: \"\\F041\";\n}\n.fa-adjust:before {\n  content: \"\\F042\";\n}\n.fa-tint:before {\n  content: \"\\F043\";\n}\n.fa-edit:before,\n.fa-pencil-square-o:before {\n  content: \"\\F044\";\n}\n.fa-share-square-o:before {\n  content: \"\\F045\";\n}\n.fa-check-square-o:before {\n  content: \"\\F046\";\n}\n.fa-arrows:before {\n  content: \"\\F047\";\n}\n.fa-step-backward:before {\n  content: \"\\F048\";\n}\n.fa-fast-backward:before {\n  content: \"\\F049\";\n}\n.fa-backward:before {\n  content: \"\\F04A\";\n}\n.fa-play:before {\n  content: \"\\F04B\";\n}\n.fa-pause:before {\n  content: \"\\F04C\";\n}\n.fa-stop:before {\n  content: \"\\F04D\";\n}\n.fa-forward:before {\n  content: \"\\F04E\";\n}\n.fa-fast-forward:before {\n  content: \"\\F050\";\n}\n.fa-step-forward:before {\n  content: \"\\F051\";\n}\n.fa-eject:before {\n  content: \"\\F052\";\n}\n.fa-chevron-left:before {\n  content: \"\\F053\";\n}\n.fa-chevron-right:before {\n  content: \"\\F054\";\n}\n.fa-plus-circle:before {\n  content: \"\\F055\";\n}\n.fa-minus-circle:before {\n  content: \"\\F056\";\n}\n.fa-times-circle:before {\n  content: \"\\F057\";\n}\n.fa-check-circle:before {\n  content: \"\\F058\";\n}\n.fa-question-circle:before {\n  content: \"\\F059\";\n}\n.fa-info-circle:before {\n  content: \"\\F05A\";\n}\n.fa-crosshairs:before {\n  content: \"\\F05B\";\n}\n.fa-times-circle-o:before {\n  content: \"\\F05C\";\n}\n.fa-check-circle-o:before {\n  content: \"\\F05D\";\n}\n.fa-ban:before {\n  content: \"\\F05E\";\n}\n.fa-arrow-left:before {\n  content: \"\\F060\";\n}\n.fa-arrow-right:before {\n  content: \"\\F061\";\n}\n.fa-arrow-up:before {\n  content: \"\\F062\";\n}\n.fa-arrow-down:before {\n  content: \"\\F063\";\n}\n.fa-mail-forward:before,\n.fa-share:before {\n  content: \"\\F064\";\n}\n.fa-expand:before {\n  content: \"\\F065\";\n}\n.fa-compress:before {\n  content: \"\\F066\";\n}\n.fa-plus:before {\n  content: \"\\F067\";\n}\n.fa-minus:before {\n  content: \"\\F068\";\n}\n.fa-asterisk:before {\n  content: \"\\F069\";\n}\n.fa-exclamation-circle:before {\n  content: \"\\F06A\";\n}\n.fa-gift:before {\n  content: \"\\F06B\";\n}\n.fa-leaf:before {\n  content: \"\\F06C\";\n}\n.fa-fire:before {\n  content: \"\\F06D\";\n}\n.fa-eye:before {\n  content: \"\\F06E\";\n}\n.fa-eye-slash:before {\n  content: \"\\F070\";\n}\n.fa-warning:before,\n.fa-exclamation-triangle:before {\n  content: \"\\F071\";\n}\n.fa-plane:before {\n  content: \"\\F072\";\n}\n.fa-calendar:before {\n  content: \"\\F073\";\n}\n.fa-random:before {\n  content: \"\\F074\";\n}\n.fa-comment:before {\n  content: \"\\F075\";\n}\n.fa-magnet:before {\n  content: \"\\F076\";\n}\n.fa-chevron-up:before {\n  content: \"\\F077\";\n}\n.fa-chevron-down:before {\n  content: \"\\F078\";\n}\n.fa-retweet:before {\n  content: \"\\F079\";\n}\n.fa-shopping-cart:before {\n  content: \"\\F07A\";\n}\n.fa-folder:before {\n  content: \"\\F07B\";\n}\n.fa-folder-open:before {\n  content: \"\\F07C\";\n}\n.fa-arrows-v:before {\n  content: \"\\F07D\";\n}\n.fa-arrows-h:before {\n  content: \"\\F07E\";\n}\n.fa-bar-chart-o:before,\n.fa-bar-chart:before {\n  content: \"\\F080\";\n}\n.fa-twitter-square:before {\n  content: \"\\F081\";\n}\n.fa-facebook-square:before {\n  content: \"\\F082\";\n}\n.fa-camera-retro:before {\n  content: \"\\F083\";\n}\n.fa-key:before {\n  content: \"\\F084\";\n}\n.fa-gears:before,\n.fa-cogs:before {\n  content: \"\\F085\";\n}\n.fa-comments:before {\n  content: \"\\F086\";\n}\n.fa-thumbs-o-up:before {\n  content: \"\\F087\";\n}\n.fa-thumbs-o-down:before {\n  content: \"\\F088\";\n}\n.fa-star-half:before {\n  content: \"\\F089\";\n}\n.fa-heart-o:before {\n  content: \"\\F08A\";\n}\n.fa-sign-out:before {\n  content: \"\\F08B\";\n}\n.fa-linkedin-square:before {\n  content: \"\\F08C\";\n}\n.fa-thumb-tack:before {\n  content: \"\\F08D\";\n}\n.fa-external-link:before {\n  content: \"\\F08E\";\n}\n.fa-sign-in:before {\n  content: \"\\F090\";\n}\n.fa-trophy:before {\n  content: \"\\F091\";\n}\n.fa-github-square:before {\n  content: \"\\F092\";\n}\n.fa-upload:before {\n  content: \"\\F093\";\n}\n.fa-lemon-o:before {\n  content: \"\\F094\";\n}\n.fa-phone:before {\n  content: \"\\F095\";\n}\n.fa-square-o:before {\n  content: \"\\F096\";\n}\n.fa-bookmark-o:before {\n  content: \"\\F097\";\n}\n.fa-phone-square:before {\n  content: \"\\F098\";\n}\n.fa-twitter:before {\n  content: \"\\F099\";\n}\n.fa-facebook-f:before,\n.fa-facebook:before {\n  content: \"\\F09A\";\n}\n.fa-github:before {\n  content: \"\\F09B\";\n}\n.fa-unlock:before {\n  content: \"\\F09C\";\n}\n.fa-credit-card:before {\n  content: \"\\F09D\";\n}\n.fa-feed:before,\n.fa-rss:before {\n  content: \"\\F09E\";\n}\n.fa-hdd-o:before {\n  content: \"\\F0A0\";\n}\n.fa-bullhorn:before {\n  content: \"\\F0A1\";\n}\n.fa-bell:before {\n  content: \"\\F0F3\";\n}\n.fa-certificate:before {\n  content: \"\\F0A3\";\n}\n.fa-hand-o-right:before {\n  content: \"\\F0A4\";\n}\n.fa-hand-o-left:before {\n  content: \"\\F0A5\";\n}\n.fa-hand-o-up:before {\n  content: \"\\F0A6\";\n}\n.fa-hand-o-down:before {\n  content: \"\\F0A7\";\n}\n.fa-arrow-circle-left:before {\n  content: \"\\F0A8\";\n}\n.fa-arrow-circle-right:before {\n  content: \"\\F0A9\";\n}\n.fa-arrow-circle-up:before {\n  content: \"\\F0AA\";\n}\n.fa-arrow-circle-down:before {\n  content: \"\\F0AB\";\n}\n.fa-globe:before {\n  content: \"\\F0AC\";\n}\n.fa-wrench:before {\n  content: \"\\F0AD\";\n}\n.fa-tasks:before {\n  content: \"\\F0AE\";\n}\n.fa-filter:before {\n  content: \"\\F0B0\";\n}\n.fa-briefcase:before {\n  content: \"\\F0B1\";\n}\n.fa-arrows-alt:before {\n  content: \"\\F0B2\";\n}\n.fa-group:before,\n.fa-users:before {\n  content: \"\\F0C0\";\n}\n.fa-chain:before,\n.fa-link:before {\n  content: \"\\F0C1\";\n}\n.fa-cloud:before {\n  content: \"\\F0C2\";\n}\n.fa-flask:before {\n  content: \"\\F0C3\";\n}\n.fa-cut:before,\n.fa-scissors:before {\n  content: \"\\F0C4\";\n}\n.fa-copy:before,\n.fa-files-o:before {\n  content: \"\\F0C5\";\n}\n.fa-paperclip:before {\n  content: \"\\F0C6\";\n}\n.fa-save:before,\n.fa-floppy-o:before {\n  content: \"\\F0C7\";\n}\n.fa-square:before {\n  content: \"\\F0C8\";\n}\n.fa-navicon:before,\n.fa-reorder:before,\n.fa-bars:before {\n  content: \"\\F0C9\";\n}\n.fa-list-ul:before {\n  content: \"\\F0CA\";\n}\n.fa-list-ol:before {\n  content: \"\\F0CB\";\n}\n.fa-strikethrough:before {\n  content: \"\\F0CC\";\n}\n.fa-underline:before {\n  content: \"\\F0CD\";\n}\n.fa-table:before {\n  content: \"\\F0CE\";\n}\n.fa-magic:before {\n  content: \"\\F0D0\";\n}\n.fa-truck:before {\n  content: \"\\F0D1\";\n}\n.fa-pinterest:before {\n  content: \"\\F0D2\";\n}\n.fa-pinterest-square:before {\n  content: \"\\F0D3\";\n}\n.fa-google-plus-square:before {\n  content: \"\\F0D4\";\n}\n.fa-google-plus:before {\n  content: \"\\F0D5\";\n}\n.fa-money:before {\n  content: \"\\F0D6\";\n}\n.fa-caret-down:before {\n  content: \"\\F0D7\";\n}\n.fa-caret-up:before {\n  content: \"\\F0D8\";\n}\n.fa-caret-left:before {\n  content: \"\\F0D9\";\n}\n.fa-caret-right:before {\n  content: \"\\F0DA\";\n}\n.fa-columns:before {\n  content: \"\\F0DB\";\n}\n.fa-unsorted:before,\n.fa-sort:before {\n  content: \"\\F0DC\";\n}\n.fa-sort-down:before,\n.fa-sort-desc:before {\n  content: \"\\F0DD\";\n}\n.fa-sort-up:before,\n.fa-sort-asc:before {\n  content: \"\\F0DE\";\n}\n.fa-envelope:before {\n  content: \"\\F0E0\";\n}\n.fa-linkedin:before {\n  content: \"\\F0E1\";\n}\n.fa-rotate-left:before,\n.fa-undo:before {\n  content: \"\\F0E2\";\n}\n.fa-legal:before,\n.fa-gavel:before {\n  content: \"\\F0E3\";\n}\n.fa-dashboard:before,\n.fa-tachometer:before {\n  content: \"\\F0E4\";\n}\n.fa-comment-o:before {\n  content: \"\\F0E5\";\n}\n.fa-comments-o:before {\n  content: \"\\F0E6\";\n}\n.fa-flash:before,\n.fa-bolt:before {\n  content: \"\\F0E7\";\n}\n.fa-sitemap:before {\n  content: \"\\F0E8\";\n}\n.fa-umbrella:before {\n  content: \"\\F0E9\";\n}\n.fa-paste:before,\n.fa-clipboard:before {\n  content: \"\\F0EA\";\n}\n.fa-lightbulb-o:before {\n  content: \"\\F0EB\";\n}\n.fa-exchange:before {\n  content: \"\\F0EC\";\n}\n.fa-cloud-download:before {\n  content: \"\\F0ED\";\n}\n.fa-cloud-upload:before {\n  content: \"\\F0EE\";\n}\n.fa-user-md:before {\n  content: \"\\F0F0\";\n}\n.fa-stethoscope:before {\n  content: \"\\F0F1\";\n}\n.fa-suitcase:before {\n  content: \"\\F0F2\";\n}\n.fa-bell-o:before {\n  content: \"\\F0A2\";\n}\n.fa-coffee:before {\n  content: \"\\F0F4\";\n}\n.fa-cutlery:before {\n  content: \"\\F0F5\";\n}\n.fa-file-text-o:before {\n  content: \"\\F0F6\";\n}\n.fa-building-o:before {\n  content: \"\\F0F7\";\n}\n.fa-hospital-o:before {\n  content: \"\\F0F8\";\n}\n.fa-ambulance:before {\n  content: \"\\F0F9\";\n}\n.fa-medkit:before {\n  content: \"\\F0FA\";\n}\n.fa-fighter-jet:before {\n  content: \"\\F0FB\";\n}\n.fa-beer:before {\n  content: \"\\F0FC\";\n}\n.fa-h-square:before {\n  content: \"\\F0FD\";\n}\n.fa-plus-square:before {\n  content: \"\\F0FE\";\n}\n.fa-angle-double-left:before {\n  content: \"\\F100\";\n}\n.fa-angle-double-right:before {\n  content: \"\\F101\";\n}\n.fa-angle-double-up:before {\n  content: \"\\F102\";\n}\n.fa-angle-double-down:before {\n  content: \"\\F103\";\n}\n.fa-angle-left:before {\n  content: \"\\F104\";\n}\n.fa-angle-right:before {\n  content: \"\\F105\";\n}\n.fa-angle-up:before {\n  content: \"\\F106\";\n}\n.fa-angle-down:before {\n  content: \"\\F107\";\n}\n.fa-desktop:before {\n  content: \"\\F108\";\n}\n.fa-laptop:before {\n  content: \"\\F109\";\n}\n.fa-tablet:before {\n  content: \"\\F10A\";\n}\n.fa-mobile-phone:before,\n.fa-mobile:before {\n  content: \"\\F10B\";\n}\n.fa-circle-o:before {\n  content: \"\\F10C\";\n}\n.fa-quote-left:before {\n  content: \"\\F10D\";\n}\n.fa-quote-right:before {\n  content: \"\\F10E\";\n}\n.fa-spinner:before {\n  content: \"\\F110\";\n}\n.fa-circle:before {\n  content: \"\\F111\";\n}\n.fa-mail-reply:before,\n.fa-reply:before {\n  content: \"\\F112\";\n}\n.fa-github-alt:before {\n  content: \"\\F113\";\n}\n.fa-folder-o:before {\n  content: \"\\F114\";\n}\n.fa-folder-open-o:before {\n  content: \"\\F115\";\n}\n.fa-smile-o:before {\n  content: \"\\F118\";\n}\n.fa-frown-o:before {\n  content: \"\\F119\";\n}\n.fa-meh-o:before {\n  content: \"\\F11A\";\n}\n.fa-gamepad:before {\n  content: \"\\F11B\";\n}\n.fa-keyboard-o:before {\n  content: \"\\F11C\";\n}\n.fa-flag-o:before {\n  content: \"\\F11D\";\n}\n.fa-flag-checkered:before {\n  content: \"\\F11E\";\n}\n.fa-terminal:before {\n  content: \"\\F120\";\n}\n.fa-code:before {\n  content: \"\\F121\";\n}\n.fa-mail-reply-all:before,\n.fa-reply-all:before {\n  content: \"\\F122\";\n}\n.fa-star-half-empty:before,\n.fa-star-half-full:before,\n.fa-star-half-o:before {\n  content: \"\\F123\";\n}\n.fa-location-arrow:before {\n  content: \"\\F124\";\n}\n.fa-crop:before {\n  content: \"\\F125\";\n}\n.fa-code-fork:before {\n  content: \"\\F126\";\n}\n.fa-unlink:before,\n.fa-chain-broken:before {\n  content: \"\\F127\";\n}\n.fa-question:before {\n  content: \"\\F128\";\n}\n.fa-info:before {\n  content: \"\\F129\";\n}\n.fa-exclamation:before {\n  content: \"\\F12A\";\n}\n.fa-superscript:before {\n  content: \"\\F12B\";\n}\n.fa-subscript:before {\n  content: \"\\F12C\";\n}\n.fa-eraser:before {\n  content: \"\\F12D\";\n}\n.fa-puzzle-piece:before {\n  content: \"\\F12E\";\n}\n.fa-microphone:before {\n  content: \"\\F130\";\n}\n.fa-microphone-slash:before {\n  content: \"\\F131\";\n}\n.fa-shield:before {\n  content: \"\\F132\";\n}\n.fa-calendar-o:before {\n  content: \"\\F133\";\n}\n.fa-fire-extinguisher:before {\n  content: \"\\F134\";\n}\n.fa-rocket:before {\n  content: \"\\F135\";\n}\n.fa-maxcdn:before {\n  content: \"\\F136\";\n}\n.fa-chevron-circle-left:before {\n  content: \"\\F137\";\n}\n.fa-chevron-circle-right:before {\n  content: \"\\F138\";\n}\n.fa-chevron-circle-up:before {\n  content: \"\\F139\";\n}\n.fa-chevron-circle-down:before {\n  content: \"\\F13A\";\n}\n.fa-html5:before {\n  content: \"\\F13B\";\n}\n.fa-css3:before {\n  content: \"\\F13C\";\n}\n.fa-anchor:before {\n  content: \"\\F13D\";\n}\n.fa-unlock-alt:before {\n  content: \"\\F13E\";\n}\n.fa-bullseye:before {\n  content: \"\\F140\";\n}\n.fa-ellipsis-h:before {\n  content: \"\\F141\";\n}\n.fa-ellipsis-v:before {\n  content: \"\\F142\";\n}\n.fa-rss-square:before {\n  content: \"\\F143\";\n}\n.fa-play-circle:before {\n  content: \"\\F144\";\n}\n.fa-ticket:before {\n  content: \"\\F145\";\n}\n.fa-minus-square:before {\n  content: \"\\F146\";\n}\n.fa-minus-square-o:before {\n  content: \"\\F147\";\n}\n.fa-level-up:before {\n  content: \"\\F148\";\n}\n.fa-level-down:before {\n  content: \"\\F149\";\n}\n.fa-check-square:before {\n  content: \"\\F14A\";\n}\n.fa-pencil-square:before {\n  content: \"\\F14B\";\n}\n.fa-external-link-square:before {\n  content: \"\\F14C\";\n}\n.fa-share-square:before {\n  content: \"\\F14D\";\n}\n.fa-compass:before {\n  content: \"\\F14E\";\n}\n.fa-toggle-down:before,\n.fa-caret-square-o-down:before {\n  content: \"\\F150\";\n}\n.fa-toggle-up:before,\n.fa-caret-square-o-up:before {\n  content: \"\\F151\";\n}\n.fa-toggle-right:before,\n.fa-caret-square-o-right:before {\n  content: \"\\F152\";\n}\n.fa-euro:before,\n.fa-eur:before {\n  content: \"\\F153\";\n}\n.fa-gbp:before {\n  content: \"\\F154\";\n}\n.fa-dollar:before,\n.fa-usd:before {\n  content: \"\\F155\";\n}\n.fa-rupee:before,\n.fa-inr:before {\n  content: \"\\F156\";\n}\n.fa-cny:before,\n.fa-rmb:before,\n.fa-yen:before,\n.fa-jpy:before {\n  content: \"\\F157\";\n}\n.fa-ruble:before,\n.fa-rouble:before,\n.fa-rub:before {\n  content: \"\\F158\";\n}\n.fa-won:before,\n.fa-krw:before {\n  content: \"\\F159\";\n}\n.fa-bitcoin:before,\n.fa-btc:before {\n  content: \"\\F15A\";\n}\n.fa-file:before {\n  content: \"\\F15B\";\n}\n.fa-file-text:before {\n  content: \"\\F15C\";\n}\n.fa-sort-alpha-asc:before {\n  content: \"\\F15D\";\n}\n.fa-sort-alpha-desc:before {\n  content: \"\\F15E\";\n}\n.fa-sort-amount-asc:before {\n  content: \"\\F160\";\n}\n.fa-sort-amount-desc:before {\n  content: \"\\F161\";\n}\n.fa-sort-numeric-asc:before {\n  content: \"\\F162\";\n}\n.fa-sort-numeric-desc:before {\n  content: \"\\F163\";\n}\n.fa-thumbs-up:before {\n  content: \"\\F164\";\n}\n.fa-thumbs-down:before {\n  content: \"\\F165\";\n}\n.fa-youtube-square:before {\n  content: \"\\F166\";\n}\n.fa-youtube:before {\n  content: \"\\F167\";\n}\n.fa-xing:before {\n  content: \"\\F168\";\n}\n.fa-xing-square:before {\n  content: \"\\F169\";\n}\n.fa-youtube-play:before {\n  content: \"\\F16A\";\n}\n.fa-dropbox:before {\n  content: \"\\F16B\";\n}\n.fa-stack-overflow:before {\n  content: \"\\F16C\";\n}\n.fa-instagram:before {\n  content: \"\\F16D\";\n}\n.fa-flickr:before {\n  content: \"\\F16E\";\n}\n.fa-adn:before {\n  content: \"\\F170\";\n}\n.fa-bitbucket:before {\n  content: \"\\F171\";\n}\n.fa-bitbucket-square:before {\n  content: \"\\F172\";\n}\n.fa-tumblr:before {\n  content: \"\\F173\";\n}\n.fa-tumblr-square:before {\n  content: \"\\F174\";\n}\n.fa-long-arrow-down:before {\n  content: \"\\F175\";\n}\n.fa-long-arrow-up:before {\n  content: \"\\F176\";\n}\n.fa-long-arrow-left:before {\n  content: \"\\F177\";\n}\n.fa-long-arrow-right:before {\n  content: \"\\F178\";\n}\n.fa-apple:before {\n  content: \"\\F179\";\n}\n.fa-windows:before {\n  content: \"\\F17A\";\n}\n.fa-android:before {\n  content: \"\\F17B\";\n}\n.fa-linux:before {\n  content: \"\\F17C\";\n}\n.fa-dribbble:before {\n  content: \"\\F17D\";\n}\n.fa-skype:before {\n  content: \"\\F17E\";\n}\n.fa-foursquare:before {\n  content: \"\\F180\";\n}\n.fa-trello:before {\n  content: \"\\F181\";\n}\n.fa-female:before {\n  content: \"\\F182\";\n}\n.fa-male:before {\n  content: \"\\F183\";\n}\n.fa-gittip:before,\n.fa-gratipay:before {\n  content: \"\\F184\";\n}\n.fa-sun-o:before {\n  content: \"\\F185\";\n}\n.fa-moon-o:before {\n  content: \"\\F186\";\n}\n.fa-archive:before {\n  content: \"\\F187\";\n}\n.fa-bug:before {\n  content: \"\\F188\";\n}\n.fa-vk:before {\n  content: \"\\F189\";\n}\n.fa-weibo:before {\n  content: \"\\F18A\";\n}\n.fa-renren:before {\n  content: \"\\F18B\";\n}\n.fa-pagelines:before {\n  content: \"\\F18C\";\n}\n.fa-stack-exchange:before {\n  content: \"\\F18D\";\n}\n.fa-arrow-circle-o-right:before {\n  content: \"\\F18E\";\n}\n.fa-arrow-circle-o-left:before {\n  content: \"\\F190\";\n}\n.fa-toggle-left:before,\n.fa-caret-square-o-left:before {\n  content: \"\\F191\";\n}\n.fa-dot-circle-o:before {\n  content: \"\\F192\";\n}\n.fa-wheelchair:before {\n  content: \"\\F193\";\n}\n.fa-vimeo-square:before {\n  content: \"\\F194\";\n}\n.fa-turkish-lira:before,\n.fa-try:before {\n  content: \"\\F195\";\n}\n.fa-plus-square-o:before {\n  content: \"\\F196\";\n}\n.fa-space-shuttle:before {\n  content: \"\\F197\";\n}\n.fa-slack:before {\n  content: \"\\F198\";\n}\n.fa-envelope-square:before {\n  content: \"\\F199\";\n}\n.fa-wordpress:before {\n  content: \"\\F19A\";\n}\n.fa-openid:before {\n  content: \"\\F19B\";\n}\n.fa-institution:before,\n.fa-bank:before,\n.fa-university:before {\n  content: \"\\F19C\";\n}\n.fa-mortar-board:before,\n.fa-graduation-cap:before {\n  content: \"\\F19D\";\n}\n.fa-yahoo:before {\n  content: \"\\F19E\";\n}\n.fa-google:before {\n  content: \"\\F1A0\";\n}\n.fa-reddit:before {\n  content: \"\\F1A1\";\n}\n.fa-reddit-square:before {\n  content: \"\\F1A2\";\n}\n.fa-stumbleupon-circle:before {\n  content: \"\\F1A3\";\n}\n.fa-stumbleupon:before {\n  content: \"\\F1A4\";\n}\n.fa-delicious:before {\n  content: \"\\F1A5\";\n}\n.fa-digg:before {\n  content: \"\\F1A6\";\n}\n.fa-pied-piper-pp:before {\n  content: \"\\F1A7\";\n}\n.fa-pied-piper-alt:before {\n  content: \"\\F1A8\";\n}\n.fa-drupal:before {\n  content: \"\\F1A9\";\n}\n.fa-joomla:before {\n  content: \"\\F1AA\";\n}\n.fa-language:before {\n  content: \"\\F1AB\";\n}\n.fa-fax:before {\n  content: \"\\F1AC\";\n}\n.fa-building:before {\n  content: \"\\F1AD\";\n}\n.fa-child:before {\n  content: \"\\F1AE\";\n}\n.fa-paw:before {\n  content: \"\\F1B0\";\n}\n.fa-spoon:before {\n  content: \"\\F1B1\";\n}\n.fa-cube:before {\n  content: \"\\F1B2\";\n}\n.fa-cubes:before {\n  content: \"\\F1B3\";\n}\n.fa-behance:before {\n  content: \"\\F1B4\";\n}\n.fa-behance-square:before {\n  content: \"\\F1B5\";\n}\n.fa-steam:before {\n  content: \"\\F1B6\";\n}\n.fa-steam-square:before {\n  content: \"\\F1B7\";\n}\n.fa-recycle:before {\n  content: \"\\F1B8\";\n}\n.fa-automobile:before,\n.fa-car:before {\n  content: \"\\F1B9\";\n}\n.fa-cab:before,\n.fa-taxi:before {\n  content: \"\\F1BA\";\n}\n.fa-tree:before {\n  content: \"\\F1BB\";\n}\n.fa-spotify:before {\n  content: \"\\F1BC\";\n}\n.fa-deviantart:before {\n  content: \"\\F1BD\";\n}\n.fa-soundcloud:before {\n  content: \"\\F1BE\";\n}\n.fa-database:before {\n  content: \"\\F1C0\";\n}\n.fa-file-pdf-o:before {\n  content: \"\\F1C1\";\n}\n.fa-file-word-o:before {\n  content: \"\\F1C2\";\n}\n.fa-file-excel-o:before {\n  content: \"\\F1C3\";\n}\n.fa-file-powerpoint-o:before {\n  content: \"\\F1C4\";\n}\n.fa-file-photo-o:before,\n.fa-file-picture-o:before,\n.fa-file-image-o:before {\n  content: \"\\F1C5\";\n}\n.fa-file-zip-o:before,\n.fa-file-archive-o:before {\n  content: \"\\F1C6\";\n}\n.fa-file-sound-o:before,\n.fa-file-audio-o:before {\n  content: \"\\F1C7\";\n}\n.fa-file-movie-o:before,\n.fa-file-video-o:before {\n  content: \"\\F1C8\";\n}\n.fa-file-code-o:before {\n  content: \"\\F1C9\";\n}\n.fa-vine:before {\n  content: \"\\F1CA\";\n}\n.fa-codepen:before {\n  content: \"\\F1CB\";\n}\n.fa-jsfiddle:before {\n  content: \"\\F1CC\";\n}\n.fa-life-bouy:before,\n.fa-life-buoy:before,\n.fa-life-saver:before,\n.fa-support:before,\n.fa-life-ring:before {\n  content: \"\\F1CD\";\n}\n.fa-circle-o-notch:before {\n  content: \"\\F1CE\";\n}\n.fa-ra:before,\n.fa-resistance:before,\n.fa-rebel:before {\n  content: \"\\F1D0\";\n}\n.fa-ge:before,\n.fa-empire:before {\n  content: \"\\F1D1\";\n}\n.fa-git-square:before {\n  content: \"\\F1D2\";\n}\n.fa-git:before {\n  content: \"\\F1D3\";\n}\n.fa-y-combinator-square:before,\n.fa-yc-square:before,\n.fa-hacker-news:before {\n  content: \"\\F1D4\";\n}\n.fa-tencent-weibo:before {\n  content: \"\\F1D5\";\n}\n.fa-qq:before {\n  content: \"\\F1D6\";\n}\n.fa-wechat:before,\n.fa-weixin:before {\n  content: \"\\F1D7\";\n}\n.fa-send:before,\n.fa-paper-plane:before {\n  content: \"\\F1D8\";\n}\n.fa-send-o:before,\n.fa-paper-plane-o:before {\n  content: \"\\F1D9\";\n}\n.fa-history:before {\n  content: \"\\F1DA\";\n}\n.fa-circle-thin:before {\n  content: \"\\F1DB\";\n}\n.fa-header:before {\n  content: \"\\F1DC\";\n}\n.fa-paragraph:before {\n  content: \"\\F1DD\";\n}\n.fa-sliders:before {\n  content: \"\\F1DE\";\n}\n.fa-share-alt:before {\n  content: \"\\F1E0\";\n}\n.fa-share-alt-square:before {\n  content: \"\\F1E1\";\n}\n.fa-bomb:before {\n  content: \"\\F1E2\";\n}\n.fa-soccer-ball-o:before,\n.fa-futbol-o:before {\n  content: \"\\F1E3\";\n}\n.fa-tty:before {\n  content: \"\\F1E4\";\n}\n.fa-binoculars:before {\n  content: \"\\F1E5\";\n}\n.fa-plug:before {\n  content: \"\\F1E6\";\n}\n.fa-slideshare:before {\n  content: \"\\F1E7\";\n}\n.fa-twitch:before {\n  content: \"\\F1E8\";\n}\n.fa-yelp:before {\n  content: \"\\F1E9\";\n}\n.fa-newspaper-o:before {\n  content: \"\\F1EA\";\n}\n.fa-wifi:before {\n  content: \"\\F1EB\";\n}\n.fa-calculator:before {\n  content: \"\\F1EC\";\n}\n.fa-paypal:before {\n  content: \"\\F1ED\";\n}\n.fa-google-wallet:before {\n  content: \"\\F1EE\";\n}\n.fa-cc-visa:before {\n  content: \"\\F1F0\";\n}\n.fa-cc-mastercard:before {\n  content: \"\\F1F1\";\n}\n.fa-cc-discover:before {\n  content: \"\\F1F2\";\n}\n.fa-cc-amex:before {\n  content: \"\\F1F3\";\n}\n.fa-cc-paypal:before {\n  content: \"\\F1F4\";\n}\n.fa-cc-stripe:before {\n  content: \"\\F1F5\";\n}\n.fa-bell-slash:before {\n  content: \"\\F1F6\";\n}\n.fa-bell-slash-o:before {\n  content: \"\\F1F7\";\n}\n.fa-trash:before {\n  content: \"\\F1F8\";\n}\n.fa-copyright:before {\n  content: \"\\F1F9\";\n}\n.fa-at:before {\n  content: \"\\F1FA\";\n}\n.fa-eyedropper:before {\n  content: \"\\F1FB\";\n}\n.fa-paint-brush:before {\n  content: \"\\F1FC\";\n}\n.fa-birthday-cake:before {\n  content: \"\\F1FD\";\n}\n.fa-area-chart:before {\n  content: \"\\F1FE\";\n}\n.fa-pie-chart:before {\n  content: \"\\F200\";\n}\n.fa-line-chart:before {\n  content: \"\\F201\";\n}\n.fa-lastfm:before {\n  content: \"\\F202\";\n}\n.fa-lastfm-square:before {\n  content: \"\\F203\";\n}\n.fa-toggle-off:before {\n  content: \"\\F204\";\n}\n.fa-toggle-on:before {\n  content: \"\\F205\";\n}\n.fa-bicycle:before {\n  content: \"\\F206\";\n}\n.fa-bus:before {\n  content: \"\\F207\";\n}\n.fa-ioxhost:before {\n  content: \"\\F208\";\n}\n.fa-angellist:before {\n  content: \"\\F209\";\n}\n.fa-cc:before {\n  content: \"\\F20A\";\n}\n.fa-shekel:before,\n.fa-sheqel:before,\n.fa-ils:before {\n  content: \"\\F20B\";\n}\n.fa-meanpath:before {\n  content: \"\\F20C\";\n}\n.fa-buysellads:before {\n  content: \"\\F20D\";\n}\n.fa-connectdevelop:before {\n  content: \"\\F20E\";\n}\n.fa-dashcube:before {\n  content: \"\\F210\";\n}\n.fa-forumbee:before {\n  content: \"\\F211\";\n}\n.fa-leanpub:before {\n  content: \"\\F212\";\n}\n.fa-sellsy:before {\n  content: \"\\F213\";\n}\n.fa-shirtsinbulk:before {\n  content: \"\\F214\";\n}\n.fa-simplybuilt:before {\n  content: \"\\F215\";\n}\n.fa-skyatlas:before {\n  content: \"\\F216\";\n}\n.fa-cart-plus:before {\n  content: \"\\F217\";\n}\n.fa-cart-arrow-down:before {\n  content: \"\\F218\";\n}\n.fa-diamond:before {\n  content: \"\\F219\";\n}\n.fa-ship:before {\n  content: \"\\F21A\";\n}\n.fa-user-secret:before {\n  content: \"\\F21B\";\n}\n.fa-motorcycle:before {\n  content: \"\\F21C\";\n}\n.fa-street-view:before {\n  content: \"\\F21D\";\n}\n.fa-heartbeat:before {\n  content: \"\\F21E\";\n}\n.fa-venus:before {\n  content: \"\\F221\";\n}\n.fa-mars:before {\n  content: \"\\F222\";\n}\n.fa-mercury:before {\n  content: \"\\F223\";\n}\n.fa-intersex:before,\n.fa-transgender:before {\n  content: \"\\F224\";\n}\n.fa-transgender-alt:before {\n  content: \"\\F225\";\n}\n.fa-venus-double:before {\n  content: \"\\F226\";\n}\n.fa-mars-double:before {\n  content: \"\\F227\";\n}\n.fa-venus-mars:before {\n  content: \"\\F228\";\n}\n.fa-mars-stroke:before {\n  content: \"\\F229\";\n}\n.fa-mars-stroke-v:before {\n  content: \"\\F22A\";\n}\n.fa-mars-stroke-h:before {\n  content: \"\\F22B\";\n}\n.fa-neuter:before {\n  content: \"\\F22C\";\n}\n.fa-genderless:before {\n  content: \"\\F22D\";\n}\n.fa-facebook-official:before {\n  content: \"\\F230\";\n}\n.fa-pinterest-p:before {\n  content: \"\\F231\";\n}\n.fa-whatsapp:before {\n  content: \"\\F232\";\n}\n.fa-server:before {\n  content: \"\\F233\";\n}\n.fa-user-plus:before {\n  content: \"\\F234\";\n}\n.fa-user-times:before {\n  content: \"\\F235\";\n}\n.fa-hotel:before,\n.fa-bed:before {\n  content: \"\\F236\";\n}\n.fa-viacoin:before {\n  content: \"\\F237\";\n}\n.fa-train:before {\n  content: \"\\F238\";\n}\n.fa-subway:before {\n  content: \"\\F239\";\n}\n.fa-medium:before {\n  content: \"\\F23A\";\n}\n.fa-yc:before,\n.fa-y-combinator:before {\n  content: \"\\F23B\";\n}\n.fa-optin-monster:before {\n  content: \"\\F23C\";\n}\n.fa-opencart:before {\n  content: \"\\F23D\";\n}\n.fa-expeditedssl:before {\n  content: \"\\F23E\";\n}\n.fa-battery-4:before,\n.fa-battery-full:before {\n  content: \"\\F240\";\n}\n.fa-battery-3:before,\n.fa-battery-three-quarters:before {\n  content: \"\\F241\";\n}\n.fa-battery-2:before,\n.fa-battery-half:before {\n  content: \"\\F242\";\n}\n.fa-battery-1:before,\n.fa-battery-quarter:before {\n  content: \"\\F243\";\n}\n.fa-battery-0:before,\n.fa-battery-empty:before {\n  content: \"\\F244\";\n}\n.fa-mouse-pointer:before {\n  content: \"\\F245\";\n}\n.fa-i-cursor:before {\n  content: \"\\F246\";\n}\n.fa-object-group:before {\n  content: \"\\F247\";\n}\n.fa-object-ungroup:before {\n  content: \"\\F248\";\n}\n.fa-sticky-note:before {\n  content: \"\\F249\";\n}\n.fa-sticky-note-o:before {\n  content: \"\\F24A\";\n}\n.fa-cc-jcb:before {\n  content: \"\\F24B\";\n}\n.fa-cc-diners-club:before {\n  content: \"\\F24C\";\n}\n.fa-clone:before {\n  content: \"\\F24D\";\n}\n.fa-balance-scale:before {\n  content: \"\\F24E\";\n}\n.fa-hourglass-o:before {\n  content: \"\\F250\";\n}\n.fa-hourglass-1:before,\n.fa-hourglass-start:before {\n  content: \"\\F251\";\n}\n.fa-hourglass-2:before,\n.fa-hourglass-half:before {\n  content: \"\\F252\";\n}\n.fa-hourglass-3:before,\n.fa-hourglass-end:before {\n  content: \"\\F253\";\n}\n.fa-hourglass:before {\n  content: \"\\F254\";\n}\n.fa-hand-grab-o:before,\n.fa-hand-rock-o:before {\n  content: \"\\F255\";\n}\n.fa-hand-stop-o:before,\n.fa-hand-paper-o:before {\n  content: \"\\F256\";\n}\n.fa-hand-scissors-o:before {\n  content: \"\\F257\";\n}\n.fa-hand-lizard-o:before {\n  content: \"\\F258\";\n}\n.fa-hand-spock-o:before {\n  content: \"\\F259\";\n}\n.fa-hand-pointer-o:before {\n  content: \"\\F25A\";\n}\n.fa-hand-peace-o:before {\n  content: \"\\F25B\";\n}\n.fa-trademark:before {\n  content: \"\\F25C\";\n}\n.fa-registered:before {\n  content: \"\\F25D\";\n}\n.fa-creative-commons:before {\n  content: \"\\F25E\";\n}\n.fa-gg:before {\n  content: \"\\F260\";\n}\n.fa-gg-circle:before {\n  content: \"\\F261\";\n}\n.fa-tripadvisor:before {\n  content: \"\\F262\";\n}\n.fa-odnoklassniki:before {\n  content: \"\\F263\";\n}\n.fa-odnoklassniki-square:before {\n  content: \"\\F264\";\n}\n.fa-get-pocket:before {\n  content: \"\\F265\";\n}\n.fa-wikipedia-w:before {\n  content: \"\\F266\";\n}\n.fa-safari:before {\n  content: \"\\F267\";\n}\n.fa-chrome:before {\n  content: \"\\F268\";\n}\n.fa-firefox:before {\n  content: \"\\F269\";\n}\n.fa-opera:before {\n  content: \"\\F26A\";\n}\n.fa-internet-explorer:before {\n  content: \"\\F26B\";\n}\n.fa-tv:before,\n.fa-television:before {\n  content: \"\\F26C\";\n}\n.fa-contao:before {\n  content: \"\\F26D\";\n}\n.fa-500px:before {\n  content: \"\\F26E\";\n}\n.fa-amazon:before {\n  content: \"\\F270\";\n}\n.fa-calendar-plus-o:before {\n  content: \"\\F271\";\n}\n.fa-calendar-minus-o:before {\n  content: \"\\F272\";\n}\n.fa-calendar-times-o:before {\n  content: \"\\F273\";\n}\n.fa-calendar-check-o:before {\n  content: \"\\F274\";\n}\n.fa-industry:before {\n  content: \"\\F275\";\n}\n.fa-map-pin:before {\n  content: \"\\F276\";\n}\n.fa-map-signs:before {\n  content: \"\\F277\";\n}\n.fa-map-o:before {\n  content: \"\\F278\";\n}\n.fa-map:before {\n  content: \"\\F279\";\n}\n.fa-commenting:before {\n  content: \"\\F27A\";\n}\n.fa-commenting-o:before {\n  content: \"\\F27B\";\n}\n.fa-houzz:before {\n  content: \"\\F27C\";\n}\n.fa-vimeo:before {\n  content: \"\\F27D\";\n}\n.fa-black-tie:before {\n  content: \"\\F27E\";\n}\n.fa-fonticons:before {\n  content: \"\\F280\";\n}\n.fa-reddit-alien:before {\n  content: \"\\F281\";\n}\n.fa-edge:before {\n  content: \"\\F282\";\n}\n.fa-credit-card-alt:before {\n  content: \"\\F283\";\n}\n.fa-codiepie:before {\n  content: \"\\F284\";\n}\n.fa-modx:before {\n  content: \"\\F285\";\n}\n.fa-fort-awesome:before {\n  content: \"\\F286\";\n}\n.fa-usb:before {\n  content: \"\\F287\";\n}\n.fa-product-hunt:before {\n  content: \"\\F288\";\n}\n.fa-mixcloud:before {\n  content: \"\\F289\";\n}\n.fa-scribd:before {\n  content: \"\\F28A\";\n}\n.fa-pause-circle:before {\n  content: \"\\F28B\";\n}\n.fa-pause-circle-o:before {\n  content: \"\\F28C\";\n}\n.fa-stop-circle:before {\n  content: \"\\F28D\";\n}\n.fa-stop-circle-o:before {\n  content: \"\\F28E\";\n}\n.fa-shopping-bag:before {\n  content: \"\\F290\";\n}\n.fa-shopping-basket:before {\n  content: \"\\F291\";\n}\n.fa-hashtag:before {\n  content: \"\\F292\";\n}\n.fa-bluetooth:before {\n  content: \"\\F293\";\n}\n.fa-bluetooth-b:before {\n  content: \"\\F294\";\n}\n.fa-percent:before {\n  content: \"\\F295\";\n}\n.fa-gitlab:before {\n  content: \"\\F296\";\n}\n.fa-wpbeginner:before {\n  content: \"\\F297\";\n}\n.fa-wpforms:before {\n  content: \"\\F298\";\n}\n.fa-envira:before {\n  content: \"\\F299\";\n}\n.fa-universal-access:before {\n  content: \"\\F29A\";\n}\n.fa-wheelchair-alt:before {\n  content: \"\\F29B\";\n}\n.fa-question-circle-o:before {\n  content: \"\\F29C\";\n}\n.fa-blind:before {\n  content: \"\\F29D\";\n}\n.fa-audio-description:before {\n  content: \"\\F29E\";\n}\n.fa-volume-control-phone:before {\n  content: \"\\F2A0\";\n}\n.fa-braille:before {\n  content: \"\\F2A1\";\n}\n.fa-assistive-listening-systems:before {\n  content: \"\\F2A2\";\n}\n.fa-asl-interpreting:before,\n.fa-american-sign-language-interpreting:before {\n  content: \"\\F2A3\";\n}\n.fa-deafness:before,\n.fa-hard-of-hearing:before,\n.fa-deaf:before {\n  content: \"\\F2A4\";\n}\n.fa-glide:before {\n  content: \"\\F2A5\";\n}\n.fa-glide-g:before {\n  content: \"\\F2A6\";\n}\n.fa-signing:before,\n.fa-sign-language:before {\n  content: \"\\F2A7\";\n}\n.fa-low-vision:before {\n  content: \"\\F2A8\";\n}\n.fa-viadeo:before {\n  content: \"\\F2A9\";\n}\n.fa-viadeo-square:before {\n  content: \"\\F2AA\";\n}\n.fa-snapchat:before {\n  content: \"\\F2AB\";\n}\n.fa-snapchat-ghost:before {\n  content: \"\\F2AC\";\n}\n.fa-snapchat-square:before {\n  content: \"\\F2AD\";\n}\n.fa-pied-piper:before {\n  content: \"\\F2AE\";\n}\n.fa-first-order:before {\n  content: \"\\F2B0\";\n}\n.fa-yoast:before {\n  content: \"\\F2B1\";\n}\n.fa-themeisle:before {\n  content: \"\\F2B2\";\n}\n.fa-google-plus-circle:before,\n.fa-google-plus-official:before {\n  content: \"\\F2B3\";\n}\n.fa-fa:before,\n.fa-font-awesome:before {\n  content: \"\\F2B4\";\n}\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n}\n.sr-only-focusable:active,\n.sr-only-focusable:focus {\n  position: static;\n  width: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  clip: auto;\n}\n.pull-right {\n  float: right;\n}\n.pull-left {\n  float: left;\n}\n.btn {\n  height: 40px;\n  width: 40px;\n  display: inline-block;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 40px;\n  font-size: 16px;\n  cursor: pointer;\n  background: #ddd;\n  font-weight: bold;\n  -webkit-border-radius: 40px;\n  -moz-border-radius: 40px;\n  border-radius: 40px;\n  -moz-background-clip: padding;\n  -webkit-background-clip: padding-box;\n  background-clip: padding-box;\n}\n.btn:hover {\n  transform: translateZ(0);\n  transition-duration: 0.3s;\n  transition-property: box-shadow;\n  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);\n}\n.btn > i {\n  line-height: 40px;\n}\ntd[id^=\"td_threadtitle_\"] {\n  position: relative;\n}\ntd[id^=\"td_threadtitle_\"] > div > span {\n  margin-right: 50px;\n}\n.btn-view {\n  float: right;\n  margin-top: -33px;\n  background: #ddd;\n  z-index: 1000;\n}\n.btn-next-post,\n.btn-prev-post {\n  background: #ddd;\n  height: 30px !important;\n  width: 30px !important;\n  line-height: 33px !important;\n  margin-left: 10px;\n  -webkit-border-radius: 40px;\n  -moz-border-radius: 40px;\n  border-radius: 40px;\n  -moz-background-clip: padding;\n  -webkit-background-clip: padding-box;\n  background-clip: padding-box;\n}\n.btn-next-post > i,\n.btn-prev-post > i {\n  line-height: 30px !important;\n}\n.preview-wrapper {\n  width: 100%;\n  overflow: hidden;\n}\n.preview-wrapper .left-preview {\n  padding: 10px;\n  box-sizing: border-box;\n  background: #E1E4F2;\n}\n.preview-wrapper .left-preview .preview-control {\n  overflow: hidden;\n  padding-bottom: 6px;\n  line-height: 36px;\n  font-size: 11px;\n}\n.preview-wrapper .left-preview .preview-content {\n  min-height: 120px;\n  max-height: 600px;\n  width: 100%;\n  overflow-y: scroll;\n}\n.preview-wrapper .left-preview .preview-content img {\n  max-width: 600px;\n}\n.preview-wrapper .left-preview .preview-content > div > div.smallfont {\n  display: none;\n}\n.preview-wrapper .right-preview {\n  width: 40px;\n}\n.preview-wrapper .right-preview .btn {\n  margin-top: 5px;\n}\nbody > div:not(#voz-living-app),\nbody else > div:not(#voz-living-app) {\n  margin-left: 50px;\n}\nbody .voz-living-side-menu {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 45px;\n  height: 100%;\n  padding: 0 0 0 5px;\n}\nbody .voz-living-side-menu .btn-group {\n  position: relative;\n}\nbody .voz-living-side-menu .btn-group .btn {\n  margin-top: 5px;\n  color: #000 !important;\n}\nbody .voz-living-side-menu .btn-group .btn-options {\n  position: absolute;\n  top: 5px;\n  left: 50px;\n  width: 400px;\n  padding: 10px;\n  background: #ddd;\n  color: #000;\n  border: 1px solid #ccc;\n  max-height: 600px;\n  overflow-y: scroll;\n}\nbody .voz-living-side-menu .btn-group .btn-options a {\n  cursor: pointer;\n  color: #23497C;\n}\nbody .voz-living-side-menu .btn-group .btn-options h3 {\n  margin: 0 0 5px 0;\n  font-size: 18px;\n  font-weight: bold;\n}\nbody .voz-living-side-menu .btn-group .btn-options > small {\n  color: red;\n}\nbody .voz-living-side-menu .btn-group .btn-options .control-wrapper {\n  line-height: 28px;\n}\nbody .voz-living-side-menu .btn-group .btn-options .control-wrapper input {\n  float: left;\n  margin: 8px 8px 0 0;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-row {\n  border-bottom: 1px solid #ccc;\n  padding: 5px 0;\n  font-size: 12px;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-row .quote-title {\n  font-weight: bold;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-row .quote-content {\n  margin: 5px 0;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-row .quote-bottom {\n  font-weight: bold;\n  font-size: 10px;\n}\n", ""]);
+	exports.push([module.id, "/*!\n *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome\n *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)\n */\n/* FONT PATH\n * -------------------------- */\n@font-face {\n  font-family: 'FontAwesome';\n  src: url(" + __webpack_require__(495) + ");\n  src: url(" + __webpack_require__(494) + "?#iefix&v=4.6.3) format('embedded-opentype'), url(" + __webpack_require__(497) + ") format('woff2'), url(" + __webpack_require__(498) + ") format('woff'), url(" + __webpack_require__(496) + ") format('truetype'), url(" + __webpack_require__(625) + "#fontawesomeregular) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n.fa {\n  display: inline-block;\n  font: normal normal normal 14px/1 FontAwesome;\n  font-size: inherit;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n/* makes the font 33% larger relative to the icon container */\n.fa-lg {\n  font-size: 1.33333333em;\n  line-height: 0.75em;\n  vertical-align: -15%;\n}\n.fa-2x {\n  font-size: 2em;\n}\n.fa-3x {\n  font-size: 3em;\n}\n.fa-4x {\n  font-size: 4em;\n}\n.fa-5x {\n  font-size: 5em;\n}\n.fa-fw {\n  width: 1.28571429em;\n  text-align: center;\n}\n.fa-ul {\n  padding-left: 0;\n  margin-left: 2.14285714em;\n  list-style-type: none;\n}\n.fa-ul > li {\n  position: relative;\n}\n.fa-li {\n  position: absolute;\n  left: -2.14285714em;\n  width: 2.14285714em;\n  top: 0.14285714em;\n  text-align: center;\n}\n.fa-li.fa-lg {\n  left: -1.85714286em;\n}\n.fa-border {\n  padding: .2em .25em .15em;\n  border: solid 0.08em #eee;\n  border-radius: .1em;\n}\n.fa-pull-left {\n  float: left;\n}\n.fa-pull-right {\n  float: right;\n}\n.fa.fa-pull-left {\n  margin-right: .3em;\n}\n.fa.fa-pull-right {\n  margin-left: .3em;\n}\n/* Deprecated as of 4.4.0 */\n.pull-right {\n  float: right;\n}\n.pull-left {\n  float: left;\n}\n.fa.pull-left {\n  margin-right: .3em;\n}\n.fa.pull-right {\n  margin-left: .3em;\n}\n.fa-spin {\n  -webkit-animation: fa-spin 2s infinite linear;\n  animation: fa-spin 2s infinite linear;\n}\n.fa-pulse {\n  -webkit-animation: fa-spin 1s infinite steps(8);\n  animation: fa-spin 1s infinite steps(8);\n}\n@-webkit-keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(359deg);\n    transform: rotate(359deg);\n  }\n}\n@keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(359deg);\n    transform: rotate(359deg);\n  }\n}\n.fa-rotate-90 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)\";\n  -webkit-transform: rotate(90deg);\n  -ms-transform: rotate(90deg);\n  transform: rotate(90deg);\n}\n.fa-rotate-180 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)\";\n  -webkit-transform: rotate(180deg);\n  -ms-transform: rotate(180deg);\n  transform: rotate(180deg);\n}\n.fa-rotate-270 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)\";\n  -webkit-transform: rotate(270deg);\n  -ms-transform: rotate(270deg);\n  transform: rotate(270deg);\n}\n.fa-flip-horizontal {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)\";\n  -webkit-transform: scale(-1, 1);\n  -ms-transform: scale(-1, 1);\n  transform: scale(-1, 1);\n}\n.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(1, -1);\n  -ms-transform: scale(1, -1);\n  transform: scale(1, -1);\n}\n:root .fa-rotate-90,\n:root .fa-rotate-180,\n:root .fa-rotate-270,\n:root .fa-flip-horizontal,\n:root .fa-flip-vertical {\n  filter: none;\n}\n.fa-stack {\n  position: relative;\n  display: inline-block;\n  width: 2em;\n  height: 2em;\n  line-height: 2em;\n  vertical-align: middle;\n}\n.fa-stack-1x,\n.fa-stack-2x {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  text-align: center;\n}\n.fa-stack-1x {\n  line-height: inherit;\n}\n.fa-stack-2x {\n  font-size: 2em;\n}\n.fa-inverse {\n  color: #fff;\n}\n/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen\n   readers do not read off random characters that represent icons */\n.fa-glass:before {\n  content: \"\\F000\";\n}\n.fa-music:before {\n  content: \"\\F001\";\n}\n.fa-search:before {\n  content: \"\\F002\";\n}\n.fa-envelope-o:before {\n  content: \"\\F003\";\n}\n.fa-heart:before {\n  content: \"\\F004\";\n}\n.fa-star:before {\n  content: \"\\F005\";\n}\n.fa-star-o:before {\n  content: \"\\F006\";\n}\n.fa-user:before {\n  content: \"\\F007\";\n}\n.fa-film:before {\n  content: \"\\F008\";\n}\n.fa-th-large:before {\n  content: \"\\F009\";\n}\n.fa-th:before {\n  content: \"\\F00A\";\n}\n.fa-th-list:before {\n  content: \"\\F00B\";\n}\n.fa-check:before {\n  content: \"\\F00C\";\n}\n.fa-remove:before,\n.fa-close:before,\n.fa-times:before {\n  content: \"\\F00D\";\n}\n.fa-search-plus:before {\n  content: \"\\F00E\";\n}\n.fa-search-minus:before {\n  content: \"\\F010\";\n}\n.fa-power-off:before {\n  content: \"\\F011\";\n}\n.fa-signal:before {\n  content: \"\\F012\";\n}\n.fa-gear:before,\n.fa-cog:before {\n  content: \"\\F013\";\n}\n.fa-trash-o:before {\n  content: \"\\F014\";\n}\n.fa-home:before {\n  content: \"\\F015\";\n}\n.fa-file-o:before {\n  content: \"\\F016\";\n}\n.fa-clock-o:before {\n  content: \"\\F017\";\n}\n.fa-road:before {\n  content: \"\\F018\";\n}\n.fa-download:before {\n  content: \"\\F019\";\n}\n.fa-arrow-circle-o-down:before {\n  content: \"\\F01A\";\n}\n.fa-arrow-circle-o-up:before {\n  content: \"\\F01B\";\n}\n.fa-inbox:before {\n  content: \"\\F01C\";\n}\n.fa-play-circle-o:before {\n  content: \"\\F01D\";\n}\n.fa-rotate-right:before,\n.fa-repeat:before {\n  content: \"\\F01E\";\n}\n.fa-refresh:before {\n  content: \"\\F021\";\n}\n.fa-list-alt:before {\n  content: \"\\F022\";\n}\n.fa-lock:before {\n  content: \"\\F023\";\n}\n.fa-flag:before {\n  content: \"\\F024\";\n}\n.fa-headphones:before {\n  content: \"\\F025\";\n}\n.fa-volume-off:before {\n  content: \"\\F026\";\n}\n.fa-volume-down:before {\n  content: \"\\F027\";\n}\n.fa-volume-up:before {\n  content: \"\\F028\";\n}\n.fa-qrcode:before {\n  content: \"\\F029\";\n}\n.fa-barcode:before {\n  content: \"\\F02A\";\n}\n.fa-tag:before {\n  content: \"\\F02B\";\n}\n.fa-tags:before {\n  content: \"\\F02C\";\n}\n.fa-book:before {\n  content: \"\\F02D\";\n}\n.fa-bookmark:before {\n  content: \"\\F02E\";\n}\n.fa-print:before {\n  content: \"\\F02F\";\n}\n.fa-camera:before {\n  content: \"\\F030\";\n}\n.fa-font:before {\n  content: \"\\F031\";\n}\n.fa-bold:before {\n  content: \"\\F032\";\n}\n.fa-italic:before {\n  content: \"\\F033\";\n}\n.fa-text-height:before {\n  content: \"\\F034\";\n}\n.fa-text-width:before {\n  content: \"\\F035\";\n}\n.fa-align-left:before {\n  content: \"\\F036\";\n}\n.fa-align-center:before {\n  content: \"\\F037\";\n}\n.fa-align-right:before {\n  content: \"\\F038\";\n}\n.fa-align-justify:before {\n  content: \"\\F039\";\n}\n.fa-list:before {\n  content: \"\\F03A\";\n}\n.fa-dedent:before,\n.fa-outdent:before {\n  content: \"\\F03B\";\n}\n.fa-indent:before {\n  content: \"\\F03C\";\n}\n.fa-video-camera:before {\n  content: \"\\F03D\";\n}\n.fa-photo:before,\n.fa-image:before,\n.fa-picture-o:before {\n  content: \"\\F03E\";\n}\n.fa-pencil:before {\n  content: \"\\F040\";\n}\n.fa-map-marker:before {\n  content: \"\\F041\";\n}\n.fa-adjust:before {\n  content: \"\\F042\";\n}\n.fa-tint:before {\n  content: \"\\F043\";\n}\n.fa-edit:before,\n.fa-pencil-square-o:before {\n  content: \"\\F044\";\n}\n.fa-share-square-o:before {\n  content: \"\\F045\";\n}\n.fa-check-square-o:before {\n  content: \"\\F046\";\n}\n.fa-arrows:before {\n  content: \"\\F047\";\n}\n.fa-step-backward:before {\n  content: \"\\F048\";\n}\n.fa-fast-backward:before {\n  content: \"\\F049\";\n}\n.fa-backward:before {\n  content: \"\\F04A\";\n}\n.fa-play:before {\n  content: \"\\F04B\";\n}\n.fa-pause:before {\n  content: \"\\F04C\";\n}\n.fa-stop:before {\n  content: \"\\F04D\";\n}\n.fa-forward:before {\n  content: \"\\F04E\";\n}\n.fa-fast-forward:before {\n  content: \"\\F050\";\n}\n.fa-step-forward:before {\n  content: \"\\F051\";\n}\n.fa-eject:before {\n  content: \"\\F052\";\n}\n.fa-chevron-left:before {\n  content: \"\\F053\";\n}\n.fa-chevron-right:before {\n  content: \"\\F054\";\n}\n.fa-plus-circle:before {\n  content: \"\\F055\";\n}\n.fa-minus-circle:before {\n  content: \"\\F056\";\n}\n.fa-times-circle:before {\n  content: \"\\F057\";\n}\n.fa-check-circle:before {\n  content: \"\\F058\";\n}\n.fa-question-circle:before {\n  content: \"\\F059\";\n}\n.fa-info-circle:before {\n  content: \"\\F05A\";\n}\n.fa-crosshairs:before {\n  content: \"\\F05B\";\n}\n.fa-times-circle-o:before {\n  content: \"\\F05C\";\n}\n.fa-check-circle-o:before {\n  content: \"\\F05D\";\n}\n.fa-ban:before {\n  content: \"\\F05E\";\n}\n.fa-arrow-left:before {\n  content: \"\\F060\";\n}\n.fa-arrow-right:before {\n  content: \"\\F061\";\n}\n.fa-arrow-up:before {\n  content: \"\\F062\";\n}\n.fa-arrow-down:before {\n  content: \"\\F063\";\n}\n.fa-mail-forward:before,\n.fa-share:before {\n  content: \"\\F064\";\n}\n.fa-expand:before {\n  content: \"\\F065\";\n}\n.fa-compress:before {\n  content: \"\\F066\";\n}\n.fa-plus:before {\n  content: \"\\F067\";\n}\n.fa-minus:before {\n  content: \"\\F068\";\n}\n.fa-asterisk:before {\n  content: \"\\F069\";\n}\n.fa-exclamation-circle:before {\n  content: \"\\F06A\";\n}\n.fa-gift:before {\n  content: \"\\F06B\";\n}\n.fa-leaf:before {\n  content: \"\\F06C\";\n}\n.fa-fire:before {\n  content: \"\\F06D\";\n}\n.fa-eye:before {\n  content: \"\\F06E\";\n}\n.fa-eye-slash:before {\n  content: \"\\F070\";\n}\n.fa-warning:before,\n.fa-exclamation-triangle:before {\n  content: \"\\F071\";\n}\n.fa-plane:before {\n  content: \"\\F072\";\n}\n.fa-calendar:before {\n  content: \"\\F073\";\n}\n.fa-random:before {\n  content: \"\\F074\";\n}\n.fa-comment:before {\n  content: \"\\F075\";\n}\n.fa-magnet:before {\n  content: \"\\F076\";\n}\n.fa-chevron-up:before {\n  content: \"\\F077\";\n}\n.fa-chevron-down:before {\n  content: \"\\F078\";\n}\n.fa-retweet:before {\n  content: \"\\F079\";\n}\n.fa-shopping-cart:before {\n  content: \"\\F07A\";\n}\n.fa-folder:before {\n  content: \"\\F07B\";\n}\n.fa-folder-open:before {\n  content: \"\\F07C\";\n}\n.fa-arrows-v:before {\n  content: \"\\F07D\";\n}\n.fa-arrows-h:before {\n  content: \"\\F07E\";\n}\n.fa-bar-chart-o:before,\n.fa-bar-chart:before {\n  content: \"\\F080\";\n}\n.fa-twitter-square:before {\n  content: \"\\F081\";\n}\n.fa-facebook-square:before {\n  content: \"\\F082\";\n}\n.fa-camera-retro:before {\n  content: \"\\F083\";\n}\n.fa-key:before {\n  content: \"\\F084\";\n}\n.fa-gears:before,\n.fa-cogs:before {\n  content: \"\\F085\";\n}\n.fa-comments:before {\n  content: \"\\F086\";\n}\n.fa-thumbs-o-up:before {\n  content: \"\\F087\";\n}\n.fa-thumbs-o-down:before {\n  content: \"\\F088\";\n}\n.fa-star-half:before {\n  content: \"\\F089\";\n}\n.fa-heart-o:before {\n  content: \"\\F08A\";\n}\n.fa-sign-out:before {\n  content: \"\\F08B\";\n}\n.fa-linkedin-square:before {\n  content: \"\\F08C\";\n}\n.fa-thumb-tack:before {\n  content: \"\\F08D\";\n}\n.fa-external-link:before {\n  content: \"\\F08E\";\n}\n.fa-sign-in:before {\n  content: \"\\F090\";\n}\n.fa-trophy:before {\n  content: \"\\F091\";\n}\n.fa-github-square:before {\n  content: \"\\F092\";\n}\n.fa-upload:before {\n  content: \"\\F093\";\n}\n.fa-lemon-o:before {\n  content: \"\\F094\";\n}\n.fa-phone:before {\n  content: \"\\F095\";\n}\n.fa-square-o:before {\n  content: \"\\F096\";\n}\n.fa-bookmark-o:before {\n  content: \"\\F097\";\n}\n.fa-phone-square:before {\n  content: \"\\F098\";\n}\n.fa-twitter:before {\n  content: \"\\F099\";\n}\n.fa-facebook-f:before,\n.fa-facebook:before {\n  content: \"\\F09A\";\n}\n.fa-github:before {\n  content: \"\\F09B\";\n}\n.fa-unlock:before {\n  content: \"\\F09C\";\n}\n.fa-credit-card:before {\n  content: \"\\F09D\";\n}\n.fa-feed:before,\n.fa-rss:before {\n  content: \"\\F09E\";\n}\n.fa-hdd-o:before {\n  content: \"\\F0A0\";\n}\n.fa-bullhorn:before {\n  content: \"\\F0A1\";\n}\n.fa-bell:before {\n  content: \"\\F0F3\";\n}\n.fa-certificate:before {\n  content: \"\\F0A3\";\n}\n.fa-hand-o-right:before {\n  content: \"\\F0A4\";\n}\n.fa-hand-o-left:before {\n  content: \"\\F0A5\";\n}\n.fa-hand-o-up:before {\n  content: \"\\F0A6\";\n}\n.fa-hand-o-down:before {\n  content: \"\\F0A7\";\n}\n.fa-arrow-circle-left:before {\n  content: \"\\F0A8\";\n}\n.fa-arrow-circle-right:before {\n  content: \"\\F0A9\";\n}\n.fa-arrow-circle-up:before {\n  content: \"\\F0AA\";\n}\n.fa-arrow-circle-down:before {\n  content: \"\\F0AB\";\n}\n.fa-globe:before {\n  content: \"\\F0AC\";\n}\n.fa-wrench:before {\n  content: \"\\F0AD\";\n}\n.fa-tasks:before {\n  content: \"\\F0AE\";\n}\n.fa-filter:before {\n  content: \"\\F0B0\";\n}\n.fa-briefcase:before {\n  content: \"\\F0B1\";\n}\n.fa-arrows-alt:before {\n  content: \"\\F0B2\";\n}\n.fa-group:before,\n.fa-users:before {\n  content: \"\\F0C0\";\n}\n.fa-chain:before,\n.fa-link:before {\n  content: \"\\F0C1\";\n}\n.fa-cloud:before {\n  content: \"\\F0C2\";\n}\n.fa-flask:before {\n  content: \"\\F0C3\";\n}\n.fa-cut:before,\n.fa-scissors:before {\n  content: \"\\F0C4\";\n}\n.fa-copy:before,\n.fa-files-o:before {\n  content: \"\\F0C5\";\n}\n.fa-paperclip:before {\n  content: \"\\F0C6\";\n}\n.fa-save:before,\n.fa-floppy-o:before {\n  content: \"\\F0C7\";\n}\n.fa-square:before {\n  content: \"\\F0C8\";\n}\n.fa-navicon:before,\n.fa-reorder:before,\n.fa-bars:before {\n  content: \"\\F0C9\";\n}\n.fa-list-ul:before {\n  content: \"\\F0CA\";\n}\n.fa-list-ol:before {\n  content: \"\\F0CB\";\n}\n.fa-strikethrough:before {\n  content: \"\\F0CC\";\n}\n.fa-underline:before {\n  content: \"\\F0CD\";\n}\n.fa-table:before {\n  content: \"\\F0CE\";\n}\n.fa-magic:before {\n  content: \"\\F0D0\";\n}\n.fa-truck:before {\n  content: \"\\F0D1\";\n}\n.fa-pinterest:before {\n  content: \"\\F0D2\";\n}\n.fa-pinterest-square:before {\n  content: \"\\F0D3\";\n}\n.fa-google-plus-square:before {\n  content: \"\\F0D4\";\n}\n.fa-google-plus:before {\n  content: \"\\F0D5\";\n}\n.fa-money:before {\n  content: \"\\F0D6\";\n}\n.fa-caret-down:before {\n  content: \"\\F0D7\";\n}\n.fa-caret-up:before {\n  content: \"\\F0D8\";\n}\n.fa-caret-left:before {\n  content: \"\\F0D9\";\n}\n.fa-caret-right:before {\n  content: \"\\F0DA\";\n}\n.fa-columns:before {\n  content: \"\\F0DB\";\n}\n.fa-unsorted:before,\n.fa-sort:before {\n  content: \"\\F0DC\";\n}\n.fa-sort-down:before,\n.fa-sort-desc:before {\n  content: \"\\F0DD\";\n}\n.fa-sort-up:before,\n.fa-sort-asc:before {\n  content: \"\\F0DE\";\n}\n.fa-envelope:before {\n  content: \"\\F0E0\";\n}\n.fa-linkedin:before {\n  content: \"\\F0E1\";\n}\n.fa-rotate-left:before,\n.fa-undo:before {\n  content: \"\\F0E2\";\n}\n.fa-legal:before,\n.fa-gavel:before {\n  content: \"\\F0E3\";\n}\n.fa-dashboard:before,\n.fa-tachometer:before {\n  content: \"\\F0E4\";\n}\n.fa-comment-o:before {\n  content: \"\\F0E5\";\n}\n.fa-comments-o:before {\n  content: \"\\F0E6\";\n}\n.fa-flash:before,\n.fa-bolt:before {\n  content: \"\\F0E7\";\n}\n.fa-sitemap:before {\n  content: \"\\F0E8\";\n}\n.fa-umbrella:before {\n  content: \"\\F0E9\";\n}\n.fa-paste:before,\n.fa-clipboard:before {\n  content: \"\\F0EA\";\n}\n.fa-lightbulb-o:before {\n  content: \"\\F0EB\";\n}\n.fa-exchange:before {\n  content: \"\\F0EC\";\n}\n.fa-cloud-download:before {\n  content: \"\\F0ED\";\n}\n.fa-cloud-upload:before {\n  content: \"\\F0EE\";\n}\n.fa-user-md:before {\n  content: \"\\F0F0\";\n}\n.fa-stethoscope:before {\n  content: \"\\F0F1\";\n}\n.fa-suitcase:before {\n  content: \"\\F0F2\";\n}\n.fa-bell-o:before {\n  content: \"\\F0A2\";\n}\n.fa-coffee:before {\n  content: \"\\F0F4\";\n}\n.fa-cutlery:before {\n  content: \"\\F0F5\";\n}\n.fa-file-text-o:before {\n  content: \"\\F0F6\";\n}\n.fa-building-o:before {\n  content: \"\\F0F7\";\n}\n.fa-hospital-o:before {\n  content: \"\\F0F8\";\n}\n.fa-ambulance:before {\n  content: \"\\F0F9\";\n}\n.fa-medkit:before {\n  content: \"\\F0FA\";\n}\n.fa-fighter-jet:before {\n  content: \"\\F0FB\";\n}\n.fa-beer:before {\n  content: \"\\F0FC\";\n}\n.fa-h-square:before {\n  content: \"\\F0FD\";\n}\n.fa-plus-square:before {\n  content: \"\\F0FE\";\n}\n.fa-angle-double-left:before {\n  content: \"\\F100\";\n}\n.fa-angle-double-right:before {\n  content: \"\\F101\";\n}\n.fa-angle-double-up:before {\n  content: \"\\F102\";\n}\n.fa-angle-double-down:before {\n  content: \"\\F103\";\n}\n.fa-angle-left:before {\n  content: \"\\F104\";\n}\n.fa-angle-right:before {\n  content: \"\\F105\";\n}\n.fa-angle-up:before {\n  content: \"\\F106\";\n}\n.fa-angle-down:before {\n  content: \"\\F107\";\n}\n.fa-desktop:before {\n  content: \"\\F108\";\n}\n.fa-laptop:before {\n  content: \"\\F109\";\n}\n.fa-tablet:before {\n  content: \"\\F10A\";\n}\n.fa-mobile-phone:before,\n.fa-mobile:before {\n  content: \"\\F10B\";\n}\n.fa-circle-o:before {\n  content: \"\\F10C\";\n}\n.fa-quote-left:before {\n  content: \"\\F10D\";\n}\n.fa-quote-right:before {\n  content: \"\\F10E\";\n}\n.fa-spinner:before {\n  content: \"\\F110\";\n}\n.fa-circle:before {\n  content: \"\\F111\";\n}\n.fa-mail-reply:before,\n.fa-reply:before {\n  content: \"\\F112\";\n}\n.fa-github-alt:before {\n  content: \"\\F113\";\n}\n.fa-folder-o:before {\n  content: \"\\F114\";\n}\n.fa-folder-open-o:before {\n  content: \"\\F115\";\n}\n.fa-smile-o:before {\n  content: \"\\F118\";\n}\n.fa-frown-o:before {\n  content: \"\\F119\";\n}\n.fa-meh-o:before {\n  content: \"\\F11A\";\n}\n.fa-gamepad:before {\n  content: \"\\F11B\";\n}\n.fa-keyboard-o:before {\n  content: \"\\F11C\";\n}\n.fa-flag-o:before {\n  content: \"\\F11D\";\n}\n.fa-flag-checkered:before {\n  content: \"\\F11E\";\n}\n.fa-terminal:before {\n  content: \"\\F120\";\n}\n.fa-code:before {\n  content: \"\\F121\";\n}\n.fa-mail-reply-all:before,\n.fa-reply-all:before {\n  content: \"\\F122\";\n}\n.fa-star-half-empty:before,\n.fa-star-half-full:before,\n.fa-star-half-o:before {\n  content: \"\\F123\";\n}\n.fa-location-arrow:before {\n  content: \"\\F124\";\n}\n.fa-crop:before {\n  content: \"\\F125\";\n}\n.fa-code-fork:before {\n  content: \"\\F126\";\n}\n.fa-unlink:before,\n.fa-chain-broken:before {\n  content: \"\\F127\";\n}\n.fa-question:before {\n  content: \"\\F128\";\n}\n.fa-info:before {\n  content: \"\\F129\";\n}\n.fa-exclamation:before {\n  content: \"\\F12A\";\n}\n.fa-superscript:before {\n  content: \"\\F12B\";\n}\n.fa-subscript:before {\n  content: \"\\F12C\";\n}\n.fa-eraser:before {\n  content: \"\\F12D\";\n}\n.fa-puzzle-piece:before {\n  content: \"\\F12E\";\n}\n.fa-microphone:before {\n  content: \"\\F130\";\n}\n.fa-microphone-slash:before {\n  content: \"\\F131\";\n}\n.fa-shield:before {\n  content: \"\\F132\";\n}\n.fa-calendar-o:before {\n  content: \"\\F133\";\n}\n.fa-fire-extinguisher:before {\n  content: \"\\F134\";\n}\n.fa-rocket:before {\n  content: \"\\F135\";\n}\n.fa-maxcdn:before {\n  content: \"\\F136\";\n}\n.fa-chevron-circle-left:before {\n  content: \"\\F137\";\n}\n.fa-chevron-circle-right:before {\n  content: \"\\F138\";\n}\n.fa-chevron-circle-up:before {\n  content: \"\\F139\";\n}\n.fa-chevron-circle-down:before {\n  content: \"\\F13A\";\n}\n.fa-html5:before {\n  content: \"\\F13B\";\n}\n.fa-css3:before {\n  content: \"\\F13C\";\n}\n.fa-anchor:before {\n  content: \"\\F13D\";\n}\n.fa-unlock-alt:before {\n  content: \"\\F13E\";\n}\n.fa-bullseye:before {\n  content: \"\\F140\";\n}\n.fa-ellipsis-h:before {\n  content: \"\\F141\";\n}\n.fa-ellipsis-v:before {\n  content: \"\\F142\";\n}\n.fa-rss-square:before {\n  content: \"\\F143\";\n}\n.fa-play-circle:before {\n  content: \"\\F144\";\n}\n.fa-ticket:before {\n  content: \"\\F145\";\n}\n.fa-minus-square:before {\n  content: \"\\F146\";\n}\n.fa-minus-square-o:before {\n  content: \"\\F147\";\n}\n.fa-level-up:before {\n  content: \"\\F148\";\n}\n.fa-level-down:before {\n  content: \"\\F149\";\n}\n.fa-check-square:before {\n  content: \"\\F14A\";\n}\n.fa-pencil-square:before {\n  content: \"\\F14B\";\n}\n.fa-external-link-square:before {\n  content: \"\\F14C\";\n}\n.fa-share-square:before {\n  content: \"\\F14D\";\n}\n.fa-compass:before {\n  content: \"\\F14E\";\n}\n.fa-toggle-down:before,\n.fa-caret-square-o-down:before {\n  content: \"\\F150\";\n}\n.fa-toggle-up:before,\n.fa-caret-square-o-up:before {\n  content: \"\\F151\";\n}\n.fa-toggle-right:before,\n.fa-caret-square-o-right:before {\n  content: \"\\F152\";\n}\n.fa-euro:before,\n.fa-eur:before {\n  content: \"\\F153\";\n}\n.fa-gbp:before {\n  content: \"\\F154\";\n}\n.fa-dollar:before,\n.fa-usd:before {\n  content: \"\\F155\";\n}\n.fa-rupee:before,\n.fa-inr:before {\n  content: \"\\F156\";\n}\n.fa-cny:before,\n.fa-rmb:before,\n.fa-yen:before,\n.fa-jpy:before {\n  content: \"\\F157\";\n}\n.fa-ruble:before,\n.fa-rouble:before,\n.fa-rub:before {\n  content: \"\\F158\";\n}\n.fa-won:before,\n.fa-krw:before {\n  content: \"\\F159\";\n}\n.fa-bitcoin:before,\n.fa-btc:before {\n  content: \"\\F15A\";\n}\n.fa-file:before {\n  content: \"\\F15B\";\n}\n.fa-file-text:before {\n  content: \"\\F15C\";\n}\n.fa-sort-alpha-asc:before {\n  content: \"\\F15D\";\n}\n.fa-sort-alpha-desc:before {\n  content: \"\\F15E\";\n}\n.fa-sort-amount-asc:before {\n  content: \"\\F160\";\n}\n.fa-sort-amount-desc:before {\n  content: \"\\F161\";\n}\n.fa-sort-numeric-asc:before {\n  content: \"\\F162\";\n}\n.fa-sort-numeric-desc:before {\n  content: \"\\F163\";\n}\n.fa-thumbs-up:before {\n  content: \"\\F164\";\n}\n.fa-thumbs-down:before {\n  content: \"\\F165\";\n}\n.fa-youtube-square:before {\n  content: \"\\F166\";\n}\n.fa-youtube:before {\n  content: \"\\F167\";\n}\n.fa-xing:before {\n  content: \"\\F168\";\n}\n.fa-xing-square:before {\n  content: \"\\F169\";\n}\n.fa-youtube-play:before {\n  content: \"\\F16A\";\n}\n.fa-dropbox:before {\n  content: \"\\F16B\";\n}\n.fa-stack-overflow:before {\n  content: \"\\F16C\";\n}\n.fa-instagram:before {\n  content: \"\\F16D\";\n}\n.fa-flickr:before {\n  content: \"\\F16E\";\n}\n.fa-adn:before {\n  content: \"\\F170\";\n}\n.fa-bitbucket:before {\n  content: \"\\F171\";\n}\n.fa-bitbucket-square:before {\n  content: \"\\F172\";\n}\n.fa-tumblr:before {\n  content: \"\\F173\";\n}\n.fa-tumblr-square:before {\n  content: \"\\F174\";\n}\n.fa-long-arrow-down:before {\n  content: \"\\F175\";\n}\n.fa-long-arrow-up:before {\n  content: \"\\F176\";\n}\n.fa-long-arrow-left:before {\n  content: \"\\F177\";\n}\n.fa-long-arrow-right:before {\n  content: \"\\F178\";\n}\n.fa-apple:before {\n  content: \"\\F179\";\n}\n.fa-windows:before {\n  content: \"\\F17A\";\n}\n.fa-android:before {\n  content: \"\\F17B\";\n}\n.fa-linux:before {\n  content: \"\\F17C\";\n}\n.fa-dribbble:before {\n  content: \"\\F17D\";\n}\n.fa-skype:before {\n  content: \"\\F17E\";\n}\n.fa-foursquare:before {\n  content: \"\\F180\";\n}\n.fa-trello:before {\n  content: \"\\F181\";\n}\n.fa-female:before {\n  content: \"\\F182\";\n}\n.fa-male:before {\n  content: \"\\F183\";\n}\n.fa-gittip:before,\n.fa-gratipay:before {\n  content: \"\\F184\";\n}\n.fa-sun-o:before {\n  content: \"\\F185\";\n}\n.fa-moon-o:before {\n  content: \"\\F186\";\n}\n.fa-archive:before {\n  content: \"\\F187\";\n}\n.fa-bug:before {\n  content: \"\\F188\";\n}\n.fa-vk:before {\n  content: \"\\F189\";\n}\n.fa-weibo:before {\n  content: \"\\F18A\";\n}\n.fa-renren:before {\n  content: \"\\F18B\";\n}\n.fa-pagelines:before {\n  content: \"\\F18C\";\n}\n.fa-stack-exchange:before {\n  content: \"\\F18D\";\n}\n.fa-arrow-circle-o-right:before {\n  content: \"\\F18E\";\n}\n.fa-arrow-circle-o-left:before {\n  content: \"\\F190\";\n}\n.fa-toggle-left:before,\n.fa-caret-square-o-left:before {\n  content: \"\\F191\";\n}\n.fa-dot-circle-o:before {\n  content: \"\\F192\";\n}\n.fa-wheelchair:before {\n  content: \"\\F193\";\n}\n.fa-vimeo-square:before {\n  content: \"\\F194\";\n}\n.fa-turkish-lira:before,\n.fa-try:before {\n  content: \"\\F195\";\n}\n.fa-plus-square-o:before {\n  content: \"\\F196\";\n}\n.fa-space-shuttle:before {\n  content: \"\\F197\";\n}\n.fa-slack:before {\n  content: \"\\F198\";\n}\n.fa-envelope-square:before {\n  content: \"\\F199\";\n}\n.fa-wordpress:before {\n  content: \"\\F19A\";\n}\n.fa-openid:before {\n  content: \"\\F19B\";\n}\n.fa-institution:before,\n.fa-bank:before,\n.fa-university:before {\n  content: \"\\F19C\";\n}\n.fa-mortar-board:before,\n.fa-graduation-cap:before {\n  content: \"\\F19D\";\n}\n.fa-yahoo:before {\n  content: \"\\F19E\";\n}\n.fa-google:before {\n  content: \"\\F1A0\";\n}\n.fa-reddit:before {\n  content: \"\\F1A1\";\n}\n.fa-reddit-square:before {\n  content: \"\\F1A2\";\n}\n.fa-stumbleupon-circle:before {\n  content: \"\\F1A3\";\n}\n.fa-stumbleupon:before {\n  content: \"\\F1A4\";\n}\n.fa-delicious:before {\n  content: \"\\F1A5\";\n}\n.fa-digg:before {\n  content: \"\\F1A6\";\n}\n.fa-pied-piper-pp:before {\n  content: \"\\F1A7\";\n}\n.fa-pied-piper-alt:before {\n  content: \"\\F1A8\";\n}\n.fa-drupal:before {\n  content: \"\\F1A9\";\n}\n.fa-joomla:before {\n  content: \"\\F1AA\";\n}\n.fa-language:before {\n  content: \"\\F1AB\";\n}\n.fa-fax:before {\n  content: \"\\F1AC\";\n}\n.fa-building:before {\n  content: \"\\F1AD\";\n}\n.fa-child:before {\n  content: \"\\F1AE\";\n}\n.fa-paw:before {\n  content: \"\\F1B0\";\n}\n.fa-spoon:before {\n  content: \"\\F1B1\";\n}\n.fa-cube:before {\n  content: \"\\F1B2\";\n}\n.fa-cubes:before {\n  content: \"\\F1B3\";\n}\n.fa-behance:before {\n  content: \"\\F1B4\";\n}\n.fa-behance-square:before {\n  content: \"\\F1B5\";\n}\n.fa-steam:before {\n  content: \"\\F1B6\";\n}\n.fa-steam-square:before {\n  content: \"\\F1B7\";\n}\n.fa-recycle:before {\n  content: \"\\F1B8\";\n}\n.fa-automobile:before,\n.fa-car:before {\n  content: \"\\F1B9\";\n}\n.fa-cab:before,\n.fa-taxi:before {\n  content: \"\\F1BA\";\n}\n.fa-tree:before {\n  content: \"\\F1BB\";\n}\n.fa-spotify:before {\n  content: \"\\F1BC\";\n}\n.fa-deviantart:before {\n  content: \"\\F1BD\";\n}\n.fa-soundcloud:before {\n  content: \"\\F1BE\";\n}\n.fa-database:before {\n  content: \"\\F1C0\";\n}\n.fa-file-pdf-o:before {\n  content: \"\\F1C1\";\n}\n.fa-file-word-o:before {\n  content: \"\\F1C2\";\n}\n.fa-file-excel-o:before {\n  content: \"\\F1C3\";\n}\n.fa-file-powerpoint-o:before {\n  content: \"\\F1C4\";\n}\n.fa-file-photo-o:before,\n.fa-file-picture-o:before,\n.fa-file-image-o:before {\n  content: \"\\F1C5\";\n}\n.fa-file-zip-o:before,\n.fa-file-archive-o:before {\n  content: \"\\F1C6\";\n}\n.fa-file-sound-o:before,\n.fa-file-audio-o:before {\n  content: \"\\F1C7\";\n}\n.fa-file-movie-o:before,\n.fa-file-video-o:before {\n  content: \"\\F1C8\";\n}\n.fa-file-code-o:before {\n  content: \"\\F1C9\";\n}\n.fa-vine:before {\n  content: \"\\F1CA\";\n}\n.fa-codepen:before {\n  content: \"\\F1CB\";\n}\n.fa-jsfiddle:before {\n  content: \"\\F1CC\";\n}\n.fa-life-bouy:before,\n.fa-life-buoy:before,\n.fa-life-saver:before,\n.fa-support:before,\n.fa-life-ring:before {\n  content: \"\\F1CD\";\n}\n.fa-circle-o-notch:before {\n  content: \"\\F1CE\";\n}\n.fa-ra:before,\n.fa-resistance:before,\n.fa-rebel:before {\n  content: \"\\F1D0\";\n}\n.fa-ge:before,\n.fa-empire:before {\n  content: \"\\F1D1\";\n}\n.fa-git-square:before {\n  content: \"\\F1D2\";\n}\n.fa-git:before {\n  content: \"\\F1D3\";\n}\n.fa-y-combinator-square:before,\n.fa-yc-square:before,\n.fa-hacker-news:before {\n  content: \"\\F1D4\";\n}\n.fa-tencent-weibo:before {\n  content: \"\\F1D5\";\n}\n.fa-qq:before {\n  content: \"\\F1D6\";\n}\n.fa-wechat:before,\n.fa-weixin:before {\n  content: \"\\F1D7\";\n}\n.fa-send:before,\n.fa-paper-plane:before {\n  content: \"\\F1D8\";\n}\n.fa-send-o:before,\n.fa-paper-plane-o:before {\n  content: \"\\F1D9\";\n}\n.fa-history:before {\n  content: \"\\F1DA\";\n}\n.fa-circle-thin:before {\n  content: \"\\F1DB\";\n}\n.fa-header:before {\n  content: \"\\F1DC\";\n}\n.fa-paragraph:before {\n  content: \"\\F1DD\";\n}\n.fa-sliders:before {\n  content: \"\\F1DE\";\n}\n.fa-share-alt:before {\n  content: \"\\F1E0\";\n}\n.fa-share-alt-square:before {\n  content: \"\\F1E1\";\n}\n.fa-bomb:before {\n  content: \"\\F1E2\";\n}\n.fa-soccer-ball-o:before,\n.fa-futbol-o:before {\n  content: \"\\F1E3\";\n}\n.fa-tty:before {\n  content: \"\\F1E4\";\n}\n.fa-binoculars:before {\n  content: \"\\F1E5\";\n}\n.fa-plug:before {\n  content: \"\\F1E6\";\n}\n.fa-slideshare:before {\n  content: \"\\F1E7\";\n}\n.fa-twitch:before {\n  content: \"\\F1E8\";\n}\n.fa-yelp:before {\n  content: \"\\F1E9\";\n}\n.fa-newspaper-o:before {\n  content: \"\\F1EA\";\n}\n.fa-wifi:before {\n  content: \"\\F1EB\";\n}\n.fa-calculator:before {\n  content: \"\\F1EC\";\n}\n.fa-paypal:before {\n  content: \"\\F1ED\";\n}\n.fa-google-wallet:before {\n  content: \"\\F1EE\";\n}\n.fa-cc-visa:before {\n  content: \"\\F1F0\";\n}\n.fa-cc-mastercard:before {\n  content: \"\\F1F1\";\n}\n.fa-cc-discover:before {\n  content: \"\\F1F2\";\n}\n.fa-cc-amex:before {\n  content: \"\\F1F3\";\n}\n.fa-cc-paypal:before {\n  content: \"\\F1F4\";\n}\n.fa-cc-stripe:before {\n  content: \"\\F1F5\";\n}\n.fa-bell-slash:before {\n  content: \"\\F1F6\";\n}\n.fa-bell-slash-o:before {\n  content: \"\\F1F7\";\n}\n.fa-trash:before {\n  content: \"\\F1F8\";\n}\n.fa-copyright:before {\n  content: \"\\F1F9\";\n}\n.fa-at:before {\n  content: \"\\F1FA\";\n}\n.fa-eyedropper:before {\n  content: \"\\F1FB\";\n}\n.fa-paint-brush:before {\n  content: \"\\F1FC\";\n}\n.fa-birthday-cake:before {\n  content: \"\\F1FD\";\n}\n.fa-area-chart:before {\n  content: \"\\F1FE\";\n}\n.fa-pie-chart:before {\n  content: \"\\F200\";\n}\n.fa-line-chart:before {\n  content: \"\\F201\";\n}\n.fa-lastfm:before {\n  content: \"\\F202\";\n}\n.fa-lastfm-square:before {\n  content: \"\\F203\";\n}\n.fa-toggle-off:before {\n  content: \"\\F204\";\n}\n.fa-toggle-on:before {\n  content: \"\\F205\";\n}\n.fa-bicycle:before {\n  content: \"\\F206\";\n}\n.fa-bus:before {\n  content: \"\\F207\";\n}\n.fa-ioxhost:before {\n  content: \"\\F208\";\n}\n.fa-angellist:before {\n  content: \"\\F209\";\n}\n.fa-cc:before {\n  content: \"\\F20A\";\n}\n.fa-shekel:before,\n.fa-sheqel:before,\n.fa-ils:before {\n  content: \"\\F20B\";\n}\n.fa-meanpath:before {\n  content: \"\\F20C\";\n}\n.fa-buysellads:before {\n  content: \"\\F20D\";\n}\n.fa-connectdevelop:before {\n  content: \"\\F20E\";\n}\n.fa-dashcube:before {\n  content: \"\\F210\";\n}\n.fa-forumbee:before {\n  content: \"\\F211\";\n}\n.fa-leanpub:before {\n  content: \"\\F212\";\n}\n.fa-sellsy:before {\n  content: \"\\F213\";\n}\n.fa-shirtsinbulk:before {\n  content: \"\\F214\";\n}\n.fa-simplybuilt:before {\n  content: \"\\F215\";\n}\n.fa-skyatlas:before {\n  content: \"\\F216\";\n}\n.fa-cart-plus:before {\n  content: \"\\F217\";\n}\n.fa-cart-arrow-down:before {\n  content: \"\\F218\";\n}\n.fa-diamond:before {\n  content: \"\\F219\";\n}\n.fa-ship:before {\n  content: \"\\F21A\";\n}\n.fa-user-secret:before {\n  content: \"\\F21B\";\n}\n.fa-motorcycle:before {\n  content: \"\\F21C\";\n}\n.fa-street-view:before {\n  content: \"\\F21D\";\n}\n.fa-heartbeat:before {\n  content: \"\\F21E\";\n}\n.fa-venus:before {\n  content: \"\\F221\";\n}\n.fa-mars:before {\n  content: \"\\F222\";\n}\n.fa-mercury:before {\n  content: \"\\F223\";\n}\n.fa-intersex:before,\n.fa-transgender:before {\n  content: \"\\F224\";\n}\n.fa-transgender-alt:before {\n  content: \"\\F225\";\n}\n.fa-venus-double:before {\n  content: \"\\F226\";\n}\n.fa-mars-double:before {\n  content: \"\\F227\";\n}\n.fa-venus-mars:before {\n  content: \"\\F228\";\n}\n.fa-mars-stroke:before {\n  content: \"\\F229\";\n}\n.fa-mars-stroke-v:before {\n  content: \"\\F22A\";\n}\n.fa-mars-stroke-h:before {\n  content: \"\\F22B\";\n}\n.fa-neuter:before {\n  content: \"\\F22C\";\n}\n.fa-genderless:before {\n  content: \"\\F22D\";\n}\n.fa-facebook-official:before {\n  content: \"\\F230\";\n}\n.fa-pinterest-p:before {\n  content: \"\\F231\";\n}\n.fa-whatsapp:before {\n  content: \"\\F232\";\n}\n.fa-server:before {\n  content: \"\\F233\";\n}\n.fa-user-plus:before {\n  content: \"\\F234\";\n}\n.fa-user-times:before {\n  content: \"\\F235\";\n}\n.fa-hotel:before,\n.fa-bed:before {\n  content: \"\\F236\";\n}\n.fa-viacoin:before {\n  content: \"\\F237\";\n}\n.fa-train:before {\n  content: \"\\F238\";\n}\n.fa-subway:before {\n  content: \"\\F239\";\n}\n.fa-medium:before {\n  content: \"\\F23A\";\n}\n.fa-yc:before,\n.fa-y-combinator:before {\n  content: \"\\F23B\";\n}\n.fa-optin-monster:before {\n  content: \"\\F23C\";\n}\n.fa-opencart:before {\n  content: \"\\F23D\";\n}\n.fa-expeditedssl:before {\n  content: \"\\F23E\";\n}\n.fa-battery-4:before,\n.fa-battery-full:before {\n  content: \"\\F240\";\n}\n.fa-battery-3:before,\n.fa-battery-three-quarters:before {\n  content: \"\\F241\";\n}\n.fa-battery-2:before,\n.fa-battery-half:before {\n  content: \"\\F242\";\n}\n.fa-battery-1:before,\n.fa-battery-quarter:before {\n  content: \"\\F243\";\n}\n.fa-battery-0:before,\n.fa-battery-empty:before {\n  content: \"\\F244\";\n}\n.fa-mouse-pointer:before {\n  content: \"\\F245\";\n}\n.fa-i-cursor:before {\n  content: \"\\F246\";\n}\n.fa-object-group:before {\n  content: \"\\F247\";\n}\n.fa-object-ungroup:before {\n  content: \"\\F248\";\n}\n.fa-sticky-note:before {\n  content: \"\\F249\";\n}\n.fa-sticky-note-o:before {\n  content: \"\\F24A\";\n}\n.fa-cc-jcb:before {\n  content: \"\\F24B\";\n}\n.fa-cc-diners-club:before {\n  content: \"\\F24C\";\n}\n.fa-clone:before {\n  content: \"\\F24D\";\n}\n.fa-balance-scale:before {\n  content: \"\\F24E\";\n}\n.fa-hourglass-o:before {\n  content: \"\\F250\";\n}\n.fa-hourglass-1:before,\n.fa-hourglass-start:before {\n  content: \"\\F251\";\n}\n.fa-hourglass-2:before,\n.fa-hourglass-half:before {\n  content: \"\\F252\";\n}\n.fa-hourglass-3:before,\n.fa-hourglass-end:before {\n  content: \"\\F253\";\n}\n.fa-hourglass:before {\n  content: \"\\F254\";\n}\n.fa-hand-grab-o:before,\n.fa-hand-rock-o:before {\n  content: \"\\F255\";\n}\n.fa-hand-stop-o:before,\n.fa-hand-paper-o:before {\n  content: \"\\F256\";\n}\n.fa-hand-scissors-o:before {\n  content: \"\\F257\";\n}\n.fa-hand-lizard-o:before {\n  content: \"\\F258\";\n}\n.fa-hand-spock-o:before {\n  content: \"\\F259\";\n}\n.fa-hand-pointer-o:before {\n  content: \"\\F25A\";\n}\n.fa-hand-peace-o:before {\n  content: \"\\F25B\";\n}\n.fa-trademark:before {\n  content: \"\\F25C\";\n}\n.fa-registered:before {\n  content: \"\\F25D\";\n}\n.fa-creative-commons:before {\n  content: \"\\F25E\";\n}\n.fa-gg:before {\n  content: \"\\F260\";\n}\n.fa-gg-circle:before {\n  content: \"\\F261\";\n}\n.fa-tripadvisor:before {\n  content: \"\\F262\";\n}\n.fa-odnoklassniki:before {\n  content: \"\\F263\";\n}\n.fa-odnoklassniki-square:before {\n  content: \"\\F264\";\n}\n.fa-get-pocket:before {\n  content: \"\\F265\";\n}\n.fa-wikipedia-w:before {\n  content: \"\\F266\";\n}\n.fa-safari:before {\n  content: \"\\F267\";\n}\n.fa-chrome:before {\n  content: \"\\F268\";\n}\n.fa-firefox:before {\n  content: \"\\F269\";\n}\n.fa-opera:before {\n  content: \"\\F26A\";\n}\n.fa-internet-explorer:before {\n  content: \"\\F26B\";\n}\n.fa-tv:before,\n.fa-television:before {\n  content: \"\\F26C\";\n}\n.fa-contao:before {\n  content: \"\\F26D\";\n}\n.fa-500px:before {\n  content: \"\\F26E\";\n}\n.fa-amazon:before {\n  content: \"\\F270\";\n}\n.fa-calendar-plus-o:before {\n  content: \"\\F271\";\n}\n.fa-calendar-minus-o:before {\n  content: \"\\F272\";\n}\n.fa-calendar-times-o:before {\n  content: \"\\F273\";\n}\n.fa-calendar-check-o:before {\n  content: \"\\F274\";\n}\n.fa-industry:before {\n  content: \"\\F275\";\n}\n.fa-map-pin:before {\n  content: \"\\F276\";\n}\n.fa-map-signs:before {\n  content: \"\\F277\";\n}\n.fa-map-o:before {\n  content: \"\\F278\";\n}\n.fa-map:before {\n  content: \"\\F279\";\n}\n.fa-commenting:before {\n  content: \"\\F27A\";\n}\n.fa-commenting-o:before {\n  content: \"\\F27B\";\n}\n.fa-houzz:before {\n  content: \"\\F27C\";\n}\n.fa-vimeo:before {\n  content: \"\\F27D\";\n}\n.fa-black-tie:before {\n  content: \"\\F27E\";\n}\n.fa-fonticons:before {\n  content: \"\\F280\";\n}\n.fa-reddit-alien:before {\n  content: \"\\F281\";\n}\n.fa-edge:before {\n  content: \"\\F282\";\n}\n.fa-credit-card-alt:before {\n  content: \"\\F283\";\n}\n.fa-codiepie:before {\n  content: \"\\F284\";\n}\n.fa-modx:before {\n  content: \"\\F285\";\n}\n.fa-fort-awesome:before {\n  content: \"\\F286\";\n}\n.fa-usb:before {\n  content: \"\\F287\";\n}\n.fa-product-hunt:before {\n  content: \"\\F288\";\n}\n.fa-mixcloud:before {\n  content: \"\\F289\";\n}\n.fa-scribd:before {\n  content: \"\\F28A\";\n}\n.fa-pause-circle:before {\n  content: \"\\F28B\";\n}\n.fa-pause-circle-o:before {\n  content: \"\\F28C\";\n}\n.fa-stop-circle:before {\n  content: \"\\F28D\";\n}\n.fa-stop-circle-o:before {\n  content: \"\\F28E\";\n}\n.fa-shopping-bag:before {\n  content: \"\\F290\";\n}\n.fa-shopping-basket:before {\n  content: \"\\F291\";\n}\n.fa-hashtag:before {\n  content: \"\\F292\";\n}\n.fa-bluetooth:before {\n  content: \"\\F293\";\n}\n.fa-bluetooth-b:before {\n  content: \"\\F294\";\n}\n.fa-percent:before {\n  content: \"\\F295\";\n}\n.fa-gitlab:before {\n  content: \"\\F296\";\n}\n.fa-wpbeginner:before {\n  content: \"\\F297\";\n}\n.fa-wpforms:before {\n  content: \"\\F298\";\n}\n.fa-envira:before {\n  content: \"\\F299\";\n}\n.fa-universal-access:before {\n  content: \"\\F29A\";\n}\n.fa-wheelchair-alt:before {\n  content: \"\\F29B\";\n}\n.fa-question-circle-o:before {\n  content: \"\\F29C\";\n}\n.fa-blind:before {\n  content: \"\\F29D\";\n}\n.fa-audio-description:before {\n  content: \"\\F29E\";\n}\n.fa-volume-control-phone:before {\n  content: \"\\F2A0\";\n}\n.fa-braille:before {\n  content: \"\\F2A1\";\n}\n.fa-assistive-listening-systems:before {\n  content: \"\\F2A2\";\n}\n.fa-asl-interpreting:before,\n.fa-american-sign-language-interpreting:before {\n  content: \"\\F2A3\";\n}\n.fa-deafness:before,\n.fa-hard-of-hearing:before,\n.fa-deaf:before {\n  content: \"\\F2A4\";\n}\n.fa-glide:before {\n  content: \"\\F2A5\";\n}\n.fa-glide-g:before {\n  content: \"\\F2A6\";\n}\n.fa-signing:before,\n.fa-sign-language:before {\n  content: \"\\F2A7\";\n}\n.fa-low-vision:before {\n  content: \"\\F2A8\";\n}\n.fa-viadeo:before {\n  content: \"\\F2A9\";\n}\n.fa-viadeo-square:before {\n  content: \"\\F2AA\";\n}\n.fa-snapchat:before {\n  content: \"\\F2AB\";\n}\n.fa-snapchat-ghost:before {\n  content: \"\\F2AC\";\n}\n.fa-snapchat-square:before {\n  content: \"\\F2AD\";\n}\n.fa-pied-piper:before {\n  content: \"\\F2AE\";\n}\n.fa-first-order:before {\n  content: \"\\F2B0\";\n}\n.fa-yoast:before {\n  content: \"\\F2B1\";\n}\n.fa-themeisle:before {\n  content: \"\\F2B2\";\n}\n.fa-google-plus-circle:before,\n.fa-google-plus-official:before {\n  content: \"\\F2B3\";\n}\n.fa-fa:before,\n.fa-font-awesome:before {\n  content: \"\\F2B4\";\n}\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n}\n.sr-only-focusable:active,\n.sr-only-focusable:focus {\n  position: static;\n  width: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  clip: auto;\n}\n.pull-right {\n  float: right;\n}\n.pull-left {\n  float: left;\n}\n.btn {\n  height: 40px;\n  width: 40px;\n  display: inline-block;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 40px;\n  font-size: 16px;\n  cursor: pointer;\n  background: #ddd;\n  font-weight: bold;\n  -webkit-border-radius: 40px;\n  -moz-border-radius: 40px;\n  border-radius: 40px;\n  -moz-background-clip: padding;\n  -webkit-background-clip: padding-box;\n  background-clip: padding-box;\n}\n.btn > i {\n  line-height: 40px;\n}\ntd[id^=\"td_threadtitle_\"] {\n  position: relative;\n}\ntd[id^=\"td_threadtitle_\"] > div > span {\n  margin-right: 50px;\n}\n.btn-view {\n  float: right;\n  margin-top: -33px;\n  background: #ddd;\n  z-index: 1000;\n  font-weight: bold;\n}\n.btn-next-post,\n.btn-prev-post {\n  background: #ddd;\n  height: 30px !important;\n  width: 30px !important;\n  line-height: 33px !important;\n  margin-left: 10px;\n  -webkit-border-radius: 40px;\n  -moz-border-radius: 40px;\n  border-radius: 40px;\n  -moz-background-clip: padding;\n  -webkit-background-clip: padding-box;\n  background-clip: padding-box;\n}\n.btn-next-post > i,\n.btn-prev-post > i {\n  line-height: 30px !important;\n}\n.preview-wrapper {\n  width: 100%;\n  overflow: hidden;\n}\n.preview-wrapper .left-preview {\n  padding: 10px;\n  box-sizing: border-box;\n  background: #E1E4F2;\n}\n.preview-wrapper .left-preview .preview-control {\n  overflow: hidden;\n  padding-bottom: 6px;\n  line-height: 36px;\n  font-size: 11px;\n}\n.preview-wrapper .left-preview .preview-content {\n  min-height: 120px;\n  max-height: 600px;\n  width: 100%;\n  overflow-y: scroll;\n}\n.preview-wrapper .left-preview .preview-content img {\n  max-width: 600px;\n}\n.preview-wrapper .left-preview .preview-content > div > div.smallfont {\n  display: none;\n}\n.preview-wrapper .right-preview {\n  width: 40px;\n}\n.preview-wrapper .right-preview .btn {\n  margin-top: 5px;\n}\nbody > div:not(#voz-living-app),\nbody else > div:not(#voz-living-app) {\n  margin-left: 50px;\n}\nbody .voz-living-side-menu {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 45px;\n  height: 100%;\n  padding: 0 0 0 5px;\n}\nbody .voz-living-side-menu .btn-group {\n  position: relative;\n}\nbody .voz-living-side-menu .btn-group .btn {\n  margin-top: 5px;\n  color: #000 !important;\n}\nbody .voz-living-side-menu .btn-group .btn .badge {\n  position: absolute;\n  color: red;\n  z-index: 1000;\n  background: #E1E4F2;\n  border-radius: 20px;\n  padding: 2px;\n  font-size: 14px;\n  line-height: 14px;\n  right: -3px;\n  top: 2px;\n  min-width: 14px;\n}\nbody .voz-living-side-menu .btn-group .btn-options {\n  position: absolute;\n  top: 5px;\n  left: 50px;\n  width: 400px;\n  padding: 10px;\n  background: #ddd;\n  color: #000;\n  border: 1px solid #ccc;\n}\nbody .voz-living-side-menu .btn-group .btn-options a {\n  cursor: pointer;\n  color: #23497C;\n}\nbody .voz-living-side-menu .btn-group .btn-options h3 {\n  margin: 0 0 5px 0;\n  font-size: 18px;\n  font-weight: bold;\n}\nbody .voz-living-side-menu .btn-group .btn-options > small {\n  color: red;\n}\nbody .voz-living-side-menu .btn-group .btn-options .control-wrapper {\n  line-height: 28px;\n}\nbody .voz-living-side-menu .btn-group .btn-options .control-wrapper input {\n  float: left;\n  margin: 8px 8px 0 0;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-list {\n  max-height: 600px;\n  overflow-y: scroll;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row {\n  border-bottom: 1px solid #ccc;\n  padding: 5px 0;\n  font-size: 12px;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row .quote-title {\n  font-weight: bold;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row .quote-content {\n  margin: 5px 0;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row .quote-bottom {\n  font-weight: bold;\n  font-size: 10px;\n}\nbody .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row:last-child {\n  border-bottom: none;\n}\nbody .voz-living-side-menu .btn-group .btn-options:after,\nbody .voz-living-side-menu .btn-group .btn-options:before {\n  right: 100%;\n  top: 15px;\n  border: solid transparent;\n  content: \" \";\n  height: 0;\n  width: 0;\n  position: absolute;\n  pointer-events: none;\n}\nbody .voz-living-side-menu .btn-group .btn-options:after {\n  border-color: rgba(221, 221, 221, 0);\n  border-right-color: #ddd;\n  border-width: 10px;\n  margin-top: -10px;\n}\nbody .voz-living-side-menu .btn-group .btn-options:before {\n  border-color: rgba(204, 204, 204, 0);\n  border-right-color: #ccc;\n  border-width: 11px;\n  margin-top: -11px;\n}\n", ""]);
 
 	// exports
 
@@ -59171,11 +59227,11 @@
 
 	var _react = __webpack_require__(42);
 
-	var _storeShape = __webpack_require__(441);
+	var _storeShape = __webpack_require__(440);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(442);
+	var _warning = __webpack_require__(441);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -59257,7 +59313,7 @@
 
 	var _react = __webpack_require__(42);
 
-	var _storeShape = __webpack_require__(441);
+	var _storeShape = __webpack_require__(440);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -59269,7 +59325,7 @@
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(442);
+	var _warning = __webpack_require__(441);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -59824,7 +59880,7 @@
 
 	var ReactDOMComponentTree = __webpack_require__(32);
 
-	var focusNode = __webpack_require__(470);
+	var focusNode = __webpack_require__(469);
 
 	var AutoFocusUtils = {
 	  focusDOMComponent: function () {
@@ -59852,7 +59908,7 @@
 	'use strict';
 
 	var EventConstants = __webpack_require__(87);
-	var EventPropagators = __webpack_require__(174);
+	var EventPropagators = __webpack_require__(173);
 	var ExecutionEnvironment = __webpack_require__(40);
 	var FallbackCompositionState = __webpack_require__(533);
 	var SyntheticCompositionEvent = __webpack_require__(577);
@@ -60246,7 +60302,7 @@
 
 	'use strict';
 
-	var CSSProperty = __webpack_require__(443);
+	var CSSProperty = __webpack_require__(442);
 	var ExecutionEnvironment = __webpack_require__(40);
 	var ReactInstrumentation = __webpack_require__(60);
 
@@ -60458,8 +60514,8 @@
 	'use strict';
 
 	var EventConstants = __webpack_require__(87);
-	var EventPluginHub = __webpack_require__(173);
-	var EventPropagators = __webpack_require__(174);
+	var EventPluginHub = __webpack_require__(172);
+	var EventPropagators = __webpack_require__(173);
 	var ExecutionEnvironment = __webpack_require__(40);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var ReactUpdates = __webpack_require__(70);
@@ -60467,7 +60523,7 @@
 
 	var getEventTarget = __webpack_require__(424);
 	var isEventSupported = __webpack_require__(426);
-	var isTextInputElement = __webpack_require__(467);
+	var isTextInputElement = __webpack_require__(466);
 	var keyOf = __webpack_require__(91);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -60874,7 +60930,7 @@
 	'use strict';
 
 	var EventConstants = __webpack_require__(87);
-	var EventPropagators = __webpack_require__(174);
+	var EventPropagators = __webpack_require__(173);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var SyntheticMouseEvent = __webpack_require__(184);
 
@@ -60987,7 +61043,7 @@
 
 	var PooledClass = __webpack_require__(90);
 
-	var getTextContentAccessor = __webpack_require__(465);
+	var getTextContentAccessor = __webpack_require__(464);
 
 	/**
 	 * This helper class stores information about text content of a target node,
@@ -61083,7 +61139,7 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(126);
+	var DOMProperty = __webpack_require__(125);
 
 	var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 	var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -61302,14 +61358,14 @@
 
 	var _assign = __webpack_require__(23);
 
-	var ReactChildren = __webpack_require__(446);
+	var ReactChildren = __webpack_require__(445);
 	var ReactComponent = __webpack_require__(413);
 	var ReactPureComponent = __webpack_require__(567);
-	var ReactClass = __webpack_require__(447);
+	var ReactClass = __webpack_require__(446);
 	var ReactDOMFactories = __webpack_require__(545);
 	var ReactElement = __webpack_require__(68);
-	var ReactPropTypes = __webpack_require__(458);
-	var ReactVersion = __webpack_require__(459);
+	var ReactPropTypes = __webpack_require__(457);
+	var ReactVersion = __webpack_require__(458);
 
 	var onlyChild = __webpack_require__(592);
 	var warning = __webpack_require__(11);
@@ -61319,7 +61375,7 @@
 	var cloneElement = ReactElement.cloneElement;
 
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactElementValidator = __webpack_require__(450);
+	  var ReactElementValidator = __webpack_require__(449);
 	  createElement = ReactElementValidator.createElement;
 	  createFactory = ReactElementValidator.createFactory;
 	  cloneElement = ReactElementValidator.cloneElement;
@@ -61397,7 +61453,7 @@
 
 	var ReactReconciler = __webpack_require__(129);
 
-	var instantiateReactComponent = __webpack_require__(466);
+	var instantiateReactComponent = __webpack_require__(465);
 	var KeyEscapeUtils = __webpack_require__(411);
 	var shouldUpdateReactComponent = __webpack_require__(427);
 	var traverseAllChildren = __webpack_require__(428);
@@ -61657,14 +61713,14 @@
 	var ReactCurrentOwner = __webpack_require__(88);
 	var ReactElement = __webpack_require__(68);
 	var ReactErrorUtils = __webpack_require__(415);
-	var ReactInstanceMap = __webpack_require__(175);
+	var ReactInstanceMap = __webpack_require__(174);
 	var ReactInstrumentation = __webpack_require__(60);
-	var ReactNodeTypes = __webpack_require__(457);
+	var ReactNodeTypes = __webpack_require__(456);
 	var ReactPropTypeLocations = __webpack_require__(183);
 	var ReactReconciler = __webpack_require__(129);
 
-	var checkReactTypeSpec = __webpack_require__(462);
-	var emptyObject = __webpack_require__(178);
+	var checkReactTypeSpec = __webpack_require__(461);
+	var emptyObject = __webpack_require__(177);
 	var invariant = __webpack_require__(10);
 	var shallowEqual = __webpack_require__(430);
 	var shouldUpdateReactComponent = __webpack_require__(427);
@@ -62564,13 +62620,13 @@
 
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var ReactDefaultInjection = __webpack_require__(558);
-	var ReactMount = __webpack_require__(455);
+	var ReactMount = __webpack_require__(454);
 	var ReactReconciler = __webpack_require__(129);
 	var ReactUpdates = __webpack_require__(70);
-	var ReactVersion = __webpack_require__(459);
+	var ReactVersion = __webpack_require__(458);
 
 	var findDOMNode = __webpack_require__(587);
-	var getHostComponentFromComposite = __webpack_require__(464);
+	var getHostComponentFromComposite = __webpack_require__(463);
 	var renderSubtreeIntoContainer = __webpack_require__(594);
 	var warning = __webpack_require__(11);
 
@@ -62714,18 +62770,18 @@
 	var CSSPropertyOperations = __webpack_require__(528);
 	var DOMLazyTree = __webpack_require__(128);
 	var DOMNamespaces = __webpack_require__(409);
-	var DOMProperty = __webpack_require__(126);
-	var DOMPropertyOperations = __webpack_require__(445);
+	var DOMProperty = __webpack_require__(125);
+	var DOMPropertyOperations = __webpack_require__(444);
 	var EventConstants = __webpack_require__(87);
-	var EventPluginHub = __webpack_require__(173);
+	var EventPluginHub = __webpack_require__(172);
 	var EventPluginRegistry = __webpack_require__(181);
 	var ReactBrowserEventEmitter = __webpack_require__(182);
 	var ReactDOMButton = __webpack_require__(541);
-	var ReactDOMComponentFlags = __webpack_require__(448);
+	var ReactDOMComponentFlags = __webpack_require__(447);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var ReactDOMInput = __webpack_require__(548);
 	var ReactDOMOption = __webpack_require__(550);
-	var ReactDOMSelect = __webpack_require__(449);
+	var ReactDOMSelect = __webpack_require__(448);
 	var ReactDOMTextarea = __webpack_require__(553);
 	var ReactInstrumentation = __webpack_require__(60);
 	var ReactMultiChild = __webpack_require__(565);
@@ -63830,7 +63886,7 @@
 	 */
 	var createDOMFactory = ReactElement.createFactory;
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactElementValidator = __webpack_require__(450);
+	  var ReactElementValidator = __webpack_require__(449);
 	  createDOMFactory = ReactElementValidator.createFactory;
 	}
 
@@ -64063,7 +64119,7 @@
 	    _assign = __webpack_require__(23);
 
 	var DisabledInputUtils = __webpack_require__(180);
-	var DOMPropertyOperations = __webpack_require__(445);
+	var DOMPropertyOperations = __webpack_require__(444);
 	var LinkedValueUtils = __webpack_require__(412);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var ReactUpdates = __webpack_require__(70);
@@ -64385,9 +64441,9 @@
 
 	var _assign = __webpack_require__(23);
 
-	var ReactChildren = __webpack_require__(446);
+	var ReactChildren = __webpack_require__(445);
 	var ReactDOMComponentTree = __webpack_require__(32);
-	var ReactDOMSelect = __webpack_require__(449);
+	var ReactDOMSelect = __webpack_require__(448);
 
 	var warning = __webpack_require__(11);
 	var didWarnInvalidOptionChildren = false;
@@ -64515,7 +64571,7 @@
 	var ExecutionEnvironment = __webpack_require__(40);
 
 	var getNodeForCharacterOffset = __webpack_require__(590);
-	var getTextContentAccessor = __webpack_require__(465);
+	var getTextContentAccessor = __webpack_require__(464);
 
 	/**
 	 * While `isCollapsed` is available on the Selection object and `collapsed`
@@ -65202,7 +65258,7 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(126);
+	var DOMProperty = __webpack_require__(125);
 	var EventPluginRegistry = __webpack_require__(181);
 	var ReactComponentTreeHook = __webpack_require__(67);
 
@@ -65630,7 +65686,7 @@
 	var _assign = __webpack_require__(23);
 
 	var ReactUpdates = __webpack_require__(70);
-	var Transaction = __webpack_require__(177);
+	var Transaction = __webpack_require__(176);
 
 	var emptyFunction = __webpack_require__(69);
 
@@ -65789,7 +65845,7 @@
 
 	'use strict';
 
-	var EventPluginHub = __webpack_require__(173);
+	var EventPluginHub = __webpack_require__(172);
 
 	function runEventQueueInBatch(events) {
 	  EventPluginHub.enqueueEvents(events);
@@ -65829,7 +65885,7 @@
 
 	var _assign = __webpack_require__(23);
 
-	var EventListener = __webpack_require__(469);
+	var EventListener = __webpack_require__(468);
 	var ExecutionEnvironment = __webpack_require__(40);
 	var PooledClass = __webpack_require__(90);
 	var ReactDOMComponentTree = __webpack_require__(32);
@@ -66031,14 +66087,14 @@
 
 	'use strict';
 
-	var DOMProperty = __webpack_require__(126);
-	var EventPluginHub = __webpack_require__(173);
+	var DOMProperty = __webpack_require__(125);
+	var EventPluginHub = __webpack_require__(172);
 	var EventPluginUtils = __webpack_require__(410);
 	var ReactComponentEnvironment = __webpack_require__(414);
-	var ReactClass = __webpack_require__(447);
-	var ReactEmptyComponent = __webpack_require__(451);
+	var ReactClass = __webpack_require__(446);
+	var ReactEmptyComponent = __webpack_require__(450);
 	var ReactBrowserEventEmitter = __webpack_require__(182);
-	var ReactHostComponent = __webpack_require__(453);
+	var ReactHostComponent = __webpack_require__(452);
 	var ReactUpdates = __webpack_require__(70);
 
 	var ReactInjection = {
@@ -66172,9 +66228,9 @@
 	var _prodInvariant = __webpack_require__(13);
 
 	var ReactComponentEnvironment = __webpack_require__(414);
-	var ReactInstanceMap = __webpack_require__(175);
+	var ReactInstanceMap = __webpack_require__(174);
 	var ReactInstrumentation = __webpack_require__(60);
-	var ReactMultiChildUpdateTypes = __webpack_require__(456);
+	var ReactMultiChildUpdateTypes = __webpack_require__(455);
 
 	var ReactCurrentOwner = __webpack_require__(88);
 	var ReactReconciler = __webpack_require__(129);
@@ -66731,7 +66787,7 @@
 	var ReactComponent = __webpack_require__(413);
 	var ReactNoopUpdateQueue = __webpack_require__(416);
 
-	var emptyObject = __webpack_require__(178);
+	var emptyObject = __webpack_require__(177);
 
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -66775,12 +66831,12 @@
 
 	var _assign = __webpack_require__(23);
 
-	var CallbackQueue = __webpack_require__(444);
+	var CallbackQueue = __webpack_require__(443);
 	var PooledClass = __webpack_require__(90);
 	var ReactBrowserEventEmitter = __webpack_require__(182);
-	var ReactInputSelection = __webpack_require__(454);
+	var ReactInputSelection = __webpack_require__(453);
 	var ReactInstrumentation = __webpack_require__(60);
-	var Transaction = __webpack_require__(177);
+	var Transaction = __webpack_require__(176);
 	var ReactUpdateQueue = __webpack_require__(419);
 
 	/**
@@ -67045,7 +67101,7 @@
 	var _assign = __webpack_require__(23);
 
 	var PooledClass = __webpack_require__(90);
-	var Transaction = __webpack_require__(177);
+	var Transaction = __webpack_require__(176);
 	var ReactInstrumentation = __webpack_require__(60);
 	var ReactServerUpdateQueue = __webpack_require__(571);
 
@@ -67142,7 +67198,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var ReactUpdateQueue = __webpack_require__(419);
-	var Transaction = __webpack_require__(177);
+	var Transaction = __webpack_require__(176);
 	var warning = __webpack_require__(11);
 
 	function warnNoop(publicInstance, callerName) {
@@ -67593,14 +67649,14 @@
 	'use strict';
 
 	var EventConstants = __webpack_require__(87);
-	var EventPropagators = __webpack_require__(174);
+	var EventPropagators = __webpack_require__(173);
 	var ExecutionEnvironment = __webpack_require__(40);
 	var ReactDOMComponentTree = __webpack_require__(32);
-	var ReactInputSelection = __webpack_require__(454);
+	var ReactInputSelection = __webpack_require__(453);
 	var SyntheticEvent = __webpack_require__(89);
 
-	var getActiveElement = __webpack_require__(471);
-	var isTextInputElement = __webpack_require__(467);
+	var getActiveElement = __webpack_require__(470);
+	var isTextInputElement = __webpack_require__(466);
 	var keyOf = __webpack_require__(91);
 	var shallowEqual = __webpack_require__(430);
 
@@ -67796,8 +67852,8 @@
 	var _prodInvariant = __webpack_require__(13);
 
 	var EventConstants = __webpack_require__(87);
-	var EventListener = __webpack_require__(469);
-	var EventPropagators = __webpack_require__(174);
+	var EventListener = __webpack_require__(468);
+	var EventPropagators = __webpack_require__(173);
 	var ReactDOMComponentTree = __webpack_require__(32);
 	var SyntheticAnimationEvent = __webpack_require__(575);
 	var SyntheticClipboardEvent = __webpack_require__(576);
@@ -67808,7 +67864,7 @@
 	var SyntheticDragEvent = __webpack_require__(578);
 	var SyntheticTouchEvent = __webpack_require__(582);
 	var SyntheticTransitionEvent = __webpack_require__(583);
-	var SyntheticUIEvent = __webpack_require__(176);
+	var SyntheticUIEvent = __webpack_require__(175);
 	var SyntheticWheelEvent = __webpack_require__(584);
 
 	var emptyFunction = __webpack_require__(69);
@@ -68603,7 +68659,7 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(176);
+	var SyntheticUIEvent = __webpack_require__(175);
 
 	/**
 	 * @interface FocusEvent
@@ -68686,7 +68742,7 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(176);
+	var SyntheticUIEvent = __webpack_require__(175);
 
 	var getEventCharCode = __webpack_require__(422);
 	var getEventKey = __webpack_require__(589);
@@ -68775,7 +68831,7 @@
 
 	'use strict';
 
-	var SyntheticUIEvent = __webpack_require__(176);
+	var SyntheticUIEvent = __webpack_require__(175);
 
 	var getEventModifierState = __webpack_require__(423);
 
@@ -68977,7 +69033,7 @@
 
 	'use strict';
 
-	var CSSProperty = __webpack_require__(443);
+	var CSSProperty = __webpack_require__(442);
 	var warning = __webpack_require__(11);
 
 	var isUnitlessNumber = CSSProperty.isUnitlessNumber;
@@ -69066,9 +69122,9 @@
 
 	var ReactCurrentOwner = __webpack_require__(88);
 	var ReactDOMComponentTree = __webpack_require__(32);
-	var ReactInstanceMap = __webpack_require__(175);
+	var ReactInstanceMap = __webpack_require__(174);
 
-	var getHostComponentFromComposite = __webpack_require__(464);
+	var getHostComponentFromComposite = __webpack_require__(463);
 	var invariant = __webpack_require__(10);
 	var warning = __webpack_require__(11);
 
@@ -69577,7 +69633,7 @@
 
 	'use strict';
 
-	var ReactMount = __webpack_require__(455);
+	var ReactMount = __webpack_require__(454);
 
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
@@ -70618,7 +70674,7 @@
 	 * Available under MIT license <https://lodash.com/license>
 	 */
 	var baseFor = __webpack_require__(613),
-	    isArguments = __webpack_require__(472),
+	    isArguments = __webpack_require__(471),
 	    keysIn = __webpack_require__(614);
 
 	/** `Object#toString` result references. */
@@ -70780,7 +70836,7 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var isArguments = __webpack_require__(472),
+	var isArguments = __webpack_require__(471),
 	    isArray = __webpack_require__(615);
 
 	/** Used to detect unsigned integer values. */
@@ -71132,7 +71188,7 @@
 
 	exports['default'] = applyMiddleware;
 
-	var _compose = __webpack_require__(473);
+	var _compose = __webpack_require__(472);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -71248,13 +71304,13 @@
 	exports.__esModule = true;
 	exports['default'] = combineReducers;
 
-	var _createStore = __webpack_require__(474);
+	var _createStore = __webpack_require__(473);
 
 	var _isPlainObject = __webpack_require__(406);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _warning = __webpack_require__(475);
+	var _warning = __webpack_require__(474);
 
 	var _warning2 = _interopRequireDefault(_warning);
 

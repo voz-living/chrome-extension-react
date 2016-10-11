@@ -1,16 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import {
+  markAllQuoteSeen,
+} from '../actions/voz';
 
 class QuoteList extends Component {
   static propTypes = {
     settings: PropTypes.object,
     dispatch: PropTypes.func,
     quoteList: PropTypes.array,
+    countUnseen: PropTypes.number,
   }
 
   static defaultProps = {
     quoteList: [],
     settings: {},
+    countUnseen: 0,
   }
 
   constructor(comProps) {
@@ -24,8 +29,17 @@ class QuoteList extends Component {
 
   getTime(timeStamp) {
     const date = new Date(timeStamp);
-    return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-
-            ${date.getMonth() + 1}-${date.getFullYear()}`;
+    return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  }
+
+  toggleQuoteList() {
+    const { showQuoteList } = this.state;
+    const { countUnseen } = this.props;
+
+    if (showQuoteList === false && countUnseen !== 0) {
+      this.dispatch(markAllQuoteSeen());
+    }
+    this.setState({ showQuoteList: !showQuoteList });
   }
 
   renderQuote(quote) {
@@ -34,8 +48,10 @@ class QuoteList extends Component {
         <div className="quote-title">{quote.thread.title}</div>
         <div className="quote-content">{quote.post.content}</div>
         <div className="quote-bottom">
-          By <a className="quote-item-author">
-            ({quote.author.username})
+          By <a
+            className="quote-item-author"
+            href={`/member.php?u=${quote.author.userid}`} target="_blank"
+          >({quote.author.username})
           </a> on {this.getTime(quote.post.datetime)}
         </div>
       </div>
@@ -47,20 +63,25 @@ class QuoteList extends Component {
 
     if (!notifyQuote) return null;
 
-    const { quoteList } = this.props;
+    const { quoteList, countUnseen } = this.props;
 
     return (
       <div className="btn-group">
         <div
           className="btn"
-          onClick={() => this.setState({ showQuoteList: !this.state.showQuoteList })}
-        ><i className="fa fa-quote-right"></i></div>
+          onClick={() => this.toggleQuoteList()}
+        >
+          <i className="fa fa-quote-right"></i>
+          <div className="badge">{countUnseen}</div>
+        </div>
         {(() => {
           if (this.state.showQuoteList) {
             return (
               <div className="btn-options">
                 <h3>Quotes</h3>
-                {quoteList.map(quote => this.renderQuote(quote))}
+                <div className="quote-list">
+                  {quoteList.map(quote => this.renderQuote(quote))}
+                </div>
               </div>
             );
           }
@@ -73,7 +94,13 @@ class QuoteList extends Component {
 
 const mapStateToProps = state => {
   const { quoteList, settings } = state.vozLiving;
-  return { quoteList, settings };
+  const countUnseen = quoteList.reduce((r, q) => {
+    let outResult = r;
+    if (q.hasSeen === false) outResult += 1;
+    return outResult;
+  }, 0);
+
+  return { quoteList, settings, countUnseen };
 };
 
 export default connect(mapStateToProps)(QuoteList);

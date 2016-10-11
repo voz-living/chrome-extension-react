@@ -7,6 +7,7 @@ import {
   VOZ_LIVING_GET_THREAD_LIST,
   VOZ_LIVING_CHANGE_OPTION,
   VOZ_LIVING_UDATE_QUOTE_LIST,
+  VOZ_LIVING_SEEN_ALL_QUOTE,
 } from '../constants/actionType';
 
 const initState = {
@@ -38,6 +39,19 @@ const actionsMap = {
       ...state,
       settings: newSettings,
     };
+  },
+  [VOZ_LIVING_SEEN_ALL_QUOTE](state) {
+    const { quoteList } = state;
+    const clone = _.cloneDeep(quoteList);
+
+    clone.forEach(quote => {
+      const outQuote = quote;
+      outQuote.hasSeen = true;
+    });
+
+    setChromeLocalStore({ quotes: clone });
+
+    return { ...state, quoteList: clone };
   },
 };
 

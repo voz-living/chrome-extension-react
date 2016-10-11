@@ -6,6 +6,7 @@ import {
   VOZ_LIVING_GET_THREAD_LIST,
   VOZ_LIVING_CHANGE_OPTION,
   VOZ_LIVING_UDATE_QUOTE_LIST,
+  VOZ_LIVING_SEEN_ALL_QUOTE,
 } from '../constants/actionType';
 
 export const init = (settings, quotes) => ({
@@ -22,6 +23,10 @@ export const changeOption = option => ({
 export const updateQuotes = quotes => ({
   type: VOZ_LIVING_UDATE_QUOTE_LIST,
   quotes,
+});
+
+export const markAllQuoteSeen = () => ({
+  type: VOZ_LIVING_SEEN_ALL_QUOTE,
 });
 
 export const getThreadList = () => {

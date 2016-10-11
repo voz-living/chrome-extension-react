@@ -18,6 +18,20 @@ body{
       .btn{
         margin-top: 5px;
         color: #000 !important;
+
+        .badge{
+          position: absolute;
+          color: red;
+          z-index: 1000;
+          background: #E1E4F2;
+          border-radius: 20px;
+          padding: 2px;
+          font-size: 14px;
+          line-height: 14px;
+          right: -3px;
+          top: 2px;
+          min-width: 14px;
+        }
       }
 
       .btn-options{
@@ -29,8 +43,6 @@ body{
         background: #ddd;
         color: #000;
         border: 1px solid #ccc;
-        max-height: 600px;
-        overflow-y: scroll;
 
         a {
           cursor: pointer;
@@ -55,23 +67,57 @@ body{
           }
         }
 
-        .quote-row{
-          border-bottom: 1px solid #ccc;
-          padding: 5px 0;
-          font-size: 12px;
+        .quote-list{
+          max-height: 600px;
+          overflow-y: scroll;
 
-          .quote-title{
-            font-weight: bold;
-          }
+          .quote-row{
+            border-bottom: 1px solid #ccc;
+            padding: 5px 0;
+            font-size: 12px;
 
-          .quote-content{
-            margin: 5px 0;
-          }
+            .quote-title{
+              font-weight: bold;
+            }
 
-          .quote-bottom{
-            font-weight: bold;
-            font-size: 10px;
+            .quote-content{
+              margin: 5px 0;
+            }
+
+            .quote-bottom{
+              font-weight: bold;
+              font-size: 10px;
+            }
+
+            &:last-child{
+              border-bottom: none;
+            }
           }
+        }
+
+        &:after, &:before {
+        	right: 100%;
+        	top: 15px;
+        	border: solid transparent;
+        	content: " ";
+        	height: 0;
+        	width: 0;
+        	position: absolute;
+        	pointer-events: none;
+        }
+
+        &:after {
+        	border-color: rgba(221, 221, 221, 0);
+        	border-right-color: #ddd;
+        	border-width: 10px;
+        	margin-top: -10px;
+        }
+
+        &:before {
+        	border-color: rgba(204, 204, 204, 0);
+        	border-right-color: #ccc;
+        	border-width: 11px;
+        	margin-top: -11px;
         }
       }
     }
