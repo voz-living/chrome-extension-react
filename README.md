@@ -1,4 +1,4 @@
-# chrome-extension-react
+# VOZLiving chrome-extension-react
 Another VOZ extension using
 - webpack
 - react/redux
