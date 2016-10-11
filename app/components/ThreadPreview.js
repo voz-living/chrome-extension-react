@@ -117,8 +117,8 @@ class ThreadPreview extends Component {
 
   closeThreadPreview() {
     Mousetrap.unbind('right');
-    Mousetrap.bind('left');
-    Mousetrap.bind('esc');
+    Mousetrap.unbind('left');
+    Mousetrap.unbind('esc');
     this.setState({ show: false });
   }
 
