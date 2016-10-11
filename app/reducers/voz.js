@@ -12,13 +12,13 @@ import {
 const initState = {
   settings: {},
   threadList: [],
-  quotes: [],
+  quoteList: [],
 };
 
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
-    const { settings } = action;
-    return { ...state, settings };
+    const { settings, quotes } = action;
+    return { ...state, settings, quoteList: quotes };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {
     const { threadList } = action;
@@ -26,13 +26,13 @@ const actionsMap = {
   },
   [VOZ_LIVING_UDATE_QUOTE_LIST](state, action) {
     const { quotes } = action;
-    return { ...state, quotes };
+    return { ...state, quoteList: quotes };
   },
   [VOZ_LIVING_CHANGE_OPTION](state, action) {
     const { settings } = state;
     const newSettings = { ...settings, [action.option]: !settings[action.option] };
 
-    setChromeLocalStore(newSettings);
+    setChromeLocalStore({ settings: newSettings });
 
     return {
       ...state,

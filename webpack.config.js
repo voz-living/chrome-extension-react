@@ -21,8 +21,13 @@ module.exports = {
         loader: 'style-loader!css-loader!less-loader',
       },
       {
-        test: /\.(eot|woff|woff2|ttf|svg|png|jpg)(\?.*$|$)/,
-        loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'},
+        test: /\.(eot|woff|woff2|ttf)(\?.*$|$)/,
+        loader: 'base64-font-loader'
+      },
+      {
+        test: /\.(svg|png|jpg)(\?.*$|$)/,
+        loader: 'url-loader?limit=30000&name=./assert/[name].[ext]'
+      },
       {
         test: /\.jsx$|\.js$|\.es6$/,
         exclude: /node_modules/,

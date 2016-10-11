@@ -55,10 +55,7 @@ class ThreadListControl extends Component {
 
 const mapStateToProps = state => {
   const { threadList } = state.vozLiving;
-
-  return {
-    threadList,
-  };
+  return { threadList };
 };
 
 export default connect(mapStateToProps)(ThreadListControl);

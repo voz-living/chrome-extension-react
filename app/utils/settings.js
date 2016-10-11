@@ -1,18 +1,21 @@
 import _ from 'lodash';
 
-const defaultSettings = {
-  wideScreen: true,
-  threadPreview: true,
-  adsRemove: true,
-  linkHelper: true,
-  notifyQuote: true,
+const defaultStoreStructure = {
+  settings: {
+    wideScreen: true,
+    threadPreview: true,
+    adsRemove: true,
+    linkHelper: true,
+    notifyQuote: true,
+    delay: 60000,
+  },
   authInfo: {},
   quotes: [],
 };
 
-export default defaultSettings;
+export default defaultStoreStructure;
 
-const defaultSettingKeys = _.keys(defaultSettings);
+const defaultSettingKeys = _.keys(defaultStoreStructure);
 
 /* eslint-disable no-undef */
 export const getChromeLocalStore = (keys = defaultSettingKeys) => (
@@ -25,14 +28,14 @@ export const getChromeLocalStore = (keys = defaultSettingKeys) => (
           outKeys = [outKeys];
         }
         outKeys.forEach(key => {
-          result[key] = defaultSettings[key];
+          result[key] = defaultStoreStructure[key];
         });
         resolve(result);
       } else {
         const result = items;
         keys.forEach(key => {
           if (_.isUndefined(result[key])) {
-            result[key] = defaultSettings[key];
+            result[key] = defaultStoreStructure[key];
           }
         });
         resolve(result);

@@ -49,11 +49,12 @@ class SettingOptions extends Component {
         <div
           className="btn"
           onClick={() => this.setState({ showConfig: !this.state.showConfig })}
-        >Config</div>
+        ><i className="fa fa-cogs"></i></div>
         {(() => {
           if (this.state.showConfig) {
             return (
               <div className="btn-options">
+                <h3>Settings</h3>
                 <small>Note: You need to refresh browser to apply settings</small>
                 {configSideMenu.map(config => this.renderConfig(config))}
               </div>

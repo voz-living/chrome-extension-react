@@ -1,3 +1,5 @@
+@linkColor: #23497C;
+
 body{
   >div:not(#voz-living-app), else>div:not(#voz-living-app){
     margin-left: 50px;
@@ -22,17 +24,53 @@ body{
         position: absolute;
         top: 5px;
         left: 50px;
-        width: 300px;
-        padding: 10px 20px;
+        width: 400px;
+        padding: 10px;
         background: #ddd;
         color: #000;
         border: 1px solid #ccc;
+        max-height: 600px;
+        overflow-y: scroll;
+
+        a {
+          cursor: pointer;
+          color: @linkColor;
+        }
+
+        h3 {
+          margin: 0 0 5px 0;
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        > small{
+          color: red;
+        }
 
         .control-wrapper{
           line-height: 28px;
           input{
             float: left;
             margin: 8px 8px 0 0;
+          }
+        }
+
+        .quote-row{
+          border-bottom: 1px solid #ccc;
+          padding: 5px 0;
+          font-size: 12px;
+
+          .quote-title{
+            font-weight: bold;
+          }
+
+          .quote-content{
+            margin: 5px 0;
+          }
+
+          .quote-bottom{
+            font-weight: bold;
+            font-size: 10px;
           }
         }
       }

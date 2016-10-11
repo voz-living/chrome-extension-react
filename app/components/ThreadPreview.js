@@ -203,11 +203,11 @@ class ThreadPreview extends Component {
             <div
               className="btn pull-right btn-next-post"
               onClick={this.nextPost}
-            >▶</div>
+            ><i className="fa fa-arrow-right"></i></div>
             <div
               className="btn pull-right btn-prev-post"
               onClick={this.prevPost}
-            >◀</div>
+            ><i className="fa fa-arrow-left"></i></div>
             <div className="pull-right">
               Current Post: {(currentPageIndex * 10) + currentPostIndex + 1}
             </div>
@@ -220,15 +220,15 @@ class ThreadPreview extends Component {
           <div
             className="btn"
             onClick={this.openNewTab}
-          >Open</div>
+          ><i className="fa fa-share"></i></div>
           <div
             className="btn"
             onClick={this.viewFirstPost}
-          >First</div>
+          ><i className="fa fa-fast-backward"></i></div>
           <div
             className="btn"
             onClick={this.viewLastPost}
-          >Last</div>
+          ><i className="fa fa-fast-forward"></i></div>
         </div>
       </div>
     );
@@ -236,11 +236,11 @@ class ThreadPreview extends Component {
 
   render() {
     const { show } = this.state;
-    let text = 'View';
+    let buttonIcon = <i className="fa fa-angle-double-down"></i>;
     let className = 'btn btn-view';
 
     if (show) {
-      text = 'Close';
+      buttonIcon = <i className="fa fa-angle-double-up"></i>;
       className += ' active';
     }
 
@@ -249,7 +249,7 @@ class ThreadPreview extends Component {
         <div
           className={className}
           onClick={() => this.toggleThreadPreview()}
-        >{text}</div>
+        >{buttonIcon}</div>
         {this.renderThreadContent()}
       </div>
     );

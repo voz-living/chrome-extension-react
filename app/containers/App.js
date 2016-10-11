@@ -43,23 +43,22 @@ class App extends Component {
     // import css here to avoid null head ;(
     require('../styles/index.less'); // eslint-disable-line
 
-    getChromeLocalStore().then(({ quotes, ...settings }) => {
+    getChromeLocalStore(['settings', 'quotes', 'authInfo'])
+    .then(({ quotes, settings, authInfo }) => {
       this.props.dispatch(init(settings, quotes));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
         this.props.dispatch(getThreadList());
       }
 
-      if (_.isEmpty(settings.authInfo) || !_.isEqual(settings.authInfo, this.authInfo)) {
+      if (_.isEmpty(authInfo) || !_.isEqual(authInfo, this.authInfo)) {
         setChromeLocalStore({ authInfo: this.authInfo });
       }
     });
 
     /* eslint-disable no-undef */
     chrome.runtime.onMessage.addListener((request) => {
-      if (request.quotes) {
-        this.dispatch(updateQuotes(request.quotes));
-      }
+      if (request.quotes) this.dispatch(updateQuotes(request.quotes));
     });
     /* eslint-enable no-undef */
   }

@@ -48,7 +48,7 @@ class ReloadButton extends Component {
             className="btn"
             onClick={this.reloadPage}
             style={{ fontSize: '20px' }}
-          >⟳</div>
+          ><i className="fa fa-refresh"></i></div>
         </div>
       );
     }
