@@ -21,8 +21,6 @@ class ThreadPreview extends Component {
       currentPostIndex: null,
       currentPageIndex: null,
       currentHTMLViewPosts: [],
-      firstPageHTML: null,
-      lastPageHTML: null,
       isLoading: false,
     };
   }
@@ -191,7 +189,7 @@ class ThreadPreview extends Component {
   }
 
   renderThreadContent() {
-    const { show, content, currentPostIndex, currentPageIndex } = this.state;
+    const { show, isLoading, content, currentPostIndex, currentPageIndex } = this.state;
 
     if (!show) return null;
 
@@ -213,7 +211,7 @@ class ThreadPreview extends Component {
             </div>
           </div>
           <div className="preview-content">
-            <PostContent html={content} />
+            <PostContent html={content} isLoading={isLoading} />
           </div>
         </div>
         <div className="right-preview pull-right">

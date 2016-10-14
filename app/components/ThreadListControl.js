@@ -17,19 +17,21 @@ class ThreadListControl extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, currentView } = this.props;
 
-    Mousetrap.bind('command+r', event => {
-      event.preventDefault();
+    if (currentView === 'thread-list') {
+      Mousetrap.bind('command+r', event => {
+        event.preventDefault();
 
-      GET(location.href).then(response => { // eslint-disable-line
-        const responseThreadList = $('#threadslist', response);
-        const currentThreadList = $('#threadslist');
-        currentThreadList.replaceWith(responseThreadList);
+        GET(location.href).then(response => { // eslint-disable-line
+          const responseThreadList = $('#threadslist', response);
+          const currentThreadList = $('#threadslist');
+          currentThreadList.replaceWith(responseThreadList);
 
-        dispatch(getThreadList());
+          dispatch(getThreadList());
+        });
       });
-    });
+    }
   }
 
   componentWillReceiveProps(nextProps) {

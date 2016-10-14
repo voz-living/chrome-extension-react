@@ -5,6 +5,7 @@ import AdsControl from '../components/AdsControl';
 import WideScreenControl from '../components/WideScreenControl';
 import ThreadListControl from '../components/ThreadListControl';
 import LinkHelperControl from '../components/LinkHelperControl';
+import ThreadControl from '../components/ThreadControl';
 import SideMenu from './SideMenu';
 import {
   init,
@@ -72,6 +73,7 @@ class App extends Component {
         <WideScreenControl isWideScreen={wideScreen} />
         <LinkHelperControl linkHelper={linkHelper} currentView={this.currentView} />
         <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
+        <ThreadControl currentView={this.currentView} />
         <SideMenu dispatch={this.dispatch} />
       </div>
     );

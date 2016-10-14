@@ -56268,9 +56268,18 @@
 	  _createClass(PostContent, [{
 	    key: 'render',
 	    value: function render() {
-	      var html = this.props.html;
+	      var _props = this.props;
+	      var html = _props.html;
+	      var isLoading = _props.isLoading;
 
 	      if (html === null) return null;
+	      if (isLoading) {
+	        return _react2.default.createElement(
+	          'div',
+	          { style: { textAlign: 'center' } },
+	          _react2.default.createElement('i', { className: 'fa fa-circle-o-notch fa-spin fa-3x fa-fw', 'aria-hidden': 'true' })
+	        );
+	      }
 	      (0, _link.proccessLink)((0, _jquery2.default)('[id^="post_message"]', html), true);
 	      return _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: html.html() } });
 	    }
@@ -56278,7 +56287,8 @@
 
 	  return PostContent;
 	}(_react.Component), _class.propTypes = {
-	  html: _react.PropTypes.any
+	  html: _react.PropTypes.any,
+	  isLoading: _react.PropTypes.bool
 	}, _class.defaultProps = {
 	  html: null
 	}, _temp);
@@ -56835,21 +56845,25 @@
 	  _createClass(ThreadListControl, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var dispatch = this.props.dispatch;
+	      var _props = this.props;
+	      var dispatch = _props.dispatch;
+	      var currentView = _props.currentView;
 
 
-	      _mousetrap2.default.bind('command+r', function (event) {
-	        event.preventDefault();
+	      if (currentView === 'thread-list') {
+	        _mousetrap2.default.bind('command+r', function (event) {
+	          event.preventDefault();
 
-	        (0, _http.GET)(location.href).then(function (response) {
-	          // eslint-disable-line
-	          var responseThreadList = (0, _jquery2.default)('#threadslist', response);
-	          var currentThreadList = (0, _jquery2.default)('#threadslist');
-	          currentThreadList.replaceWith(responseThreadList);
+	          (0, _http.GET)(location.href).then(function (response) {
+	            // eslint-disable-line
+	            var responseThreadList = (0, _jquery2.default)('#threadslist', response);
+	            var currentThreadList = (0, _jquery2.default)('#threadslist');
+	            currentThreadList.replaceWith(responseThreadList);
 
-	          dispatch((0, _voz.getThreadList)());
+	            dispatch((0, _voz.getThreadList)());
+	          });
 	        });
-	      });
+	      }
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -56987,8 +57001,6 @@
 	      currentPostIndex: null,
 	      currentPageIndex: null,
 	      currentHTMLViewPosts: [],
-	      firstPageHTML: null,
-	      lastPageHTML: null,
 	      isLoading: false
 	    };
 	    return _this;
@@ -57206,6 +57218,7 @@
 	    value: function renderThreadContent() {
 	      var _state7 = this.state;
 	      var show = _state7.show;
+	      var isLoading = _state7.isLoading;
 	      var content = _state7.content;
 	      var currentPostIndex = _state7.currentPostIndex;
 	      var currentPageIndex = _state7.currentPageIndex;
@@ -57249,7 +57262,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'preview-content' },
-	            _react2.default.createElement(_PostContent2.default, { html: content })
+	            _react2.default.createElement(_PostContent2.default, { html: content, isLoading: isLoading })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -57465,6 +57478,10 @@
 
 	var _LinkHelperControl2 = _interopRequireDefault(_LinkHelperControl);
 
+	var _ThreadControl = __webpack_require__(643);
+
+	var _ThreadControl2 = _interopRequireDefault(_ThreadControl);
+
 	var _SideMenu = __webpack_require__(487);
 
 	var _SideMenu2 = _interopRequireDefault(_SideMenu);
@@ -57543,6 +57560,7 @@
 	        _react2.default.createElement(_WideScreenControl2.default, { isWideScreen: wideScreen }),
 	        _react2.default.createElement(_LinkHelperControl2.default, { linkHelper: linkHelper, currentView: this.currentView }),
 	        _react2.default.createElement(_ThreadListControl2.default, { dispatch: this.dispatch, currentView: this.currentView }),
+	        _react2.default.createElement(_ThreadControl2.default, { currentView: this.currentView }),
 	        _react2.default.createElement(_SideMenu2.default, { dispatch: this.dispatch })
 	      );
 	    }
@@ -71833,6 +71851,107 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "./assert/fontawesome-webfont.svg";
+
+/***/ },
+/* 626 */,
+/* 627 */,
+/* 628 */,
+/* 629 */,
+/* 630 */,
+/* 631 */,
+/* 632 */,
+/* 633 */,
+/* 634 */,
+/* 635 */,
+/* 636 */,
+/* 637 */,
+/* 638 */,
+/* 639 */,
+/* 640 */,
+/* 641 */,
+/* 642 */,
+/* 643 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
+
+	var _react = __webpack_require__(42);
+
+	var _jquery = __webpack_require__(59);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _mousetrap = __webpack_require__(407);
+
+	var _mousetrap2 = _interopRequireDefault(_mousetrap);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ThreadControl = (_temp = _class = function (_Component) {
+	  _inherits(ThreadControl, _Component);
+
+	  function ThreadControl() {
+	    _classCallCheck(this, ThreadControl);
+
+	    return _possibleConstructorReturn(this, (ThreadControl.__proto__ || Object.getPrototypeOf(ThreadControl)).apply(this, arguments));
+	  }
+
+	  _createClass(ThreadControl, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var currentView = this.props.currentView;
+
+
+	      if (currentView === 'thread') {
+	        _mousetrap2.default.bind('right', function () {
+	          var next = (0, _jquery2.default)('a[rel="next"]');
+	          if (next) {
+	            var href = next.eq(0).attr('href');
+	            window.location.href = href;
+	          }
+	        });
+
+	        _mousetrap2.default.bind('left', function () {
+	          var prev = (0, _jquery2.default)('a[rel="prev"]');
+	          if (prev) {
+	            var href = prev.eq(0).attr('href');
+	            window.location.href = href;
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _mousetrap2.default.unbind('left');
+	      _mousetrap2.default.unbind('right');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return null;
+	    }
+	  }]);
+
+	  return ThreadControl;
+	}(_react.Component), _class.propTypes = {
+	  currentView: _react.PropTypes.string
+	}, _temp);
+	exports.default = ThreadControl;
 
 /***/ }
 /******/ ]);
