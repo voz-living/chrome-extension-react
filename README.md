@@ -31,3 +31,4 @@ TODO Features:
 
 Mics:
 - [ ] Quick add to ignore list
+- [ ] cuộn chuột đến cuối trang thành sang 1 trang mới không cần ấn phím mũi tên (https://vozforums.com/showpost.php?p=101419337&postcount=1128)
