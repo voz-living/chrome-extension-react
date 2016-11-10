@@ -44,9 +44,9 @@ class App extends Component {
     // import css here to avoid null head ;(
     require('../styles/index.less'); // eslint-disable-line
 
-    getChromeLocalStore(['settings', 'quotes', 'authInfo'])
-    .then(({ quotes, settings, authInfo }) => {
-      this.props.dispatch(init(settings, quotes));
+    getChromeLocalStore(['settings', 'quotes', 'authInfo', 'quickLinks'])
+    .then(({ quotes, settings, authInfo, quickLinks }) => {
+      this.props.dispatch(init(settings, quotes, quickLinks));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
         this.props.dispatch(getThreadList());

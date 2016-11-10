@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   setChromeLocalStore,
 } from '../utils/settings';
@@ -8,6 +10,10 @@ import {
   VOZ_LIVING_CHANGE_OPTION,
   VOZ_LIVING_UDATE_QUOTE_LIST,
   VOZ_LIVING_SEEN_ALL_QUOTE,
+  VOZ_LIVING_ADD_QUICK_LINK,
+  VOZ_LIVING_UPDATE_QUICK_LINK,
+  VOZ_LIVING_SAVE_QUICK_LINK,
+  VOZ_LIVING_REMOVE_QUICK_LINK,
 } from '../constants/actionType';
 
 const initState = {
@@ -18,8 +24,8 @@ const initState = {
 
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
-    const { settings, quotes } = action;
-    return { ...state, settings, quoteList: quotes };
+    const { settings, quotes, quickLinks } = action;
+    return { ...state, settings, quoteList: quotes, quickLinks };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {
     const { threadList } = action;
@@ -54,6 +60,41 @@ const actionsMap = {
     setChromeLocalStore({ quotes: clone });
 
     return { ...state, quoteList: clone };
+  },
+  [VOZ_LIVING_ADD_QUICK_LINK](state) {
+    const { quickLinks } = state;
+    const clone = _.cloneDeep(quickLinks);
+
+    clone.push({
+      id: _.uniqueId('voz_living_'),
+      label: '',
+      link: '',
+    });
+
+    return { ...state, quickLinks: clone };
+  },
+  [VOZ_LIVING_UPDATE_QUICK_LINK](state, action) {
+    const { id, key, value } = action;
+    const { quickLinks } = state;
+    const clone = _.cloneDeep(quickLinks);
+    const found = _.find(clone, { id });
+
+    if (found) found[key] = value;
+
+    return { ...state, quickLinks: clone };
+  },
+  [VOZ_LIVING_SAVE_QUICK_LINK](state) {
+    const { quickLinks } = state;
+    setChromeLocalStore({ quickLinks });
+    return { ...state };
+  },
+  [VOZ_LIVING_REMOVE_QUICK_LINK](state, action) {
+    const { id } = action;
+    const { quickLinks } = state;
+    const clone = _.cloneDeep(quickLinks);
+    _.remove(clone, { id });
+    setChromeLocalStore({ quickLinks: clone });
+    return { ...state, quickLinks: clone };
   },
 };
 

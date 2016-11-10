@@ -7,12 +7,17 @@ import {
   VOZ_LIVING_CHANGE_OPTION,
   VOZ_LIVING_UDATE_QUOTE_LIST,
   VOZ_LIVING_SEEN_ALL_QUOTE,
+  VOZ_LIVING_ADD_QUICK_LINK,
+  VOZ_LIVING_UPDATE_QUICK_LINK,
+  VOZ_LIVING_SAVE_QUICK_LINK,
+  VOZ_LIVING_REMOVE_QUICK_LINK,
 } from '../constants/actionType';
 
-export const init = (settings, quotes) => ({
+export const init = (settings, quotes, quickLinks) => ({
   type: VOZ_LIVING_INIT,
   settings,
   quotes,
+  quickLinks,
 });
 
 export const changeOption = (option, value) => ({
@@ -28,6 +33,24 @@ export const updateQuotes = quotes => ({
 
 export const markAllQuoteSeen = () => ({
   type: VOZ_LIVING_SEEN_ALL_QUOTE,
+});
+
+export const addQuickLink = () => ({
+  type: VOZ_LIVING_ADD_QUICK_LINK,
+});
+
+export const updateQuickLink = (id, key, value) => ({
+  type: VOZ_LIVING_UPDATE_QUICK_LINK,
+  id, key, value,
+});
+
+export const saveQuickLink = () => ({
+  type: VOZ_LIVING_SAVE_QUICK_LINK,
+});
+
+export const removeQuickLink = (id) => ({
+  type: VOZ_LIVING_REMOVE_QUICK_LINK,
+  id,
 });
 
 export const getThreadList = () => {

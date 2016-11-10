@@ -11,6 +11,13 @@ const defaultStoreStructure = {
   },
   authInfo: {},
   quotes: [],
+  quickLinks: [
+    {
+      id: 'voz_living_f17',
+      label: 'f17',
+      link: 'https://vozforums.com/forumdisplay.php?f=17',
+    },
+  ],
 };
 
 export default defaultStoreStructure;
