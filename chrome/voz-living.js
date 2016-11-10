@@ -56322,22 +56322,24 @@
 	      var hasSmileBox = (0, _jquery2.default)('.smilebox').length !== 0;
 
 	      if (emotionHelper && !hasSmileBox) {
-	        var smileCont = null;
+	        if (currentView === 'thread' || currentView === 'new-reply') {
+	          var smileCont = null;
 
-	        if (currentView === 'thread') {
-	          this.editor = (0, _jquery2.default)('#vB_Editor_QR_textarea');
-	          smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
-	          if (smileCont.length === 0) return;
-	        } else if (currentView === 'new-reply') {
-	          this.editor = (0, _jquery2.default)('#vB_Editor_001_textarea');
-	          smileCont = (0, _jquery2.default)('#vB_Editor_001_smiliebox');
-	          smileCont.find('table').remove();
+	          if (currentView === 'thread') {
+	            this.editor = (0, _jquery2.default)('#vB_Editor_QR_textarea');
+	            smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
+	            if (smileCont.length === 0) return;
+	          } else if (currentView === 'new-reply') {
+	            this.editor = (0, _jquery2.default)('#vB_Editor_001_textarea');
+	            smileCont = (0, _jquery2.default)('#vB_Editor_001_smiliebox');
+	            smileCont.find('table').remove();
+	          }
+	          var smileBox = document.createElement('div');
+	          smileBox.className = 'smilebox';
+	          smileCont.append(smileBox);
+
+	          (0, _reactDom.render)(_react2.default.createElement(EmotionPicker, { onIconClick: this.onIconClick }), smileBox);
 	        }
-	        var smileBox = document.createElement('div');
-	        smileBox.className = 'smilebox';
-	        smileCont.append(smileBox);
-
-	        (0, _reactDom.render)(_react2.default.createElement(EmotionPicker, { onIconClick: this.onIconClick }), smileBox);
 	      }
 	    }
 	  }, {
