@@ -21,8 +21,7 @@ TODO Features:
 - [x] +   Link detection (then convert to link)
 - [x] +   Embed Youtube Link
 - [x] +   Embed Image Link
-- [ ] Quick Links
-- [ ] Options Page
+- [x] Quick Links
 - [ ] Quick post quotation
 - [ ] Add full emoticon into editor (both advanced and quick reply)
 - [ ] Monitor(Notify) followed threads
