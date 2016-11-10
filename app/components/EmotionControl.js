@@ -38,6 +38,7 @@ class EmotionPicker extends Component {
   }
 }
 
+@autobind
 class EmotionControl extends Component {
   static propTypes = {
     emotionHelper: PropTypes.bool,
