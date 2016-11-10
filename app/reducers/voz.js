@@ -39,6 +39,7 @@ const actionsMap = {
     const { settings } = state;
     const { option, value } = action;
     const newValue = value || !settings[option];
+
     const newSettings = { ...settings, [option]: newValue };
 
     setChromeLocalStore({ settings: newSettings });

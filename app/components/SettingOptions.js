@@ -29,33 +29,32 @@ class SettingOptions extends Component {
 
   renderConfig(config) {
     const { settings } = this.props;
-    const value = settings[config.key];
+    let value = settings[config.key];
+    if (_.isUndefined(value)) value = config.default || false;
 
-    if (!_.isUndefined(value)) {
-      if (config.type === 'bool') {
-        return (
-          <div className="control-wrapper" key={config.key}>
-            <label>{config.name}
-              <input
-                className="control"
-                type="checkbox" checked={value}
-                onChange={() => this.changeConfig(config)}
-              />
-            </label>
-          </div>
-        );
-      } else if (config.type === 'number') {
-        return (
-          <div className="control-wrapper" key={config.key}>
-            <label>{config.name}
-              <input
-                className="control" type="number" value={value}
-                onChange={(event) => this.changeTextConfig(config, event)}
-              />
-            </label>
-          </div>
-        );
-      }
+    if (config.type === 'bool') {
+      return (
+        <div className="control-wrapper" key={config.key}>
+          <label>{config.name}
+            <input
+              className="control"
+              type="checkbox" checked={value}
+              onChange={() => this.changeConfig(config)}
+            />
+          </label>
+        </div>
+      );
+    } else if (config.type === 'number') {
+      return (
+        <div className="control-wrapper" key={config.key}>
+          <label>{config.name}
+            <input
+              className="control" type="number" value={value}
+              onChange={(event) => this.changeTextConfig(config, event)}
+            />
+          </label>
+        </div>
+      );
     }
     return null;
   }

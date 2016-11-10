@@ -51,6 +51,7 @@ class QuickLink extends Component {
         ><i className="fa fa-plus"></i></div>
         {quickLinks.map(qlink => (
           <a
+            key={qlink.id}
             href={qlink.link}
             className="btn"
           >{qlink.label}</a>

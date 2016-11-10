@@ -1,0 +1,39 @@
+.emotion-box{
+  overflow: hidden;
+  max-height: 200px;
+  overflow-y: scroll;
+  padding: 5px 0;
+  min-width: 155px;
+  min-height: 250px;
+  margin-top: 5px;
+
+  div.emo{
+    width: 40px;
+    height: 40px;
+    float: left;
+    padding: 2px;
+    position: relative;
+    border-radius: 2px;
+    transition: all 0.5s;
+    margin-right: 5px;
+    
+    img{
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:hover{
+      background: #fff;
+      
+      img{
+        transform: scale(1.1);
+      }
+    }
+  }
+}

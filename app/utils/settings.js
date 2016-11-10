@@ -7,6 +7,7 @@ const defaultStoreStructure = {
     adsRemove: true,
     linkHelper: true,
     notifyQuote: true,
+    emotionHelper: true,
     delay: 10, // minute
   },
   authInfo: {},
@@ -14,7 +15,7 @@ const defaultStoreStructure = {
   quickLinks: [
     {
       id: 'voz_living_f17',
-      label: 'f17',
+      label: 'F17',
       link: 'https://vozforums.com/forumdisplay.php?f=17',
     },
   ],

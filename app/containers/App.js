@@ -6,6 +6,7 @@ import WideScreenControl from '../components/WideScreenControl';
 import ThreadListControl from '../components/ThreadListControl';
 import LinkHelperControl from '../components/LinkHelperControl';
 import ThreadControl from '../components/ThreadControl';
+import EmotionControl from '../components/EmotionControl';
 import SideMenu from './SideMenu';
 import {
   init,
@@ -65,7 +66,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, linkHelper } = this.props.settings;
+    const { wideScreen, adsRemove, linkHelper, emotionHelper } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -74,6 +75,7 @@ class App extends Component {
         <LinkHelperControl linkHelper={linkHelper} currentView={this.currentView} />
         <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
         <ThreadControl currentView={this.currentView} />
+        <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
         <SideMenu dispatch={this.dispatch} />
       </div>
     );
