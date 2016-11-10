@@ -22,8 +22,8 @@ TODO Features:
 - [x] +   Embed Youtube Link
 - [x] +   Embed Image Link
 - [x] Quick Links
+- [x] Add full emoticon into editor (both advanced and quick reply)
 - [ ] Quick post quotation
-- [ ] Add full emoticon into editor (both advanced and quick reply)
 - [ ] Monitor(Notify) followed threads
 - [ ] Smart quote minification
 - [ ] Facebook Sharing (Post)
