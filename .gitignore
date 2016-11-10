@@ -1,6 +1,4 @@
 node_modules
 .DS_Store
-
 chrome/background.js
-
 chrome/voz-living.js
