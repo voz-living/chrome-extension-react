@@ -68,13 +68,18 @@ class SettingOptions extends Component {
         ><i className="fa fa-cogs"></i></div>
         {(() => {
           if (this.state.showConfig) {
-            return (
-              <div className="btn-options">
+            return [
+              <div
+                key="voz-mask-settings"
+                className="voz-mask setting-mask"
+                onClick={() => this.setState({ showConfig: !this.state.showConfig })}
+              ></div>,
+              <div className="btn-options" key="voz-settings">
                 <h3>Settings</h3>
-                <small>Note: You need to refresh browser to apply settings</small>
+                <small>Note: You need refresh browser to apply settings</small>
                 {configSideMenu.map(config => this.renderConfig(config))}
-              </div>
-            );
+              </div>,
+            ];
           }
           return null;
         })()}

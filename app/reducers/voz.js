@@ -67,7 +67,7 @@ const actionsMap = {
     const clone = _.cloneDeep(quickLinks);
 
     clone.push({
-      id: _.uniqueId('voz_living_'),
+      id: new Date().getTime(),
       label: '',
       link: '',
     });

@@ -29,7 +29,9 @@ class QuoteList extends Component {
 
   getTime(timeStamp) {
     const date = new Date(timeStamp);
+    /* eslint-disable max-len */
     return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    /* eslint-enable max-len */
   }
 
   toggleQuoteList() {
@@ -62,7 +64,7 @@ class QuoteList extends Component {
             className="quote-item-author"
             href={`/member.php?u=${quote.author.userid}`} target="_blank"
           >({quote.author.username})
-          </a> on {this.getTime(quote.post.datetime)}
+          </a> @ {this.getTime(quote.post.datetime)}
         </div>
       </div>
     );
@@ -86,14 +88,19 @@ class QuoteList extends Component {
         </div>
         {(() => {
           if (this.state.showQuoteList) {
-            return (
-              <div className="btn-options">
+            return [
+              <div
+                key="voz-mask-quote-list"
+                className="voz-mask quote-list-mask"
+                onClick={() => this.setState({ showQuoteList: !this.state.showQuoteList })}
+              ></div>,
+              <div className="btn-options" key="quote-list">
                 <h3>Quotes</h3>
                 <div className="quote-list">
                   {quoteList.map(quote => this.renderQuote(quote))}
                 </div>
-              </div>
-            );
+              </div>,
+            ];
           }
           return null;
         })()}
