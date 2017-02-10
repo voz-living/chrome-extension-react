@@ -34936,6 +34936,7 @@
 	    linkHelper: true,
 	    notifyQuote: true,
 	    emotionHelper: true,
+	    minimizeQuote: true,
 	    delay: 10 },
 	  authInfo: {},
 	  quotes: [],
@@ -57431,7 +57432,7 @@
 	          var next = (0, _jquery2.default)('a[rel="next"]');
 	          if (next) {
 	            var href = next.eq(0).attr('href');
-	            window.location.href = href;
+	            if (!_.isUndefined(href)) window.location.href = href;
 	          }
 	        });
 

@@ -15,7 +15,7 @@ class ThreadControl extends Component {
         const next = $('a[rel="next"]');
         if (next) {
           const href = next.eq(0).attr('href');
-          window.location.href = href;
+          if (!_.isUndefined(href)) window.location.href = href;
         }
       });
 

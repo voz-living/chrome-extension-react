@@ -31297,6 +31297,7 @@
 	    linkHelper: true,
 	    notifyQuote: true,
 	    emotionHelper: true,
+	    minimizeQuote: true,
 	    delay: 10 },
 	  authInfo: {},
 	  quotes: [],
