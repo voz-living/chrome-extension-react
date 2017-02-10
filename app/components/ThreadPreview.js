@@ -5,6 +5,7 @@ import { autobind } from 'core-decorators';
 import Mousetrap from 'mousetrap';
 import PostContent from './PostContent';
 
+@autobind
 class ThreadPreview extends Component {
   static propTypes = {
     id: PropTypes.string,
@@ -74,7 +75,6 @@ class ThreadPreview extends Component {
     }
   }
 
-  @autobind
   viewLastPost() {
     const { pageNum } = this.props;
     const { currentPageIndex, currentHTMLViewPosts } = this.state;
@@ -86,7 +86,6 @@ class ThreadPreview extends Component {
     }
   }
 
-  @autobind
   viewFirstPost() {
     const { currentPageIndex, currentHTMLViewPosts } = this.state;
 
@@ -108,7 +107,6 @@ class ThreadPreview extends Component {
     });
   }
 
-  @autobind
   openNewTab() {
     window.open(this.url, '_blank');
   }
@@ -157,7 +155,6 @@ class ThreadPreview extends Component {
     }
   }
 
-  @autobind
   prevPost() {
     const { currentPostIndex, currentPageIndex } = this.state;
 
@@ -172,7 +169,6 @@ class ThreadPreview extends Component {
     }
   }
 
-  @autobind
   nextPost() {
     const { currentPostIndex, currentPageIndex, currentHTMLViewPosts } = this.state;
     const { pageNum } = this.props;

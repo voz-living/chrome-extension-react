@@ -25,7 +25,7 @@ class EmotionPicker extends Component {
     return (
       <div className="emotion-box">
         {emotions.map(emotion => (
-          <div className="emo">
+          <div className="emo" key={emotion.text}>
             <img
               alt={emotion.text}
               src={this.prepareEmotionUrl(emotion.src)}

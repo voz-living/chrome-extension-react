@@ -58,8 +58,13 @@ class QuickLink extends Component {
         ))}
         {(() => {
           if (this.state.showQuickLink) {
-            return (
-              <div className="btn-options">
+            return [
+              <div
+                key="voz-mask-quick-link"
+                className="voz-mask quick-link-mask"
+                onClick={() => this.setState({ showQuickLink: !this.state.showQuickLink })}
+              ></div>,
+              <div className="btn-options" key="quick-link">
                 <h3>Quick Links</h3>
                 <table>
                   <thead>
@@ -93,8 +98,8 @@ class QuickLink extends Component {
                   <button onClick={this.addQuickLink}>Add</button>
                   <button onClick={this.saveQuickLink}>Save</button>
                 </div>
-              </div>
-            );
+              </div>,
+            ];
           }
           return null;
         })()}

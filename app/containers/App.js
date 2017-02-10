@@ -7,6 +7,7 @@ import ThreadListControl from '../components/ThreadListControl';
 import LinkHelperControl from '../components/LinkHelperControl';
 import ThreadControl from '../components/ThreadControl';
 import EmotionControl from '../components/EmotionControl';
+import MinimizeQuoteControl from '../components/MinimizeQuoteControl';
 import SideMenu from './SideMenu';
 import {
   init,
@@ -76,6 +77,7 @@ class App extends Component {
         <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
         <ThreadControl currentView={this.currentView} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
+        <MinimizeQuoteControl isMinimizeQuote currentView={this.currentView} />
         <SideMenu dispatch={this.dispatch} />
       </div>
     );
