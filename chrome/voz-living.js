@@ -58093,6 +58093,11 @@
 	  type: 'bool',
 	  default: true
 	}, {
+	  key: 'minimizeQuote',
+	  name: 'Smart Minimize Quote',
+	  type: 'bool',
+	  default: true
+	}, {
 	  key: 'delay',
 	  name: 'Get quotes delay (minute)',
 	  type: 'number',
@@ -58545,6 +58550,7 @@
 	      var adsRemove = _props$settings.adsRemove;
 	      var linkHelper = _props$settings.linkHelper;
 	      var emotionHelper = _props$settings.emotionHelper;
+	      var minimizeQuote = _props$settings.minimizeQuote;
 
 
 	      return _react2.default.createElement(
@@ -58556,7 +58562,7 @@
 	        _react2.default.createElement(_ThreadListControl2.default, { dispatch: this.dispatch, currentView: this.currentView }),
 	        _react2.default.createElement(_ThreadControl2.default, { currentView: this.currentView }),
 	        _react2.default.createElement(_EmotionControl2.default, { currentView: this.currentView, emotionHelper: emotionHelper }),
-	        _react2.default.createElement(_MinimizeQuoteControl2.default, { isMinimizeQuote: true, currentView: this.currentView }),
+	        _react2.default.createElement(_MinimizeQuoteControl2.default, { isMinimizeQuote: minimizeQuote, currentView: this.currentView }),
 	        _react2.default.createElement(_SideMenu2.default, { dispatch: this.dispatch })
 	      );
 	    }

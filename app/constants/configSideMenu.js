@@ -36,6 +36,12 @@ const config = [
     default: true,
   },
   {
+    key: 'minimizeQuote',
+    name: 'Smart Minimize Quote',
+    type: 'bool',
+    default: true,
+  },
+  {
     key: 'delay',
     name: 'Get quotes delay (minute)',
     type: 'number',

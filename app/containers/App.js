@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, linkHelper, emotionHelper } = this.props.settings;
+    const { wideScreen, adsRemove, linkHelper, emotionHelper, minimizeQuote } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -77,7 +77,7 @@ class App extends Component {
         <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
         <ThreadControl currentView={this.currentView} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
-        <MinimizeQuoteControl isMinimizeQuote currentView={this.currentView} />
+        <MinimizeQuoteControl isMinimizeQuote={minimizeQuote} currentView={this.currentView} />
         <SideMenu dispatch={this.dispatch} />
       </div>
     );
