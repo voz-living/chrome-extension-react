@@ -31,15 +31,15 @@ class PostTracker extends Component {
     if (/\/showthread\.php/.test(location.href)) {
       try {
         const postInfo = postHelper($(document.body));
-        const threadId = postInfo.getThreadId()
+        const threadId = parseInt(postInfo.getThreadId());
         if(threadId === -1) return;
-        const page = postInfo.getPage();
+        const page = parseInt(postInfo.getPage());
         const posts = $("table[id^='post']");
         const that = this;
         posts.bind("inview", _.debounce(function (e, isInView) {
           if (!isInView) return;
           const $this = $(this);
-          const postId = $this.attr("id").match(/(\d+)/)[1];
+          const postId = parseInt($this.attr("id").match(/(\d+)/)[1]);
           const postNum = posts.index($this);
           const post = {
             threadId,

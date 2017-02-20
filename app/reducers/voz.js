@@ -14,6 +14,7 @@ import {
   VOZ_LIVING_UPDATE_QUICK_LINK,
   VOZ_LIVING_SAVE_QUICK_LINK,
   VOZ_LIVING_REMOVE_QUICK_LINK,
+  VOZ_LIVING_UPDATE_POST_TRACKER,
 } from '../constants/actionType';
 
 const initState = {
@@ -24,8 +25,8 @@ const initState = {
 
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
-    const { settings, quotes, quickLinks, followThreads } = action;
-    return { ...state, settings, quoteList: quotes, quickLinks, followThreads };
+    const { settings, quotes, quickLinks, followThreads, threadTracker } = action;
+    return { ...state, settings, quoteList: quotes, quickLinks, followThreads, threadTracker };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {
     const { threadList } = action;
@@ -107,21 +108,25 @@ const actionsMap = {
 
     const isChanged = false;
     const existingThreadTrack = state.threadTracker[threadId];
-    if (_.isUndefined(existingThreadTrack)) {
-      return {
-        ...state,
-        threadTracker: {
-          ...threadTracker,
-          [threadId]: {
-            postId,
-            postNum,
-            page,
-            lastView: new Date().getTime(),
-          }
-        }
+    const lastView = new Date().getTime();
+    const updatingThread = postId > existingThreadTrack.postId ? {
+      postId,
+      postNum,
+      page,
+    } : {
+      ...existingThreadTrack,
+    }
+    const threadTracker = {
+      ...threadTracker,
+      [threadId]: {
+        ...updatingThread,
+        lastView,
       }
-    } else {
-      
+    };
+    setChromeLocalStore({ threadTracker })
+    return {
+      ...state,
+      threadTracker,
     }
   },
 };

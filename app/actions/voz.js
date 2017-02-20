@@ -14,12 +14,13 @@ import {
   VOZ_LIVING_UPDATE_POST_TRACKER,
 } from '../constants/actionType';
 
-export const init = (settings, quotes, quickLinks, followThreads) => ({
+export const init = (settings, quotes, quickLinks, followThreads, threadTracker) => ({
   type: VOZ_LIVING_INIT,
   settings,
   quotes,
   quickLinks,
   followThreads,
+  threadTracker,
 });
 
 export const changeOption = (option, value) => ({
