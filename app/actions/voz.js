@@ -11,6 +11,7 @@ import {
   VOZ_LIVING_UPDATE_QUICK_LINK,
   VOZ_LIVING_SAVE_QUICK_LINK,
   VOZ_LIVING_REMOVE_QUICK_LINK,
+  VOZ_LIVING_UPDATE_POST_TRACKER,
 } from '../constants/actionType';
 
 export const init = (settings, quotes, quickLinks, followThreads) => ({
@@ -52,6 +53,11 @@ export const saveQuickLink = () => ({
 export const removeQuickLink = (id) => ({
   type: VOZ_LIVING_REMOVE_QUICK_LINK,
   id,
+});
+
+export const updatePostTracker = (post) => ({
+  type: VOZ_LIVING_UPDATE_POST_TRACKER,
+  post,
 });
 
 export const getThreadList = () => {

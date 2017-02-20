@@ -8,7 +8,7 @@ class FollowThread extends Component {
   static propTypes = {
     settings: PropTypes.object,
     dispatch: PropTypes.func,
-    threadList: PropTypes.array,
+    threadList: PropTypes.object,
   }
 
   static defaultProps = {

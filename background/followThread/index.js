@@ -7,7 +7,7 @@ import {
   setChromeLocalStore,
 } from '../../app/utils/settings';
 
-import postHelper from './postHelper';
+import postHelper from '../../app/utils/postHelper';
 import getSubscribedThreads from './getSubscribedThreads';
 
 const REQUEST_TIMEOUT = 500;

@@ -97,6 +97,33 @@ const actionsMap = {
     setChromeLocalStore({ quickLinks: clone });
     return { ...state, quickLinks: clone };
   },
+  [VOZ_LIVING_UPDATE_POST_TRACKER](state, action) {
+    const { 
+      threadId,
+      postId,
+      postNum,
+      page,
+    } = action.post;
+
+    const isChanged = false;
+    const existingThreadTrack = state.threadTracker[threadId];
+    if (_.isUndefined(existingThreadTrack)) {
+      return {
+        ...state,
+        threadTracker: {
+          ...threadTracker,
+          [threadId]: {
+            postId,
+            postNum,
+            page,
+            lastView: new Date().getTime(),
+          }
+        }
+      }
+    } else {
+      
+    }
+  },
 };
 
 export default function vozReducer(state = initState, action) {

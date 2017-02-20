@@ -1,7 +1,7 @@
 export default function postHelper($html) {
   return {
     getThreadId: function getThreadId() {
-      const threadId = $html.find("#threadtools_menu a[href*='t=']:eq(0)")
+      const threadId = $html.find("#threadtools_menu a[href*='t=']").eq(0)
                                 .attr('href').match(/t=(\d+)/);
       if (threadId !== null && threadId.length > 0) {
         return threadId[1];

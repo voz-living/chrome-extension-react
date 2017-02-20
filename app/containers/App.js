@@ -9,6 +9,7 @@ import ThreadControl from '../components/ThreadControl';
 import EmotionControl from '../components/EmotionControl';
 import MinimizeQuoteControl from '../components/MinimizeQuoteControl';
 import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
+import PostTracker from '../components/PostTracker';
 import SideMenu from './SideMenu';
 import {
   init,
@@ -75,6 +76,7 @@ class App extends Component {
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreen} />
+        <PostTracker dispatch={this.dispatch} />
         <LinkHelperControl linkHelper={linkHelper} currentView={this.currentView} />
         <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
         <ThreadControl currentView={this.currentView} />
