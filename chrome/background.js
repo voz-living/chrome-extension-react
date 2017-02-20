@@ -48,7 +48,7 @@
 
 	__webpack_require__(191);
 	__webpack_require__(374).default = __webpack_require__(408);
-	__webpack_require__(497);
+	__webpack_require__(498);
 
 /***/ },
 /* 1 */
@@ -1331,9 +1331,7 @@
 	};
 
 /***/ },
-/* 41 */,
-/* 42 */,
-/* 43 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11559,6 +11557,8 @@
 
 
 /***/ },
+/* 42 */,
+/* 43 */,
 /* 44 */
 /***/ function(module, exports) {
 
@@ -12245,10 +12245,7 @@
 	};
 
 /***/ },
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -29150,6 +29147,9 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(434)(module)))
 
 /***/ },
+/* 88 */,
+/* 89 */,
+/* 90 */,
 /* 91 */,
 /* 92 */,
 /* 93 */
@@ -30150,10 +30150,7 @@
 
 /***/ },
 /* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30188,7 +30185,7 @@
 
 	var GET = requestFactory({
 	  method: 'get',
-	  credentials: 'same-origin'
+	  credentials: 'include'
 	});
 
 	var POST = requestFactory({
@@ -30209,6 +30206,9 @@
 	exports.PUT = PUT;
 
 /***/ },
+/* 130 */,
+/* 131 */,
+/* 132 */,
 /* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31273,7 +31273,9 @@
 /* 176 */,
 /* 177 */,
 /* 178 */,
-/* 179 */
+/* 179 */,
+/* 180 */,
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31283,7 +31285,7 @@
 	});
 	exports.setChromeLocalStore = exports.getChromeLocalStore = undefined;
 
-	var _lodash = __webpack_require__(90);
+	var _lodash = __webpack_require__(87);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -31298,6 +31300,7 @@
 	    notifyQuote: true,
 	    emotionHelper: true,
 	    minimizeQuote: true,
+	    quickPostQuotation: true,
 	    delay: 10 },
 	  authInfo: {},
 	  quotes: [],
@@ -31355,8 +31358,6 @@
 	/* eslint-enable no-undef */
 
 /***/ },
-/* 180 */,
-/* 181 */,
 /* 182 */,
 /* 183 */,
 /* 184 */,
@@ -43169,7 +43170,8 @@
 /* 493 */,
 /* 494 */,
 /* 495 */,
-/* 496 */
+/* 496 */,
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43179,7 +43181,7 @@
 	});
 	exports.processQuoteHtml = processQuoteHtml;
 
-	var _jquery = __webpack_require__(43);
+	var _jquery = __webpack_require__(41);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -43248,7 +43250,7 @@
 	}
 
 /***/ },
-/* 497 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43258,7 +43260,7 @@
 	});
 	exports.quoteBackground = undefined;
 
-	var _quote = __webpack_require__(498);
+	var _quote = __webpack_require__(499);
 
 	var _quote2 = _interopRequireDefault(_quote);
 
@@ -43269,7 +43271,7 @@
 	exports.quoteBackground = quoteBackground;
 
 /***/ },
-/* 498 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43280,11 +43282,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _http = __webpack_require__(132);
+	var _http = __webpack_require__(129);
 
-	var _quote = __webpack_require__(496);
+	var _quote = __webpack_require__(497);
 
-	var _settings = __webpack_require__(179);
+	var _settings = __webpack_require__(181);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

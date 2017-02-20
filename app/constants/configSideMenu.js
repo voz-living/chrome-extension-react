@@ -42,6 +42,12 @@ const config = [
     default: true,
   },
   {
+    key: 'quickPostQuotation',
+    name: 'Quick Post Quotation',
+    type: 'bool',
+    default: true,
+  },
+  {
     key: 'delay',
     name: 'Get quotes delay (minute)',
     type: 'number',

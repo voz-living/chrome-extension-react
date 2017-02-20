@@ -9,6 +9,7 @@ const defaultStoreStructure = {
     notifyQuote: true,
     emotionHelper: true,
     minimizeQuote: true,
+    quickPostQuotation: true,
     delay: 10, // minute
   },
   authInfo: {},

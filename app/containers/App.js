@@ -8,6 +8,7 @@ import LinkHelperControl from '../components/LinkHelperControl';
 import ThreadControl from '../components/ThreadControl';
 import EmotionControl from '../components/EmotionControl';
 import MinimizeQuoteControl from '../components/MinimizeQuoteControl';
+import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import SideMenu from './SideMenu';
 import {
   init,
@@ -67,7 +68,8 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, linkHelper, emotionHelper, minimizeQuote } = this.props.settings;
+    const { wideScreen, adsRemove, linkHelper, emotionHelper,
+      minimizeQuote, quickPostQuotation } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -78,6 +80,9 @@ class App extends Component {
         <ThreadControl currentView={this.currentView} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
         <MinimizeQuoteControl isMinimizeQuote={minimizeQuote} currentView={this.currentView} />
+        <QuickPostQuotationControl
+          isQuickPostQuotation={quickPostQuotation} currentView={this.currentView}
+        />
         <SideMenu dispatch={this.dispatch} />
       </div>
     );

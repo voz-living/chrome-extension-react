@@ -15,7 +15,7 @@ function requestFactory(requestOption = {}) {
 
 const GET = requestFactory({
   method: 'get',
-  credentials: 'same-origin',
+  credentials: 'include',
 });
 
 const POST = requestFactory({
