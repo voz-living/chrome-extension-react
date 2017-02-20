@@ -4,6 +4,7 @@ import SettingOptions from '../components/SettingOptions';
 import ReloadButton from '../components/ReloadButton';
 import QuoteList from '../components/QuoteList';
 import QuickLink from '../components/QuickLink';
+import FollowThread from '../components/FollowThread';
 
 class SideMenu extends Component {
   static propTypes = {
@@ -24,6 +25,7 @@ class SideMenu extends Component {
       <div className="voz-living-side-menu">
         <SettingOptions settings={this.props.settings} dispatch={this.dispatch} />
         <QuoteList dispatch={this.dispatch} />
+        <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} />
         <QuickLink dispatch={this.dispatch} />
       </div>
