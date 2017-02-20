@@ -21,6 +21,7 @@ const defaultStoreStructure = {
       link: 'https://vozforums.com/forumdisplay.php?f=17',
     },
   ],
+  followThreads: {},
 };
 
 export default defaultStoreStructure;
