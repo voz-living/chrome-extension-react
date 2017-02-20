@@ -103,8 +103,9 @@ class FollowThread extends Component {
 }
 
 const mapStateToProps = state => {
-  const { threadList, settings } = state.vozLiving;
-  return { threadList, settings };
+  const { followThreads, settings } = state.vozLiving;
+  console.log(followThreads);
+  return { threadList: followThreads, settings };
 };
 
 export default connect(mapStateToProps)(FollowThread);

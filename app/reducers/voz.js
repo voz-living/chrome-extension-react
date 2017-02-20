@@ -24,8 +24,8 @@ const initState = {
 
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
-    const { settings, quotes, quickLinks } = action;
-    return { ...state, settings, quoteList: quotes, quickLinks };
+    const { settings, quotes, quickLinks, followThreads } = action;
+    return { ...state, settings, quoteList: quotes, quickLinks, followThreads };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {
     const { threadList } = action;

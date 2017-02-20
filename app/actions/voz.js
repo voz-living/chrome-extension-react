@@ -13,11 +13,12 @@ import {
   VOZ_LIVING_REMOVE_QUICK_LINK,
 } from '../constants/actionType';
 
-export const init = (settings, quotes, quickLinks) => ({
+export const init = (settings, quotes, quickLinks, followThreads) => ({
   type: VOZ_LIVING_INIT,
   settings,
   quotes,
   quickLinks,
+  followThreads,
 });
 
 export const changeOption = (option, value) => ({
