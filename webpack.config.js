@@ -62,10 +62,6 @@ module.exports = {
         from: path.join(__dirname, './assert'),
         to: './assert'
       },
-      {
-        from: path.join(__dirname, './background'),
-        to: './background'
-      },
     ]),
   ]
 };
