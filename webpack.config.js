@@ -11,7 +11,7 @@ module.exports = {
     'background': './background/bootstrap.js',
   },
   output: {
-    path: path.join(__dirname, './chrome/'),
+    path: path.join(__dirname, './dist/chrome/'),
     filename: '[name].js'
   },
   module: {
