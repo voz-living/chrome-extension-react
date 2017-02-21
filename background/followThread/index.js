@@ -12,7 +12,7 @@ import postHelper from '../../app/utils/postHelper';
 import getSubscribedThreads from './getSubscribedThreads';
 
 const REQUEST_TIMEOUT = 500;
-const UPDATE_TIMEOUT = 60000; /* 1 min */
+const UPDATE_TIMEOUT = 60000 * 2; /* 2 min */
 
 function getAllLastPost(threads, cb) {
   if (threads.length > 0) {
