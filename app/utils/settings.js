@@ -23,6 +23,7 @@ const defaultStoreStructure = {
   ],
   followThreads: {},
   threadTracker: {},
+  currentPost: {},
 };
 
 export default defaultStoreStructure;

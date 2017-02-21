@@ -5,6 +5,7 @@ import ReloadButton from '../components/ReloadButton';
 import QuoteList from '../components/QuoteList';
 import QuickLink from '../components/QuickLink';
 import FollowThread from '../components/FollowThread';
+import Subscription from '../components/Subscription';
 
 class SideMenu extends Component {
   static propTypes = {
@@ -28,6 +29,9 @@ class SideMenu extends Component {
         <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} />
         <QuickLink dispatch={this.dispatch} />
+        <div className="voz-living-size-menu__bottom">
+          <Subscription dispatch={this.dispatch} />
+        </div>
       </div>
     );
   }

@@ -12,15 +12,18 @@ import {
   VOZ_LIVING_SAVE_QUICK_LINK,
   VOZ_LIVING_REMOVE_QUICK_LINK,
   VOZ_LIVING_UPDATE_POST_TRACKER,
+  VOZ_LIVING_THREAD_SUBSCRIBE,
+  VOZ_LIVING_THREAD_UNSUBSCRIBE,
 } from '../constants/actionType';
 
-export const init = (settings, quotes, quickLinks, followThreads, threadTracker) => ({
+export const init = (settings, quotes, quickLinks, followThreads, threadTracker, misc) => ({
   type: VOZ_LIVING_INIT,
   settings,
   quotes,
   quickLinks,
   followThreads,
   threadTracker,
+  misc,
 });
 
 export const changeOption = (option, value) => ({
@@ -59,6 +62,17 @@ export const removeQuickLink = (id) => ({
 export const updatePostTracker = (post) => ({
   type: VOZ_LIVING_UPDATE_POST_TRACKER,
   post,
+});
+
+export const subscribeThread = (threadId, post) => ({
+  type: VOZ_LIVING_THREAD_SUBSCRIBE,
+  threadId,
+  post,
+});
+
+export const unsubscribeThread = (threadId) => ({
+  type: VOZ_LIVING_THREAD_UNSUBSCRIBE,
+  threadId,
 });
 
 export const getThreadList = () => {

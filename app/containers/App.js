@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 
 import AdsControl from '../components/AdsControl';
 import WideScreenControl from '../components/WideScreenControl';
@@ -27,6 +28,8 @@ import {
   getAuthenticationInformation,
 } from '../utils';
 
+import postHelper from '../utils/postHelper';
+
 class App extends Component {
   static propTypes = {
     settings: PropTypes.object,
@@ -47,10 +50,17 @@ class App extends Component {
   componentDidMount() {
     // import css here to avoid null head ;(
     require('../styles/index.less'); // eslint-disable-line
-
+    const postInfo = postHelper($(document.body));
     getChromeLocalStore(['settings', 'quotes', 'authInfo', 'quickLinks', 'followThreads', 'threadTracker'])
     .then(({ quotes, settings, authInfo, quickLinks, followThreads, threadTracker }) => {
-      this.props.dispatch(init(settings, quotes, quickLinks, followThreads, threadTracker));
+
+      const misc = {};
+      misc.currentView = this.currentView;
+      if (misc.currentView === 'thread') {
+        misc.threadId = postInfo.getThreadId();
+      }
+
+      this.props.dispatch(init(settings, quotes, quickLinks, followThreads, threadTracker, misc));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
         this.props.dispatch(getThreadList());
