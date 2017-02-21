@@ -21,7 +21,8 @@
       "19": "assert/icon/16.png",
       "38": "assert/icon/64.png"
     },
-    "default_title": "Voz Living"
+    "default_title": "Voz Living",
+    "default_popup": "assert/popup.html"
   },
   "permissions": [
     "http://vozforums.com/*",
