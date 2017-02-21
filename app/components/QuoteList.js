@@ -80,8 +80,9 @@ class QuoteList extends Component {
     return (
       <div className="btn-group">
         <div
-          className="btn"
+          className="btn tooltip-right"
           onClick={() => this.toggleQuoteList()}
+          data-tooltip="Quote list"
         >
           <i className="fa fa-quote-right"></i>
           <div className="badge">{countUnseen}</div>

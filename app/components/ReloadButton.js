@@ -45,9 +45,10 @@ class ReloadButton extends Component {
       return (
         <div className="btn-group">
           <div
-            className="btn"
+            className="btn tooltip-right"
             onClick={this.reloadPage}
             style={{ fontSize: '20px' }}
+            data-tooltip="Fast Refresh"
           ><i className="fa fa-refresh"></i></div>
         </div>
       );

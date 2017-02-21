@@ -195,12 +195,14 @@ class ThreadPreview extends Component {
           <div className="preview-control">
             Use left and right arrow key to control, Esc key to close
             <div
-              className="btn pull-right btn-next-post"
+              className="btn pull-right btn-next-post tooltip-top"
               onClick={this.nextPost}
+              data-tooltip="Next Post"
             ><i className="fa fa-arrow-right"></i></div>
             <div
-              className="btn pull-right btn-prev-post"
+              className="btn pull-right btn-prev-post tooltip-top"
               onClick={this.prevPost}
+              data-tooltip="Previous Post"
             ><i className="fa fa-arrow-left"></i></div>
             <div className="pull-right">
               Current Post: {(currentPageIndex * 10) + currentPostIndex + 1}
@@ -214,14 +216,17 @@ class ThreadPreview extends Component {
           <div
             className="btn"
             onClick={this.openNewTab}
+            data-tooltip="Open new tab"
           ><i className="fa fa-share"></i></div>
           <div
             className="btn"
             onClick={this.viewFirstPost}
+            data-tooltip="View first post"
           ><i className="fa fa-fast-backward"></i></div>
           <div
             className="btn"
             onClick={this.viewLastPost}
+            data-tooltip="View last post"
           ><i className="fa fa-fast-forward"></i></div>
         </div>
       </div>
@@ -243,6 +248,7 @@ class ThreadPreview extends Component {
         <div
           className={className}
           onClick={() => this.toggleThreadPreview()}
+          data-tooltip="Thread preview"
         >{buttonIcon}</div>
         {this.renderThreadContent()}
       </div>

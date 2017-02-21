@@ -63,8 +63,9 @@ class SettingOptions extends Component {
     return (
       <div className="btn-group">
         <div
-          className="btn"
+          className="btn tooltip-right"
           onClick={() => this.setState({ showConfig: !this.state.showConfig })}
+          data-tooltip="Settings"
         ><i className="fa fa-cogs"></i></div>
         {(() => {
           if (this.state.showConfig) {
