@@ -78,10 +78,11 @@ class FollowThread extends Component {
     const renderThread = this.renderThread;
 
     return (
-      <div className="btn-group">
+      <div className="btn-group tooltip-right">
         <div
           className="btn"
           onClick={() => this.toggleThreadList()}
+          data-tooltip="Follow Threads"
         >
           <i className="fa fa-th-list"></i>
         </div>
