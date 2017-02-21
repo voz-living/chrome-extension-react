@@ -2,10 +2,17 @@
 import 'whatwg-fetch';
 /* eslint-enable import/no-unresolved */
 
+function patchProtocal(url) {
+  if (/^\/\//.test(url)) {
+    return url.replace(/^/, window.location.protocol);
+  }
+  return url;
+}
+
 function requestFactory(requestOption = {}) {
   return (url, additionOption = {}) => new Promise((resolve, reject) => {
     const options = { ...requestOption, ...additionOption };
-    fetch(url, options).then((response) => {
+    fetch(patchProtocal(url), options).then((response) => {
       response.text().then(resolve).catch(reject);
     }).catch((err) => {
       reject(err);
