@@ -1,13 +1,17 @@
 {
   "extends": "airbnb",
-  "rules": {
-      space-after-keywords: "off",
-      space-before-keywords: "off",
-      space-return-throw-case: "off",
-    },
-  globals: {
-    "_": true,
-    "$": true,
-    "debug": true,
-  }
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true,
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parser": "babel-eslint"
 }
