@@ -25,6 +25,11 @@ class FollowThread extends Component {
     this.dispatch = comProps.dispatch;
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return  !_.isEqual(nextProps.threadList, this.props.threadList) ||
+            !_.isEqual(nextState.showThreadList, this.state.showThreadList);
+  }
+
   getTime(timeStamp) {
     const date = new Date(timeStamp);
     /* eslint-disable max-len */
@@ -71,7 +76,6 @@ class FollowThread extends Component {
   render() {
     const { threadList } = this.props;
     const renderThread = this.renderThread;
-    console.log(threadList);
 
     return (
       <div className="btn-group">
