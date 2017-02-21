@@ -43,7 +43,7 @@ class FollowThread extends Component {
   }
 
   renderThread(thread) {
-    const { id, postId, numPostDiff, numPostFromTracker, numPost, title } = thread;
+    const { id, postId, numPostDiff, numPostFromTracker, numPostTotal, title } = thread;
     const link = postId === null 
       ? `showthread.php?t=${id}`
       : `showthread.php?p=${postId}#post${postId}`;
@@ -62,7 +62,7 @@ class FollowThread extends Component {
           </a>
         </div>
         <div className="quote-bottom">
-          <i className="fa fa-arrow-right"></i> Có {numPost} bài mới
+          <i className="fa fa-arrow-right"></i> Có {numPostDiff} bài mới
         </div>
       </div>
     );
@@ -71,6 +71,7 @@ class FollowThread extends Component {
   render() {
     const { threadList } = this.props;
     const renderThread = this.renderThread;
+    console.log(threadList);
 
     return (
       <div className="btn-group">
@@ -110,9 +111,9 @@ function estimateSubscribedThreads(followThreads, threadTracker) {
     const tracked = threadTracker[id];
     const postId = tracked ? tracked.postId : null;
     const numPostFromTracker = tracked ? tracked.page * 10 + tracked.postNum : 0;
-    const numPost = page * 10 + postNum;
-    const numPostDiff = numPostFromTracker - numPost;
-    return { id, postId, numPostDiff, numPostFromTracker, numPost, title };
+    const numPostTotal = page * 10 + postNum;
+    const numPostDiff = numPostTotal - numPostFromTracker;
+    return { id, postId, numPostDiff, numPostFromTracker, numPostTotal, title };
   });
 }
 

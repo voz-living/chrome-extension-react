@@ -22,7 +22,7 @@ export default function postHelper($html) {
       const lastpost = $html.find("table[id^='post']:last");
       const id = lastpost.attr('id').match(/(\d+)/)[1];
 
-      const postNum = $html.find("table[id^='post']").length - 1;
+      const postNum = $html.find("table[id^='post']").length;
       return {
         postNum,
         id,
