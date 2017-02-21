@@ -58,13 +58,6 @@ class FollowThread extends Component {
           <a href={link}>
             {title}
           </a>
-          <a
-            className="pull-right" target="_blank"
-            href={link}
-            title="Mở ra trong tab mới"
-          >
-            <i className="fa fa-share"></i>
-          </a>
         </div>
         <div className="quote-bottom">
           <i className="fa fa-arrow-right"></i> Có {numPostDiff} bài mới

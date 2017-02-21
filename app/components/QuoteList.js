@@ -48,14 +48,8 @@ class QuoteList extends Component {
     return (
       <div className="quote-row" key={quote.post.id}>
         <div className="quote-title">
-          <a href={`/showthread.php?t=${quote.thread.id}`} target="_blank">
+          <a href={`showthread.php?p=${quote.post.id}#post${quote.post.id}`} target="_blank">
             {quote.thread.title}
-          </a>
-          <a
-            className="pull-right" target="_blank"
-            href={`showthread.php?p=${quote.post.id}#post${quote.post.id}`}
-          >
-            <i className="fa fa-share"></i>
           </a>
         </div>
         <div className="quote-content">{quote.post.content}</div>
