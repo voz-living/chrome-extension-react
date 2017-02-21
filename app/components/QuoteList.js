@@ -76,11 +76,12 @@ class QuoteList extends Component {
     if (!notifyQuote) return null;
 
     const { quoteList, countUnseen } = this.props;
+    const btnClass = 'btn tooltip-right ' + (this.state.showQuoteList ? 'active' : '');
 
     return (
       <div className="btn-group">
         <div
-          className="btn tooltip-right"
+          className={btnClass}
           onClick={() => this.toggleQuoteList()}
           data-tooltip="Quote list"
         >

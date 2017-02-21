@@ -26,7 +26,7 @@ class FollowThread extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return  !_.isEqual(nextProps.threadList, this.props.threadList) ||
+    return !_.isEqual(nextProps.threadList, this.props.threadList) ||
             !_.isEqual(nextState.showThreadList, this.state.showThreadList);
   }
 
@@ -49,7 +49,7 @@ class FollowThread extends Component {
 
   renderThread(thread) {
     const { id, postId, numPostDiff, numPostFromTracker, numPostTotal, title } = thread;
-    const link = postId === null 
+    const link = postId === null
       ? `showthread.php?t=${id}`
       : `showthread.php?p=${postId}#post${postId}`;
     return (
@@ -76,11 +76,11 @@ class FollowThread extends Component {
   render() {
     const { threadList } = this.props;
     const renderThread = this.renderThread;
-
+    const btnClass = 'btn tooltip-right ' + (this.state.showThreadList ? 'active' : '');
     return (
       <div className="btn-group">
         <div
-          className="btn tooltip-right"
+          className={btnClass}
           onClick={() => this.toggleThreadList()}
           data-tooltip="Follow Threads"
         >
