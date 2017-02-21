@@ -46,8 +46,9 @@ class QuickLink extends Component {
     return (
       <div className="btn-group">
         <div
-          className="btn"
+          className="btn tooltip-right"
           onClick={() => this.setState({ showQuickLink: !this.state.showQuickLink })}
+          data-tooltip="Add Quick Link"
         ><i className="fa fa-plus"></i></div>
         {quickLinks.map(qlink => (
           <a
