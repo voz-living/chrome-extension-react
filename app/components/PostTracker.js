@@ -40,7 +40,7 @@ class PostTracker extends Component {
           if (!isInView) return;
           const $this = $(this);
           const postId = parseInt($this.attr("id").match(/(\d+)/)[1]);
-          const postNum = posts.index($this);
+          const postNum = posts.index($this) + 1;
           const post = {
             threadId,
             postId,

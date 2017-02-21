@@ -8,7 +8,7 @@ class FollowThread extends Component {
   static propTypes = {
     settings: PropTypes.object,
     dispatch: PropTypes.func,
-    threadList: PropTypes.object,
+    threadList: PropTypes.array, // { id, postId, numPostDiff, numPostFromTracker, numPost, title }
   }
 
   static defaultProps = {
@@ -34,35 +34,35 @@ class FollowThread extends Component {
 
   toggleThreadList() {
     const { showThreadList } = this.state;
-    const { countUnseen } = this.props;
+    // const { countUnseen } = this.props;
 
-    if (showThreadList === false && countUnseen !== 0) {
-      this.dispatch(markAllQuoteSeen());
-    }
+    // if (showThreadList === false && countUnseen !== 0) {
+    //   this.dispatch(markAllQuoteSeen());
+    // }
     this.setState({ showThreadList: !showThreadList });
   }
 
-  renderQuote(quote) {
+  renderThread(thread) {
+    const { id, postId, numPostDiff, numPostFromTracker, numPost, title } = thread;
+    const link = postId === null 
+      ? `showthread.php?t=${id}`
+      : `showthread.php?p=${postId}#post${postId}`;
     return (
-      <div className="quote-row" key={quote.post.id}>
+      <div className="quote-row" key={id}>
         <div className="quote-title">
-          <a href={`/showthread.php?t=${quote.thread.id}`} target="_blank">
-            {quote.thread.title}
+          <a href={link}>
+            {title}
           </a>
           <a
             className="pull-right" target="_blank"
-            href={`showthread.php?p=${quote.post.id}#post${quote.post.id}`}
+            href={link}
+            title="Mở ra trong tab mới"
           >
             <i className="fa fa-share"></i>
           </a>
         </div>
-        <div className="quote-content">{quote.post.content}</div>
         <div className="quote-bottom">
-          By <a
-            className="quote-item-author"
-            href={`/member.php?u=${quote.author.userid}`} target="_blank"
-          >({quote.author.username})
-          </a> @ {this.getTime(quote.post.datetime)}
+          <i className="fa fa-arrow-right"></i> Có {numPost} bài mới
         </div>
       </div>
     );
@@ -70,6 +70,7 @@ class FollowThread extends Component {
 
   render() {
     const { threadList } = this.props;
+    const renderThread = this.renderThread;
 
     return (
       <div className="btn-group">
@@ -88,9 +89,9 @@ class FollowThread extends Component {
                 onClick={() => this.setState({ showThreadList: !this.state.showThreadList })}
               ></div>,
               <div className="btn-options" key="quote-list">
-                <h3>Quotes</h3>
+                <h3>Subscribed Threads</h3>
                 <div className="quote-list">
-                  {threadList.map(quote => this.renderQuote(quote))}
+                  {threadList.map(renderThread)}
                 </div>
               </div>,
             ];
@@ -102,10 +103,22 @@ class FollowThread extends Component {
   }
 }
 
+function estimateSubscribedThreads(followThreads, threadTracker) {
+  if (_.isEmpty(followThreads) || _.isEmpty(threadTracker)) return [];
+  return Object.keys(followThreads).map((id) => {
+    const { page, postNum, title } = followThreads[id];
+    const tracked = threadTracker[id];
+    const postId = tracked ? tracked.postId : null;
+    const numPostFromTracker = tracked ? tracked.page * 10 + tracked.postNum : 0;
+    const numPost = page * 10 + postNum;
+    const numPostDiff = numPostFromTracker - numPost;
+    return { id, postId, numPostDiff, numPostFromTracker, numPost, title };
+  });
+}
+
 const mapStateToProps = state => {
-  const { followThreads, settings } = state.vozLiving;
-  console.log(followThreads);
-  return { threadList: followThreads, settings };
+  const { followThreads, settings, threadTracker } = state.vozLiving;
+  return { threadList: estimateSubscribedThreads(followThreads, threadTracker), settings };
 };
 
 export default connect(mapStateToProps)(FollowThread);

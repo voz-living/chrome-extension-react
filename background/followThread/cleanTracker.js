@@ -2,14 +2,14 @@ import {
   setChromeLocalStore,
   getChromeLocalStore,
 } from '../../app/utils/settings';
-import _ from "lodash";
+import _ from 'lodash';
 
 const TRACKER_EXPIRY = 1000 * 60 * 60 * 24; // 1 day;
 
 function cleanTracker() {
   getChromeLocalStore(['threadTracker', 'followThreads'])
     .then((result) => {
-      const { threadTracker, fixfollowThreads } = result;
+      const { threadTracker, followThreads } = result;
       const now = new Date().getTime();
       return Object.keys(threadTracker).reduce((keep, threadId) => {
         const tracker = threadTracker[threadId];

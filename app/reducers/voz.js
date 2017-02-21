@@ -109,7 +109,7 @@ const actionsMap = {
     const isChanged = false;
     const existingThreadTrack = state.threadTracker[threadId];
     const lastView = new Date().getTime();
-    const updatingThread = postId > existingThreadTrack.postId ? {
+    const updatingThread = _.isUndefined(existingThreadTrack) || postId > existingThreadTrack.postId ? {
       postId,
       postNum,
       page,
@@ -117,7 +117,7 @@ const actionsMap = {
       ...existingThreadTrack,
     }
     const threadTracker = {
-      ...threadTracker,
+      ...state.threadTracker,
       [threadId]: {
         ...updatingThread,
         lastView,
@@ -136,3 +136,4 @@ export default function vozReducer(state = initState, action) {
   if (!reduceFn) return state;
   return reduceFn(state, action);
 }
+// TODO: Clean tracker
