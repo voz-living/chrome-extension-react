@@ -5,6 +5,7 @@ import $ from 'jquery';
 import cleanHtml from '../../app/utils/cleanHtml';
 import {
   setChromeLocalStore,
+  getChromeLocalStore,
 } from '../../app/utils/settings';
 
 import postHelper from '../../app/utils/postHelper';
@@ -12,10 +13,8 @@ import getSubscribedThreads from './getSubscribedThreads';
 
 const REQUEST_TIMEOUT = 500;
 const UPDATE_TIMEOUT = 60000; /* 1 min */
-let lastUpdate = -1;
-let updateInProgress = false;
 
-function getAllLastPost(threads, cb, store = {}) {
+function getAllLastPost(threads, cb) {
   if (threads.length > 0) {
     const {
       id,
@@ -23,42 +22,55 @@ function getAllLastPost(threads, cb, store = {}) {
       title,
     } = threads.shift();
 
-    GET(`https://vozforums.com/showthread.php?t=${id}&page=${lastPage}`).then((html) => {
+    GET(`https://vozforums.com/showthread.php?t=${id}&page=${lastPage}`).then((html) => { // eslint-disable-line new-cap
       const postInfo = postHelper($(cleanHtml(html, ['images'])));
       const latestPost = Object.assign({
         title,
         page: lastPage,
       }, postInfo.getLatestPost() /* postNum, id */);
-      setTimeout(getAllLastPost.bind(null, threads, cb, Object.assign({}, store, {
-        [id]: latestPost,
-      })), REQUEST_TIMEOUT);
+      getChromeLocalStore(['followThreads'])
+        .then(({ followThreads }) => {
+          setChromeLocalStore({
+            followThreads: {
+              ...followThreads,
+              [id]: latestPost,
+            },
+          });
+        });
+      setTimeout(getAllLastPost.bind(null, threads, cb), REQUEST_TIMEOUT);
     });
   } else {
-    cb(store);
+    cb();
   }
 }
 
-function updateStorage(threads) {
-  setChromeLocalStore({
-    followThreads: threads,
-  });
-  return true;
+function validateSubscription(threads) {
+  getChromeLocalStore(['followThreads'])
+    .then(({ followThreads }) => {
+      const validList = threads.map(t => t.id);
+      const checkedMap = Object.keys(followThreads)
+        .reduce((map, id) => {
+          if (validList.indexOf(id) > -1) map[id] = followThreads[id];
+          return map;
+        }, {});
+      setChromeLocalStore({
+        followThreads: checkedMap,
+      });
+    });
+  return threads;
 }
 
 function main() {
-  const current = new Date().getTime();
-  if (current - lastUpdate < UPDATE_TIMEOUT || updateInProgress === true) return;
-  updateInProgress = true;
+  console.log('Start to update subscribed thread');
   getSubscribedThreads()
+    .then(validateSubscription)
     .then((threads) => new Promise((resolve) => getAllLastPost(threads, resolve)))
-    .then(updateStorage).then(() => {
+    .then(() => {
       console.info('subscribed threads updated');
-      updateInProgress = false;
-      lastUpdate = new Date().getTime();
+      setTimeout(main, UPDATE_TIMEOUT);
     });
 }
 
 export default function followThread() {
   main();
-  setInterval(main, UPDATE_TIMEOUT / 2 + UPDATE_TIMEOUT * 0.05);
 }
