@@ -25,8 +25,7 @@ TODO Features:
 - [x] Add full emoticon into editor (both advanced and quick reply)
 - [x] Smart quote minification
 - [x] Quick post quotation
-- [ ] Monitor(Notify) followed threads
-- [ ] Facebook Sharing (Post)
+- [x] Monitor(Notify) followed threads
 
 Mics:
 - [ ] Quick add to ignore list
