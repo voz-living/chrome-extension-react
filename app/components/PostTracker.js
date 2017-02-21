@@ -32,6 +32,7 @@ class PostTracker extends Component {
       try {
         const postInfo = postHelper($(document.body));
         const threadId = parseInt(postInfo.getThreadId());
+        const threadTitle = postInfo.getThreadTitle();
         if(threadId === -1) return;
         const page = parseInt(postInfo.getPage());
         const posts = $("table[id^='post']");
@@ -46,6 +47,7 @@ class PostTracker extends Component {
             postId,
             postNum,
             page,
+            title: threadTitle,
           };
           that.props.dispatch(updatePostTracker(post));
         }, 500));

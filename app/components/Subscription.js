@@ -54,22 +54,22 @@ class ReloadButton extends Component {
         <div className="btn-group">
           {this.state.isLoading
           ? <div
-            className="btn"
+            className="btn tooltip-right"
             style={{ fontSize: '20px' }}
-            title="Processing"
+            data-tooltip="Processing"
           ><i className="fa fa-spinner fa-spin"></i></div>
           : this.props.isSubscribed
           ? <div
-            className="btn"
+            className="btn tooltip-right"
             onClick={this.unsubscribe}
             style={{ fontSize: '20px' }}
-            title="Unsubscribe to this thread"
+            data-tooltip="Unsubscribe"
           ><i className="fa fa-chain-broken"></i></div>
           : <div
-            className="btn"
+            className="btn tooltip-right"
             onClick={this.subscribe}
             style={{ fontSize: '20px' }}
-            title="Subscribe to this thread"
+            data-tooltip="Subscribe"
           ><i className="fa fa-check-square-o"></i></div>}
         </div>
       );

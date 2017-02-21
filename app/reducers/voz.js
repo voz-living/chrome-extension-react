@@ -15,6 +15,8 @@ import {
   VOZ_LIVING_SAVE_QUICK_LINK,
   VOZ_LIVING_REMOVE_QUICK_LINK,
   VOZ_LIVING_UPDATE_POST_TRACKER,
+  VOZ_LIVING_THREAD_SUBSCRIBE,
+  VOZ_LIVING_THREAD_UNSUBSCRIBE,
 } from '../constants/actionType';
 
 const initState = {
@@ -98,6 +100,20 @@ const actionsMap = {
     _.remove(clone, { id });
     setChromeLocalStore({ quickLinks: clone });
     return { ...state, quickLinks: clone };
+  },
+  [VOZ_LIVING_THREAD_SUBSCRIBE](state, action) {
+    const { threadId, post } = action;
+    const clone = _.cloneDeep(state.followThreads);
+    clone[threadId] = post;
+    setChromeLocalStore({ followThreads: clone });
+    return { ...state, followThreads: clone };
+  },
+  [VOZ_LIVING_THREAD_UNSUBSCRIBE](state, action) {
+    const { threadId } = action;
+    const clone = _.cloneDeep(state.followThreads);
+    delete clone[threadId];
+    setChromeLocalStore({ followThreads: clone });
+    return { ...state, followThreads: clone };
   },
   [VOZ_LIVING_UPDATE_POST_TRACKER](state, action) {
     const { 

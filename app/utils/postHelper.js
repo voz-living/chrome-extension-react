@@ -1,5 +1,13 @@
 export default function postHelper($html) {
   return {
+    getThreadTitle: function getThreadTitle() {
+      try {
+        return document.querySelectorAll('td.navbar')[0].textContent.trim();
+      } catch (e) {
+        console.warn(e);
+        return '';
+      }
+    },
     getThreadId: function getThreadId() {
       const threadId = $html.find("#threadtools_menu a[href*='t=']").eq(0)
                                 .attr('href').match(/t=(\d+)/);

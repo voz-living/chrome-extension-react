@@ -78,9 +78,9 @@ class FollowThread extends Component {
     const renderThread = this.renderThread;
 
     return (
-      <div className="btn-group tooltip-right">
+      <div className="btn-group">
         <div
-          className="btn"
+          className="btn tooltip-right"
           onClick={() => this.toggleThreadList()}
           data-tooltip="Follow Threads"
         >
