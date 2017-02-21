@@ -49,9 +49,13 @@ class ThreadPreview extends Component {
   }
 
   showPost(postIndex = 0, pageIndex) {
-    const { currentPageIndex, currentHTMLViewPosts } = this.state;
+    const { currentPageIndex, currentHTMLViewPosts, show } = this.state;
 
-    this.setState({ isLoading: true });
+    if (!show) {
+      this.setState({ show: true, isLoading: true });
+    } else {
+      this.setState({ isLoading: true });
+    }
 
     if (!_.isUndefined(pageIndex) && !_.isNull(pageIndex) && pageIndex !== currentPageIndex) {
       this.loadPosts(pageIndex).then(posts => {
@@ -60,7 +64,6 @@ class ThreadPreview extends Component {
           currentHTMLViewPosts: posts,
           currentPostIndex: pIndex,
           content: posts.eq(pIndex),
-          show: true,
           isLoading: false,
           currentPageIndex: pageIndex,
         });
@@ -69,7 +72,6 @@ class ThreadPreview extends Component {
       this.setState({
         currentPostIndex: postIndex,
         content: currentHTMLViewPosts.eq(postIndex),
-        show: true,
         isLoading: false,
       });
     }
