@@ -8,6 +8,7 @@ import {
   getThreadList,
 } from '../actions/voz';
 
+@autobind
 class ReloadButton extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
@@ -27,9 +28,10 @@ class ReloadButton extends Component {
     }
   }
 
-  @autobind
   reloadPage() {
     const { dispatch } = this.props;
+
+    window.vozLivingLoader.start();
 
     GET(location.href).then(response => { // eslint-disable-line
       const responseThreadList = $('#threadslist', response);
@@ -37,6 +39,8 @@ class ReloadButton extends Component {
       currentThreadList.replaceWith(responseThreadList);
 
       dispatch(getThreadList());
+
+      window.vozLivingLoader.stop();
     });
   }
 

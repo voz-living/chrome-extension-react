@@ -12,6 +12,7 @@ import MinimizeQuoteControl from '../components/MinimizeQuoteControl';
 import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
 import SideMenu from './SideMenu';
+
 import {
   init,
   getThreadList,
@@ -48,12 +49,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // import css here to avoid null head ;(
-    require('../styles/index.less'); // eslint-disable-line
     const postInfo = postHelper($(document.body));
-    getChromeLocalStore(['settings', 'quotes', 'authInfo', 'quickLinks', 'followThreads', 'threadTracker'])
-    .then(({ quotes, settings, authInfo, quickLinks, followThreads, threadTracker }) => {
 
+    getChromeLocalStore([
+      'settings', 'quotes', 'authInfo',
+      'quickLinks', 'followThreads', 'threadTracker',
+    ]).then(({
+      quotes, settings, authInfo,
+      quickLinks, followThreads, threadTracker,
+    }) => {
       const misc = {};
       misc.currentView = this.currentView;
       if (misc.currentView === 'thread') {
@@ -76,6 +80,7 @@ class App extends Component {
       if (request.quotes) this.dispatch(updateQuotes(request.quotes));
     });
     /* eslint-enable no-undef */
+    window.vozLivingLoader.stop();
   }
 
   render() {
