@@ -11,6 +11,10 @@ class ThreadControl extends Component {
     const { currentView } = this.props;
 
     if (currentView === 'thread') {
+      $('.pagenav > table > tbody > tr')
+        .prepend(`<td class="voz-living-arrow-nav-help">
+        Dùng phím mũi tên <- và -> để chuyển trang
+        </td>`);
       Mousetrap.bind('right', () => {
         const next = $('a[rel="next"]');
         if (next) {
