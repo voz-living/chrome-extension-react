@@ -58,7 +58,7 @@ class ThreadListControl extends Component {
     const href = $link[0].href;
     $link.after(`<a class="voz-living-newtab" 
       href="${href}"
-      targer="_blank">
+      target="_blank">
         &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
       </a>`);
   }
