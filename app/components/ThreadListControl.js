@@ -57,7 +57,8 @@ class ThreadListControl extends Component {
     const $link = element.find(`a[id=thread_title_${id}]`);
     const href = $link[0].href;
     $link.after(`<a class="voz-living-newtab" 
-      href="${href}">
+      href="${href}"
+      targer="_blank">
         &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
       </a>`);
   }
