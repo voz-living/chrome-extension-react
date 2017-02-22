@@ -4,6 +4,7 @@ import {
   getChromeLocalStore,
   setChromeLocalStore,
 } from '../app/utils/settings';
+import _ from 'lodash';
 
 class QuoteBackground {
   constructor() {

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import _ from 'lodash';
 
 import AdsControl from '../components/AdsControl';
 import WideScreenControl from '../components/WideScreenControl';

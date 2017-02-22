@@ -1,0 +1,17 @@
+{
+  "name": "voz-living-simple-server",
+  "version": "1.0.0",
+  "description": "handle peer chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "author": "sonnn",
+  "license": "ISC",
+  "dependencies": {
+    "ecstatic": "^2.1.0",
+    "socket.io": "^1.7.3",
+    "socket.io-p2p-server": "^1.2.0"
+  }
+}
