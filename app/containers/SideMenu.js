@@ -7,6 +7,18 @@ import QuickLink from '../components/QuickLink';
 import FollowThread from '../components/FollowThread';
 import Subscription from '../components/Subscription';
 
+const FeedbackBtn = () => (
+  <div className="btn-group">
+    <a
+      className="btn tooltip-right"
+      href="https://voz-living.github.io/voz-living-feedback/"
+      style={{ fontSize: '20px' }}
+      target="_blank"
+      data-tooltip="Góp ý/Báo lỗi/Tâm sự"
+    ><i className="fa fa-envelope-o"></i></a>
+  </div>
+);
+
 class SideMenu extends Component {
   static propTypes = {
     settings: PropTypes.object,
@@ -30,6 +42,7 @@ class SideMenu extends Component {
         <ReloadButton dispatch={this.dispatch} />
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">
+          <FeedbackBtn />
           <Subscription dispatch={this.dispatch} />
         </div>
       </div>
