@@ -20,8 +20,8 @@ import {
 } from '../actions/voz';
 
 import {
-  getChromeLocalStore,
-  setChromeLocalStore,
+  getChromeSyncStore,
+  setChromeSyncStore,
 } from '../utils/settings';
 
 import {
@@ -51,7 +51,7 @@ class App extends Component {
   componentDidMount() {
     const postInfo = postHelper($(document.body));
 
-    getChromeLocalStore([
+    getChromeSyncStore([
       'settings', 'quotes', 'authInfo',
       'quickLinks', 'followThreads', 'threadTracker',
     ]).then(({
@@ -71,7 +71,7 @@ class App extends Component {
       }
 
       if (_.isEmpty(authInfo) || !_.isEqual(authInfo, this.authInfo)) {
-        setChromeLocalStore({ authInfo: this.authInfo });
+        setChromeSyncStore({ authInfo: this.authInfo });
       }
     });
 

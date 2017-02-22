@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import {
-  setChromeLocalStore,
+  setChromeSyncStore,
 } from '../utils/settings';
 
 import {
@@ -46,7 +46,7 @@ const actionsMap = {
 
     const newSettings = { ...settings, [option]: newValue };
 
-    setChromeLocalStore({ settings: newSettings });
+    setChromeSyncStore({ settings: newSettings });
 
     return {
       ...state,
@@ -62,7 +62,7 @@ const actionsMap = {
       outQuote.hasSeen = true;
     });
 
-    setChromeLocalStore({ quotes: clone });
+    setChromeSyncStore({ quotes: clone });
 
     return { ...state, quoteList: clone };
   },
@@ -90,7 +90,7 @@ const actionsMap = {
   },
   [VOZ_LIVING_SAVE_QUICK_LINK](state) {
     const { quickLinks } = state;
-    setChromeLocalStore({ quickLinks });
+    setChromeSyncStore({ quickLinks });
     return { ...state };
   },
   [VOZ_LIVING_REMOVE_QUICK_LINK](state, action) {
@@ -98,21 +98,21 @@ const actionsMap = {
     const { quickLinks } = state;
     const clone = _.cloneDeep(quickLinks);
     _.remove(clone, { id });
-    setChromeLocalStore({ quickLinks: clone });
+    setChromeSyncStore({ quickLinks: clone });
     return { ...state, quickLinks: clone };
   },
   [VOZ_LIVING_THREAD_SUBSCRIBE](state, action) {
     const { threadId, post } = action;
     const clone = _.cloneDeep(state.followThreads);
     clone[threadId] = post;
-    setChromeLocalStore({ followThreads: clone });
+    setChromeSyncStore({ followThreads: clone });
     return { ...state, followThreads: clone };
   },
   [VOZ_LIVING_THREAD_UNSUBSCRIBE](state, action) {
     const { threadId } = action;
     const clone = _.cloneDeep(state.followThreads);
     delete clone[threadId];
-    setChromeLocalStore({ followThreads: clone });
+    setChromeSyncStore({ followThreads: clone });
     return { ...state, followThreads: clone };
   },
   [VOZ_LIVING_UPDATE_POST_TRACKER](state, action) {
@@ -139,7 +139,7 @@ const actionsMap = {
         lastView,
       },
     };
-    setChromeLocalStore({ threadTracker });
+    setChromeSyncStore({ threadTracker });
     return {
       ...state,
       currentPost: action.post,
