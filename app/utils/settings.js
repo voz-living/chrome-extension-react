@@ -33,7 +33,7 @@ const defaultSettingKeys = _.keys(defaultStoreStructure);
 /* eslint-disable no-undef */
 export const getChromeLocalStore = (keys = defaultSettingKeys) => (
   new Promise(resolve => {
-    chrome.storage.local.get(keys, items => {
+    chrome.storage.sync.get(keys, items => {
       if (_.isEmpty(items)) {
         const result = { };
         let outKeys = keys;
@@ -59,7 +59,7 @@ export const getChromeLocalStore = (keys = defaultSettingKeys) => (
 
 export const setChromeLocalStore = items => (
   new Promise(resolve => {
-    chrome.storage.local.set(items, () => resolve(true));
+    chrome.storage.sync.set(items, () => resolve(true));
   })
 );
 /* eslint-enable no-undef */
