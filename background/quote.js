@@ -4,6 +4,7 @@ import {
   getChromeLocalStore,
   setChromeLocalStore,
 } from '../app/utils/settings';
+import _ from 'lodash';
 
 class QuoteBackground {
   constructor() {
@@ -49,16 +50,12 @@ class QuoteBackground {
       if (!existQuotes || existQuotes.length === 0) {
         this.saveQuotes(quotes);
       } else {
-        quotes.forEach((quote, index) => {
-          const existQuote = existQuotes[index];
+        quotes.forEach((quote) => {
+          const existQuote = existQuotes.find((eq) => eq.post.id == quote.post.id);
 
-          if (existQuote) {
-            if (!_.isEqual(quote, existQuote)) {
-              _.assign(quote, existQuote);
-              hasChange = true;
-            }
-          } else {
+          if (_.isUndefined(existQuote)) {
             hasChange = true;
+            existQuotes.unshift(quote);
           }
         });
         if (hasChange) this.saveQuotes(quotes);
