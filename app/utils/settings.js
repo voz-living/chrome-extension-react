@@ -24,6 +24,7 @@ const defaultStoreStructure = {
   followThreads: {},
   threadTracker: {},
   currentPost: {},
+  userStyle: 'default',
 };
 
 export default defaultStoreStructure;
