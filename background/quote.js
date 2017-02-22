@@ -55,7 +55,8 @@ class QuoteBackground {
 
           if (_.isUndefined(existQuote)) {
             hasChange = true;
-            existQuotes.unshift(quote);
+          } else {
+            quote.hasSeen = true;
           }
         });
         if (hasChange) this.saveQuotes(quotes);
