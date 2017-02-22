@@ -40,6 +40,7 @@ class ThreadListControl extends Component {
     if (currentView === 'thread-list' && threadList.length > 0) {
       threadList.forEach(thread => {
         this.mountThreadPreviewControl(thread);
+        this.mountOpenNewTabControl(thread);
       });
     }
   }
@@ -50,6 +51,15 @@ class ThreadListControl extends Component {
     threadPreviewDiv.className = 'thread-preview-wrapper';
     element.append(threadPreviewDiv);
     render(<ThreadPreview id={id} pageNum={pageNum} element={element} />, threadPreviewDiv);
+  }
+
+  mountOpenNewTabControl({ id, element }) {
+    const $link = element.find(`a[id=thread_title_${id}]`);
+    const href = $link[0].href;
+    $link.after(`<a class="voz-living-newtab" 
+      href="${href}">
+        &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
+      </a>`);
   }
 
   render() { return null; }
