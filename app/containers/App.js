@@ -11,6 +11,7 @@ import EmotionControl from '../components/EmotionControl';
 import MinimizeQuoteControl from '../components/MinimizeQuoteControl';
 import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
+import QuickBanUser from '../components/QuickBanUser';
 import SideMenu from './SideMenu';
 
 import {
@@ -101,6 +102,7 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} currentView={this.currentView}
         />
         <SideMenu dispatch={this.dispatch} />
+        {this.currentView === 'thread' ? <QuickBanUser /> : null}
       </div>
     );
   }
