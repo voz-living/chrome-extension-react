@@ -1,13 +1,13 @@
 import {
-  setChromeSyncStore,
-  getChromeSyncStore,
+  setChromeLocalStore,
+  getChromeLocalStore,
 } from '../../app/utils/settings';
 import _ from 'lodash';
 
 const TRACKER_EXPIRY = 1000 * 60 * 60 * 24; // 1 day;
 
 function cleanTracker() {
-  getChromeSyncStore(['threadTracker', 'followThreads'])
+  getChromeLocalStore(['threadTracker', 'followThreads'])
     .then((result) => {
       const { threadTracker, followThreads } = result;
       const now = new Date().getTime();
@@ -21,7 +21,7 @@ function cleanTracker() {
       }, {});
     })
     .then((threadTracker) => {
-      setChromeSyncStore({ threadTracker }).then(() => {
+      setChromeLocalStore({ threadTracker }).then(() => {
         console.info('Removed expired tracker');
       });
     });

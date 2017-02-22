@@ -4,8 +4,8 @@ import {
 import $ from 'jquery';
 import cleanHtml from '../../app/utils/cleanHtml';
 import {
-  setChromeSyncStore,
-  getChromeSyncStore,
+  setChromeLocalStore,
+  getChromeLocalStore,
 } from '../../app/utils/settings';
 
 import postHelper from '../../app/utils/postHelper';
@@ -28,9 +28,9 @@ function getAllLastPost(threads, cb) {
         title,
         page: lastPage,
       }, postInfo.getLatestPost() /* postNum, id */);
-      getChromeSyncStore(['followThreads'])
+      getChromeLocalStore(['followThreads'])
         .then(({ followThreads }) => {
-          setChromeSyncStore({
+          setChromeLocalStore({
             followThreads: {
               ...followThreads,
               [id]: latestPost,
@@ -45,7 +45,7 @@ function getAllLastPost(threads, cb) {
 }
 
 function validateSubscription(threads) {
-  getChromeSyncStore(['followThreads'])
+  getChromeLocalStore(['followThreads'])
     .then(({ followThreads }) => {
       const validList = threads.map(t => t.id);
       const checkedMap = Object.keys(followThreads)
@@ -53,7 +53,7 @@ function validateSubscription(threads) {
           if (validList.indexOf(id) > -1) map[id] = followThreads[id];
           return map;
         }, {});
-      setChromeSyncStore({
+      setChromeLocalStore({
         followThreads: checkedMap,
       });
     });

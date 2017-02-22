@@ -1,8 +1,8 @@
 import { POST } from '../app/utils/http';
 import { processQuoteHtml } from '../app/utils/quote';
 import {
-  getChromeSyncStore,
-  setChromeSyncStore,
+  getChromeLocalStore,
+  setChromeLocalStore,
 } from '../app/utils/settings';
 import _ from 'lodash';
 
@@ -44,7 +44,7 @@ class QuoteBackground {
   updateQuotes(quotes) {
     let hasChange = false;
 
-    getChromeSyncStore(['quotes']).then(result => {
+    getChromeLocalStore(['quotes']).then(result => {
       const existQuotes = result.quotes;
 
       if (!existQuotes || existQuotes.length === 0) {
@@ -64,7 +64,7 @@ class QuoteBackground {
   }
 
   saveQuotes(quotes) {
-    setChromeSyncStore({ quotes }).then(() => {
+    setChromeLocalStore({ quotes }).then(() => {
       /* eslint-disable no-undef */
       chrome.tabs.query({ url: '*://vozforums.com/*' }, tabs => {
         tabs.forEach(tab => {
@@ -77,7 +77,7 @@ class QuoteBackground {
 
   checkGetQuotes() {
     console.log('VOZliving check quotes');
-    getChromeSyncStore(['authInfo', 'settings']).then(({ settings, authInfo }) => {
+    getChromeLocalStore(['authInfo', 'settings']).then(({ settings, authInfo }) => {
       const { notifyQuote, delay = 10 } = settings;
       let intDelay = delay !== '' ? delay : 1;
       intDelay = parseInt(intDelay, 10) > 1 ? parseInt(intDelay, 10) : 1;

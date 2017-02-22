@@ -3,8 +3,8 @@ import {
   GET,
 } from '../utils/http';
 import {
-  getChromeSyncStore,
-  setChromeSyncStore,
+  getChromeLocalStore,
+  setChromeLocalStore,
 } from '../utils/settings';
 
 // https://vozforums.com/subscription.php?do=doaddsubscription&threadid=5818745
@@ -21,7 +21,7 @@ import {
 // http://vozforums.com/subscription.php?do=removesubscription&t=5818745
 
 function prepare() {
-  return getChromeSyncStore(['authInfo'])
+  return getChromeLocalStore(['authInfo'])
     .then(({
       authInfo
     }) => {
