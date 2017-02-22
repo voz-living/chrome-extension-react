@@ -56,8 +56,10 @@ class ThreadListControl extends Component {
   mountOpenNewTabControl({ id, element }) {
     const $link = element.find(`a[id=thread_title_${id}]`);
     const href = $link[0].href;
-    $link.after(`<a class="voz-living-newtab" 
+    $link.after(`<a 
+      class="voz-living-newtab tooltip-bottom" 
       href="${href}"
+      data-tooltip="Mở tab mới"
       target="_blank">
         &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
       </a>`);
