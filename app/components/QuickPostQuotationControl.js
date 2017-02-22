@@ -31,6 +31,8 @@ class QuickPostQuotation extends Component {
         editor.val(textBefore + text + textAfter);
         editor[0].setSelectionRange(selStart + text.length, selStart + text.length);
         editor.focus();
+
+        this.clearQuotes();
       });
     }
   }
