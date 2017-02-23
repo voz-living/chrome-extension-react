@@ -5,7 +5,7 @@ import PeerChatBackGround from './peerChat';
 import startServices from './services';
 
 const quoteBackground = new QuoteBackground();
-const peerChartBackground = new PeerChatBackGround('http://localhost:3030');
+const peerChartBackground = new PeerChatBackGround('http://128.199.183.35:3030');
 
 followThread();
 startCleanTracker();
