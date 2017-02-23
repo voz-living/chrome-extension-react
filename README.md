@@ -31,6 +31,8 @@ Mics:
 - [x] Quick add to ignore list
 - [ ] cuộn chuột đến cuối trang thành sang 1 trang mới không cần ấn phím mũi tên (https://vozforums.com/showpost.php?p=101419337&postcount=1128)
 
+Notes: Feedback process 23/23
+
 Updates:
 3.0.1: Fix không nhận được quotes
 3.0.2: Thêm mở ra tab mới 
@@ -48,5 +50,5 @@ Updates:
 - Fix reload
 3.0.10 [Unpublished]: 
 - Mở ra tab khác nhưng vẫn giữ nguyên tab đang mở
-
+- Ctrl V nếu là hình thì upload và trả về url
 3.0.11 [Future]:

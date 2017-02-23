@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import 'whatwg-fetch';
+// import 'whatwg-fetch';
 /* eslint-enable import/no-unresolved */
 
 function patchProtocal(url) {
@@ -13,7 +13,11 @@ function requestFactory(requestOption = {}) {
   return (url, additionOption = {}) => new Promise((resolve, reject) => {
     const options = { ...requestOption, ...additionOption };
     fetch(patchProtocal(url), options).then((response) => {
-      response.text().then(resolve).catch(reject);
+      if (options.jsonOutput === true) {
+        response.json().then(resolve).catch(reject);  
+      } else {
+        response.text().then(resolve).catch(reject);
+      }
     }).catch((err) => {
       reject(err);
     });
