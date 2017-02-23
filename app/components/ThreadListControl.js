@@ -76,13 +76,31 @@ class ThreadListControl extends Component {
   mountOpenNewTabControl({ id, element }) {
     const $link = element.find(`a[id=thread_title_${id}]`);
     const href = $link[0].href;
-    $link.after(`<a 
+    const $a = $(`<a 
       class="voz-living-newtab tooltip-bottom" 
       href="${href}"
       data-tooltip="Mở tab mới"
       target="_blank">
         &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
       </a>`);
+    $link.after($a);
+    $a.on('click', () => {
+      const a = document.createElement('a');
+      a.href = href;
+      // const evt = document.createEvent('MouseEvents');
+      // // the tenth parameter of initMouseEvent sets ctrl key
+      // evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0,
+      //     true, false, false, false, 0, null);
+      const evt = new MouseEvent('click', {
+        canBubble: true,
+        cancelable: true,
+        view: window,
+        ctrlKey: true,
+        metaKey: true,
+      });
+      a.dispatchEvent(evt);
+      return false;
+    });
   }
 
   render() { return null; }

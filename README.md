@@ -38,9 +38,15 @@ Updates:
 3.0.4: Fix mở ra tab mới
 3.0.5: Fix mở ra tab mới lần nữa (lol)
 3.0.6: Add tính năng gửi góp ý
-3.0.7: Hạn chế chiều cao khung bên cạnh
-           Tuỳ chọn chuyển sang tiếng việt
+3.0.7: 
+- Hạn chế chiều cao khung bên cạnh
+- Tuỳ chọn chuyển sang tiếng việt
 3.0.8: Thêm form feedback khi xoá bỏ 
-3.0.9: Fix theo dõi thớt bị break ở 1 số trường hợp
-       Thêm chuyển page bằng phím ở danh sách thớt
-       Fix reload
+3.0.9: 
+- Fix theo dõi thớt bị break ở 1 số trường hợp
+- Thêm chuyển page bằng phím ở danh sách thớt
+- Fix reload
+3.0.10 [Unpublished]: 
+- Mở ra tab khác nhưng vẫn giữ nguyên tab đang mở
+
+3.0.11 [Future]:
