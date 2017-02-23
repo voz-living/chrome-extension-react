@@ -9,9 +9,9 @@
 - load unpack extension in /chrome dir
 
 ### Publish
-vi ./node_modules/automate-chrome-extension-update/secret/config.json => put CLIENT_ID, APP_ID
-./node_modules/automate-chrome-extension-update/prepare 
-./compile;./publish
+- vi ./node_modules/automate-chrome-extension-update/secret/config.json => put CLIENT_ID, APP_ID
+- ./node_modules/automate-chrome-extension-update/prepare 
+- ./compile;./publish
 
 ### TODO Features:
 - [X] Remove Ads
