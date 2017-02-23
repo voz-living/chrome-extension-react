@@ -1,6 +1,7 @@
 import { Component, PropTypes } from 'react';
 import $ from 'jquery';
 import Mousetrap from 'mousetrap';
+import _ from 'lodash';
 
 class ThreadControl extends Component {
   static propTypes = {
@@ -27,15 +28,14 @@ class ThreadControl extends Component {
         const prev = $('a[rel="prev"]');
         if (prev) {
           const href = prev.eq(0).attr('href');
-          window.location.href = href;
+          if (!_.isUndefined(href)) window.location.href = href;
         }
       });
     }
   }
 
   componentWillUnmount() {
-    Mousetrap.unbind('left');
-    Mousetrap.unbind('right');
+    Mousetrap.unbind(['left', 'right']);
   }
 
   render() { return null; }

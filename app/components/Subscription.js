@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import {
-  autobind
+  autobind,
 } from 'core-decorators';
 import { connect } from 'react-redux';
 import { getCurrentView } from '../utils';
@@ -13,7 +13,7 @@ import {
 import * as actions from '../actions/voz';
 
 @autobind
-class ReloadButton extends Component {
+class Subscription extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
     isSubscribed: PropTypes.bool,
@@ -93,4 +93,4 @@ const mapStateToProps = _state => {
   };
 };
 
-export default connect(mapStateToProps)(ReloadButton);
+export default connect(mapStateToProps)(Subscription);

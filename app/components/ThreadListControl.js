@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import $ from 'jquery';
+import _ from 'lodash';
 import ThreadPreview from './ThreadPreview';
 import Mousetrap from 'mousetrap';
 import { GET } from '../utils/http';
@@ -14,13 +15,14 @@ class ThreadListControl extends Component {
     threadList: PropTypes.array,
     dispatch: PropTypes.func,
     currentView: PropTypes.string,
+    isThreadPreview: PropTypes.bool,
   }
 
   componentDidMount() {
     const { dispatch, currentView } = this.props;
 
     if (currentView === 'thread-list') {
-      Mousetrap.bind('command+r', event => {
+      Mousetrap.bind(['command+r', 'ctrl+r'], event => {
         event.preventDefault();
 
         GET(location.href).then(response => { // eslint-disable-line
@@ -31,18 +33,48 @@ class ThreadListControl extends Component {
           dispatch(getThreadList());
         });
       });
+
+      Mousetrap.bind('left', () => {
+        if (!window.vozLivingCurrentThreadPreview) {
+          const prev = $('a[rel="prev"]');
+          if (prev) {
+            const href = prev.eq(0).attr('href');
+            if (!_.isUndefined(href)) window.location.href = href;
+          }
+        } else {
+          // control thread preview prev
+          window.vozLivingCurrentThreadPreview.prevPost();
+        }
+      });
+
+      Mousetrap.bind('right', () => {
+        if (!window.vozLivingCurrentThreadPreview) {
+          const next = $('a[rel="next"]');
+          if (next) {
+            const href = next.eq(0).attr('href');
+            if (!_.isUndefined(href)) window.location.href = href;
+          }
+        } else {
+          // control thread preview next
+          window.vozLivingCurrentThreadPreview.nextPost();
+        }
+      });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { threadList, currentView } = nextProps;
+    const { threadList, currentView, isThreadPreview } = nextProps;
 
-    if (currentView === 'thread-list' && threadList.length > 0) {
+    if (currentView === 'thread-list' && threadList.length > 0 && isThreadPreview) {
       threadList.forEach(thread => {
         this.mountThreadPreviewControl(thread);
         this.mountOpenNewTabControl(thread);
       });
     }
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind(['left', 'right', 'command+r', 'ctrl+r']);
   }
 
   mountThreadPreviewControl({ id, pageNum, element }) {

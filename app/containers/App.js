@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import _ from 'lodash';
 
 import AdsControl from '../components/AdsControl';
 import WideScreenControl from '../components/WideScreenControl';
@@ -86,7 +87,7 @@ class App extends Component {
 
   render() {
     const { wideScreen, adsRemove, linkHelper, emotionHelper,
-      minimizeQuote, quickPostQuotation } = this.props.settings;
+      minimizeQuote, quickPostQuotation, threadPreview } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -94,7 +95,9 @@ class App extends Component {
         <WideScreenControl isWideScreen={wideScreen} />
         <PostTracker dispatch={this.dispatch} />
         <LinkHelperControl linkHelper={linkHelper} currentView={this.currentView} />
-        <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
+        <ThreadListControl
+          dispatch={this.dispatch} currentView={this.currentView} isThreadPreview={threadPreview}
+        />
         <ThreadControl currentView={this.currentView} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
         <MinimizeQuoteControl isMinimizeQuote={minimizeQuote} currentView={this.currentView} />
