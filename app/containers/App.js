@@ -14,6 +14,7 @@ import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
 import SideMenu from './SideMenu';
+import PeerChatControl from '../components/PeerChatControl';
 
 import {
   init,
@@ -122,6 +123,7 @@ class App extends Component {
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
         <SideMenu dispatch={this.dispatch} settings={this.props.settings} />
         {this.renderBaseOnCurrentView(this.currentView)}
+        <PeerChatControl />
       </div>
     );
   }

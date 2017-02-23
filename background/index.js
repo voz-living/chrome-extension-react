@@ -9,6 +9,7 @@ const peerChartBackground = new PeerChatBackGround('http://localhost:3030');
 followThread();
 startCleanTracker();
 chrome.runtime.setUninstallURL('https://goo.gl/forms/hA9IzC8XRvJH7pxj2'); // eslint-disable-line no-undef
+
 export {
   quoteBackground,
   peerChartBackground,
