@@ -67,7 +67,7 @@ class QuickLink extends Component {
               ></div>,
               <div className="btn-options" key="quick-link">
                 <h3>Quick Links</h3>
-                <table>
+                <table className="quick-link-table">
                   <thead>
                     <tr>
                       <th>Label</th>

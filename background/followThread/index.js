@@ -23,20 +23,24 @@ function getAllLastPost(threads, cb) {
     } = threads.shift();
 
     GET(`https://vozforums.com/showthread.php?t=${id}&page=${lastPage}`).then((html) => { // eslint-disable-line new-cap
-      const postInfo = postHelper($(cleanHtml(html, ['images'])));
-      const latestPost = Object.assign({
-        title,
-        page: lastPage,
-      }, postInfo.getLatestPost() /* postNum, id */);
-      getChromeLocalStore(['followThreads'])
-        .then(({ followThreads }) => {
-          setChromeLocalStore({
-            followThreads: {
-              ...followThreads,
-              [id]: latestPost,
-            },
+      try {
+        const postInfo = postHelper($(cleanHtml(html, ['images'])));
+        const latestPost = Object.assign({
+          title,
+          page: lastPage,
+        }, postInfo.getLatestPost() /* postNum, id */);
+        getChromeLocalStore(['followThreads'])
+          .then(({ followThreads }) => {
+            setChromeLocalStore({
+              followThreads: {
+                ...followThreads,
+                [id]: latestPost,
+              },
+            });
           });
-        });
+      } catch(e) {
+        console.error(e);
+      }
       setTimeout(getAllLastPost.bind(null, threads, cb), REQUEST_TIMEOUT);
     });
   } else {

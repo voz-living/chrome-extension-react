@@ -30,7 +30,7 @@ body{
           padding: 2px;
           font-size: 14px;
           line-height: 14px;
-          right: -3px;
+          left: 25px;
           top: 2px;
           min-width: 14px;
         }
@@ -44,14 +44,18 @@ body{
         position: fixed;
         top: 0px;
         left: 50px;
-        width: 400px;
-        height: 100%;
+        width: 450px;
+        height: 40%;
+        min-height: 300px;
         padding: 10px;
+        padding-right: 2px;
         background: #ddd;
         color: #000;
         border: 1px solid #ccc;
         z-index: 10001;
-
+        display: flex;
+        flex-direction: column;
+        box-shadow: 1px 1px 3px rgba(30, 30, 30, 0.23);
         a {
           cursor: pointer;
           color: @linkColor;
@@ -81,7 +85,7 @@ body{
         }
 
         .quote-list{
-          max-height: 600px;
+          max-height: 100%;
           overflow-y: scroll;
 
           .quote-row{

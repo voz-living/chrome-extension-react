@@ -114,10 +114,9 @@ class ThreadPreview extends Component {
   }
 
   closeThreadPreview() {
-    Mousetrap.unbind('right');
-    Mousetrap.unbind('left');
     Mousetrap.unbind('esc');
     this.setState({ show: false });
+    window.vozLivingCurrentThreadPreview = null;
   }
 
   openThreadPreview() {
@@ -125,14 +124,6 @@ class ThreadPreview extends Component {
 
     // close other thread preview
     $('.btn-view.active').click();
-
-    Mousetrap.bind('right', () => {
-      this.nextPost();
-    });
-
-    Mousetrap.bind('left', () => {
-      this.prevPost();
-    });
 
     Mousetrap.bind('esc', () => {
       this.closeThreadPreview();
@@ -143,6 +134,8 @@ class ThreadPreview extends Component {
     } else {
       this.setState({ show: true });
     }
+
+    window.vozLivingCurrentThreadPreview = this;
   }
 
   toggleThreadPreview() {

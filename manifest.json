@@ -1,8 +1,8 @@
 {
   "name": "Voz Living",
-  "version": "3.0.0",
+  "version": "3.0.9",
   "manifest_version": 2,
-  "description": "Another VOZ Living extension",
+  "description": "Voz Living - Better Voz",
   "homepage_url": "https://www.facebook.com/VozLiving/",
   "icons": {
     "16": "assert/icon/16.png",

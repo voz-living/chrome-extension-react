@@ -10,6 +10,7 @@ const defaultStoreStructure = {
     emotionHelper: true,
     minimizeQuote: true,
     quickPostQuotation: true,
+    reloadButton: true,
     delay: 1, // minute
   },
   authInfo: {},
@@ -20,10 +21,16 @@ const defaultStoreStructure = {
       label: 'F17',
       link: 'https://vozforums.com/forumdisplay.php?f=17',
     },
+    {
+      id: 'voz_living_f33',
+      label: 'F33',
+      link: 'https://vozforums.com/forumdisplay.php?f=33',
+    },
   ],
   followThreads: {},
   threadTracker: {},
   currentPost: {},
+  userStyle: 'default',
 };
 
 export default defaultStoreStructure;

@@ -31,6 +31,8 @@ class QuickPostQuotation extends Component {
         editor.val(textBefore + text + textAfter);
         editor[0].setSelectionRange(selStart + text.length, selStart + text.length);
         editor.focus();
+
+        this.clearQuotes();
       });
     }
   }
@@ -65,7 +67,6 @@ class QuickPostQuotation extends Component {
 class QuickPostQuotationControl extends Component {
   static propTypes = {
     isQuickPostQuotation: PropTypes.bool,
-    currentView: PropTypes.string,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,9 +74,9 @@ class QuickPostQuotationControl extends Component {
   }
 
   addQuickPostQuotation(nextProps = this.props) {
-    const { isQuickPostQuotation, currentView } = nextProps;
+    const { isQuickPostQuotation } = nextProps;
 
-    if (isQuickPostQuotation && currentView === 'thread') {
+    if (isQuickPostQuotation) {
       const editor = $('#vB_Editor_QR_textarea');
       if (editor.length === 0) return;
 

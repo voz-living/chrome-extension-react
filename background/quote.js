@@ -50,16 +50,13 @@ class QuoteBackground {
       if (!existQuotes || existQuotes.length === 0) {
         this.saveQuotes(quotes);
       } else {
-        quotes.forEach((quote, index) => {
-          const existQuote = existQuotes[index];
+        quotes.forEach((quote) => {
+          const existQuote = existQuotes.find((eq) => eq.post.id == quote.post.id);
 
-          if (existQuote) {
-            if (!_.isEqual(quote, existQuote)) {
-              _.assign(quote, existQuote);
-              hasChange = true;
-            }
-          } else {
+          if (_.isUndefined(existQuote)) {
             hasChange = true;
+          } else {
+            quote.hasSeen = true;
           }
         });
         if (hasChange) this.saveQuotes(quotes);

@@ -7,20 +7,7 @@ import {
   setChromeLocalStore,
 } from '../utils/settings';
 
-// https://vozforums.com/subscription.php?do=doaddsubscription&threadid=5818745
-// s=&securitytoken=1487662382-dfe61d9fb73adc0688ee1c5d004ef57eb5eb09af&do=doaddsubscription&threadid=5818745&url=http%3A%2F%2Fvozforums.com%2Fshowthread.php%3Ft%3D5818745&emailupdate=0&folderid=0
-// s:
-// securitytoken:1487662382-dfe61d9fb73adc0688ee1c5d004ef57eb5eb09af
-// do:doaddsubscription
-// threadid:5818745
-// url:http%3A%2F%2Fvozforums.com%2Fshowthread.php%3Ft%3D5818745
-// emailupdate:0
-// folderid:0
-
-
-// http://vozforums.com/subscription.php?do=removesubscription&t=5818745
-
-function prepare() {
+export function prepare() {
   return getChromeLocalStore(['authInfo'])
     .then(({
       authInfo

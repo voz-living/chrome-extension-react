@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import $ from 'jquery';
+import _ from 'lodash';
 import ThreadPreview from './ThreadPreview';
 import Mousetrap from 'mousetrap';
 import { GET } from '../utils/http';
@@ -13,35 +14,55 @@ class ThreadListControl extends Component {
   static propTypes = {
     threadList: PropTypes.array,
     dispatch: PropTypes.func,
-    currentView: PropTypes.string,
+    isThreadPreview: PropTypes.bool,
   }
 
   componentDidMount() {
-    const { dispatch, currentView } = this.props;
+    $('.pagenav > table > tbody > tr')
+      .prepend(`<td class="voz-living-arrow-nav-help">
+      Dùng phím mũi tên <- và -> để chuyển trang khi xem trước thớt đóng
+      </td>`);
 
-    if (currentView === 'thread-list') {
-      Mousetrap.bind('command+r', event => {
-        event.preventDefault();
+    Mousetrap.bind('left', () => {
+      if (!window.vozLivingCurrentThreadPreview) {
+        const prev = $('a[rel="prev"]');
+        if (prev) {
+          const href = prev.eq(0).attr('href');
+          if (!_.isUndefined(href)) window.location.href = href;
+        }
+      } else {
+        // control thread preview prev
+        window.vozLivingCurrentThreadPreview.prevPost();
+      }
+    });
 
-        GET(location.href).then(response => { // eslint-disable-line
-          const responseThreadList = $('#threadslist', response);
-          const currentThreadList = $('#threadslist');
-          currentThreadList.replaceWith(responseThreadList);
+    Mousetrap.bind('right', () => {
+      if (!window.vozLivingCurrentThreadPreview) {
+        const next = $('a[rel="next"]');
+        if (next) {
+          const href = next.eq(0).attr('href');
+          if (!_.isUndefined(href)) window.location.href = href;
+        }
+      } else {
+        // control thread preview next
+        window.vozLivingCurrentThreadPreview.nextPost();
+      }
+    });
+  }
 
-          dispatch(getThreadList());
-        });
+  componentWillReceiveProps(nextProps) {
+    const { threadList, isThreadPreview } = nextProps;
+
+    if (threadList.length > 0 && isThreadPreview) {
+      threadList.forEach(thread => {
+        this.mountThreadPreviewControl(thread);
+        this.mountOpenNewTabControl(thread);
       });
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { threadList, currentView } = nextProps;
-
-    if (currentView === 'thread-list' && threadList.length > 0) {
-      threadList.forEach(thread => {
-        this.mountThreadPreviewControl(thread);
-      });
-    }
+  componentWillUnmount() {
+    Mousetrap.unbind(['left', 'right']);
   }
 
   mountThreadPreviewControl({ id, pageNum, element }) {
@@ -50,6 +71,36 @@ class ThreadListControl extends Component {
     threadPreviewDiv.className = 'thread-preview-wrapper';
     element.append(threadPreviewDiv);
     render(<ThreadPreview id={id} pageNum={pageNum} element={element} />, threadPreviewDiv);
+  }
+
+  mountOpenNewTabControl({ id, element }) {
+    const $link = element.find(`a[id=thread_title_${id}]`);
+    const href = $link[0].href;
+    const $a = $(`<a 
+      class="voz-living-newtab tooltip-bottom" 
+      href="${href}"
+      data-tooltip="Mở tab mới"
+      target="_blank">
+        &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
+      </a>`);
+    $link.after($a);
+    $a.on('click', () => {
+      const a = document.createElement('a');
+      a.href = href;
+      // const evt = document.createEvent('MouseEvents');
+      // // the tenth parameter of initMouseEvent sets ctrl key
+      // evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0,
+      //     true, false, false, false, 0, null);
+      const evt = new MouseEvent('click', {
+        canBubble: true,
+        cancelable: true,
+        view: window,
+        ctrlKey: true,
+        metaKey: true,
+      });
+      a.dispatchEvent(evt);
+      return false;
+    });
   }
 
   render() { return null; }

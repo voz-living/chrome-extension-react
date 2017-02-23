@@ -12,6 +12,7 @@ import EmotionControl from '../components/EmotionControl';
 import MinimizeQuoteControl from '../components/MinimizeQuoteControl';
 import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
+import QuickBanUser from '../components/QuickBanUser';
 import SideMenu from './SideMenu';
 
 import {
@@ -84,24 +85,43 @@ class App extends Component {
     window.vozLivingLoader.stop();
   }
 
+  renderBaseOnCurrentView(currentView) {
+    const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview } = this.props.settings;
+
+    if (currentView === 'thread-list') {
+      return [
+        <ThreadListControl
+          key="voz-living-thread-list-control"
+          dispatch={this.dispatch} currentView={this.currentView} isThreadPreview={threadPreview}
+        />,
+      ];
+    } else if (currentView === 'thread') {
+      return [
+        <LinkHelperControl linkHelper={linkHelper} key="voz-living-link-helper" />,
+        <ThreadControl currentView={this.currentView} key="voz-living-thread-control" />,
+        <MinimizeQuoteControl
+          isMinimizeQuote={minimizeQuote} key="voz-living-minimize-quote-control"
+        />,
+        <QuickPostQuotationControl
+          isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
+        />,
+        <QuickBanUser key="voz-living-quick-ban-user" />,
+      ];
+    }
+    return null;
+  }
+
   render() {
-    const { wideScreen, adsRemove, linkHelper, emotionHelper,
-      minimizeQuote, quickPostQuotation } = this.props.settings;
+    const { wideScreen, adsRemove, emotionHelper } = this.props.settings;
 
     return (
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreen} />
         <PostTracker dispatch={this.dispatch} />
-        <LinkHelperControl linkHelper={linkHelper} currentView={this.currentView} />
-        <ThreadListControl dispatch={this.dispatch} currentView={this.currentView} />
-        <ThreadControl currentView={this.currentView} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
-        <MinimizeQuoteControl isMinimizeQuote={minimizeQuote} currentView={this.currentView} />
-        <QuickPostQuotationControl
-          isQuickPostQuotation={quickPostQuotation} currentView={this.currentView}
-        />
-        <SideMenu dispatch={this.dispatch} />
+        <SideMenu dispatch={this.dispatch} settings={this.props.settings} />
+        {this.renderBaseOnCurrentView(this.currentView)}
       </div>
     );
   }

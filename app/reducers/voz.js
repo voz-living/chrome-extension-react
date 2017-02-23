@@ -29,7 +29,9 @@ const initState = {
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
     const { settings, quotes, quickLinks, followThreads, threadTracker, misc } = action;
-    return { ...state, settings, quoteList: quotes, quickLinks, followThreads, threadTracker, misc };
+    return {
+      ...state, settings, quoteList: quotes, quickLinks, followThreads, threadTracker, misc 
+    };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {
     const { threadList } = action;
@@ -131,7 +133,7 @@ const actionsMap = {
       page,
     } : {
       ...existingThreadTrack,
-    }
+    };
     const threadTracker = {
       ...state.threadTracker,
       [threadId]: {
