@@ -107,7 +107,6 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
-        <PasteToUpload />,
       ];
     }
     return null;
@@ -124,6 +123,7 @@ class App extends Component {
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
         <SideMenu dispatch={this.dispatch} settings={this.props.settings} />
         {this.renderBaseOnCurrentView(this.currentView)}
+        <PasteToUpload />
       </div>
     );
   }
