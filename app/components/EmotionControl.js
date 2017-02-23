@@ -3,6 +3,7 @@ import $ from 'jquery';
 import emotions from '../constants/emotions';
 import { autobind } from 'core-decorators';
 import { render } from 'react-dom';
+import { insertTextIntoEditor } from '../common/editor';
 
 @autobind
 class EmotionPicker extends Component {
@@ -56,16 +57,7 @@ class EmotionControl extends Component {
 
   onIconClick(emotion) {
     if (this.editor) {
-      const value = this.editor.val();
-      const selStart = this.editor.prop('selectionStart');
-      const selEnd = this.editor.prop('selectionEnd');
-      const textBefore = value.substring(0, selStart);
-      const textAfter = value.substring(selEnd, value.length);
-
-      this.editor.val(textBefore + emotion.text + textAfter);
-      this.editor[0].setSelectionRange(
-        selStart + emotion.text.length, selStart + emotion.text.length);
-      this.editor.focus();
+      insertTextIntoEditor(emotion.text, this.editor);
     }
   }
 
