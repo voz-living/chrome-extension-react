@@ -48,7 +48,9 @@ Updates:
 - Fix theo dõi thớt bị break ở 1 số trường hợp
 - Thêm chuyển page bằng phím ở danh sách thớt
 - Fix reload
-3.0.10 [Unpublished]: 
+3.0.10: 
 - Mở ra tab khác nhưng vẫn giữ nguyên tab đang mở
 - Ctrl V nếu là hình thì upload và trả về url
-3.0.11 [Future]:
+3.0.11:
+- Hoàn thiện paste hình vô khung soạn thảo
+3.0.12[Unpublished]:
