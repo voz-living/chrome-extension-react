@@ -22,6 +22,11 @@ class ThreadListControl extends Component {
     const { dispatch, currentView } = this.props;
 
     if (currentView === 'thread-list') {
+      $('.pagenav > table > tbody > tr')
+        .prepend(`<td class="voz-living-arrow-nav-help">
+        Dùng phím mũi tên <- và -> để chuyển trang khi xem trước thớt đóng
+        </td>`);
+
       Mousetrap.bind(['command+r', 'ctrl+r'], event => {
         event.preventDefault();
 
