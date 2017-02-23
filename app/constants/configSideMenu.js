@@ -18,6 +18,12 @@ const config = [
     default: true,
   },
   {
+    key: 'reloadButton',
+    name: 'Làm mới trang nhanh',
+    type: 'bool',
+    default: true,
+  },
+  {
     key: 'linkHelper',
     name: 'Tự động xử lý link',
     type: 'bool',
@@ -25,7 +31,7 @@ const config = [
   },
   {
     key: 'emotionHelper',
-    name: 'Thêm Emoticon ',
+    name: 'Thêm Emoticon',
     type: 'bool',
     default: true,
   },

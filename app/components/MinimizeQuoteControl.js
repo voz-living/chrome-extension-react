@@ -40,7 +40,6 @@ class MinimizeQuoteControl extends Component {
   static propTypes = {
     isMinimizeQuote: PropTypes.bool,
     maxHeight: PropTypes.number,
-    currentView: PropTypes.string,
   }
 
   static defaultProps = {
@@ -53,9 +52,9 @@ class MinimizeQuoteControl extends Component {
   }
 
   minimizeQuotes(nextProps = this.props) {
-    const { isMinimizeQuote, currentView, maxHeight } = nextProps;
+    const { isMinimizeQuote, maxHeight } = nextProps;
 
-    if (isMinimizeQuote && currentView === 'thread') {
+    if (isMinimizeQuote) {
       const quotes = $('table.voz-bbcode-quote');
 
       if (quotes) {

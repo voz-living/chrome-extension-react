@@ -12,6 +12,7 @@ import {
 class ReloadButton extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
+    isReloadButton: PropTypes.bool,
   }
 
   constructor(comProps) {
@@ -20,7 +21,7 @@ class ReloadButton extends Component {
   }
 
   componentDidMount() {
-    if (this.view === 'thread-list') {
+    if (this.view === 'thread-list' && this.isReloadButton) {
       Mousetrap.bind(['command+r', 'ctrl+r'], event => {
         event.preventDefault();
         this.reloadPage();

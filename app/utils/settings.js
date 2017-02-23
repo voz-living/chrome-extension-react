@@ -10,6 +10,7 @@ const defaultStoreStructure = {
     emotionHelper: true,
     minimizeQuote: true,
     quickPostQuotation: true,
+    reloadButton: true,
     delay: 1, // minute
   },
   authInfo: {},

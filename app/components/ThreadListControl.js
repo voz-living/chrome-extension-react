@@ -14,63 +14,60 @@ class ThreadListControl extends Component {
   static propTypes = {
     threadList: PropTypes.array,
     dispatch: PropTypes.func,
-    currentView: PropTypes.string,
     isThreadPreview: PropTypes.bool,
   }
 
   componentDidMount() {
-    const { dispatch, currentView } = this.props;
+    const { dispatch } = this.props;
 
-    if (currentView === 'thread-list') {
-      $('.pagenav > table > tbody > tr')
-        .prepend(`<td class="voz-living-arrow-nav-help">
-        Dùng phím mũi tên <- và -> để chuyển trang khi xem trước thớt đóng
-        </td>`);
+    $('.pagenav > table > tbody > tr')
+      .prepend(`<td class="voz-living-arrow-nav-help">
+      Dùng phím mũi tên <- và -> để chuyển trang khi xem trước thớt đóng
+      </td>`);
 
-      Mousetrap.bind(['command+r', 'ctrl+r'], event => {
-        event.preventDefault();
+    Mousetrap.bind(['command+r', 'ctrl+r'], event => {
+      event.preventDefault();
 
-        GET(location.href).then(response => { // eslint-disable-line
-          const responseThreadList = $('#threadslist', response);
-          const currentThreadList = $('#threadslist');
-          currentThreadList.replaceWith(responseThreadList);
+      GET(location.href).then(response => { // eslint-disable-line
+        const responseThreadList = $('#threadslist', response);
+        const currentThreadList = $('#threadslist');
+        currentThreadList.replaceWith(responseThreadList);
 
-          dispatch(getThreadList());
-        });
+        dispatch(getThreadList());
       });
+    });
 
-      Mousetrap.bind('left', () => {
-        if (!window.vozLivingCurrentThreadPreview) {
-          const prev = $('a[rel="prev"]');
-          if (prev) {
-            const href = prev.eq(0).attr('href');
-            if (!_.isUndefined(href)) window.location.href = href;
-          }
-        } else {
-          // control thread preview prev
-          window.vozLivingCurrentThreadPreview.prevPost();
+    Mousetrap.bind('left', () => {
+      if (!window.vozLivingCurrentThreadPreview) {
+        const prev = $('a[rel="prev"]');
+        if (prev) {
+          const href = prev.eq(0).attr('href');
+          if (!_.isUndefined(href)) window.location.href = href;
         }
-      });
+      } else {
+        // control thread preview prev
+        window.vozLivingCurrentThreadPreview.prevPost();
+      }
+    });
 
-      Mousetrap.bind('right', () => {
-        if (!window.vozLivingCurrentThreadPreview) {
-          const next = $('a[rel="next"]');
-          if (next) {
-            const href = next.eq(0).attr('href');
-            if (!_.isUndefined(href)) window.location.href = href;
-          }
-        } else {
-          // control thread preview next
-          window.vozLivingCurrentThreadPreview.nextPost();
+    Mousetrap.bind('right', () => {
+      if (!window.vozLivingCurrentThreadPreview) {
+        const next = $('a[rel="next"]');
+        if (next) {
+          const href = next.eq(0).attr('href');
+          if (!_.isUndefined(href)) window.location.href = href;
         }
-      });
-    }
+      } else {
+        // control thread preview next
+        window.vozLivingCurrentThreadPreview.nextPost();
+      }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { threadList, currentView, isThreadPreview } = nextProps;
+    const { threadList, isThreadPreview } = nextProps;
 
-    if (currentView === 'thread-list' && threadList.length > 0 && isThreadPreview) {
+    if (threadList.length > 0 && isThreadPreview) {
       threadList.forEach(thread => {
         this.mountThreadPreviewControl(thread);
         this.mountOpenNewTabControl(thread);

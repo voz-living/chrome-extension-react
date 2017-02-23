@@ -39,7 +39,7 @@ class SideMenu extends Component {
         <SettingOptions settings={this.props.settings} dispatch={this.dispatch} />
         <QuoteList dispatch={this.dispatch} />
         <FollowThread dispatch={this.dispatch} />
-        <ReloadButton dispatch={this.dispatch} />
+        <ReloadButton dispatch={this.dispatch} isReloadButton={this.props.settings.reloadButton} />
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">
           <FeedbackBtn />
