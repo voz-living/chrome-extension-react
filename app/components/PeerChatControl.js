@@ -35,11 +35,13 @@ class PeerChat extends Component {
 
   connect() {
     // connect socket establish room connection
+    this.setState({ isConnect: true });
     chrome.runtime.sendMessage({ peerChatConnect: true });
   }
 
   disconnect() {
     // disconnect all socket
+    this.setState({ isConnect: false, messages: [], sendMessage: '' });
     chrome.runtime.sendMessage({ peerChatDisconnect: true });
   }
 
@@ -67,6 +69,15 @@ class PeerChat extends Component {
 
   handleKeyUp(event) {
     if (event.keyCode === 13) this.send();
+  }
+
+  toggleOpen() {
+    const { isOpen } = this.state;
+
+    if (isOpen) {
+      this.disconnect();
+    }
+    this.setState({ isOpen: !isOpen });
   }
 
   renderChatBody() {
@@ -99,10 +110,7 @@ class PeerChat extends Component {
       <div className="voz-living-peer-chat-body">
         <div
           className="voz-living-peer-chat-connect"
-          onClick={() => {
-            this.connect();
-            this.setState({ isConnect: true });
-          }}
+          onClick={() => this.connect()}
         >
           VOZLiving <br />
           Peer Chat - Beta <br />
@@ -121,7 +129,7 @@ class PeerChat extends Component {
         <div className="voz-living-peer-chat">
           <div
             className="voz-living-peer-chat-header"
-            onClick={() => this.setState({ isOpen: !isOpen })}
+            onClick={() => this.toggleOpen()}
           >
             VOZLiving Peer Chat (Beta)
           </div>
