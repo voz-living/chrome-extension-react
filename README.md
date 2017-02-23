@@ -28,5 +28,18 @@ TODO Features:
 - [x] Monitor(Notify) followed threads
 
 Mics:
-- [ ] Quick add to ignore list
+- [x] Quick add to ignore list
 - [ ] cuộn chuột đến cuối trang thành sang 1 trang mới không cần ấn phím mũi tên (https://vozforums.com/showpost.php?p=101419337&postcount=1128)
+
+Updates:
+3.0.1: Fix không nhận được quotes
+3.0.2: Thêm mở ra tab mới 
+3.0.3: Thêm quick add to ban list
+3.0.4: Fix mở ra tab mới
+3.0.5: Fix mở ra tab mới lần nữa (lol)
+3.0.6: Add tính năng gửi góp ý
+3.0.7: Hạn chế chiều cao khung bên cạnh
+           Tuỳ chọn chuyển sang tiếng việt
+3.0.8: Thêm form feedback khi xoá bỏ 
+3.0.9: Fix theo dõi thớt bị break ở 1 số trường hợp
+       Thêm chuyển page bằng phím ở danh sách thớt
