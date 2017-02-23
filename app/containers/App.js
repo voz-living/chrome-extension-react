@@ -13,6 +13,7 @@ import MinimizeQuoteControl from '../components/MinimizeQuoteControl';
 import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
+import PasteToUpload from '../components/PasteToUpload';
 import SideMenu from './SideMenu';
 
 import {
@@ -106,6 +107,7 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
+        <PasteToUpload />,
       ];
     }
     return null;

@@ -50,5 +50,5 @@ Updates:
 - Fix reload
 3.0.10 [Unpublished]: 
 - Mở ra tab khác nhưng vẫn giữ nguyên tab đang mở
-
+- Ctrl V nếu là hình thì upload và trả về url
 3.0.11 [Future]:

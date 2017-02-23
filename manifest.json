@@ -1,6 +1,6 @@
 {
   "name": "Voz Living",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "manifest_version": 2,
   "description": "Voz Living - Better Voz",
   "homepage_url": "https://www.facebook.com/VozLiving/",
@@ -29,6 +29,7 @@
     "https://vozforums.com/*",
     "http://www.vozforums.com/*",
     "https://www.vozforums.com/*",
+    "http://*.pik.vn/*",
     "notifications",
     "storage",
     "tabs"
