@@ -43,3 +43,4 @@ Updates:
 3.0.8: Thêm form feedback khi xoá bỏ 
 3.0.9: Fix theo dõi thớt bị break ở 1 số trường hợp
        Thêm chuyển page bằng phím ở danh sách thớt
+       Fix reload
