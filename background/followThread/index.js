@@ -27,7 +27,7 @@ function getAllLastPost(threads, cb) {
       try {
         const $html = $(cleanHtml(html, ['images']));
         if ($html.find('#ChallengForm').length > 0) {
-          threads.unshift(thread);
+          // threads.unshift(thread);
         } else {
           const postInfo = postHelper($html);
           const latestPost = Object.assign({
@@ -48,6 +48,10 @@ function getAllLastPost(threads, cb) {
         console.error(e);
       }
       setTimeout(getAllLastPost.bind(null, threads, cb), REQUEST_TIMEOUT);
+    }).catch((e) => {
+      // threads.unshift(thread);
+      console.log(e);
+      setTimeout(getAllLastPost.bind(null, threads, cb), REQUEST_TIMEOUT * 5);
     });
   } else {
     cb();

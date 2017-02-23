@@ -1,0 +1,3 @@
+#!/bin/sh
+CUR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+node $CUR/node_modules/automate-chrome-extension-update/updatePackage.js $CUR/dist/chrome/voz-living.zip

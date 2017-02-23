@@ -1,14 +1,19 @@
 # VOZLiving chrome-extension-react
-Another VOZ extension using
+### Another VOZ extension using
 - webpack
 - react/redux
 
-Install / Develope
+### Install / Develope
 - npm install
 - ./dev to run dev extension will build inside /chrome dir
 - load unpack extension in /chrome dir
 
-TODO Features:
+### Publish
+vi ./node_modules/automate-chrome-extension-update/secret/config.json => put CLIENT_ID, APP_ID
+./node_modules/automate-chrome-extension-update/prepare 
+./compile;./publish
+
+### TODO Features:
 - [X] Remove Ads
 - [X] Quote notification (dont have setting yet)
 - [X] Preview Thread
@@ -27,12 +32,13 @@ TODO Features:
 - [x] Quick post quotation
 - [x] Monitor(Notify) followed threads
 
-Mics:
+### Mics:
 - [x] Quick add to ignore list
 - [ ] cuộn chuột đến cuối trang thành sang 1 trang mới không cần ấn phím mũi tên (https://vozforums.com/showpost.php?p=101419337&postcount=1128)
 
 Notes: Feedback process 23/23
 
+##
 Updates:
 3.0.1: Fix không nhận được quotes
 3.0.2: Thêm mở ra tab mới 
@@ -53,4 +59,6 @@ Updates:
 - Ctrl V nếu là hình thì upload và trả về url
 3.0.11:
 - Hoàn thiện paste hình vô khung soạn thảo
-3.0.12[Unpublished]:
+3.0.12:
+- Cố gắng fix theo dõi thớt bị lỗi trên windows
+3.0.13:
