@@ -22,6 +22,7 @@ const FeedbackBtn = () => (
 class SideMenu extends Component {
   static propTypes = {
     settings: PropTypes.object,
+    dispatch: PropTypes.func,
   }
 
   static defaultProps = {
@@ -34,12 +35,14 @@ class SideMenu extends Component {
   }
 
   render() {
+    const { settings } = this.props;
+
     return (
       <div className="voz-living-side-menu">
-        <SettingOptions settings={this.props.settings} dispatch={this.dispatch} />
+        <SettingOptions settings={settings} dispatch={this.dispatch} />
         <QuoteList dispatch={this.dispatch} />
         <FollowThread dispatch={this.dispatch} />
-        <ReloadButton dispatch={this.dispatch} isReloadButton={this.props.settings.reloadButton} />
+        <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">
           <FeedbackBtn />

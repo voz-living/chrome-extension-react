@@ -120,7 +120,7 @@ class App extends Component {
         <WideScreenControl isWideScreen={wideScreen} />
         <PostTracker dispatch={this.dispatch} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
-        <SideMenu dispatch={this.dispatch} />
+        <SideMenu dispatch={this.dispatch} settings={this.props.settings} />
         {this.renderBaseOnCurrentView(this.currentView)}
       </div>
     );

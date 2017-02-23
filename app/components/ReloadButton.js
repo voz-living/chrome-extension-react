@@ -15,17 +15,28 @@ class ReloadButton extends Component {
     isReloadButton: PropTypes.bool,
   }
 
-  constructor(comProps) {
-    super(comProps);
-    this.view = getCurrentView();
+  componentDidMount() {
+    this.bindReloadButton();
   }
 
-  componentDidMount() {
-    if (this.view === 'thread-list' && this.isReloadButton) {
+  componentWillReceiveProps(nextProps) {
+    this.bindReloadButton(nextProps);
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind(['command+r', 'ctrl+r']);
+  }
+
+  bindReloadButton(nextProps = this.props) {
+    const view = getCurrentView();
+
+    if (view === 'thread-list' && nextProps.isReloadButton) {
       Mousetrap.bind(['command+r', 'ctrl+r'], event => {
         event.preventDefault();
         this.reloadPage();
       });
+    } else {
+      Mousetrap.unbind(['command+r', 'ctrl+r']);
     }
   }
 
@@ -46,7 +57,10 @@ class ReloadButton extends Component {
   }
 
   render() {
-    if (this.view === 'thread-list') {
+    const { isReloadButton } = this.props;
+    const view = getCurrentView();
+
+    if (view === 'thread-list' && isReloadButton) {
       return (
         <div className="btn-group">
           <div

@@ -18,24 +18,10 @@ class ThreadListControl extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-
     $('.pagenav > table > tbody > tr')
       .prepend(`<td class="voz-living-arrow-nav-help">
       Dùng phím mũi tên <- và -> để chuyển trang khi xem trước thớt đóng
       </td>`);
-
-    Mousetrap.bind(['command+r', 'ctrl+r'], event => {
-      event.preventDefault();
-
-      GET(location.href).then(response => { // eslint-disable-line
-        const responseThreadList = $('#threadslist', response);
-        const currentThreadList = $('#threadslist');
-        currentThreadList.replaceWith(responseThreadList);
-
-        dispatch(getThreadList());
-      });
-    });
 
     Mousetrap.bind('left', () => {
       if (!window.vozLivingCurrentThreadPreview) {
@@ -76,7 +62,7 @@ class ThreadListControl extends Component {
   }
 
   componentWillUnmount() {
-    Mousetrap.unbind(['left', 'right', 'command+r', 'ctrl+r']);
+    Mousetrap.unbind(['left', 'right']);
   }
 
   mountThreadPreviewControl({ id, pageNum, element }) {
