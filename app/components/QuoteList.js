@@ -40,6 +40,7 @@ class QuoteList extends Component {
 
     if (showQuoteList === false && countUnseen !== 0) {
       this.dispatch(markAllQuoteSeen());
+      chrome.runtime.sendMessage({ continueNotify: true });
     }
     this.setState({ showQuoteList: !showQuoteList });
   }
@@ -70,12 +71,11 @@ class QuoteList extends Component {
     if (!notifyQuote) return null;
 
     const { quoteList, countUnseen } = this.props;
-    const btnClass = 'btn tooltip-right ' + (this.state.showQuoteList ? 'active' : '');
 
     return (
       <div className="btn-group">
         <div
-          className={btnClass}
+          className={`btn tooltip-right ${(this.state.showQuoteList ? 'active' : '')}`}
           onClick={() => this.toggleQuoteList()}
           data-tooltip="Quote list"
         >
