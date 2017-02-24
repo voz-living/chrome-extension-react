@@ -8,6 +8,8 @@ function imageUploadService(request, sendResponse) {
   });
 }
 
+
+
 export default function startServices() {
   chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
@@ -17,6 +19,10 @@ export default function startServices() {
       if (request.service) {
         if (request.service === 'image-upload') {
           imageUploadService(request, sendResponse);
+          return true;
+        }
+        if (request.service === 'open-options') {
+          chrome.runtime.openOptionsPage();
           return true;
         }
       }

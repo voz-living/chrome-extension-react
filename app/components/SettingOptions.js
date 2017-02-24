@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 class SettingOptions extends Component {
   openOptions() {
-
+    chrome.runtime.sendMessage({ service: 'open-options' });
   }
 
   render() {
