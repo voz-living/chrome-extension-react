@@ -15,7 +15,7 @@ import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
 import SideMenu from './SideMenu';
-import PeerChatControl from '../components/PeerChatControl';
+import PeerChatControl from '../components/peerchat/PeerChatControl';
 
 import {
   init,

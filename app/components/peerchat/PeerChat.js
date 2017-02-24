@@ -1,14 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { render } from 'react-dom';
+import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
-import { getAuthenticationInformation, toClassName } from '../utils';
-
-function getTime(timeStamp) {
-  const date = new Date(timeStamp);
-  /* eslint-disable max-len */
-  return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-  /* eslint-enable max-len */
-}
+import { getAuthenticationInformation, toClassName } from '../../utils';
+import PeerChatMessages from './PeerChatMessages';
 
 @autobind
 class PeerChat extends Component {
@@ -16,6 +9,7 @@ class PeerChat extends Component {
     super(props);
 
     this.authInfo = getAuthenticationInformation();
+    this.maxMessageNumber = 100;
 
     this.state = {
       messages: [],
@@ -55,10 +49,16 @@ class PeerChat extends Component {
         message: sendMessage,
       };
 
+      let newMessages = messages;
+
+      if (messages.length >= this.maxMessageNumber - 1) {
+        newMessages = newMessages.reverse().slice(0, this.maxMessageNumber).reverse();
+      }
+
       // send message tab -> background -> send
       chrome.runtime.sendMessage({
         peerChatSendMessage: newMessage,
-      }, this.setState({ sendMessage: '', messages: [...messages, newMessage] }));
+      }, this.setState({ sendMessage: '', messages: [...newMessages, newMessage] }));
     }
   }
 
@@ -73,10 +73,7 @@ class PeerChat extends Component {
 
   toggleOpen() {
     const { isOpen } = this.state;
-
-    if (isOpen) {
-      this.disconnect();
-    }
+    if (isOpen) this.disconnect();
     this.setState({ isOpen: !isOpen });
   }
 
@@ -86,17 +83,7 @@ class PeerChat extends Component {
     if (isConnect) {
       return (
         <div className="voz-living-peer-chat-body">
-          <div className="voz-living-message-list">
-            <ul>
-              {messages.map(msg => (
-                <li key={`${msg.name}-${msg.timeStamp}`}>
-                  <span className="voz-living-chat-name">{msg.name}: </span>
-                  <span className="voz-living-chat-time">{getTime(msg.timeStamp)}</span>
-                  <div className="voz-living-chat-message">{msg.message}</div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <PeerChatMessages messages={messages} />
           <input
             type="text" value={sendMessage}
             onChange={this.handleChange}
@@ -130,9 +117,7 @@ class PeerChat extends Component {
           <div
             className="voz-living-peer-chat-header"
             onClick={() => this.toggleOpen()}
-          >
-            VOZLiving Peer Chat (Beta)
-          </div>
+          >VOZLiving Peer Chat (Beta)</div>
           {this.renderChatBody()}
         </div>
       </div>
@@ -140,31 +125,4 @@ class PeerChat extends Component {
   }
 }
 
-class PeerChatControl extends Component {
-  static propTypes = {
-    isPeerChat: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    isPeerChat: true,
-  }
-
-  componentDidMount() {
-    this.addPeerChat(this.props);
-  }
-
-  addPeerChat(nextProps = this.props) {
-    const { isPeerChat } = nextProps;
-
-    if (isPeerChat) {
-      const injector = document.createElement('div');
-      injector.id = 'voz-living-peer-chat-root';
-      document.body.appendChild(injector);
-      render(<PeerChat />, injector);
-    }
-  }
-
-  render() { return null; }
-}
-
-export default PeerChatControl;
+module.exports = PeerChat;
