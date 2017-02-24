@@ -1,5 +1,5 @@
-const P2P = require('socket.io-p2p');
 const io = require('socket.io-client');
+const P2P = require('socket.io-p2p');
 
 class PeerChatBackGround {
   constructor(url) {
@@ -28,7 +28,10 @@ class PeerChatBackGround {
   connect() {
     if (this.url && this.socket === null && this.p2p === null) {
       this.socket = io(this.url);
-      this.p2p = new P2P(this.socket);
+      this.p2p = new P2P(this.socket, {}, () => {
+        this.p2p.usePeerConnection = true;
+        this.p2p.emit('peer-obj', { peerId: this.p2p.peerId });
+      });
 
       this.socket.on('connect', () => {
         this.log('Socket Connected Join Room voz-living-general');
@@ -37,17 +40,17 @@ class PeerChatBackGround {
 
       this.socket.on('disconnect', () => this.log('Socket Disconnected'));
 
-      this.p2p.on('ready', () => {
-        this.log('Peer Chat Ready');
-        this.p2p.usePeerConnection = true;
-        this.p2p.emit('peer-obj', { peerId: this.p2p.peerId });
-      });
-
       // this event will be triggered over the socket transport
       // until `usePeerConnection` is set to `true`
       this.p2p.on('peer-msg', (data) => {
         this.log('Receive Chat Message', data.message);
         this.receivePeerMessage(data.message);
+      });
+
+      this.p2p.on('upgrade', () => {
+        this.log('Upgrade to p2p connection');
+        this.log('Disable socket');
+        this.p2p.useSockets = false;
       });
     }
   }
