@@ -1,6 +1,8 @@
 import {
   POST,
+  POST_FORM,
 } from '../utils/http';
+import $ from jquery;
 
 import { prepare } from './threadSubscription';
 // TODO: add to banlist quickly
@@ -24,4 +26,25 @@ export function banUser(userId) {
         body: formData,
       });
     });
+}
+
+export function searchUser(username) {
+  return POST_FORM('//vozforums.com/ajax.php', {
+    do: usersearch,
+    fragment: username
+  })
+  .then((xml) => {
+    try{
+      const users = [];
+      $(xml).find("user").each(function() {
+        const $e = $(this);
+        const userid = $e.attr("userid");
+        const username = $e.text().trim();
+        users.push({userid, username});
+      });
+      return users;
+    } catch (e) {
+      return {error: true};
+    }
+  })
 }
