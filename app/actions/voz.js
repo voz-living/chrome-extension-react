@@ -15,14 +15,9 @@ import {
   VOZ_LIVING_THREAD_UNSUBSCRIBE,
 } from '../constants/actionType';
 
-export const init = (settings, quotes, quickLinks, followThreads, threadTracker, misc) => ({
+export const init = (initState) => ({
+  ...initState,
   type: VOZ_LIVING_INIT,
-  settings,
-  quotes,
-  quickLinks,
-  followThreads,
-  threadTracker,
-  misc,
 });
 
 export const updateQuotes = quotes => ({

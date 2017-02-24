@@ -11,6 +11,7 @@ const defaultStoreStructure = {
     minimizeQuote: true,
     quickPostQuotation: true,
     reloadButton: true,
+    savePostEnable: true,
     delay: 1, // minute
   },
   authInfo: {},
@@ -30,6 +31,7 @@ const defaultStoreStructure = {
   followThreads: {},
   threadTracker: {},
   currentPost: {},
+  savedPosts: {},
   userStyle: 'default',
 };
 

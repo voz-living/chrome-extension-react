@@ -28,9 +28,14 @@ const initState = {
 
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
-    const { settings, quotes, quickLinks, followThreads, threadTracker, misc } = action;
+    const cloned = _.cloneDeep(action);
+
+    delete cloned.type;
+    cloned.quoteList = action.quotes;
+    delete cloned.quotes;
+
     return {
-      ...state, settings, quoteList: quotes, quickLinks, followThreads, threadTracker, misc 
+      ...state, ...cloned,
     };
   },
   [VOZ_LIVING_GET_THREAD_LIST](state, action) {

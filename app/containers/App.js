@@ -57,17 +57,18 @@ class App extends Component {
     getChromeLocalStore([
       'settings', 'quotes', 'authInfo',
       'quickLinks', 'followThreads', 'threadTracker',
-    ]).then(({
-      quotes, settings, authInfo,
-      quickLinks, followThreads, threadTracker,
-    }) => {
+    ]).then((storage) => {
+      const {
+        quotes, settings, authInfo,
+        quickLinks, followThreads, threadTracker,
+      } = storage;
       const misc = {};
       misc.currentView = this.currentView;
       if (misc.currentView === 'thread') {
         misc.threadId = postInfo.getThreadId();
       }
 
-      this.props.dispatch(init(settings, quotes, quickLinks, followThreads, threadTracker, misc));
+      this.props.dispatch(init({ ...storage, misc }));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
         this.props.dispatch(getThreadList());
@@ -87,7 +88,7 @@ class App extends Component {
   }
 
   renderBaseOnCurrentView(currentView) {
-    const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview } = this.props.settings;
+    const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview, savePostEnable } = this.props.settings;
 
     if (currentView === 'thread-list') {
       return [
