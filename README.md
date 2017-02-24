@@ -36,7 +36,7 @@
 - [x] Quick add to ignore list
 - [ ] cuộn chuột đến cuối trang thành sang 1 trang mới không cần ấn phím mũi tên (https://vozforums.com/showpost.php?p=101419337&postcount=1128)
 
-Notes: Feedback process 23/23
+Notes: Feedback process 32/32
 
 ##
 Updates:
