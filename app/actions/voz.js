@@ -4,7 +4,6 @@ import _ from 'lodash';
 import {
   VOZ_LIVING_INIT,
   VOZ_LIVING_GET_THREAD_LIST,
-  VOZ_LIVING_CHANGE_OPTION,
   VOZ_LIVING_UDATE_QUOTE_LIST,
   VOZ_LIVING_SEEN_ALL_QUOTE,
   VOZ_LIVING_ADD_QUICK_LINK,
@@ -24,12 +23,6 @@ export const init = (settings, quotes, quickLinks, followThreads, threadTracker,
   followThreads,
   threadTracker,
   misc,
-});
-
-export const changeOption = (option, value) => ({
-  type: VOZ_LIVING_CHANGE_OPTION,
-  option,
-  value,
 });
 
 export const updateQuotes = quotes => ({
