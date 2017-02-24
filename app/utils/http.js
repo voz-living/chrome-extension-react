@@ -34,6 +34,13 @@ const POST = requestFactory({
   credentials: 'include',
 });
 
+const POST_FORM = (url, formDataObj, options = {}) => {
+  const formData = new FormData();
+  Object.keys(formDataObj).forEach((key) => formData.append(key, formDataObj[key]);)
+  /* eslint-disable new-cap */
+  return POST(url, { ...options, body: formData });
+}
+
 const PUT = requestFactory({
   method: 'put',
   credentials: 'same-origin',
