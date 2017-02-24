@@ -56,7 +56,7 @@ class QuoteBackground {
         this.saveQuotes(quotes);
       } else {
         quotes.forEach((quote) => {
-          const existQuote = existQuotes.find((eq) => eq.post.id === quote.post.id);
+          const existQuote = existQuotes.find((eq) => eq.post.id == quote.post.id);
 
           if (_.isUndefined(existQuote)) {
             hasChange = true;
