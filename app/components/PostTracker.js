@@ -1,16 +1,13 @@
 import _ from 'lodash';
 import $ from 'jquery';
-import _inview from 'jquery-inview'
-import React, {
+import _inview from 'jquery-inview'; // eslint-disable-line no-unused-vars
+import {
   Component,
-  PropTypes
+  PropTypes,
 } from 'react';
 import {
-  connect
+  connect,
 } from 'react-redux';
-import {
-  autobind
-} from 'core-decorators';
 import {
   updatePostTracker,
 } from '../actions/voz';
@@ -31,16 +28,16 @@ class PostTracker extends Component {
     if (/\/showthread\.php/.test(location.href)) {
       try {
         const postInfo = postHelper($(document.body));
-        const threadId = parseInt(postInfo.getThreadId());
+        const threadId = parseInt(postInfo.getThreadId(), 10);
         const threadTitle = postInfo.getThreadTitle();
-        if(threadId === -1) return;
-        const page = parseInt(postInfo.getPage());
+        if (threadId === -1) return;
+        const page = parseInt(postInfo.getPage(), 10);
         const posts = $("table[id^='post']");
         const that = this;
-        posts.bind("inview", _.debounce(function (e, isInView) {
+        posts.bind('inview', _.debounce(function (e, isInView) {
           if (!isInView) return;
           const $this = $(this);
-          const postId = parseInt($this.attr("id").match(/(\d+)/)[1]);
+          const postId = parseInt($this.attr('id').match(/(\d+)/)[1], 10);
           const postNum = posts.index($this) + 1;
           const post = {
             threadId,
@@ -62,7 +59,7 @@ class PostTracker extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = () => {
   return {};
 };
 
