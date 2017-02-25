@@ -121,6 +121,7 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="minimizeQuote" parent={parent} >Tự động thu nhỏ trích dẫn</OnOffConfigItem>
         <OnOffConfigItem configKey="quickPostQuotation" parent={parent} >Trích dẫn nhanh</OnOffConfigItem>
         <OnOffConfigItem configKey="savePostEnable" parent={parent} >Lưu bài viết (post)</OnOffConfigItem>
+        <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
         <hr/>
         <div className="warning">Tuỳ chọn mới sẽ được áp dụng khi bạn tải trang mới hoặc tải lại trang</div>

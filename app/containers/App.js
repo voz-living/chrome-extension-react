@@ -58,10 +58,7 @@ class App extends Component {
       'settings', 'quotes', 'authInfo',
       'quickLinks', 'followThreads', 'threadTracker',
     ]).then((storage) => {
-      const {
-        quotes, settings, authInfo,
-        quickLinks, followThreads, threadTracker,
-      } = storage;
+      const { settings, authInfo } = storage;
       const misc = {};
       misc.currentView = this.currentView;
       if (misc.currentView === 'thread') {
@@ -88,7 +85,10 @@ class App extends Component {
   }
 
   renderBaseOnCurrentView(currentView) {
-    const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview, savePostEnable } = this.props.settings;
+    const {
+      linkHelper, minimizeQuote, quickPostQuotation,
+      threadPreview, savePostEnable,
+    } = this.props.settings;
 
     if (currentView === 'thread-list') {
       return [
@@ -114,7 +114,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, emotionHelper } = this.props.settings;
+    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -122,7 +122,11 @@ class App extends Component {
         <WideScreenControl isWideScreen={wideScreen} />
         <PostTracker dispatch={this.dispatch} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
-        <SideMenu dispatch={this.dispatch} settings={this.props.settings} />
+        <SideMenu
+          dispatch={this.dispatch}
+          settings={this.props.settings}
+          autoHide={autoHideSidebar}
+        />
         {this.renderBaseOnCurrentView(this.currentView)}
         <PasteToUpload />
       </div>

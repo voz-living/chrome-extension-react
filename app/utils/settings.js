@@ -12,6 +12,7 @@ const defaultStoreStructure = {
     quickPostQuotation: true,
     reloadButton: true,
     savePostEnable: true,
+    autoHideSidebar: false,
     delay: 1, // minute
   },
   authInfo: {},
