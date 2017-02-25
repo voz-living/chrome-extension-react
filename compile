@@ -1,0 +1,7 @@
+#!/bin/sh
+
+webpack --progress --colors
+cd dist/chrome
+rm voz-living.zip;zip -r voz-living.zip .
+cd ..
+cd ..

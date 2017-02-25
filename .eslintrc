@@ -16,5 +16,8 @@
   "globals": {
     "chrome": true
   },
+  "rules": {
+    "experimentalDecorators": 0
+  },
   "parser": "babel-eslint"
 }

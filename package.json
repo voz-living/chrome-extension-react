@@ -43,6 +43,7 @@
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
+    "automate-chrome-extension-update": "^1.0.4",
     "babel-eslint": "^6.1.2",
     "babel-plugin-transform-class-properties": "^6.16.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",

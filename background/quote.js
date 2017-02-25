@@ -8,7 +8,12 @@ import _ from 'lodash';
 
 class QuoteBackground {
   constructor() {
+    this.hasNotify = false;
     this.checkGetQuotes();
+
+    chrome.runtime.onMessage.addListener((request) => {
+      if (request.continueNotify && request.continueNotify === true) this.hasNotify = false;
+    });
   }
 
   getQuoteList(authInfo) {
@@ -66,13 +71,23 @@ class QuoteBackground {
 
   saveQuotes(quotes) {
     setChromeLocalStore({ quotes }).then(() => {
-      /* eslint-disable no-undef */
       chrome.tabs.query({ url: '*://vozforums.com/*' }, tabs => {
         tabs.forEach(tab => {
           chrome.tabs.sendMessage(tab.id, { quotes });
         });
       });
-      /* eslint-enable no-undef */
+
+      const hasNotSeen = _.filter(quotes, { hasSeen: false });
+
+      if (hasNotSeen.length > 0 && this.hasNotify === false) {
+        chrome.notifications.create('voz-living', {
+          type: 'basic',
+          title: 'VOZLiving',
+          message: `Bạn có ${hasNotSeen.length} quote(s) chưa đọc.`,
+          iconUrl: '../assert/icon/64.png',
+        });
+        this.hasNotify = true;
+      }
     });
   }
 

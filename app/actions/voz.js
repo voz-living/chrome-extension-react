@@ -4,7 +4,6 @@ import _ from 'lodash';
 import {
   VOZ_LIVING_INIT,
   VOZ_LIVING_GET_THREAD_LIST,
-  VOZ_LIVING_CHANGE_OPTION,
   VOZ_LIVING_UDATE_QUOTE_LIST,
   VOZ_LIVING_SEEN_ALL_QUOTE,
   VOZ_LIVING_ADD_QUICK_LINK,
@@ -14,22 +13,13 @@ import {
   VOZ_LIVING_UPDATE_POST_TRACKER,
   VOZ_LIVING_THREAD_SUBSCRIBE,
   VOZ_LIVING_THREAD_UNSUBSCRIBE,
+  VOZ_LIVING_SAVE_POST,
+  VOZ_LIVING_UNSAVE_POST,
 } from '../constants/actionType';
 
-export const init = (settings, quotes, quickLinks, followThreads, threadTracker, misc) => ({
+export const init = (initState) => ({
+  ...initState,
   type: VOZ_LIVING_INIT,
-  settings,
-  quotes,
-  quickLinks,
-  followThreads,
-  threadTracker,
-  misc,
-});
-
-export const changeOption = (option, value) => ({
-  type: VOZ_LIVING_CHANGE_OPTION,
-  option,
-  value,
 });
 
 export const updateQuotes = quotes => ({
@@ -97,3 +87,13 @@ export const getThreadList = () => {
     threadList,
   };
 };
+
+export const savePost = (postId) => ({
+  type: VOZ_LIVING_SAVE_POST,
+  postId,
+});
+
+export const unsavePost = (postId) => ({
+  type: VOZ_LIVING_UNSAVE_POST,
+  postId,
+});

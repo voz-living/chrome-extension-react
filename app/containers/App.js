@@ -14,6 +14,7 @@ import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
+import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import SideMenu from './SideMenu';
 import PeerChatControl from '../components/peerchat/PeerChatControl';
 
@@ -25,6 +26,7 @@ import {
 
 import {
   getChromeLocalStore,
+  getChromeSyncStore,
   setChromeLocalStore,
 } from '../utils/settings';
 
@@ -55,20 +57,26 @@ class App extends Component {
   componentDidMount() {
     const postInfo = postHelper($(document.body));
 
-    getChromeLocalStore([
-      'settings', 'quotes', 'authInfo',
-      'quickLinks', 'followThreads', 'threadTracker',
-    ]).then(({
-      quotes, settings, authInfo,
-      quickLinks, followThreads, threadTracker,
-    }) => {
+    Promise.all([
+      getChromeLocalStore([
+        'settings', 'quotes', 'authInfo',
+        'quickLinks', 'followThreads', 'threadTracker',
+      ]),
+      getChromeSyncStore([
+        'savedPosts',
+      ]),
+    ])
+    .then(([storage, syncStore]) => {
+      const {
+        settings, authInfo,
+      } = storage;
       const misc = {};
       misc.currentView = this.currentView;
       if (misc.currentView === 'thread') {
         misc.threadId = postInfo.getThreadId();
       }
 
-      this.props.dispatch(init(settings, quotes, quickLinks, followThreads, threadTracker, misc));
+      this.props.dispatch(init({ ...storage, ...syncStore, misc }));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
         this.props.dispatch(getThreadList());
@@ -88,8 +96,7 @@ class App extends Component {
   }
 
   renderBaseOnCurrentView(currentView) {
-    const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview } = this.props.settings;
-
+    const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview, savePostEnable } = this.props.settings;
     if (currentView === 'thread-list') {
       return [
         <ThreadListControl
@@ -108,14 +115,14 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
-        <PasteToUpload />,
+        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} /> : null,
       ];
     }
     return null;
   }
 
   render() {
-    const { wideScreen, adsRemove, emotionHelper } = this.props.settings;
+    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -123,8 +130,13 @@ class App extends Component {
         <WideScreenControl isWideScreen={wideScreen} />
         <PostTracker dispatch={this.dispatch} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
-        <SideMenu dispatch={this.dispatch} settings={this.props.settings} />
+        <SideMenu
+          dispatch={this.dispatch}
+          settings={this.props.settings}
+          autoHide={autoHideSidebar}
+        />
         {this.renderBaseOnCurrentView(this.currentView)}
+        <PasteToUpload />
         <PeerChatControl />
       </div>
     );

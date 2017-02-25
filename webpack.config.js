@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     'voz-living': './app/bootstrap.js',
     'background': './background/bootstrap.js',
+    'options': './options/root.js',
   },
   output: {
     path: path.join(__dirname, './dist/chrome/'),
@@ -61,6 +62,10 @@ module.exports = {
       {
         from: path.join(__dirname, './assert'),
         to: './assert'
+      },
+      {
+        from: path.join(__dirname, './options/options.html'),
+        to: './options.html'
       },
     ]),
   ]
