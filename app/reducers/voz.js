@@ -131,6 +131,7 @@ const actionsMap = {
     const { postId } = action;
     const existedSavedPosts = state.savedPosts;
     if (Object.keys(existedSavedPosts).length >= LIMIT_SAVE_POST) {
+      alert(`Đã quá giới hạn (${LIMIT_SAVE_POST} bài) số lượng bài có thể lưu, xin hãy xoá bớt `)
       const error = new Error("Saved post reach limitation");
       error.limit = LIMIT_SAVE_POST;
       throw error;
@@ -147,6 +148,8 @@ const actionsMap = {
     const existedSavedPosts = state.savedPosts;
     const updatedSavedPosts = { ...existedSavedPosts };
     delete updatedSavedPosts[postId];
+    const localStoreId = `voz_living_post_${postId}`;
+    window.localStorage.removeItem(localStoreId);
     setChromeSyncStore({ savedPosts: updatedSavedPosts });
     return { ...state, savedPosts: updatedSavedPosts };
   },

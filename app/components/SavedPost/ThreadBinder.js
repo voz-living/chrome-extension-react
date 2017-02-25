@@ -33,7 +33,7 @@ class SavedPostThreadBinder extends Component {
         const $bookmark = $(`<a 
           href="#"
           data-tooltip="Đánh dấu"
-          class="voz-living-post-bookmark tooltip-right">
+          class="voz-living-post-bookmark tooltip-left">
             <i class="fa fa-bookmark" />
           </a>`);
         $bookmark.on('click', this.handleClick.bind(this, postId));

@@ -29,24 +29,37 @@ export default class LazyPost extends Component {
   }
 
   getPost() {
-    this.loadPost();
+    const storeKey = `voz_living_post_${this.props.postId}`;
+    const storeHtml = window.localStorage.getItem(storeKey);
+    if(storeHtml !== null) {
+      this.loadHtml(storeHtml);
+    } else {
+      this.loadPost().then((html) => {
+        this.loadHtml(html);
+        window.localStorage.setItem(storeKey, html);
+      });
+    }
+  }
+
+  loadHtml(html) {
+    this.setState({
+      html: { __html: html },
+      loaded: true,
+      loading: false,
+    });
   }
 
   loadPost() {
     this.setState({ loading: true });
-    GET(`//vozforums.com/showpost.php?p=${this.props.postId}`)
-      .then((html) => {
+    return GET(`//vozforums.com/showpost.php?p=${this.props.postId}`)
+      .then(html => {
         const $ = cheerio.load(html);
-        this.setState({
-          html: { __html: $.html('.voz-postbit') },
-          loaded: true,
-          loading: false,
-        });
+        return $.html('.voz-postbit');
       });
   }
 
   render() {
-    if (this.state.loaded && this.state.loading === false) {
+    if (this.state.loaded && !this.state.loading) {
       return <div dangerouslySetInnerHTML={this.state.html}></div>;
     } else if (this.loading) {
       return <div>Loading post {this.props.postId}</div>;
