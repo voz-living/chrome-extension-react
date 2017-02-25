@@ -57,7 +57,7 @@ export function resolveImage($html, isThreadContentOnly) {
   $context.each(function f() {
     const $this = $(this);
     const href = $this.attr('href');
-
+    if ($this.find('img').length > 0) return;
     if (/\.(jpg|png|gif|bmp|jpeg)$/.test(href)) {
       $this.attr('data-smartlink', 'image');
       const $img = $(`<div>
