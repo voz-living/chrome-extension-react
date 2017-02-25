@@ -114,23 +114,26 @@ export default class OptionPage extends Component {
     /* eslint-disable max-len */
     return (
       <div>
+        <h3>Chung (General)</h3>
         <OnOffConfigItem configKey="wideScreen" parent={parent} >Dàn trang ra 2 bên</OnOffConfigItem>
         <OnOffConfigItem configKey="adsRemove" parent={parent} >Xoá quảng cáo</OnOffConfigItem>
+        <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
+        <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
+        <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
+        <OnOffConfigItem configKey="peerChatEnable" parent={parent} >Peer Chat</OnOffConfigItem>
+        <h3>Trang danh sách thớt (Thread List)</h3>
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>
+        <h3>Trong thớt/Bài viết (Thread/Posts)</h3>
         <OnOffConfigItem configKey="emotionHelper" parent={parent} >Thêm emoticon</OnOffConfigItem>
         <OnOffConfigItem configKey="linkHelper" parent={parent} >Tự động xử lý link</OnOffConfigItem>
-        <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
         <OnOffConfigItem configKey="minimizeQuote" parent={parent} >Tự động thu nhỏ trích dẫn</OnOffConfigItem>
         <OnOffConfigItem configKey="quickPostQuotation" parent={parent} >Trích dẫn nhanh</OnOffConfigItem>
         <OnOffConfigItem configKey="savePostEnable" parent={parent} >
           Lưu bài viết (post)
           (<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-L%C6%B0u-b%C3%A0i-vi%E1%BA%BFt">?</a>)
         </OnOffConfigItem>
-        <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
-        <OnOffConfigItem configKey="peerChatEnable" parent={parent} >Peer Chat</OnOffConfigItem>
-        <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
-        <hr/>
+        <hr />
         <div className="warning">Tuỳ chọn mới sẽ được áp dụng khi bạn tải trang mới hoặc tải lại trang</div>
       </div>
     );
