@@ -7,6 +7,7 @@ import QuickLink from '../components/QuickLink';
 import FollowThread from '../components/FollowThread';
 import Subscription from '../components/Subscription';
 import SavedPostIcon from '../components/SavedPost/Icon';
+import { toClassName } from '../utils';
 
 const FeedbackBtn = () => (
   <div className="btn-group">
@@ -24,6 +25,7 @@ class SideMenu extends Component {
   static propTypes = {
     settings: PropTypes.object,
     dispatch: PropTypes.func,
+    autoHide: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -35,11 +37,28 @@ class SideMenu extends Component {
     this.dispatch = comProps.dispatch;
   }
 
+  componentWillUpdate(nextProps) {
+    const contentHtml = [
+      document.querySelectorAll('body>div:not(#voz-living-app):not(#voz-living-loader-wrapper)'),
+      document.querySelectorAll('body else>div:not(#voz-living-app)'),
+      document.querySelectorAll('body>form'),
+    ];
+
+    contentHtml.forEach(nodes => {
+      if (nodes && nodes.length > 0) {
+        nodes.forEach(node => {
+          if (node && nextProps.autoHide === true) node.style.marginLeft = '0px';
+          if (node && nextProps.autoHide === false) node.style.marginLeft = '50px';
+        });
+      }
+    });
+  }
+
   render() {
-    const { settings } = this.props;
+    const { settings, autoHide } = this.props;
 
     return (
-      <div className="voz-living-side-menu">
+      <div className={toClassName({ 'voz-living-side-menu': true, 'auto-hide': autoHide })}>
         <SettingOptions settings={settings} dispatch={this.dispatch} />
         <QuoteList dispatch={this.dispatch} />
         <FollowThread dispatch={this.dispatch} />

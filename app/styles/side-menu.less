@@ -10,7 +10,7 @@ body{
     left: 0;
     width: 40px;
     height: 100%;
-    padding: 0 0 0 5px;
+    padding: 0 5px 0 5px;
 
     .btn-group{
       position: relative;
@@ -111,31 +111,19 @@ body{
             }
           }
         }
+      }
+    }
 
-        // &:after, &:before {
-        // 	right: 100%;
-        // 	top: 15px;
-        // 	border: solid transparent;
-        // 	content: " ";
-        // 	height: 0;
-        // 	width: 0;
-        // 	position: absolute;
-        // 	pointer-events: none;
-        // }
+    &.auto-hide{
+      .btn-group {
+        display: none;
+      }
+      &:hover{
+        background: #000;
 
-        // &:after {
-        // 	border-color: rgba(221, 221, 221, 0);
-        // 	border-right-color: #ddd;
-        // 	border-width: 10px;
-        // 	margin-top: -10px;
-        // }
-
-        // &:before {
-        // 	border-color: rgba(204, 204, 204, 0);
-        // 	border-right-color: #ccc;
-        // 	border-width: 11px;
-        // 	margin-top: -11px;
-        // }
+        .btn-group {
+          display: block;
+        }
       }
     }
   }
