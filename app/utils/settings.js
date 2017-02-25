@@ -14,6 +14,7 @@ export const defaultStoreStructure = {
     savePostEnable: true,
     autoHideSidebar: false,
     peerChatEnable: false,
+    quickThreadPageNav: true,
     delay: 1, // minute
   },
   authInfo: {},

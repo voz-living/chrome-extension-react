@@ -17,6 +17,7 @@ import PasteToUpload from '../components/PasteToUpload';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import SideMenu from './SideMenu';
 import PeerChatControl from '../components/peerchat/PeerChatControl';
+import QuickThreadPageLoad from '../components/QuickThreadPageLoad';
 
 import {
   init,
@@ -115,6 +116,7 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
+        <QuickThreadPageLoad key="quick-thread-page-load" />,
         savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} /> : null,
       ];
     }
