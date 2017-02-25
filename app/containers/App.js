@@ -137,7 +137,7 @@ class App extends Component {
         />
         {this.renderBaseOnCurrentView(this.currentView)}
         <PasteToUpload />
-        <PeerChatControl />
+        {this.authInfo.isLogin ? <PeerChatControl /> : null}
       </div>
     );
   }

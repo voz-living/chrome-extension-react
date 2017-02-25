@@ -41,8 +41,14 @@ class PeerChat extends Component {
 
   send() {
     const { sendMessage, messages } = this.state;
+    const cleanMessage = sendMessage.trim();
 
-    if (sendMessage.trim() !== '') {
+    if (cleanMessage.length > 250) {
+      window.alert('Tin nhắn của bạn không được dài quá 250 ký tự.');
+      return;
+    }
+
+    if (cleanMessage !== '') {
       const newMessage = {
         name: this.authInfo.username,
         timeStamp: new Date().getTime(),
