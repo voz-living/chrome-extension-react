@@ -79,4 +79,8 @@ Updates:
 
 - Cố gắng fix theo dõi thớt bị lỗi trên windows
 
-3.0.13:
+3.0.17:
+- Thêm tính năng lưu lại bài viết hay (giới hạn 200 bài)
++ Lưu và sync
+- Thêm option tự động ẩn thanh công cụ
+- Thêm option peer chat (broken feature)

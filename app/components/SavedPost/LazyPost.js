@@ -43,7 +43,7 @@ export default class LazyPost extends Component {
 
   loadHtml(html) {
     this.setState({
-      html: { __html: html },
+      html: { __html: html.replace(/Sent from my.*/, '') },
       loaded: true,
       loading: false,
     });
