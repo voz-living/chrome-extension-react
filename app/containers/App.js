@@ -14,6 +14,7 @@ import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
+import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import SideMenu from './SideMenu';
 
 import {
@@ -24,6 +25,7 @@ import {
 
 import {
   getChromeLocalStore,
+  getChromeSyncStore,
   setChromeLocalStore,
 } from '../utils/settings';
 
@@ -54,13 +56,18 @@ class App extends Component {
   componentDidMount() {
     const postInfo = postHelper($(document.body));
 
-    getChromeLocalStore([
-      'settings', 'quotes', 'authInfo',
-      'quickLinks', 'followThreads', 'threadTracker',
-    ]).then((storage) => {
+    Promise.all([
+      getChromeLocalStore([
+        'settings', 'quotes', 'authInfo',
+        'quickLinks', 'followThreads', 'threadTracker',
+      ]),
+      getChromeSyncStore([
+        'savedPosts',
+      ]),
+    ])
+    .then(([storage, syncStore]) => {
       const {
-        quotes, settings, authInfo,
-        quickLinks, followThreads, threadTracker,
+        settings, authInfo,
       } = storage;
       const misc = {};
       misc.currentView = this.currentView;
@@ -68,7 +75,7 @@ class App extends Component {
         misc.threadId = postInfo.getThreadId();
       }
 
-      this.props.dispatch(init({ ...storage, misc }));
+      this.props.dispatch(init({ ...storage, ...syncStore, misc }));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
         this.props.dispatch(getThreadList());
@@ -89,7 +96,6 @@ class App extends Component {
 
   renderBaseOnCurrentView(currentView) {
     const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview, savePostEnable } = this.props.settings;
-
     if (currentView === 'thread-list') {
       return [
         <ThreadListControl
@@ -108,6 +114,7 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
+        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} /> : null,
       ];
     }
     return null;

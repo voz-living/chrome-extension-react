@@ -80,5 +80,5 @@ export const setChromeLocalStore = (items, store = 'local') => (
 );
 
 export const getChromeSyncStore = (keys) => getChromeLocalStore(keys, 'sync', defaultSyncStoreStructure);
-export const setChromeSyncStore = (items) => getChromeLocalStore(items, 'sync');
+export const setChromeSyncStore = (items) => setChromeLocalStore(items, 'sync');
 /* eslint-enable no-undef */
