@@ -6,9 +6,9 @@ class PeerChatBackGround {
     this.socket = null;
     this.p2p = null;
     this.url = url;
+    this.numClients = 100;
 
     // Send Chat Message listener tab -> runtime -> send
-    /* eslint-disable no-undef */
     chrome.runtime.onMessage.addListener((request) => {
       if (request.peerChatSendMessage) {
         this.sendPeerMessage(request.peerChatSendMessage);
@@ -22,13 +22,12 @@ class PeerChatBackGround {
         this.disconnect();
       }
     });
-    /* eslint-enable no-undef */
   }
 
   connect() {
     if (this.url && this.socket === null && this.p2p === null) {
       this.socket = io(this.url);
-      this.p2p = new P2P(this.socket, {}, () => {
+      this.p2p = new P2P(this.socket, { numClients: this.numClients }, () => {
         this.p2p.usePeerConnection = true;
         this.p2p.emit('peer-obj', { peerId: this.p2p.peerId });
       });

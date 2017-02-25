@@ -122,7 +122,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar } = this.props.settings;
+    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar, peerChatEnable } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -137,7 +137,7 @@ class App extends Component {
         />
         {this.renderBaseOnCurrentView(this.currentView)}
         <PasteToUpload />
-        {this.authInfo.isLogin ? <PeerChatControl /> : null}
+        {this.authInfo.isLogin && peerChatEnable ? <PeerChatControl /> : null}
       </div>
     );
   }
