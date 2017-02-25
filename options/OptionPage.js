@@ -123,7 +123,10 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
         <OnOffConfigItem configKey="minimizeQuote" parent={parent} >Tự động thu nhỏ trích dẫn</OnOffConfigItem>
         <OnOffConfigItem configKey="quickPostQuotation" parent={parent} >Trích dẫn nhanh</OnOffConfigItem>
-        <OnOffConfigItem configKey="savePostEnable" parent={parent} >Lưu bài viết (post)</OnOffConfigItem>
+        <OnOffConfigItem configKey="savePostEnable" parent={parent} >
+          Lưu bài viết (post)
+          (<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-L%C6%B0u-b%C3%A0i-vi%E1%BA%BFt">?</a>)
+        </OnOffConfigItem>
         <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="peerChatEnable" parent={parent} >Peer Chat</OnOffConfigItem>
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
