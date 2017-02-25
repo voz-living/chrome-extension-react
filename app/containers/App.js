@@ -16,6 +16,7 @@ import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import SideMenu from './SideMenu';
+import PeerChatControl from '../components/peerchat/PeerChatControl';
 
 import {
   init,
@@ -121,7 +122,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar } = this.props.settings;
+    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar, peerChatEnable } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -136,6 +137,7 @@ class App extends Component {
         />
         {this.renderBaseOnCurrentView(this.currentView)}
         <PasteToUpload />
+        {this.authInfo.isLogin && peerChatEnable ? <PeerChatControl /> : null}
       </div>
     );
   }

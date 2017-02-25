@@ -1,0 +1,106 @@
+@chat-window-width: 280px;
+@chat-window-height: 300px;
+@chat-input-height: 30px;
+@chat-button-width: 50px;
+@chat-header-height: 30px;
+@font-message: 12px;
+
+.voz-living-peer-chat-wrapper{
+  width: @chat-window-width;
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  background: #fff;
+  z-index: 1000;
+  height: @chat-header-height;
+  
+  &.open{
+    height: @chat-window-height + @chat-header-height;
+  }
+
+  .voz-living-peer-chat{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    
+    .voz-living-peer-chat-header{
+      font-size: @font-message;
+      height: @chat-header-height;
+      line-height: @chat-header-height;
+      font-weight: bold;
+      color: #fff;
+      background: #5C7099;
+      padding: 2px 2px 2px 10px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .voz-living-peer-chat-connect{
+      color: #201F25;
+      font-size: 20px;
+      text-align: center;
+      height: @chat-window-height - @chat-input-height;
+      line-height: 40px;
+      margin-top: 40px;
+      cursor: pointer;
+
+      small{
+        font-size: 11px;
+      }
+    }
+
+    .voz-living-message-list{
+      height: @chat-window-height - @chat-input-height;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      
+      ul{
+        margin: 0;
+        padding: 3px;
+        li{
+          color: #000;
+          padding: 0 5px;
+          font-size: @font-message;
+
+          .voz-living-chat-name{
+            font-weight: bold;
+            font-size: @font-message + 1;
+          }
+          .voz-living-chat-time{
+            font-size: @font-message - 1;
+            color: #201F25;
+          }
+          .voz-living-chat-message{
+            padding: 4px 0;
+            word-break: break-word;
+          }
+        }
+      }
+    }
+    input{
+      width: @chat-window-width - @chat-button-width - 17px;
+      height: @chat-input-height;
+      padding: 3px 3px 3px 10px;
+      margin: 0;
+      border: 0;
+
+      &:focus{
+        outline: none;
+      }
+    }
+    button{
+      width: @chat-button-width;
+      height: @chat-input-height;
+      float: right;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+}

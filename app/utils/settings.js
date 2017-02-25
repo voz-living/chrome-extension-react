@@ -13,6 +13,7 @@ export const defaultStoreStructure = {
     reloadButton: true,
     savePostEnable: true,
     autoHideSidebar: false,
+    peerChatEnable: false,
     delay: 1, // minute
   },
   authInfo: {},
