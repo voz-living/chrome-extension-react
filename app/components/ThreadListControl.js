@@ -10,6 +10,8 @@ import {
   getThreadList,
 } from '../actions/voz';
 
+import openNewTab from '../utils/openNewTab';
+
 class ThreadListControl extends Component {
   static propTypes = {
     threadList: PropTypes.array,
@@ -84,23 +86,7 @@ class ThreadListControl extends Component {
         &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
       </a>`);
     $link.after($a);
-    $a.on('click', () => {
-      const a = document.createElement('a');
-      a.href = href;
-      // const evt = document.createEvent('MouseEvents');
-      // // the tenth parameter of initMouseEvent sets ctrl key
-      // evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0,
-      //     true, false, false, false, 0, null);
-      const evt = new MouseEvent('click', {
-        canBubble: true,
-        cancelable: true,
-        view: window,
-        ctrlKey: true,
-        metaKey: true,
-      });
-      a.dispatchEvent(evt);
-      return false;
-    });
+    $a.on('click', () => openNewTab(href));
   }
 
   render() { return null; }
