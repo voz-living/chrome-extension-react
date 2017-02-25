@@ -47,7 +47,7 @@ class PostTracker extends Component {
             title: threadTitle,
           };
           that.props.dispatch(updatePostTracker(post));
-        }, 500));
+        }, 300));
       } catch (e) {
         console.error(e);
       }
