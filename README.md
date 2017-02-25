@@ -36,7 +36,7 @@
 - [x] Quick add to ignore list
 - [ ] cuộn chuột đến cuối trang thành sang 1 trang mới không cần ấn phím mũi tên (https://vozforums.com/showpost.php?p=101419337&postcount=1128)
 
-Notes: Feedback process 32/32
+Notes: Feedback process 39/39
 
 ##
 Updates:
@@ -84,3 +84,7 @@ Updates:
 + Lưu và sync
 - Thêm option tự động ẩn thanh công cụ
 - Thêm option peer chat (broken feature)
+
+3.0.19: 
+- Fix lỗi lặp hình
+- Fix khi click vào xoá bookmark thì nhảy lên trên
