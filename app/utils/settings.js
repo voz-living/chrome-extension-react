@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const defaultStoreStructure = {
+export const defaultStoreStructure = {
   settings: {
     wideScreen: true,
     threadPreview: true,
@@ -31,9 +31,13 @@ const defaultStoreStructure = {
   followThreads: {},
   threadTracker: {},
   currentPost: {},
-  savedPosts: {},
   userStyle: 'default',
 };
+
+const defaultSyncStoreStructure = {
+  savedPosts: {},
+};
+
 
 export default defaultStoreStructure;
 
