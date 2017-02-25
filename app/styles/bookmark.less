@@ -26,3 +26,26 @@
     text-shadow: 1px 1px 2px rgb(0, 0, 0);
   }
 }
+
+body .voz-living-side-menu .btn-group .btn-options.bookmark-list {
+  padding: 2px;
+  .bookmark-item-wrapper {
+    margin: 2px 0;
+    table.voz-postbit {
+      > tbody > tr {
+        display: none;
+        &:nth-child(3) {
+          display: block;
+          > td {
+            > * {
+              display: none;
+            }
+            > div[id^=post_message] {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
