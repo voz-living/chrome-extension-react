@@ -6,7 +6,7 @@ import QuoteList from '../components/QuoteList';
 import QuickLink from '../components/QuickLink';
 import FollowThread from '../components/FollowThread';
 import Subscription from '../components/Subscription';
-import SavedPostIcon from '../components/SavedPost/Icon';
+import SavedPostSideBarIcon from '../components/SavedPost/SideBarIcon';
 import { toClassName } from '../utils';
 
 const FeedbackBtn = () => (
@@ -62,7 +62,7 @@ class SideMenu extends Component {
         <SettingOptions settings={settings} dispatch={this.dispatch} />
         <QuoteList dispatch={this.dispatch} />
         <FollowThread dispatch={this.dispatch} />
-        {settings.savePostEnable === true ? <SavedPostIcon dispatch={this.dispatch} /> : null}
+        {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
         <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">

@@ -8,7 +8,7 @@ import LazyPost from './LazyPost';
 import openNewTab from '../../utils/openNewTab';
 import { toClassName } from '../../utils';
 
-class SavedPostIcon extends Component {
+class SavedPostSideBarIcon extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
     savedPosts: PropTypes.object,
@@ -29,10 +29,12 @@ class SavedPostIcon extends Component {
 
   openPostInNewTab(postId) {
     openNewTab(`/showthread.php?p=${postId}`);
+    return false;
   }
 
   unsavePost(postId) {
     this.dispatch(unsavePost(postId));
+    return false;
   }
 
   renderPost(postId, time) {
@@ -110,4 +112,4 @@ const mapStateToProps = state => {
   return { savedPosts };
 };
 
-export default connect(mapStateToProps)(SavedPostIcon);
+export default connect(mapStateToProps)(SavedPostSideBarIcon);
