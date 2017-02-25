@@ -3,12 +3,15 @@ import React, { Component, PropTypes } from 'react';
 import {
   getChromeLocalStore,
   setChromeLocalStore,
+  defaultStoreStructure,
 } from '../app/utils/settings';
 import { autobind } from 'core-decorators';
 
+const defaultSettings = defaultStoreStructure.settings;
+
 function getConfig() {
   return getChromeLocalStore(['settings'])
-    .then((result) => result.settings);
+    .then((result) => Object.assign({}, defaultSettings, result.settings));
 }
 
 function setConfig(name, value, settings) {

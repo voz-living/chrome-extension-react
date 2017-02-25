@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const defaultStoreStructure = {
+export const defaultStoreStructure = {
   settings: {
     wideScreen: true,
     threadPreview: true,
@@ -32,8 +32,11 @@ const defaultStoreStructure = {
   followThreads: {},
   threadTracker: {},
   currentPost: {},
-  savedPosts: {},
   userStyle: 'default',
+};
+
+const defaultSyncStoreStructure = {
+  savedPosts: {},
 };
 
 export default defaultStoreStructure;
@@ -41,9 +44,13 @@ export default defaultStoreStructure;
 const defaultSettingKeys = _.keys(defaultStoreStructure);
 
 /* eslint-disable no-undef */
-export const getChromeLocalStore = (keys = defaultSettingKeys) => (
+export const getChromeLocalStore = (
+  keys = defaultSettingKeys,
+  store = 'local',
+  defaultStore = defaultStoreStructure
+) => (
   new Promise(resolve => {
-    chrome.storage.local.get(keys, items => {
+    chrome.storage[store].get(keys, items => {
       if (_.isEmpty(items)) {
         const result = { };
         let outKeys = keys;
@@ -51,14 +58,14 @@ export const getChromeLocalStore = (keys = defaultSettingKeys) => (
           outKeys = [outKeys];
         }
         outKeys.forEach(key => {
-          result[key] = defaultStoreStructure[key];
+          result[key] = defaultStore[key];
         });
         resolve(result);
       } else {
         const result = items;
         keys.forEach(key => {
           if (_.isUndefined(result[key])) {
-            result[key] = defaultStoreStructure[key];
+            result[key] = defaultStore[key];
           }
         });
         resolve(result);
@@ -67,9 +74,12 @@ export const getChromeLocalStore = (keys = defaultSettingKeys) => (
   })
 );
 
-export const setChromeLocalStore = items => (
+export const setChromeLocalStore = (items, store = 'local') => (
   new Promise(resolve => {
-    chrome.storage.local.set(items, () => resolve(true));
+    chrome.storage[store].set(items, () => resolve(true));
   })
 );
+
+export const getChromeSyncStore = (keys) => getChromeLocalStore(keys, 'sync', defaultSyncStoreStructure);
+export const setChromeSyncStore = (items) => setChromeLocalStore(items, 'sync');
 /* eslint-enable no-undef */

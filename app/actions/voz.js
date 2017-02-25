@@ -13,6 +13,8 @@ import {
   VOZ_LIVING_UPDATE_POST_TRACKER,
   VOZ_LIVING_THREAD_SUBSCRIBE,
   VOZ_LIVING_THREAD_UNSUBSCRIBE,
+  VOZ_LIVING_SAVE_POST,
+  VOZ_LIVING_UNSAVE_POST,
 } from '../constants/actionType';
 
 export const init = (initState) => ({
@@ -85,3 +87,13 @@ export const getThreadList = () => {
     threadList,
   };
 };
+
+export const savePost = (postId) => ({
+  type: VOZ_LIVING_SAVE_POST,
+  postId,
+});
+
+export const unsavePost = (postId) => ({
+  type: VOZ_LIVING_UNSAVE_POST,
+  postId,
+});

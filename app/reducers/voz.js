@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import {
+  setChromeSyncStore,
   setChromeLocalStore,
 } from '../utils/settings';
 
@@ -17,6 +18,8 @@ import {
   VOZ_LIVING_UPDATE_POST_TRACKER,
   VOZ_LIVING_THREAD_SUBSCRIBE,
   VOZ_LIVING_THREAD_UNSUBSCRIBE,
+  VOZ_LIVING_SAVE_POST,
+  VOZ_LIVING_UNSAVE_POST,
 } from '../constants/actionType';
 
 const initState = {
@@ -25,6 +28,8 @@ const initState = {
   quoteList: [],
   misc: {},
 };
+
+const LIMIT_SAVE_POST = 200;
 
 const actionsMap = {
   [VOZ_LIVING_INIT](state, action) {
@@ -122,8 +127,31 @@ const actionsMap = {
     setChromeLocalStore({ followThreads: clone });
     return { ...state, followThreads: clone };
   },
+  [VOZ_LIVING_SAVE_POST](state, action) {
+    const { postId } = action;
+    const existedSavedPosts = state.savedPosts;
+    if (Object.keys(existedSavedPosts).length >= LIMIT_SAVE_POST) {
+      const error = new Error("Saved post reach limitation");
+      error.limit = LIMIT_SAVE_POST;
+      throw error;
+    }
+    const updatedSavedPosts = {
+      ...existedSavedPosts,
+      [postId]: new Date().getTime(),
+    };
+    setChromeSyncStore({ savedPosts: updatedSavedPosts });
+    return { ...state, savedPosts: updatedSavedPosts };
+  },
+  [VOZ_LIVING_UNSAVE_POST](state, action) {
+    const { postId } = action;
+    const existedSavedPosts = state.savedPosts;
+    const updatedSavedPosts = { ...existedSavedPosts };
+    delete updatedSavedPosts[postId];
+    setChromeSyncStore({ savedPosts: updatedSavedPosts });
+    return { ...state, savedPosts: updatedSavedPosts };
+  },
   [VOZ_LIVING_UPDATE_POST_TRACKER](state, action) {
-    const { 
+    const {
       threadId,
       postId,
       postNum,
