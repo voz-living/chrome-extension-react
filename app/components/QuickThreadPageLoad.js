@@ -3,6 +3,7 @@ import {
   PropTypes,
 } from 'react';
 import $ from 'jquery';
+const cheerio = require('cheerio');
 
 import {
   GET,
@@ -24,7 +25,16 @@ export default class QuickThreadPageLoad extends Component {
   }
 
   handlePageLoad(href) {
-
+    GET(href)
+      .then((html) => {
+        const $$ = cheerio.load(html);
+        const newTitle = $$('title').text();
+        const postsHtml = $$('#posts').html();
+        document.querySelector('#posts').innerHTML = postsHtml;
+        history.pushState({}, newTitle, href);
+        document.title = newTitle;
+      });
+      return false;
   }
 
   render() {
