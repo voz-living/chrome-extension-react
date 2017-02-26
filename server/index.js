@@ -13,3 +13,9 @@ const io = require('socket.io')(server);
 server.listen(PORT, () => console.log(`Voz Living Server listen on port ${PORT}`));
 
 io.use(p2pserver);
+
+io.on('connection', (socket) => {
+  socket.on('peer-msg', (data) => {
+    socket.broadcast.emit('peer-msg', data);
+  });
+});
