@@ -90,3 +90,6 @@ Updates:
 3.0.19: 
 - Fix lỗi lặp hình
 - Fix khi click vào xoá bookmark thì nhảy lên trên
+
+3.0.20: 
+- Add custom userStyle support
