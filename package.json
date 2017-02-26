@@ -40,7 +40,6 @@
     "style-loader": "^0.13.1",
     "tiny-cookie": "^1.0.1",
     "url-loader": "^0.5.7",
-    "webpack": "1.13.2",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
@@ -58,6 +57,8 @@
     "eslint-plugin-import": "^1.5.0",
     "eslint-plugin-jsx-a11y": "^1.0.2",
     "eslint-plugin-react": "^5.0.1",
-    "json-loader": "^0.5.4"
+    "extract-text-webpack-plugin": "^2.0.0",
+    "json-loader": "^0.5.4",
+    "webpack": "^2.2.1"
   }
 }

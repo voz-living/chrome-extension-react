@@ -12,9 +12,7 @@
     "256": "assert/icon/256.png"
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "page": "background.html"
   },
   "options_ui": {
     "page": "options.html",
@@ -41,7 +39,11 @@
   "content_scripts": [{
     "all_frames": false,
     "js": [
+      "common.dll.js",
       "voz-living.js"
+    ],
+    "css": [
+      "content-style.css"
     ],
     "matches": [
       "http://localhost-voz/",
