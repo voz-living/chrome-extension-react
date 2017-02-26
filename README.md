@@ -5,6 +5,8 @@
 
 ### Install / Develope
 - npm install
+- Build DLL: `webpack --colors --progress --config=dll.webpack.config.js `
+- Build CSS: `webpack --colors --progress --config=css.webpack.config.js`
 - ./dev to run dev extension will build inside /chrome dir
 - load unpack extension in /chrome dir
 

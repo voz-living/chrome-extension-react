@@ -2,10 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import Root from './containers/Root';
 import VOZLivingLoader from './components/PageLoader';
-
+// const test = 1;
 document.onreadystatechange = () => {
   if (document.readyState === 'interactive') {
-    require('./styles/index.less'); // eslint-disable-line
     window.vozLivingLoader = VOZLivingLoader.init().start();
 
     const injector = document.createElement('div');

@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+  devtool: 'cheap-module-source-map',
   entry: {
     'voz-living': './app/bootstrap.js',
     'background': './background/bootstrap.js',
@@ -16,32 +17,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.css|\.less$/,
-        use: [
-          { loader: 'style-loader'},
-          { loader: 'css-loader'},
-          { loader: 'less-loader'},
-        ],
-      },
-      {
-        test: /\.(eot|woff|woff2|ttf)(\?.*$|$)/,
-        use: [
-          { loader: 'base64-font-loader' },
-        ],
-      },
-      {
-        test: /\.(svg|png|jpg)(\?.*$|$)/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 30000,
-              name: './assert/[name].[ext]',
-            },
-          },
-        ],
-      },
       {
         test: /\.jsx$|\.js$/,
         exclude: /node_modules/,
@@ -59,6 +34,10 @@ module.exports = {
     extensions: ['.js', '.json']
   },
   plugins: [
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: require('./dist/chrome/common-manifest.json')
+    }),
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, './manifest.json'),
@@ -71,6 +50,10 @@ module.exports = {
       {
         from: path.join(__dirname, './options/options.html'),
         to: './options.html'
+      },
+      {
+        from: path.join(__dirname, './background/background.html'),
+        to: './background.html'
       },
     ]),
   ]
