@@ -2,13 +2,22 @@ import {
   uploadImageToPikVn,
 } from '../app/common/uploadImage';
 
+import {
+  GET,
+} from '../app/utils/http';
+
 function imageUploadService(request, sendResponse) {
   uploadImageToPikVn(request.imageData).then((res) => {
     sendResponse(res);
   });
 }
 
-
+function proxyService(request, sendResponse) {
+  const { url, options } = request;
+  GET(url, options)
+    .then((res) => sendResponse({ resolve: res }))
+    .catch(e => sendResponse({ reject: e }));
+}
 
 export default function startServices() {
   chrome.runtime.onMessage.addListener(
@@ -23,6 +32,11 @@ export default function startServices() {
         }
         if (request.service === 'open-options') {
           chrome.runtime.openOptionsPage();
+          return true;
+        }
+
+        if (request.service === 'proxy') {
+          proxyService(request, sendResponse);
           return true;
         }
       }

@@ -49,8 +49,16 @@ const PUT = requestFactory({
   }),
 });
 
+const PROXY_GET = (url, options = {}) =>
+  new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage({ service: 'proxy', url, options }, (response) => {
+      if (response.resolve) return resolve(response.resolve);
+      reject(response.reject);
+    });
+  });
 
 export {
+  PROXY_GET,
   GET,
   POST,
   PUT,

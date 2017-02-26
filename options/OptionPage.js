@@ -7,6 +7,7 @@ import {
 import { autobind } from 'core-decorators';
 import NumberConfigItem from './NumberConfigItem';
 import OnOffConfigItem from './OnOffConfigItem';
+import TextConfigItem from './TextConfigItem';
 
 const defaultSettings = defaultStoreStructure.settings;
 
@@ -41,8 +42,9 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="adsRemove" parent={parent} >Xoá quảng cáo</OnOffConfigItem>
         <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
-        <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="peerChatEnable" parent={parent} >Peer Chat</OnOffConfigItem>
+        <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
+        <TextConfigItem configKey="userStyle" parent={parent} > userStyle Url </TextConfigItem>
         <h3>Trang danh sách thớt (Thread List)</h3>
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>

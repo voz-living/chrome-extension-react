@@ -14,6 +14,7 @@ export const defaultStoreStructure = {
     savePostEnable: true,
     autoHideSidebar: false,
     peerChatEnable: false,
+    userStyle: '',
     delay: 1, // minute
   },
   authInfo: {},
@@ -33,7 +34,6 @@ export const defaultStoreStructure = {
   followThreads: {},
   threadTracker: {},
   currentPost: {},
-  userStyle: 'default',
 };
 
 const defaultSyncStoreStructure = {

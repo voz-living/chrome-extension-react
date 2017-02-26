@@ -14,6 +14,7 @@ import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
+import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import SideMenu from './SideMenu';
 import PeerChatControl from '../components/peerchat/PeerChatControl';
@@ -96,7 +97,13 @@ class App extends Component {
   }
 
   renderBaseOnCurrentView(currentView) {
-    const { linkHelper, minimizeQuote, quickPostQuotation, threadPreview, savePostEnable } = this.props.settings;
+    const {
+      linkHelper,
+      minimizeQuote,
+      quickPostQuotation,
+      threadPreview,
+      savePostEnable,
+    } = this.props.settings;
     if (currentView === 'thread-list') {
       return [
         <ThreadListControl
@@ -122,7 +129,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar, peerChatEnable } = this.props.settings;
+    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar, peerChatEnable, userStyle } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -138,6 +145,7 @@ class App extends Component {
         {this.renderBaseOnCurrentView(this.currentView)}
         <PasteToUpload />
         {this.authInfo.isLogin && peerChatEnable ? <PeerChatControl /> : null}
+        <UserStyle userStyle={userStyle} />
       </div>
     );
   }
