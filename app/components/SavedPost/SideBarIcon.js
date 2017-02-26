@@ -43,10 +43,10 @@ class SavedPostSideBarIcon extends Component {
     return (
       <div className="bookmark-item-wrapper" key={postId}>
         <div className="bookmark-tools">
-          <a href="#" className="bookmark-remove" onClick={unsavePostClick}>
+          <a href="javscript:void(0)" className="bookmark-remove" onClick={unsavePostClick}>
             <i className="fa fa-trash" />
           </a>
-          <a href="#" className="open-post-new-tab" onClick={openInNewTab}>
+          <a href="javscript:void(0)" className="open-post-new-tab" onClick={openInNewTab}>
             <i className="fa fa-external-link" />
           </a>
         </div>
