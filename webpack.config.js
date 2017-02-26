@@ -1,5 +1,4 @@
 /* eslint-disable */
-require('es6-promise').polyfill();
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
@@ -16,48 +15,50 @@ module.exports = {
     filename: '[name].js'
   },
   module: {
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
+    rules: [
       {
         test: /\.css|\.less$/,
-        loader: 'style-loader!css-loader!less-loader',
+        use: [
+          { loader: 'style-loader'},
+          { loader: 'css-loader'},
+          { loader: 'less-loader'},
+        ],
       },
       {
         test: /\.(eot|woff|woff2|ttf)(\?.*$|$)/,
-        loader: 'base64-font-loader'
+        use: [
+          { loader: 'base64-font-loader' },
+        ],
       },
       {
         test: /\.(svg|png|jpg)(\?.*$|$)/,
-        loader: 'url-loader?limit=30000&name=./assert/[name].[ext]'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 30000,
+              name: './assert/[name].[ext]',
+            },
+          },
+        ],
       },
       {
-        test: /\.jsx$|\.js$|\.es6$/,
+        test: /\.jsx$|\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        use: [
+          { loader: 'babel-loader' }
+        ],
       },
-      {
-        test: /\.html$/,
-        loader: 'html'
-      }
     ]
   },
   resolve: {
-    root: [
+    modules: [
       path.resolve('./app'),
       path.resolve('./node_modules')
     ],
-    extensions: ['', '.js', '.json']
-  },
-  resolveLoader: {
-    root: [
-      path.join(__dirname, 'node_modules')
-    ],
+    extensions: ['.js', '.json']
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(true),
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, './manifest.json'),
