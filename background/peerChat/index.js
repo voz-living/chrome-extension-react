@@ -28,7 +28,6 @@ class PeerChatBackGround {
     if (this.url && this.socket === null && this.p2p === null) {
       this.socket = io(this.url);
       this.p2p = new P2P(this.socket, { numClients: this.numClients }, () => {
-        this.p2p.usePeerConnection = true;
         this.p2p.emit('peer-obj', { peerId: this.p2p.peerId });
       });
 
