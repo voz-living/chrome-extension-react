@@ -82,6 +82,11 @@ function main() {
     .then(() => {
       console.info('subscribed threads updated');
       setTimeout(main, UPDATE_TIMEOUT);
+    })
+    .catch((e) => {
+      console.error(e);
+      console.info('Error while trying to get subscribed thread, try again next time ...')
+      setTimeout(main, UPDATE_TIMEOUT);
     });
 }
 
