@@ -18,6 +18,7 @@ class UserStyle extends Component {
 
   checkAddStyle(userStyleUrl) {
     try {
+      if (userStyleUrl === '') return;
       const userStyleId = userStyleUrl.match(/\/styles\/(\d+)\//)[1];
       const storeId = `voz_living_userstyle_${userStyleId}`;
       const oldCss = window.localStorage.getItem(storeId);

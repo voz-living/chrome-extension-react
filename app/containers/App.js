@@ -16,6 +16,7 @@ import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
 import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
+import CapturePost from '../components/CapturePost';
 import SideMenu from './SideMenu';
 import PeerChatControl from '../components/peerchat/PeerChatControl';
 
@@ -29,6 +30,7 @@ import {
   getChromeLocalStore,
   getChromeSyncStore,
   setChromeLocalStore,
+  defaultStoreStructure,
 } from '../utils/settings';
 
 import {
@@ -69,14 +71,18 @@ class App extends Component {
     ])
     .then(([storage, syncStore]) => {
       const {
-        settings, authInfo,
+        settings: _settings, authInfo,
       } = storage;
+      const settings = {
+        ...defaultStoreStructure.settings,
+        ..._settings,
+      };
       const misc = {};
       misc.currentView = this.currentView;
       if (misc.currentView === 'thread') {
         misc.threadId = postInfo.getThreadId();
       }
-
+      storage.settings = settings; // eslint-disable-line
       this.props.dispatch(init({ ...storage, ...syncStore, misc }));
 
       if (settings.threadPreview === true && this.currentView === 'thread-list') {
@@ -97,13 +103,18 @@ class App extends Component {
   }
 
   renderBaseOnCurrentView(currentView) {
+    const settings = (_.isEmpty(this.props.settings)) ? {} : {
+      ...defaultStoreStructure.settings,
+      ...this.props.settings,
+    };
     const {
       linkHelper,
       minimizeQuote,
       quickPostQuotation,
       threadPreview,
       savePostEnable,
-    } = this.props.settings;
+      capturePostEnable,
+    } = settings;
     if (currentView === 'thread-list') {
       return [
         <ThreadListControl
@@ -122,7 +133,8 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
-        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} /> : null,
+        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} key="saved-post-thread-binder" /> : null,
+        capturePostEnable ? <CapturePost key="capture-post" /> : null,
       ];
     }
     return null;

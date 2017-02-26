@@ -17,6 +17,7 @@ module.exports = {
       'react', 'react-dom', 'react-redux', 'redux', 'redux-logger', 'redux-promise', 'redux-thunk',
       'socket.io-client', 'socket.io-p2p',
       'style-loader',
+      'html2canvas',
     ],
   },
 

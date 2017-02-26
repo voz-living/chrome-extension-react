@@ -215,12 +215,45 @@ a.voz-living-newtab {
   }
 }
 
+.voz-living-capture-post {
+  margin: 0 10px;
+  position: relative;
+  display: inline-block;
+  > a.voz-living-capture {
+    font-size: 25px;
+    color: #23497C;
+    font-size: 25px;
+  }
+  .voz-living-capture-post-link {
+    position: absolute;
+    right: 30px;
+    top: -30px;
+    opacity: 0.8;
+    height: 20px;
+    line-height: 16px;
+    font-size: 12px;
+    background: white;
+    color: #333;
+    border: 1px solid #666;
+  }
+  .voz-living-capture-post-image {
+    position: absolute;
+    display: block;
+    right:0;
+    line-height: 25px;
+    font-size: 20px;
+    opacity: 0.8;
+    top: -30px;
+  }
+}
+
 .voz-living-arrow-nav-help {
   font-family: Arial,sans-serif;
   font-size: 11px;
   text-shadow: 0 0 1px #1f39d1;
 }
 
+@import './remove-ads';
 @import './thread-preview';
 @import './side-menu';
 @import './emotion-box';

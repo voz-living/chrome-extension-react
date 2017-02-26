@@ -93,3 +93,5 @@ Updates:
 
 3.0.20: 
 - Add custom userStyle support
+3.0.22: 
+- Thêm tính năng chụp bài viết và upload lấy link
