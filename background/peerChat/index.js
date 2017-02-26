@@ -32,11 +32,6 @@ class PeerChatBackGround {
         this.p2p.emit('peer-obj', { peerId: this.p2p.peerId });
       });
 
-      this.socket.on('connect', () => {
-        this.log('Socket Connected Join Room voz-living-general');
-        this.joinRoom({ roomId: 'voz-living-general' });
-      });
-
       this.socket.on('disconnect', () => this.log('Socket Disconnected'));
 
       // this event will be triggered over the socket transport
@@ -44,12 +39,6 @@ class PeerChatBackGround {
       this.p2p.on('peer-msg', (data) => {
         this.log('Receive Chat Message', data.message);
         this.receivePeerMessage(data.message);
-      });
-
-      this.p2p.on('upgrade', () => {
-        this.log('Upgrade to p2p connection');
-        this.log('Disable socket');
-        this.p2p.useSockets = false;
       });
     }
   }

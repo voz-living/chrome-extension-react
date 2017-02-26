@@ -13,10 +13,3 @@ const io = require('socket.io')(server);
 server.listen(PORT, () => console.log(`Voz Living Server listen on port ${PORT}`));
 
 io.use(p2pserver);
-
-io.on('connection', (socket) => {
-  socket.on('vozliving-join-room', ({ roomId }) => {
-    socket.join(roomId);
-    p2pserver(socket, null, roomId);
-  });
-});
