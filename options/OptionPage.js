@@ -44,7 +44,12 @@ export default class OptionPage extends Component {
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
         <OnOffConfigItem configKey="peerChatEnable" parent={parent} >Peer Chat</OnOffConfigItem>
         <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
-        <TextConfigItem configKey="userStyle" parent={parent} > userStyle Url </TextConfigItem>
+        <TextConfigItem configKey="userStyle" parent={parent} > 
+          userStyle Url &nbsp;
+          <a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-Tu%E1%BB%B3-ch%E1%BB%8Dn-style-v%E1%BB%9Bi-userStyle">
+            (?)  
+          </a>&nbsp;
+        </TextConfigItem>
         <h3>Trang danh sách thớt (Thread List)</h3>
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>
