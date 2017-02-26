@@ -1,5 +1,10 @@
 const webpack = require('webpack');
 /* eslint-disable max-len */
+
+const isProduction = typeof process.env.PRODUCTION !== 'undefined';
+console.log((isProduction ? 'Production' : 'Test') + ' build ...');
+const distPath = isProduction ? './dist/compiled/' : './dist/chrome/';
+
 module.exports = {
   entry: {
     common: [
@@ -17,7 +22,7 @@ module.exports = {
 
   output: {
     filename: '[name].dll.js',
-    path: 'dist/chrome/',
+    path: distPath,
     library: '[name]_lib',
   },
 
@@ -27,7 +32,7 @@ module.exports = {
         comments: false,
     }),
     new webpack.DllPlugin({
-      path: 'dist/chrome/[name]-manifest.json',
+      path: distPath + '[name]-manifest.json',
       name: '[name]_lib',
     }),
   ],

@@ -1,12 +1,17 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+
+const isProduction = typeof process.env.PRODUCTION !== 'undefined';
+console.log((isProduction ? 'Production' : 'Test') + ' build ...');
+const distPath = isProduction ? './dist/compiled/' : './dist/chrome/';
+
 module.exports = {
   entry: {
     'content-style': './app/style-bootstrap',
     'option-style': './options/style-bootstrap',
   },
   output: {
-    path: path.join(__dirname, './dist/chrome/'),
+    path: path.join(__dirname, distPath),
     filename: '[name].js',
   },
   module: {

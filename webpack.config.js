@@ -4,15 +4,18 @@ const fs = require('fs');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const isProduction = typeof process.env.PRODUCTION !== 'undefined';
+console.log((isProduction ? 'Production' : 'Test') + ' build ...');
+const distPath = isProduction ? './dist/compiled/' : './dist/chrome/';
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: isProduction ? 'nosources-source-map' : 'cheap-module-source-map',
   entry: {
     'voz-living': './app/bootstrap.js',
     'background': './background/bootstrap.js',
     'options': './options/root.js',
   },
   output: {
-    path: path.join(__dirname, './dist/chrome/'),
+    path: path.join(__dirname, distPath),
     filename: '[name].js'
   },
   module: {
@@ -36,7 +39,7 @@ module.exports = {
   plugins: [
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require('./dist/chrome/common-manifest.json')
+      manifest: require(distPath + 'common-manifest.json')
     }),
     new CopyWebpackPlugin([
       {
@@ -56,5 +59,10 @@ module.exports = {
         to: './background.html'
       },
     ]),
-  ]
+  ].concat(isProduction ? [
+    new webpack.optimize.UglifyJsPlugin({
+        beautify: false,
+        comments: false,
+    }),
+  ]: [])
 };
