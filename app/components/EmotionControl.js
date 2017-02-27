@@ -66,14 +66,14 @@ class EmotionControl extends Component {
     const hasSmileBox = $('.smilebox').length !== 0;
 
     if (emotionHelper && !hasSmileBox) {
-      if (currentView === 'thread' || currentView === 'new-reply') {
+      if (currentView === 'thread' || currentView === 'new-reply' || currentView === 'edit-reply' ) {
         let smileCont = null;
 
         if (currentView === 'thread') {
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
-        } else if (currentView === 'new-reply') {
+        } else if (currentView === 'new-reply' || currentView === 'edit-reply') {
           this.editor = $('#vB_Editor_001_textarea');
           smileCont = $('#vB_Editor_001_smiliebox');
           smileCont.find('table').remove();

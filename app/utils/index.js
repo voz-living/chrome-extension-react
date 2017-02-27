@@ -8,6 +8,8 @@ export function getCurrentView() {
     currentView = 'thread';
   } else if (/newreply/.test(window.location.pathname)) {
     currentView = 'new-reply';
+  } else if (/editpost/.test(window.location.pathname)) {
+    currentView = 'edit-reply';
   }
   return currentView;
 }
