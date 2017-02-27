@@ -3,6 +3,7 @@ import {
   PropTypes,
 } from 'react';
 import $ from 'jquery';
+import _ from 'lodash';
 import html2canvas from 'html2canvas';
 import { uploadImage } from '../common/uploadImage';
 import { copyText } from '../utils/clipboard';
@@ -43,7 +44,7 @@ export default class CapturePost extends Component {
     $btn.find('.voz-living-capture-post-link').remove();
     $btn.find('.voz-living-capture-post-image').remove();
     try {
-      const $txt = $('<input class="voz-living-capture-post-link" type="text" size=30 value="Chờ tí nhé" />');
+      const $txt = $('<input class="voz-living-capture-post-link" type="text" size=30 value="Capturing by Voz Living" />');
       $btn.append($txt);
       setTimeout(() => {
         html2canvas($post[0])
@@ -59,17 +60,25 @@ export default class CapturePost extends Component {
         })
         .then((res) => {
           const url = res.url;
-          $txt.val(url);
+          if (_.isUndefined(url)) {
+            $txt.val('Faild to upload');
+          } else {
+            $txt.val(url);
+          }
           $txt.on('click', () => {
-            copyText(url);
-            $txt.val('Coppied');
-            setTimeout(() => $txt.remove(), 1000);
+            let to = 100;
+            if (!_.isUndefined(url)) {
+              copyText(url);
+              $txt.val('Coppied');
+              to = 1000;
+            }
+            setTimeout(() => $txt.remove(), to);
           });
         })
         .catch((e) => {
           throw e;
         });
-      }, 300);
+      }, 100);
     } catch (e) {
       alert('Có lỗi xảy ra, không thể chụp được bài viết này');
       console.error(e);

@@ -58,10 +58,13 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="linkHelper" parent={parent} >Tự động xử lý link</OnOffConfigItem>
         <OnOffConfigItem configKey="minimizeQuote" parent={parent} >Tự động thu nhỏ trích dẫn</OnOffConfigItem>
         <OnOffConfigItem configKey="quickPostQuotation" parent={parent} >Trích dẫn nhanh</OnOffConfigItem>
-        <OnOffConfigItem configKey="capturePostEnable" parent={parent} >Chụp bài viết / Capture Post</OnOffConfigItem>
+        <OnOffConfigItem configKey="capturePostEnable" parent={parent} >
+          Chụp bài viết / Capture Post
+          &nbsp;<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-Ch%E1%BB%A5p-h%C3%ACnh-b%C3%A0i-vi%E1%BA%BFt">(?)</a>
+        </OnOffConfigItem>
         <OnOffConfigItem configKey="savePostEnable" parent={parent} >
           Lưu bài viết (post)
-          (<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-L%C6%B0u-b%C3%A0i-vi%E1%BA%BFt">?</a>)
+          &nbsp;<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-L%C6%B0u-b%C3%A0i-vi%E1%BA%BFt">(?)</a>
         </OnOffConfigItem>
         <hr />
         <div className="warning">Tuỳ chọn mới sẽ được áp dụng khi bạn tải trang mới hoặc tải lại trang</div>
