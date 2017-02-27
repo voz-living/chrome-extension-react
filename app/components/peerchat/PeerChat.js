@@ -22,6 +22,7 @@ class PeerChat extends Component {
       sendMessage: '',
       isConnect: isConnectSession,
       isOpen: isConnectSession,
+      isMaximized: false,
     };
 
     this.throttledMessagesUpdate = _.throttle(this.updateMessageToStorage.bind(this), 300);
@@ -118,12 +119,14 @@ class PeerChat extends Component {
       return (
         <div className="voz-living-peer-chat-body">
           <PeerChatMessages messages={messages} />
-          <input
-            type="text" value={sendMessage}
-            onChange={this.handleChange}
-            onKeyUp={this.handleKeyUp}
-          />
-          <button onClick={this.send}>Send</button>
+          <div className="voz-living-peer-chat-input">
+            <input
+              type="text" value={sendMessage}
+              onChange={this.handleChange}
+              onKeyUp={this.handleKeyUp}
+            />
+            <button onClick={this.send}>Send</button>
+          </div>
         </div>
       );
     }
@@ -146,10 +149,10 @@ class PeerChat extends Component {
   }
 
   render() {
-    const { isOpen, isConnect } = this.state;
+    const { isOpen, isConnect, isMaximized } = this.state;
 
     return (
-      <div className={toClassName({ 'voz-living-peer-chat-wrapper': true, open: isOpen })}>
+      <div className={toClassName({ 'voz-living-peer-chat-wrapper': true, open: isOpen, 'vlpc-maximized': isMaximized })}>
         <div className="voz-living-peer-chat">
           <div
             className="voz-living-peer-chat-header"
@@ -160,7 +163,13 @@ class PeerChat extends Component {
             className="voz-living-peerchat-off" onClick={() => this.disconnect()}>
               <i className="fa fa-power-off" />
             </a> : null}
+          &nbsp;{isOpen ? <a href="javascript:void(0)" 
+            data-tooltip="Maximize Toggle"
+            className="voz-living-peerchat-max" onClick={() => this.setState({isMaximized: !this.state.isMaximized})}>
+              <i className="fa fa-desktop" />
+            </a> : null}
           </div>
+
           {this.renderChatBody()}
         </div>
       </div>
