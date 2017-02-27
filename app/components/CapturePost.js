@@ -12,15 +12,7 @@ export default class CapturePost extends Component {
 
   constructor(props) {
     super(props);
-    this.addScript();
     this.hookToPost();
-  }
-
-  addScript() {
-    const scriptTag = document.createElement('script');
-    scriptTag.type = 'text/javascript';
-    scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js';
-    document.body.appendChild(scriptTag);
   }
 
   hookToPost() {
@@ -47,7 +39,7 @@ export default class CapturePost extends Component {
       const $txt = $('<input class="voz-living-capture-post-link" type="text" size=30 value="Capturing by Voz Living" />');
       $btn.append($txt);
       setTimeout(() => {
-        html2canvas($post[0])
+        html2canvas($post.parents('table.voz-postbit')[0])
         .then(canvas => canvas.toDataURL('image/png'))
         .then((imageData) => {
           $txt.val('Uploading to pik.vn');

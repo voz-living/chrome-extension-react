@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { autobind } from 'core-decorators';
+import _ from 'lodash';
 
 
 function getTime(timeStamp) {
   const date = new Date(timeStamp);
+  const [h, m, d, mm] = [date.getHours(), date.getMinutes(), date.getDate(), date.getMonth() + 1]
+    .map((x) => _.padStart(`${x}`, 2, '0'));
   /* eslint-disable max-len */
-  return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  return `${d}-${mm}-${date.getFullYear()} ${h}:${m}`;
   /* eslint-enable max-len */
 }
 
@@ -69,9 +72,9 @@ class PeerChatMessages extends Component {
         <ul>
           {messages.map(msg => (
             <li key={`${msg.name}-${msg.timeStamp}`}>
-              <span className="voz-living-chat-name">{msg.name}: </span>
               <span className="voz-living-chat-time">{getTime(msg.timeStamp)}</span>
-              <div className="voz-living-chat-message">{msg.message}</div>
+              <span className="voz-living-chat-name">{msg.name}: </span>
+              <span className="voz-living-chat-message">{msg.message}</span>
             </li>
           ))}
         </ul>

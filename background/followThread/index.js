@@ -59,7 +59,7 @@ function getAllLastPost(threads, cb) {
 }
 
 function validateSubscription(threads) {
-  getChromeLocalStore(['followThreads'])
+  return getChromeLocalStore(['followThreads'])
     .then(({ followThreads }) => {
       const validList = threads.map(t => t.id);
       const checkedMap = Object.keys(followThreads)
@@ -70,8 +70,8 @@ function validateSubscription(threads) {
       setChromeLocalStore({
         followThreads: checkedMap,
       });
+      return threads;
     });
-  return threads;
 }
 
 function main() {

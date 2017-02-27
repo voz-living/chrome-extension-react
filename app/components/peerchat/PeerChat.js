@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
 import { getAuthenticationInformation, toClassName } from '../../utils';
 import PeerChatMessages from './PeerChatMessages';
+import _ from 'lodash';
 
 @autobind
 class PeerChat extends Component {
@@ -11,32 +12,57 @@ class PeerChat extends Component {
     this.authInfo = getAuthenticationInformation();
     this.maxMessageNumber = 100;
 
+    this.storageKey = 'voz_living_peerchat';
+    this.isConnectKey = 'voz_living_peerchat_isconnect';
+
+    const isConnectSession = window.sessionStorage.getItem(this.isConnectKey) === 'true';
+
     this.state = {
-      messages: [],
+      messages: this.getMessageFromStorage(),
       sendMessage: '',
-      isConnect: false,
-      isOpen: false,
+      isConnect: isConnectSession,
+      isOpen: isConnectSession,
     };
+
+    this.throttledMessagesUpdate = _.throttle(this.updateMessageToStorage.bind(this), 300);
 
     chrome.runtime.onMessage.addListener((request) => {
       if (request.peerChatIncomeMessage) {
         this.setState({ messages: [
           ...this.state.messages, request.peerChatIncomeMessage,
         ] });
+        this.throttledMessagesUpdate();
       }
     });
+  }
+
+  getMessageFromStorage() {
+    const store = window.sessionStorage.getItem(this.storageKey);
+    if (store === null) return [];
+    return JSON.parse(store);
+  }
+
+  updateMessageToStorage() {
+    setTimeout(() => window.sessionStorage.setItem(this.storageKey, JSON.stringify(this.state.messages)), 100);
+  }
+
+  clearMessageStorage() {
+    return window.sessionStorage.setItem(this.storageKey, JSON.stringify([]));
   }
 
   connect() {
     // connect socket establish room connection
     this.setState({ isConnect: true });
+    window.sessionStorage.setItem(this.isConnectKey, 'true');
     chrome.runtime.sendMessage({ peerChatConnect: true });
   }
 
   disconnect() {
     // disconnect all socket
-    this.setState({ isConnect: false, messages: [], sendMessage: '' });
+    this.setState({ isConnect: false, messages: [], sendMessage: '', isOpen: false });
+    window.sessionStorage.setItem(this.isConnectKey, 'false');
     chrome.runtime.sendMessage({ peerChatDisconnect: true });
+    this.clearMessageStorage();
   }
 
   send() {
@@ -65,6 +91,7 @@ class PeerChat extends Component {
       chrome.runtime.sendMessage({
         peerChatSendMessage: newMessage,
       }, this.setState({ sendMessage: '', messages: [...newMessages, newMessage] }));
+      this.throttledMessagesUpdate();
     }
   }
 
@@ -79,6 +106,7 @@ class PeerChat extends Component {
 
   toggleOpen() {
     const { isOpen } = this.state;
+    if (isOpen) return;
     if (isOpen) this.disconnect();
     this.setState({ isOpen: !isOpen });
   }
@@ -108,14 +136,17 @@ class PeerChat extends Component {
           VOZLiving <br />
           Peer Chat - Beta <br />
           <i className="fa fa-connectdevelop fa-3"></i> <br />
-          <small>Click here to connect with other VOZers</small>
+          <small>Click để chat với Vozer khác!!!</small>
+          <div className="voz-living-chat-description">
+            * Chat P2(M)P bằng phương thức WebRTC, nội dung chat không thông qua bất kì server nào mà tới thẳng người nhận
+            <br/>* Id của người chat được tự động lấy theo tên đăng nhập voz, có thể bị can thiệp. Đề phòng giả id</div>
         </div>
       </div>
     );
   }
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, isConnect } = this.state;
 
     return (
       <div className={toClassName({ 'voz-living-peer-chat-wrapper': true, open: isOpen })}>
@@ -123,7 +154,13 @@ class PeerChat extends Component {
           <div
             className="voz-living-peer-chat-header"
             onClick={() => this.toggleOpen()}
-          >VOZLiving Peer Chat (Beta)</div>
+          >VOZLiving Peer Chat (Beta)
+          &nbsp;{isConnect ? <a href="javascript:void(0)" 
+            data-tooltip="Disconnect"
+            className="voz-living-peerchat-off" onClick={() => this.disconnect()}>
+              <i className="fa fa-power-off" />
+            </a> : null}
+          </div>
           {this.renderChatBody()}
         </div>
       </div>

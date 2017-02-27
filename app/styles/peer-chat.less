@@ -41,12 +41,19 @@
       font-size: 20px;
       text-align: center;
       height: @chat-window-height - @chat-input-height;
-      line-height: 40px;
+      line-height: 30px;
       margin-top: 40px;
       cursor: pointer;
 
       small{
-        font-size: 11px;
+        font-size: 12px;
+      }
+      .voz-living-chat-description {
+        padding-left: 5px;
+        text-align: left;
+        font-size: 10px;
+        line-height: 14px;
+        font-style: italic;
       }
     }
 
@@ -70,8 +77,12 @@
             font-size: @font-message + 1;
           }
           .voz-living-chat-time{
-            font-size: @font-message - 1;
+            font-size: @font-message - 2;
             color: #201F25;
+              color: #999;
+            font-style: italic;
+            margin-right: 4px;
+            font-size: 10px;
           }
           .voz-living-chat-message{
             padding: 4px 0;
@@ -102,5 +113,11 @@
         outline: none;
       }
     }
+  }
+  .voz-living-peerchat-off {
+    font-size: 16px;
+    padding: 5px;
+    float: right;
+    color: white;
   }
 }
