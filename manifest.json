@@ -1,6 +1,6 @@
 {
   "name": "Voz Living",
-  "version": "3.0.28",
+  "version": "3.0.29",
   "manifest_version": 2,
   "description": "Voz Living - Better Voz",
   "homepage_url": "https://www.facebook.com/VozLiving/",
@@ -40,6 +40,7 @@
     "all_frames": false,
     "js": [
       "common.dll.js",
+      "content.dll.js",
       "voz-living.js"
     ],
     "css": [

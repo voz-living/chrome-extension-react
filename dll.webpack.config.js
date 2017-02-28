@@ -11,13 +11,15 @@ module.exports = {
       'core-decorators',
       'lodash',
       'whatwg-fetch',
-      'jquery-inview', 'mousetrap', 'tiny-cookie',
       'jquery',
       'cheerio',
-      'react', 'react-dom', 'react-redux', 'redux', 'redux-logger', 'redux-promise', 'redux-thunk',
       'socket.io-client', 'socket.io-p2p',
+    ],
+    content: [
+      'react', 'react-dom', 'react-redux', 'redux', 'redux-logger', 'redux-promise', 'redux-thunk',
       'style-loader',
       'html2canvas',
+      'jquery-inview', 'mousetrap', 'tiny-cookie',
     ],
   },
 

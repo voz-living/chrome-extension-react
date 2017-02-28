@@ -41,6 +41,10 @@ module.exports = {
       context: '.',
       manifest: require(distPath + 'common-manifest.json')
     }),
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: require(distPath + 'content-manifest.json')
+    }),
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, './manifest.json'),

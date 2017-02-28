@@ -97,3 +97,7 @@ Updates:
 - Thêm tính năng chụp bài viết và upload lấy link
 3.0.27
 - Chat Box (optional, off by default)
+3.0.28
+- Fix Chat Box UI
+3.0.29 
+- Improve background performance
