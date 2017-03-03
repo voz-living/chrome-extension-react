@@ -1,46 +1,40 @@
-import $ from 'jquery';
+import cheerio from 'cheerio';
 import {
   GET,
 } from '../../app/utils/http';
 import cleanHtml from '../../app/utils/cleanHtml';
-
+/* eslint-disable new-cap */
 const SUBSCRIPTION_LINK = 'https://vozforums.com/subscription.php?do=viewsubscription';
 
 export default function getSubscribedThreads() {
   return GET(SUBSCRIPTION_LINK).then((html) => {
-    const $html = $(cleanHtml(html, ['images']));
-    const form = $html.find("form[action*='subscription.php?do=dostuff']");
-    if (form.length === 0) {
-      if ($html.find("*:contains('You are not logged in or you do not have permission to access this page')").length > 0) {
+    const $$ = cheerio.load(html);
+    const $form = $$("form[action*='subscription.php?do=dostuff']");
+    if ($form.length === 0) {
+      if ($$.find("*:contains('You are not logged in or you do not have permission to access this page')").length > 0) {
         console.info('Loged In = false');
       }
       return false;
     }
 
     const result = [];
-    const subRows = form.find('table tr:not(:has(td.thead,td.tfoot,td.tcat))');
+    const subRows = $form.find('table tr:not(:has(td.thead,td.tfoot,td.tcat))');
     if (subRows.length > 0) {
-      subRows.each(function () {
-        const $this = $(this);
+      subRows.each((i, e) => {
+        const $e = $$(e);
         const thread = {};
-        thread.id = function getThreadId(t) {
-          const a = t.find("a[href*='showthread.php?t=']").eq(0).attr('href').match(/\?t=(\d+)/)[1];
-          return a;
-        }($this);
+        thread.id = $e.find("a[href*='showthread.php?t=']").eq(0).attr('href').match(/\?t=(\d+)/)[1];
 
-        thread.title = function (t) {
-          return t.find("a[id^='thread_title']").text();
-        }($this);
+        thread.title = $e.find("a[id^='thread_title']").text()
 
-        thread.lastPage = function (t) {
+        thread.lastPage = ((t) => {
           const nextTitle = t.find("a[id^='thread_title']").next();
           if (nextTitle.length > 0) {
-            const lastPageLink = nextTitle.find('a:last');
+            const lastPageLink = nextTitle.find('a').last();
             return lastPageLink.attr('href').match(/page=(\d+)/)[1];
-          } else {
-            return 1;
           }
-        }($this);
+          return 1;
+        })($e);
         result.push(thread);
       });
     } else {
