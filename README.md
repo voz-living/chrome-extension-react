@@ -101,3 +101,5 @@ Updates:
 - Fix Chat Box UI
 3.0.29 
 - Improve background performance
+3.0.30
+- Fix PostTracker not working

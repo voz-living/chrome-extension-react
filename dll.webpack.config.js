@@ -19,7 +19,7 @@ module.exports = {
       'react', 'react-dom', 'react-redux', 'redux', 'redux-logger', 'redux-promise', 'redux-thunk',
       'style-loader',
       'html2canvas',
-      'jquery-inview', 'mousetrap', 'tiny-cookie',
+      /*'jquery-inview',*/ 'mousetrap', 'tiny-cookie',
     ],
   },
 
