@@ -7,12 +7,25 @@ import {
   setChromeLocalStore,
   getChromeLocalStore,
 } from '../../app/utils/settings';
-
+import _ from 'lodash';
 import postHelper from '../../app/utils/postHelper';
 import getSubscribedThreads from './getSubscribedThreads';
 
+const UPDATE_TIMEOUT_DEFAULT = 60000 * 5;
 const REQUEST_TIMEOUT = 1000;
-const UPDATE_TIMEOUT = 60000 * 2; /* 2 min */
+let UPDATE_TIMEOUT = UPDATE_TIMEOUT_DEFAULT; /* 2 min */
+
+function getDelaySetting() {
+  return getChromeLocalStore(['settings']).then(({ settings }) => {
+    const { delayFollowThread } = settings;
+    UPDATE_TIMEOUT = parseInt(delayFollowThread, 10);
+    if (_.isNaN(UPDATE_TIMEOUT) || UPDATE_TIMEOUT < 1 || UPDATE_TIMEOUT > 60 * 24){
+      UPDATE_TIMEOUT = 5;
+    }
+    UPDATE_TIMEOUT *= 60000;
+    return UPDATE_TIMEOUT;
+  });
+}
 
 function getAllLastPost(threads, cb) {
   if (threads.length > 0) {
@@ -76,7 +89,8 @@ function validateSubscription(threads) {
 
 function main() {
   console.log('Start to update subscribed thread');
-  getSubscribedThreads()
+  getDelaySetting()
+    .then(getSubscribedThreads)
     .then(validateSubscription)
     .then((threads) => new Promise((resolve) => getAllLastPost(threads, resolve)))
     .then(() => {

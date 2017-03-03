@@ -17,6 +17,7 @@ export const defaultStoreStructure = {
     capturePostEnable: true,
     userStyle: '',
     delay: 1, // minute
+    delayFollowThread: 5, // minute
   },
   authInfo: {},
   quotes: [],
