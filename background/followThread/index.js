@@ -1,7 +1,7 @@
 import {
   GET,
 } from '../../app/utils/http';
-import $ from 'jquery';
+import cheerio from 'cheerio';
 import cleanHtml from '../../app/utils/cleanHtml';
 import {
   setChromeLocalStore,
@@ -38,11 +38,12 @@ function getAllLastPost(threads, cb) {
 
     GET(`https://vozforums.com/showthread.php?t=${id}&page=${lastPage}`).then((html) => { // eslint-disable-line new-cap
       try {
-        const $html = $(cleanHtml(html, ['images']));
-        if ($html.find('#ChallengForm').length > 0) {
+        const $$ = cheerio.load(html);
+        if ($$('#ChallengForm').length > 0) {
           // threads.unshift(thread);
+          console.log('shit happen', $$('#ChallengForm').html());
         } else {
-          const postInfo = postHelper($html);
+          const postInfo = postHelper($$('body'));
           const latestPost = Object.assign({
             title,
             page: lastPage,

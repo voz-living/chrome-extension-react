@@ -103,3 +103,5 @@ Updates:
 - Improve background performance
 3.0.30
 - Fix PostTracker not working
+- Thêm option chỉnh thời gian quét thớt theo dõi
+- Cải thiện performance của việc quét thớt theo dõi

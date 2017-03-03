@@ -27,7 +27,7 @@ export default function postHelper($html) {
       return page;
     },
     getLatestPost: function getLatestPost() {
-      const lastpost = $html.find("table[id^='post']:last");
+      const lastpost = $html.find("table[id^='post']").last();
       const id = lastpost.attr('id').match(/(\d+)/)[1];
 
       const postNum = $html.find("table[id^='post']").length;
