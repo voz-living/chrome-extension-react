@@ -1,13 +1,13 @@
 import cheerio from 'cheerio';
 import {
   GET,
+  headerNoCache,
 } from '../../app/utils/http';
-import cleanHtml from '../../app/utils/cleanHtml';
 /* eslint-disable new-cap */
 const SUBSCRIPTION_LINK = 'https://vozforums.com/subscription.php?do=viewsubscription';
 
 export default function getSubscribedThreads() {
-  return GET(SUBSCRIPTION_LINK).then((html) => {
+  return GET(SUBSCRIPTION_LINK, { headers: headerNoCache }).then((html) => {
     const $$ = cheerio.load(html);
     const $form = $$("form[action*='subscription.php?do=dostuff']");
     if ($form.length === 0) {

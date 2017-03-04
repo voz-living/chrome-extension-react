@@ -1,8 +1,8 @@
 import {
   GET,
+  headerNoCache,
 } from '../../app/utils/http';
 import cheerio from 'cheerio';
-import cleanHtml from '../../app/utils/cleanHtml';
 import {
   setChromeLocalStore,
   getChromeLocalStore,
@@ -36,7 +36,7 @@ function getAllLastPost(threads, cb) {
       title,
     } = thread;
 
-    GET(`https://vozforums.com/showthread.php?t=${id}&page=${lastPage}`).then((html) => { // eslint-disable-line new-cap
+    GET(`https://vozforums.com/showthread.php?t=${id}&page=${lastPage}`, { headers: headerNoCache }).then((html) => { // eslint-disable-line new-cap
       try {
         const $$ = cheerio.load(html);
         if ($$('#ChallengForm').length > 0) {

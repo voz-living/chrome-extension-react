@@ -57,9 +57,14 @@ const PROXY_GET = (url, options = {}) =>
     });
   });
 
+const headerNoCache = new Headers();
+headerNoCache.append('pragma', 'no-cache');
+headerNoCache.append('cache-control', 'no-cache');
+
 export {
   PROXY_GET,
   GET,
   POST,
   PUT,
+  headerNoCache,
 };
