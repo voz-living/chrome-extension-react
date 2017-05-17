@@ -55,6 +55,24 @@ class App extends Component {
     this.dispatch = comProps.dispatch;
     this.currentView = getCurrentView();
     this.authInfo = getAuthenticationInformation();
+
+    switch (this.currentView) {
+      case 'thread': {
+        const postInfo = postHelper($(document.body));
+        trackEvent('view-thread-id', postInfo.getThreadId());
+        trackEvent('view-thread-title', postInfo.getThreadTitle());
+        break;
+      }
+      case 'thread-list': {
+        try {
+          const f = window.location.href.match(/f=(\d+)/)[1];
+          trackEvent('view-forum', f);
+        } catch (e) {
+          console.error(e);
+        }
+        break;
+      }
+    }
   }
 
   componentDidMount() {

@@ -77,6 +77,7 @@ class ThreadListControl extends Component {
 
   mountOpenNewTabControl({ id, element }) {
     const $link = element.find(`a[id=thread_title_${id}]`);
+    $link[0].href = $link[0].href.replace(/php\?/, 'php?goto=newpost&');
     const href = $link[0].href;
     const $a = $(`<a 
       class="voz-living-newtab tooltip-bottom" 

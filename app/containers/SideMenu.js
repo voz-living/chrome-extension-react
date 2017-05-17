@@ -47,7 +47,7 @@ class LXBtn extends Component {
           onClick={() => this.setState({ isOpen: !this.state.isOpen })}
         ></div>
         <div className="btn-options" style={{ display: isOpen ? 'block' : 'none', padding: 0 }}>
-          <iframe src="https://voz-living.github.io/linhxinh/" style={{ width: '100%', height: '100%' }}></iframe>
+          <iframe src="https://voz-living.github.io/linhxinh/?extension=true" style={{ width: '100%', height: '100%' }}></iframe>
         </div>
       </div>
     );

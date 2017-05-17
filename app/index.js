@@ -2,7 +2,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import Root from './containers/Root';
 import VOZLivingLoader from './components/PageLoader';
-// const test = 1;
+
+window.trackEvent = (category, action, label) => {
+  chrome.runtime.sendMessage({ __ga: true, category, action, label });
+};
+trackEvent('view-content', location.href);
+
 document.onreadystatechange = () => {
   if (document.readyState === 'interactive') {
     window.vozLivingLoader = VOZLivingLoader.init().start();
