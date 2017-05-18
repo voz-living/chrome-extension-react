@@ -83,8 +83,9 @@ class PeerChatMessages extends Component {
     }
   }
 
-  prepareMessage(message) {
-    let out = message;
+  prepareMessage(msg) {
+    let out = msg.message;
+    const id = `${msg.name}-${msg.timeStamp}`;
 
     if (out && out.length > 0) {
       const splits = out.split(this.emoRegex);
@@ -92,14 +93,16 @@ class PeerChatMessages extends Component {
       if (splits && splits.length > 0) {
         out = (
           <div>{splits.map((txt, idx) => {
-            if (!emotis || !emotis[idx]) return <span>{txt}</span>;
+            if (!emotis || !emotis[idx]) return <span key={`message-${idx}-${id}`}>{txt}</span>;
             const found = emotions.find(f => f.text === emotis[idx]);
             if (found) {
               return (
-                <span>{txt} <img src={prepareEmotionUrl(found.src)} alt={found.text} /></span>
+                <span
+                  key={`message-${idx}-${id}`}
+                >{txt} <img src={prepareEmotionUrl(found.src)} alt={found.text} /></span>
               );
             }
-            return <span>{txt}</span>;
+            return <span key={`message-${idx}-${id}`}>{txt}</span>;
           })}</div>
         );
       }
@@ -120,7 +123,7 @@ class PeerChatMessages extends Component {
             >
               <span className="voz-living-chat-time">{getTime(msg.timeStamp)}</span>
               <span className="voz-living-chat-name">{msg.name}: </span>
-              <div className="voz-living-chat-message">{this.prepareMessage(msg.message)}</div>
+              <div className="voz-living-chat-message">{this.prepareMessage(msg)}</div>
             </li>
           ))}
         </ul>
