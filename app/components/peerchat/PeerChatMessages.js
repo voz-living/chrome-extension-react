@@ -66,7 +66,7 @@ class PeerChatMessages extends Component {
   getColor(name) {
     if (name) {
       const lname = name.toLowerCase();
-      const rbg = lname.split('').map(c => (c.charCodeAt(0) - 97) * 10).slice(0, 3);
+      const rbg = lname.split('').map(c => (c.charCodeAt(0) * 10) % 255).slice(0, 3);
       return `rgb(${rbg[0]}, ${rbg[1]}, ${rbg[2]})`;
     }
     return 'rgb(0, 0, 0)';
