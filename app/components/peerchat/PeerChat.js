@@ -142,7 +142,7 @@ class PeerChat extends Component {
           <small>Click để chat với Vozer khác!!!</small>
           <div className="voz-living-chat-description">
             * Chat P2(M)P bằng phương thức WebRTC, nội dung chat không thông qua bất kì server nào mà tới thẳng người nhận
-            <br/>* Id của người chat được tự động lấy theo tên đăng nhập voz, có thể bị can thiệp. Đề phòng giả id</div>
+            <br />* Id của người chat được tự động lấy theo tên đăng nhập voz, có thể bị can thiệp. Đề phòng giả id</div>
         </div>
       </div>
     );
@@ -152,24 +152,32 @@ class PeerChat extends Component {
     const { isOpen, isConnect, isMaximized } = this.state;
 
     return (
-      <div className={toClassName({ 'voz-living-peer-chat-wrapper': true, open: isOpen, 'vlpc-maximized': isMaximized })}>
+      <div
+        className={toClassName({
+          'voz-living-peer-chat-wrapper': true, open: isOpen, 'vlpc-maximized': isMaximized })}
+      >
         <div className="voz-living-peer-chat">
           <div
             className="voz-living-peer-chat-header"
             onClick={() => this.toggleOpen()}
           >VOZLiving Peer Chat (Beta)
-          &nbsp;{isConnect ? <a href="javascript:void(0)" 
-            data-tooltip="Disconnect"
-            className="voz-living-peerchat-off" onClick={() => this.disconnect()}>
-              <i className="fa fa-power-off" />
+          &nbsp;{isConnect ?
+            <a
+              href="javascript:void(0)"
+              data-tooltip="Disconnect"
+              className="voz-living-peerchat-off"
+              onClick={() => this.disconnect()}
+            ><i className="fa fa-power-off" />
             </a> : null}
-          &nbsp;{isOpen ? <a href="javascript:void(0)" 
-            data-tooltip="Maximize Toggle"
-            className="voz-living-peerchat-max" onClick={() => this.setState({isMaximized: !this.state.isMaximized})}>
-              <i className="fa fa-desktop" />
+          &nbsp;{isOpen ?
+            <a
+              href="javascript:void(0)"
+              data-tooltip="Maximize Toggle"
+              className="voz-living-peerchat-max"
+              onClick={() => this.setState({ isMaximized: !this.state.isMaximized })}
+            ><i className="fa fa-desktop" />
             </a> : null}
           </div>
-
           {this.renderChatBody()}
         </div>
       </div>

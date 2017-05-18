@@ -66,7 +66,7 @@ class EmotionControl extends Component {
     const hasSmileBox = $('.smilebox').length !== 0;
 
     if (emotionHelper && !hasSmileBox) {
-      if (currentView === 'thread' || currentView === 'new-reply' || currentView === 'edit-reply' ) {
+      if (currentView === 'thread' || currentView === 'new-reply' || currentView === 'edit-reply') {
         let smileCont = null;
 
         if (currentView === 'thread') {
