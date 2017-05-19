@@ -17,7 +17,8 @@
     "chrome": true
   },
   "rules": {
-    "experimentalDecorators": 0
+    "experimentalDecorators": "off",
+    "no-script-url": "off"
   },
   "parser": "babel-eslint"
 }
