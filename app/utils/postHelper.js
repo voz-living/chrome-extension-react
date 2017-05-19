@@ -9,10 +9,13 @@ export default function postHelper($html) {
       }
     },
     getThreadId: function getThreadId() {
-      const threadId = $html.find("#threadtools_menu a[href*='t=']").eq(0)
-                                .attr('href').match(/t=(\d+)/);
-      if (threadId !== null && threadId.length > 0) {
-        return threadId[1];
+      const threadLink = $html.find("#threadtools_menu a[href*='t=']");
+
+      if (threadLink && threadLink.eq(0) && threadLink.eq(0).attr('href')) {
+        const threadId = threadLink.eq(0).attr('href').match(/t=(\d+)/);
+        if (threadId !== null && threadId.length > 0) {
+          return threadId[1];
+        }
       }
       return -1;
     },
