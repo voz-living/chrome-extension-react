@@ -56,6 +56,6 @@
     ],
     "run_at": "document_start"
   }],
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "web_accessible_resources": ["assert/*"]
 }
