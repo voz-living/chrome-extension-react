@@ -102,7 +102,7 @@ class PeerChatMessages extends Component {
                 >{txt} <img src={prepareEmotionUrl(found.src)} alt={found.text} /></span>
               );
             }
-            return <span key={`message-${idx}-${id}`}>{txt}</span>;
+            return <span key={`message-${idx}-${id}`}>{txt || emotis[idx]}</span>;
           })}</div>
         );
       }

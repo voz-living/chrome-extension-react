@@ -74,9 +74,6 @@ const emotions = [{
   text: ':)',
   src: '/images/smilies/Off/smile.gif',
 }, {
-  text: ':))',
-  src: '/images/smilies/Off/smile.gif',
-}, {
   text: ':plaster:',
   src: '/images/smilies/Off/beat_plaster.gif',
 }, {
