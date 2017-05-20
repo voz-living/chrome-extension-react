@@ -88,26 +88,31 @@
         padding: 3px;
         height: 10px;
         li{
+          margin: 0;
+          padding: 0;
           color: #000;
-          padding: 0 5px;
           font-size: @font-message;
-          margin: 2px 0;
-          border-left: 3px solid #000;
 
-          .voz-living-chat-name{
-            font-weight: bold;
-            font-size: @font-message + 1;
-          }
-          .voz-living-chat-time{
-            font-size: @font-message - 2;
-            color: #999;
-            font-style: italic;
-            margin-right: 4px;
-            font-size: 10px;
-          }
-          .voz-living-chat-message{
-            padding: 4px 0;
-            word-break: break-word;
+          > div {
+            padding: 0 5px;
+            margin: 2px 0;
+            border-left: 3px solid @voz-blue;
+
+            .voz-living-chat-name{
+              font-weight: bold;
+              font-size: @font-message + 1;
+            }
+            .voz-living-chat-time{
+              font-size: @font-message - 2;
+              color: #999;
+              font-style: italic;
+              margin-right: 4px;
+              font-size: 10px;
+            }
+            .voz-living-chat-message{
+              padding: 4px 0;
+              word-break: break-word;
+            }
           }
         }
       }
