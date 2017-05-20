@@ -1,27 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
-import { getAuthenticationInformation, toClassName } from '../../utils';
+import { toClassName } from '../../utils';
 import _ from 'lodash';
 
 import PeerChatMessages from './PeerChatMessages';
 import EmotionPicker from '../EmotionPicker';
 
+const STORAGE_KEY = 'voz_living_peerchat';
+const CONNECT_KEY = 'voz_living_peerchat_isconnect';
+
 @autobind
 class PeerChat extends Component {
+  static propTypes = {
+    authInfo: PropTypes.object,
+    maxMessageNumber: PropTypes.number,
+  }
+
   constructor(props) {
     super(props);
 
-    this.authInfo = getAuthenticationInformation();
-    this.maxMessageNumber = 100;
-    this.inputSendMessage = null;
-
-    this.storageKey = 'voz_living_peerchat';
-    this.isConnectKey = 'voz_living_peerchat_isconnect';
-
-    const isConnectSession = window.sessionStorage.getItem(this.isConnectKey) === 'true';
+    const isConnectSession = this.sessionStorageGet(CONNECT_KEY);
 
     this.state = {
-      messages: this.getMessageFromStorage(),
+      messages: this.sessionStorageGet(STORAGE_KEY),
       sendMessage: '',
       isConnect: isConnectSession,
       isOpen: isConnectSession,
@@ -29,53 +30,60 @@ class PeerChat extends Component {
       isShowEmotionBox: false,
     };
 
+    this.inputSendMessage = null;
     this.throttledMessagesUpdate = _.throttle(this.updateMessageToStorage.bind(this), 300);
 
+    this.addIncomeMessageListener();
+  }
+
+  sessionStorageSet(key, value) {
+    window.sessionStorage.setItem(key, JSON.stringify(value));
+  }
+
+  sessionStorageGet(key) {
+    const store = window.sessionStorage.getItem(key);
+    if (store === null) return [];
+    return JSON.parse(store);
+  }
+
+  addIncomeMessageListener() {
     chrome.runtime.onMessage.addListener((request) => {
-      if (request.peerChatIncomeMessage) {
-        this.setState({ messages: [
-          ...this.state.messages, request.peerChatIncomeMessage,
-        ] });
+      const { peerChatIncomeMessage } = request;
+      if (peerChatIncomeMessage) {
+        this.setState({ messages: [...this.state.messages, peerChatIncomeMessage] });
         this.throttledMessagesUpdate();
       }
     });
   }
 
-  getMessageFromStorage() {
-    const store = window.sessionStorage.getItem(this.storageKey);
-    if (store === null) return [];
-    return JSON.parse(store);
-  }
-
   updateMessageToStorage() {
-    setTimeout(
-      () => window.sessionStorage.setItem(this.storageKey, JSON.stringify(this.state.messages)),
-      100
-    );
+    setTimeout(() => this.sessionStorageSet(STORAGE_KEY, this.state.messages), 100);
   }
 
   clearMessageStorage() {
-    return window.sessionStorage.setItem(this.storageKey, JSON.stringify([]));
+    this.sessionStorageSet(STORAGE_KEY, JSON.stringify([]));
   }
 
   connect() {
     // connect socket establish room connection
     this.setState({ isConnect: true });
-    window.sessionStorage.setItem(this.isConnectKey, 'true');
+    this.sessionStorageSet(CONNECT_KEY, 'true');
     chrome.runtime.sendMessage({ peerChatConnect: true });
   }
 
   disconnect() {
     // disconnect all socket
     this.setState({
-      isConnect: false, messages: [], sendMessage: '', isOpen: false, isShowEmotionBox: false });
-    window.sessionStorage.setItem(this.isConnectKey, 'false');
+      isConnect: false, messages: [], sendMessage: '', isOpen: false, isShowEmotionBox: false,
+    });
+    this.sessionStorageSet(CONNECT_KEY, 'false');
     chrome.runtime.sendMessage({ peerChatDisconnect: true });
     this.clearMessageStorage();
   }
 
   send() {
     const { sendMessage, messages } = this.state;
+    const { maxMessageNumber } = this.props;
     const cleanMessage = sendMessage.trim();
 
     if (cleanMessage.length > 250) {
@@ -85,16 +93,14 @@ class PeerChat extends Component {
 
     if (cleanMessage !== '') {
       const newMessage = {
-        name: this.authInfo.username,
+        name: this.props.authInfo.username,
         timeStamp: new Date().getTime(),
         message: sendMessage,
       };
 
-      let newMessages = messages;
+      const newMessages = _.cloneDeep(messages);
 
-      if (messages.length >= this.maxMessageNumber - 1) {
-        newMessages = newMessages.reverse().slice(0, this.maxMessageNumber).reverse();
-      }
+      if (messages.length >= maxMessageNumber) newMessages.shift();
 
       // send message tab -> background -> send
       chrome.runtime.sendMessage({
@@ -104,6 +110,7 @@ class PeerChat extends Component {
         messages: [...newMessages, newMessage],
         isShowEmotionBox: false,
       }));
+
       this.throttledMessagesUpdate();
     }
   }
@@ -140,6 +147,7 @@ class PeerChat extends Component {
   appendInput(emotion) {
     let { sendMessage } = this.state;
     const last = sendMessage.length - 1;
+
     if (sendMessage[last] !== ' ') {
       if (sendMessage[last] === ':') sendMessage = sendMessage.substring(0, last - 1);
       this.setState({
