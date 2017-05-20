@@ -1,5 +1,5 @@
-@chat-window-width: 280px;
-@chat-window-height: 300px;
+@chat-window-width: 380px;
+@chat-window-height: 400px;
 @chat-input-height: 30px;
 @chat-button-width: 50px;
 @chat-header-height: 30px;
@@ -50,9 +50,45 @@
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+
       .voz-living-peer-chat-input {
         display: flex;
         flex-basis: 30px;
+      }
+
+      .emotion-box{
+        position: absolute;
+        background: #fff;
+        border: 1px solid @voz-blue;
+        width: 200px;
+        bottom: 35px;
+        right: 5px;
+        box-sizing: border-box;
+
+        &:after, &::before{
+          top: 100%;
+          left: 50%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+        }
+
+        &:after {
+          border-color: rgba(136, 183, 213, 0);
+          border-top-color: #88b7d5;
+          border-width: 5px;
+          margin-left: -5px;
+        }
+
+        &:before{
+          border-color: rgba(194, 225, 245, 0);
+          border-top-color: #c2e1f5;
+          border-width: 6px;
+          margin-left: -6px;
+        }
       }
     }
 

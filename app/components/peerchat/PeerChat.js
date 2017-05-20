@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
 import { getAuthenticationInformation, toClassName } from '../../utils';
-import PeerChatMessages from './PeerChatMessages';
 import _ from 'lodash';
+
+import PeerChatMessages from './PeerChatMessages';
+import EmotionPicker from '../EmotionPicker';
 
 @autobind
 class PeerChat extends Component {
@@ -11,6 +13,7 @@ class PeerChat extends Component {
 
     this.authInfo = getAuthenticationInformation();
     this.maxMessageNumber = 100;
+    this.inputSendMessage = null;
 
     this.storageKey = 'voz_living_peerchat';
     this.isConnectKey = 'voz_living_peerchat_isconnect';
@@ -23,6 +26,7 @@ class PeerChat extends Component {
       isConnect: isConnectSession,
       isOpen: isConnectSession,
       isMaximized: false,
+      isShowEmotionBox: false,
     };
 
     this.throttledMessagesUpdate = _.throttle(this.updateMessageToStorage.bind(this), 300);
@@ -44,7 +48,10 @@ class PeerChat extends Component {
   }
 
   updateMessageToStorage() {
-    setTimeout(() => window.sessionStorage.setItem(this.storageKey, JSON.stringify(this.state.messages)), 100);
+    setTimeout(
+      () => window.sessionStorage.setItem(this.storageKey, JSON.stringify(this.state.messages)),
+      100
+    );
   }
 
   clearMessageStorage() {
@@ -60,7 +67,8 @@ class PeerChat extends Component {
 
   disconnect() {
     // disconnect all socket
-    this.setState({ isConnect: false, messages: [], sendMessage: '', isOpen: false });
+    this.setState({
+      isConnect: false, messages: [], sendMessage: '', isOpen: false, isShowEmotionBox: false });
     window.sessionStorage.setItem(this.isConnectKey, 'false');
     chrome.runtime.sendMessage({ peerChatDisconnect: true });
     this.clearMessageStorage();
@@ -91,14 +99,27 @@ class PeerChat extends Component {
       // send message tab -> background -> send
       chrome.runtime.sendMessage({
         peerChatSendMessage: newMessage,
-      }, this.setState({ sendMessage: '', messages: [...newMessages, newMessage] }));
+      }, this.setState({
+        sendMessage: '',
+        messages: [...newMessages, newMessage],
+        isShowEmotionBox: false,
+      }));
       this.throttledMessagesUpdate();
     }
   }
 
   handleChange(event) {
     const message = event.target.value;
-    this.setState({ sendMessage: message });
+    const last = message.length - 1;
+
+    if (message[last] && message[last] === ':') {
+      this.setState({ sendMessage: message, isShowEmotionBox: true });
+    } else {
+      if (message[last] === ' ' && this.state.isShowEmotionBox) {
+        this.setState({ isShowEmotionBox: false });
+      }
+      this.setState({ sendMessage: message });
+    }
   }
 
   handleKeyUp(event) {
@@ -112,31 +133,56 @@ class PeerChat extends Component {
     this.setState({ isOpen: !isOpen });
   }
 
+  toggleEmotionBox() {
+    this.setState({ isShowEmotionBox: !this.state.isShowEmotionBox });
+  }
+
+  appendInput(emotion) {
+    let { sendMessage } = this.state;
+    const last = sendMessage.length - 1;
+    if (sendMessage[last] !== ' ') {
+      if (sendMessage[last] === ':') sendMessage = sendMessage.substring(0, last - 1);
+      this.setState({
+        sendMessage: `${sendMessage} ${emotion.text} `,
+        isShowEmotionBox: false,
+      });
+    } else {
+      this.setState({
+        sendMessage: `${sendMessage || ''}${emotion.text} `,
+        isShowEmotionBox: false,
+      });
+    }
+    if (this.inputSendMessage) this.inputSendMessage.focus();
+  }
+
   renderChatBody() {
-    const { isConnect, sendMessage, messages } = this.state;
+    const { isConnect, sendMessage, messages, isShowEmotionBox } = this.state;
 
     if (isConnect) {
       return (
         <div className="voz-living-peer-chat-body">
           <PeerChatMessages messages={messages} />
+          {isShowEmotionBox ? <EmotionPicker onIconClick={this.appendInput} /> : null}
           <div className="voz-living-peer-chat-input">
             <input
               type="text" value={sendMessage}
               onChange={this.handleChange}
               onKeyUp={this.handleKeyUp}
+              ref={(inpt) => { this.inputSendMessage = inpt; }}
             />
+            <button onClick={this.toggleEmotionBox}>Emo</button>
             <button onClick={this.send}>Send</button>
           </div>
         </div>
       );
     }
+
     return (
       <div className="voz-living-peer-chat-body">
         <div
           className="voz-living-peer-chat-connect"
           onClick={() => this.connect()}
-        >
-          VOZLiving <br />
+        > VOZLiving <br />
           Peer Chat - Beta <br />
           <i className="fa fa-connectdevelop fa-3"></i> <br />
           <small>Click để chat với Vozer khác!!!</small>
