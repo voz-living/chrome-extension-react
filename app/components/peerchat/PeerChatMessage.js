@@ -23,7 +23,7 @@ function prepareEmotionUrl(url) {
 class PeerChatMessage extends Component {
   static propTypes = {
     text: PropTypes.string,
-    timestamp: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+    timestamp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     username: PropTypes.string,
   }
 

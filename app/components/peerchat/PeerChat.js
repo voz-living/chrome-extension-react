@@ -19,7 +19,7 @@ class PeerChat extends Component {
   constructor(props) {
     super(props);
 
-    const isConnectSession = !!this.sessionStorageGet(CONNECT_KEY);
+    const isConnectSession = !this.sessionStorageGet(CONNECT_KEY);
 
     this.state = {
       messages: this.sessionStorageGet(STORAGE_KEY) || [],
@@ -60,7 +60,7 @@ class PeerChat extends Component {
   }
 
   clearMessageStorage() {
-    this.sessionStorageSet(STORAGE_KEY, JSON.stringify([]));
+    this.sessionStorageSet(STORAGE_KEY, []);
   }
 
   connect() {
