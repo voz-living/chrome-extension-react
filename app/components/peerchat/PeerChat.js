@@ -19,10 +19,10 @@ class PeerChat extends Component {
   constructor(props) {
     super(props);
 
-    const isConnectSession = this.sessionStorageGet(CONNECT_KEY);
+    const isConnectSession = !!this.sessionStorageGet(CONNECT_KEY);
 
     this.state = {
-      messages: this.sessionStorageGet(STORAGE_KEY),
+      messages: this.sessionStorageGet(STORAGE_KEY) || [],
       sendMessage: '',
       isConnect: isConnectSession,
       isOpen: isConnectSession,
@@ -42,7 +42,6 @@ class PeerChat extends Component {
 
   sessionStorageGet(key) {
     const store = window.sessionStorage.getItem(key);
-    if (store === null) return [];
     return JSON.parse(store);
   }
 
