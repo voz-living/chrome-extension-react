@@ -138,6 +138,7 @@ class App extends Component {
         <ThreadListControl
           key="voz-living-thread-list-control"
           dispatch={this.dispatch} currentView={this.currentView} isThreadPreview={threadPreview}
+          autoGotoNewthread={this.props.settings.autoGotoNewthread}
         />,
       ];
     } else if (currentView === 'thread') {

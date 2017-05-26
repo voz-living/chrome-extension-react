@@ -17,6 +17,7 @@ class ThreadListControl extends Component {
     threadList: PropTypes.array,
     dispatch: PropTypes.func,
     isThreadPreview: PropTypes.bool,
+    autoGotoNewthread: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -77,7 +78,9 @@ class ThreadListControl extends Component {
 
   mountOpenNewTabControl({ id, element }) {
     const $link = element.find(`a[id=thread_title_${id}]`);
-    $link[0].href = $link[0].href.replace(/php\?/, 'php?goto=newpost&');
+    if (this.props.autoGotoNewthread === true) {
+      $link[0].href = $link[0].href.replace(/php\?/, 'php?goto=newpost&');
+    }
     const href = $link[0].href;
     const $a = $(`<a 
       class="voz-living-newtab tooltip-bottom" 

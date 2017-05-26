@@ -11,6 +11,7 @@ export const defaultStoreStructure = {
     minimizeQuote: true,
     quickPostQuotation: true,
     reloadButton: true,
+    autoGotoNewthread: false,
     savePostEnable: true,
     autoHideSidebar: false,
     peerChatEnable: false,
