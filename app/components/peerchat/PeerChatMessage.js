@@ -48,7 +48,7 @@ class PeerChatMessage extends Component {
   constructor(props) {
     super(props);
     this.emoRegex = new RegExp(/[^\w]\^?[:;-][a-zA-Z_]*[\+)("\*-]?[0-9]?s?\)?\(?>?:?\^?/, 'g');
-    this.linkImageRegex = new RegExp(/(http\s?.*\.(jpg|png|gif|bmp|jpeg))/, 'g');
+    this.linkRegex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/, 'gi');
   }
 
   getColor(name) {
@@ -62,21 +62,19 @@ class PeerChatMessage extends Component {
 
   prepareTextLink(text) {
     if (typeof(text) === 'string') {
-      const links = text.match(this.linkImageRegex);
+      const links = text.match(this.linkRegex);
       const splits = splitArray(text, links);
       if (splits && splits.length > 0 && links && links.length > 0) {
         return (
           <div>{splits.map((txt, idx) => {
             if (links[idx]) {
               return (
-                <span>{txt}
-                  <a href={links[idx]} target="_blank">
-                    <img src={links[idx]} alt={links[idx]} width="300" />
-                  </a>
+                <span key={`link-${txt}-${idx}`}>{txt}
+                  <a href={links[idx]} target="_blank">{links[idx]}</a>
                 </span>
               );
             }
-            return <span>{txt}</span>;
+            return <span key={`link-${txt}-${idx}`}>{txt}</span>;
           })}</div>
         );
       }
