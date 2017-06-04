@@ -35,7 +35,7 @@ class PeerChatMessage extends Component {
 
   constructor(props) {
     super(props);
-    this.emoRegex = new RegExp(/:[a-zA-Z]*[\+)("\*-]?[0-9]?s?\)?\(?>?:?/, 'g');
+    this.emoRegex = new RegExp(/:[a-zA-Z_]*[\+)("\*-]?[0-9]?s?\)?\(?>?:?/, 'g');
   }
 
   getColor(name) {

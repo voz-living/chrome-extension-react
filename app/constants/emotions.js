@@ -278,9 +278,6 @@ const emotions = [{
   text: ':band:',
   src: '/images/smilies/emos/band.gif',
 }, {
-  text: ':+1:',
-  src: 'https://www.google.com/+1/button/images/icon.png',
-}, {
   text: ':grin:',
   src: '/images/smilies/biggrin.gif',
 }, {
