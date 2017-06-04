@@ -37,7 +37,7 @@ class SavedPostSideBarIcon extends Component {
     return false;
   }
 
-  renderPost(postId, time) {
+  renderPost(postId) {
     const openInNewTab = this.openPostInNewTab.bind(this, postId);
     const unsavePostClick = this.unsavePost.bind(this, postId);
     return (
@@ -86,12 +86,12 @@ class SavedPostSideBarIcon extends Component {
                 <h3>Bài viết được đánh dấu</h3>
                 <div className="show-full-post-option">
                   <label>
-                  Hiện toàn bộ thông tin
-                  <input
-                    type="checkbox"
-                    checked={this.state.showFullInfo}
-                    onChange={() => this.setState({ showFullInfo: !this.state.showFullInfo })}
-                  />
+                    Hiện toàn bộ thông tin
+                    <input
+                      type="checkbox"
+                      checked={this.state.showFullInfo}
+                      onChange={() => this.setState({ showFullInfo: !this.state.showFullInfo })}
+                    />
                   </label>
                 </div>
                 <div className="quote-list">

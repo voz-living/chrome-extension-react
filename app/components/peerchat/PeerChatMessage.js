@@ -19,6 +19,18 @@ function prepareEmotionUrl(url) {
   return `https://vozforums.com${out}`;
 }
 
+function splitArray(str, arr) {
+  let result = str;
+  if (arr && arr.length > 0) {
+    arr.forEach(s => {
+      result = result.replace(s, '_vozVOZLivingvoz_');
+    });
+    result = result.split('_vozVOZLivingvoz_');
+    return result;
+  }
+  return [str];
+}
+
 @autobind
 class PeerChatMessage extends Component {
   static propTypes = {
@@ -35,7 +47,8 @@ class PeerChatMessage extends Component {
 
   constructor(props) {
     super(props);
-    this.emoRegex = new RegExp(/:[a-zA-Z_]*[\+)("\*-]?[0-9]?s?\)?\(?>?:?/, 'g');
+    this.emoRegex = new RegExp(/[^\w]\^?[:;-][a-zA-Z_]*[\+)("\*-]?[0-9]?s?\)?\(?>?:?\^?/, 'g');
+    this.linkImageRegex = new RegExp(/(http\s?.*\.(jpg|png|gif|bmp|jpeg))/, 'g');
   }
 
   getColor(name) {
@@ -45,6 +58,30 @@ class PeerChatMessage extends Component {
       return `rgb(${rbg[0]}, ${rbg[1]}, ${rbg[2]})`;
     }
     return 'rgb(0, 0, 0)';
+  }
+
+  prepareTextLink(text) {
+    if (typeof(text) === 'string') {
+      const links = text.match(this.linkImageRegex);
+      const splits = splitArray(text, links);
+      if (splits && splits.length > 0 && links && links.length > 0) {
+        return (
+          <div>{splits.map((txt, idx) => {
+            if (links[idx]) {
+              return (
+                <span>{txt}
+                  <a href={links[idx]} target="_blank">
+                    <img src={links[idx]} alt={links[idx]} width="300" />
+                  </a>
+                </span>
+              );
+            }
+            return <span>{txt}</span>;
+          })}</div>
+        );
+      }
+    }
+    return text;
   }
 
   prepareMessage(text, username, timestamp) {
@@ -57,16 +94,25 @@ class PeerChatMessage extends Component {
       if (splits && splits.length > 0) {
         out = (
           <div>{splits.map((txt, idx) => {
-            if (!emotis || !emotis[idx]) return <span key={`message-${idx}-${id}`}>{txt}</span>;
-            const found = emotions.find(f => f.text === emotis[idx]);
+            if (!emotis || !emotis[idx]) {
+              return <span key={`message-${idx}-${id}`}>{this.prepareTextLink(txt)}</span>;
+            }
+            const found = emotions.find(f => f.text === emotis[idx].trim());
             if (found) {
               return (
                 <span
                   key={`message-${idx}-${id}`}
-                >{txt} <img src={prepareEmotionUrl(found.src)} alt={found.text} /></span>
+                >{this.prepareTextLink(txt)} <img
+                  src={prepareEmotionUrl(found.src)} alt={found.text}
+                />
+                </span>
               );
             }
-            return <span key={`message-${idx}-${id}`}>{txt || ''}{emotis[idx] || ''}</span>;
+            return (
+              <span key={`message-${idx}-${id}`}>
+                {this.prepareTextLink(txt) || ''}{emotis[idx] || ''}
+              </span>
+            );
           })}</div>
         );
       }

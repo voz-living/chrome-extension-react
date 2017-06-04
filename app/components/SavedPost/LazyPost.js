@@ -31,7 +31,7 @@ export default class LazyPost extends Component {
   getPost() {
     const storeKey = `voz_living_post_${this.props.postId}`;
     const storeHtml = window.localStorage.getItem(storeKey);
-    if(storeHtml !== null) {
+    if (storeHtml !== null) {
       this.loadHtml(storeHtml);
     } else {
       this.loadPost().then((html) => {
