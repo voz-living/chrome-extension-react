@@ -48,7 +48,7 @@ class PeerChatMessage extends Component {
   constructor(props) {
     super(props);
     this.emoRegex = new RegExp(/[^\w]\^?[:;-][a-zA-Z_]*[\+)("\*-]?[0-9]?s?\)?\(?>?:?\^?/, 'g');
-    this.linkRegex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/, 'gi');
+    this.linkRegex = new RegExp(/^(http[s]?:\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/, 'gi');
   }
 
   getColor(name) {
