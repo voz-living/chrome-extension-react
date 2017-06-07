@@ -4,5 +4,3 @@ node_modules
 dist/chrome/*
 npm-debug.log
 
-dist/compiled/*
-dist/compiled.zip
