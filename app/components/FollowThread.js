@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
-import {
-  markAllQuoteSeen,
-} from '../actions/voz';
 
 class FollowThread extends Component {
   static propTypes = {
@@ -39,16 +37,11 @@ class FollowThread extends Component {
 
   toggleThreadList() {
     const { showThreadList } = this.state;
-    // const { countUnseen } = this.props;
-
-    // if (showThreadList === false && countUnseen !== 0) {
-    //   this.dispatch(markAllQuoteSeen());
-    // }
     this.setState({ showThreadList: !showThreadList });
   }
 
   renderThread(thread) {
-    const { id, postId, numPostDiff, numPostFromTracker, numPostTotal, title } = thread;
+    const { id, postId, numPostDiff, title } = thread;
     const link = postId === null
       ? `showthread.php?t=${id}`
       : `showthread.php?p=${postId}#post${postId}`;
@@ -69,7 +62,7 @@ class FollowThread extends Component {
   render() {
     const { threadList } = this.props;
     const renderThread = this.renderThread;
-    const btnClass = 'btn tooltip-right ' + (this.state.showThreadList ? 'active' : '');
+    const btnClass = `btn tooltip-right ${this.state.showThreadList ? 'active' : ''}`;
     return (
       <div className="btn-group">
         <div
@@ -103,7 +96,7 @@ class FollowThread extends Component {
 }
 
 function estimateSubscribedThreads(followThreads, threadTracker) {
-  if (_.isEmpty(followThreads) || _.isEmpty(threadTracker)) return [];
+  if (_.isEmpty(followThreads)) return [];
   return Object.keys(followThreads).map((id) => {
     const { page, postNum, title } = followThreads[id];
     const tracked = threadTracker[id];
@@ -117,7 +110,8 @@ function estimateSubscribedThreads(followThreads, threadTracker) {
 
 const mapStateToProps = state => {
   const { followThreads, settings, threadTracker } = state.vozLiving;
-  return { threadList: estimateSubscribedThreads(followThreads, threadTracker), settings };
+  const estimated = estimateSubscribedThreads(followThreads, threadTracker);
+  return { threadList: estimated, settings };
 };
 
 export default connect(mapStateToProps)(FollowThread);
