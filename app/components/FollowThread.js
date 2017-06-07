@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import {
+  unsubscribeThread,
+} from '../common/threadSubscription';
+import * as actions from '../actions/voz';
 
 class FollowThread extends Component {
   static propTypes = {
@@ -40,6 +44,14 @@ class FollowThread extends Component {
     this.setState({ showThreadList: !showThreadList });
   }
 
+  unsubscribe(id) {
+    this.setState({ isLoading: true });
+    unsubscribeThread(id)
+      .then(() => {
+        this.dispatch(actions.unsubscribeThread(id));
+      });
+  }
+
   renderThread(thread) {
     const { id, postId, numPostDiff, title } = thread;
     const link = postId === null
@@ -51,6 +63,12 @@ class FollowThread extends Component {
           <a href={link}>
             {title}
           </a>
+          <span
+            className="pull-right"
+            onClick={() => this.unsubscribe(id)}
+            style={{ marginRight: '10px', cursor: 'pointer' }}
+          ><span className="fa fa-trash"></span>
+          </span>
         </div>
         <div className="quote-bottom">
           <i className="fa fa-arrow-right"></i> Có {numPostDiff} bài mới
@@ -61,7 +79,6 @@ class FollowThread extends Component {
 
   render() {
     const { threadList } = this.props;
-    const renderThread = this.renderThread;
     const btnClass = `btn tooltip-right ${this.state.showThreadList ? 'active' : ''}`;
     return (
       <div className="btn-group">
@@ -83,7 +100,7 @@ class FollowThread extends Component {
               <div className="btn-options" key="quote-list">
                 <h3>Subscribed Threads</h3>
                 <div className="quote-list">
-                  {threadList.map(renderThread)}
+                  {threadList.map(m => this.renderThread(m))}
                 </div>
               </div>,
             ];
