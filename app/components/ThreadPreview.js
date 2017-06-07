@@ -1,9 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { GET } from '../utils/http';
 import $ from 'jquery';
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import Mousetrap from 'mousetrap';
 import PostContent from './PostContent';
+import {
+  subscribeThread,
+  unsubscribeThread,
+} from '../common/threadSubscription';
+import { connect } from 'react-redux';
+import * as actions from '../actions/voz';
 
 @autobind
 class ThreadPreview extends Component {
@@ -11,6 +18,8 @@ class ThreadPreview extends Component {
     id: PropTypes.string,
     pageNum: PropTypes.number,
     element: PropTypes.any,
+    followThreads: PropTypes.object,
+    dispatch: PropTypes.func,
   }
 
   constructor(comProps) {
@@ -179,28 +188,55 @@ class ThreadPreview extends Component {
     }
   }
 
+  toggleSubscribeThread() {
+    const { currentPostIndex, currentPageIndex, content } = this.state;
+    const { followThreads, id, dispatch, element } = this.props;
+    if (followThreads[id]) {
+      unsubscribeThread(id)
+        .then(() => {
+          dispatch(actions.unsubscribeThread(id));
+        });
+    } else {
+      const title = $('a[id^="thread_title"]', element).text();
+      const postId = content ? $(content).attr('id').replace('post', '') : '';
+      const post = {
+        threadId: id,
+        postId,
+        postNum: (currentPageIndex * 10) + currentPostIndex + 1,
+        page: currentPageIndex + 1,
+        title,
+      };
+      subscribeThread(id).then(() => {
+        dispatch(actions.subscribeThread(id, post));
+      });
+    }
+  }
+
   renderThreadContent() {
     const { show, isLoading, content, currentPostIndex, currentPageIndex } = this.state;
+    const { followThreads, id } = this.props;
+    const isFollowed = !!followThreads[id];
 
     if (!show) return null;
+
+    const remind = 'Sử dụng phím mũi tên <- -> để chuyển post. Phím Esc để đóng khung preview.';
 
     return (
       <div className="preview-wrapper">
         <div className="left-preview pull-left" style={{ width: 'calc(100% - 45px)' }}>
-          <div className="preview-control">
-            Use left and right arrow key to control, Esc key to close
+          <div className="preview-control">{remind}
             <div
               className="btn pull-right btn-next-post tooltip-top"
               onClick={this.nextPost}
-              data-tooltip="Next Post"
+              data-tooltip="Xem post sau"
             ><i className="fa fa-arrow-right"></i></div>
             <div
               className="btn pull-right btn-prev-post tooltip-top"
               onClick={this.prevPost}
-              data-tooltip="Previous Post"
+              data-tooltip="Xem post trước"
             ><i className="fa fa-arrow-left"></i></div>
             <div className="pull-right">
-              Current Post: {(currentPageIndex * 10) + currentPostIndex + 1}
+              Post hiện tại: {(currentPageIndex * 10) + currentPostIndex + 1}
             </div>
           </div>
           <div className="preview-content">
@@ -211,18 +247,24 @@ class ThreadPreview extends Component {
           <div
             className="btn"
             onClick={this.openNewTab}
-            data-tooltip="Open new tab"
+            data-tooltip="Mở tab mới"
           ><i className="fa fa-share"></i></div>
           <div
             className="btn"
             onClick={this.viewFirstPost}
-            data-tooltip="View first post"
+            data-tooltip="Xem post đầu tiên"
           ><i className="fa fa-fast-backward"></i></div>
           <div
             className="btn"
             onClick={this.viewLastPost}
-            data-tooltip="View last post"
+            data-tooltip="Xem post cuối cùng"
           ><i className="fa fa-fast-forward"></i></div>
+          <div
+            className="btn"
+            onClick={this.toggleSubscribeThread}
+            data-tooltip="Theo dõi thớt"
+          >{!isFollowed ?
+            <i className="fa fa-check-square-o"></i> : <i className="fa fa-chain-broken"></i>}</div>
         </div>
       </div>
     );
@@ -251,4 +293,9 @@ class ThreadPreview extends Component {
   }
 }
 
-export default ThreadPreview;
+const mapStateToProps = state => {
+  const { followThreads } = state.vozLiving;
+  return { followThreads };
+};
+
+export default connect(mapStateToProps)(ThreadPreview);

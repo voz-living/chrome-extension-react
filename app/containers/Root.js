@@ -11,7 +11,7 @@ const logger = createLogger({
   level: 'log',
 });
 
-const store = createStore(
+export const store = createStore(
   reducer,
   applyMiddleware(thunk, promise, logger)
 );

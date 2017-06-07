@@ -1,16 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { render } from 'react-dom';
 import $ from 'jquery';
 import _ from 'lodash';
 import ThreadPreview from './ThreadPreview';
 import Mousetrap from 'mousetrap';
-import { GET } from '../utils/http';
-import {
-  getThreadList,
-} from '../actions/voz';
-
 import openNewTab from '../utils/openNewTab';
+import { store } from '../containers/Root';
 
 class ThreadListControl extends Component {
   static propTypes = {
@@ -73,7 +69,9 @@ class ThreadListControl extends Component {
     threadPreviewDiv.id = `thread-preview-${id}`;
     threadPreviewDiv.className = 'thread-preview-wrapper';
     element.append(threadPreviewDiv);
-    render(<ThreadPreview id={id} pageNum={pageNum} element={element} />, threadPreviewDiv);
+    render(<Provider store={store}>
+      <ThreadPreview id={id} pageNum={pageNum} element={element} />
+    </Provider>, threadPreviewDiv);
   }
 
   mountOpenNewTabControl({ id, element }) {
