@@ -77,6 +77,9 @@ class App extends Component {
 
   componentDidMount() {
     const postInfo = postHelper($(document.body));
+    setTimeout(() => {
+      document.querySelector('.voz-living-side-menu').classList.remove('trans-start');
+    }, 1000);
 
     Promise.all([
       getChromeLocalStore([
