@@ -7,52 +7,9 @@ import QuickLink from '../components/QuickLink';
 import FollowThread from '../components/FollowThread';
 import Subscription from '../components/Subscription';
 import SavedPostSideBarIcon from '../components/SavedPost/SideBarIcon';
+import LXBtn from '../components/LXBtn';
+import FeedbackBtn from '../components/FeedbackBtn';
 import { toClassName } from '../utils';
-
-const FeedbackBtn = () => (
-  <div className="btn-group">
-    <a
-      className="btn tooltip-right"
-      href="https://voz-living.github.io/voz-living-feedback/"
-      style={{ fontSize: '20px' }}
-      target="_blank"
-      data-tooltip="Góp ý/Báo lỗi/Tâm sự"
-    ><i className="fa fa-envelope-o"></i></a>
-  </div>
-);
-
-class LXBtn extends Component {
-  constructor(prop) {
-    super(prop);
-    this.state = {
-      isOpen: false,
-    };
-  }
-  render() {
-    const { isOpen } = this.state;
-    return (
-      <div className={'btn-group'}>
-        <a
-          className={'btn tooltip-right' + (isOpen ? ' active' : '')}
-          href="javascript:void(0)"
-          style={{ fontSize: '20px' }}
-          target="_blank"
-          data-tooltip="Linh Xinh"
-          onClick={() => this.setState({ isOpen: !this.state.isOpen })}
-        >LX</a>
-        <div
-          key="voz-mask-quote-list"
-          style={{ display: isOpen ? 'block' : 'none' }}
-          className="voz-mask quote-list-mask"
-          onClick={() => this.setState({ isOpen: !this.state.isOpen })}
-        ></div>
-        <div className="btn-options" style={{ display: isOpen ? 'block' : 'none', padding: 0 }}>
-          <iframe src="https://voz-living.github.io/linhxinh/?extension=true" style={{ width: '100%', height: '100%' }}></iframe>
-        </div>
-      </div>
-    );
-  }
-}
 
 class SideMenu extends Component {
   static propTypes = {
@@ -96,8 +53,7 @@ class SideMenu extends Component {
         <QuoteList dispatch={this.dispatch} />
         <FollowThread dispatch={this.dispatch} />
         {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
-        <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
-        <LXBtn />
+        {settings.LinhXinhBtn === true ? <LXBtn /> : null}
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">
           <FeedbackBtn />

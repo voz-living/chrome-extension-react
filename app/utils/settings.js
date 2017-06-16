@@ -16,6 +16,7 @@ export const defaultStoreStructure = {
     autoHideSidebar: false,
     peerChatEnable: false,
     capturePostEnable: true,
+    LinhXinhBtn: true,
     userStyle: '',
     delay: 1, // minute
     delayFollowThread: 5, // minute
