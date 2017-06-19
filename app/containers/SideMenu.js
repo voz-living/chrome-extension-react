@@ -52,6 +52,7 @@ class SideMenu extends Component {
         <SettingOptions settings={settings} dispatch={this.dispatch} />
         <QuoteList dispatch={this.dispatch} />
         <FollowThread dispatch={this.dispatch} />
+        <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
         {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
         {settings.LinhXinhBtn === true ? <LXBtn /> : null}
         <QuickLink dispatch={this.dispatch} />
