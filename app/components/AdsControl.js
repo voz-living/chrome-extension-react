@@ -6,6 +6,13 @@ class AdsControl extends Component {
     isRemoveAds: PropTypes.bool,
   }
 
+  componentDidMount() {
+    $('#neo_logobar').append(`
+      <h3><a href="https://goo.gl/forms/jgSa6ZXtIsRvLJMj1" target="_blank" style="color: white; display: block; float: right">
+        <i class="fa fa-wechat"></i> Chat với cộng đồng VozLiving (mở ra tab mới)
+      </a></h3>`);
+  }
+
   componentWillReceiveProps(nextProps) {
     this.removeAds(nextProps);
   }

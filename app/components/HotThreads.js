@@ -59,7 +59,7 @@ export default class HotThreads extends Component {
         <div className="btn-options" style={{ display: isOpen ? 'flex' : 'none' }}>
           <h3>Hot Threads (Thời gian thực)</h3>
           <div>
-            <i>(Đang được xem trong 30 phút cho tới hiện tại)</i>
+            <i>(Đang được xem trong 30 phút trước cho tới hiện tại)</i>
           </div>
           <div className="quote-list">
           {threads.map(({ threadId, threadTitle, count }) => (
