@@ -9,6 +9,7 @@ import Subscription from '../components/Subscription';
 import SavedPostSideBarIcon from '../components/SavedPost/SideBarIcon';
 import LXBtn from '../components/LXBtn';
 import FeedbackBtn from '../components/FeedbackBtn';
+import HotThreads from '../components/HotThreads';
 import { toClassName } from '../utils';
 
 class SideMenu extends Component {
@@ -53,6 +54,7 @@ class SideMenu extends Component {
         <QuoteList dispatch={this.dispatch} />
         <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
+        <HotThreads />
         {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
         {settings.LinhXinhBtn === true ? <LXBtn /> : null}
         <QuickLink dispatch={this.dispatch} />

@@ -61,6 +61,7 @@ class App extends Component {
         const postInfo = postHelper($(document.body));
         trackEvent('view-thread-id', postInfo.getThreadId());
         trackEvent('view-thread-title', postInfo.getThreadTitle());
+        trackEvent('view-thread-combine', postInfo.getThreadId() + ':|:' + postInfo.getThreadTitle());
         break;
       }
       case 'thread-list': {
