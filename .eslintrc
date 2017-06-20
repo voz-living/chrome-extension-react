@@ -18,7 +18,8 @@
   },
   "rules": {
     "experimentalDecorators": "off",
-    "no-script-url": "off"
+    "no-script-url": "off",
+    "new-cap": "off"
   },
   "parser": "babel-eslint"
 }

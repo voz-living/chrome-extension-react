@@ -13,19 +13,19 @@ export default class HotThreads extends Component {
   }
 
   componentDidMount() {
-    GET(apiUrl, { credentials: 'same-origin' })
-      .then(response => {
-        let stats = response;
-        if (typeof response === 'string') {
-          stats = JSON.parse(response);
-        }
-        this.updateFromAPI(stats);
-      });
+    this.request();
   }
 
-  updateFromAPI(json) {
-    if (json.rows) {
-      const threads = json.rows.map(r => {
+  request() {
+    chrome.runtime.sendMessage({ service: 'request-hotthreads' }, (data) => {
+      this.updateFromAPI(data);
+      setTimeout(this.request.bind(this), 21 * 1000);
+    });
+  }
+
+  updateFromAPI(rows) {
+    if (rows && rows.length && rows.length > 0) {
+      const threads = rows.map(r => {
         const info = r[1];
         const count = parseInt(r[2], 10);
         const [threadId, threadTitle] = info.split(':|:');
@@ -63,7 +63,7 @@ export default class HotThreads extends Component {
           </div>
           <div className="quote-list">
           {threads.map(({ threadId, threadTitle, count }) => (
-            <div className="quote-row">
+            <div className="quote-row" key={threadId}>
               <div className="quote-title">
                 <a href={`showthread.php?t=${threadId}`} target="_blank">{threadTitle}</a>
               </div>

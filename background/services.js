@@ -19,6 +19,29 @@ function proxyService(request, sendResponse) {
     .catch(e => sendResponse({ reject: e }));
 }
 
+const apiUrl = 'https://voz-living.appspot.com/query?id=agxzfnZvei1saXZpbmdyFQsSCEFwaVF1ZXJ5GICAgICA5JEKDA&format=json';
+const cachedHotThreads = {
+  data: {},
+  ts: new Date().getTime(),
+};
+function hotThreadsService(request, sendResponse) {
+  if (new Date().getTime() > cachedHotThreads.ts + 20 * 1000) {
+    cachedHotThreads.ts = new Date().getTime();
+    GET(apiUrl, { credentials: 'same-origin' })
+      .then(response => {
+        let stats = response;
+        if (typeof response === 'string') {
+          stats = JSON.parse(response);
+        }
+        cachedHotThreads.data = stats.rows;
+        cachedHotThreads.ts = new Date().getTime();
+        sendResponse(stats.rows);
+      });
+  } else {
+    sendResponse(cachedHotThreads.data);
+  }
+}
+
 export default function startServices() {
   chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
@@ -37,6 +60,11 @@ export default function startServices() {
 
         if (request.service === 'proxy') {
           proxyService(request, sendResponse);
+          return true;
+        }
+
+        if (request.service === 'request-hotthreads') {
+          hotThreadsService(request, sendResponse);
           return true;
         }
       }
