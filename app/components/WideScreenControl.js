@@ -13,12 +13,12 @@ class WideScreenControl extends Component {
   triggerWideScreen(nextProps = this.props) {
     const { isWideScreen } = nextProps;
 
-    // if (isWideScreen) {
-    //   $('.page').css({
-    //     width: '100%',
-    //     maxWidth: '5000px',
-    //   });
-    // }
+    if (isWideScreen) {
+      $('.page').css({
+        width: '100%',
+        maxWidth: '5000px',
+      });
+    }
   }
 
   render() { return null; }

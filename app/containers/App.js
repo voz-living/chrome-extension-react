@@ -164,12 +164,12 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreen, adsRemove, emotionHelper, autoHideSidebar, peerChatEnable, userStyle } = this.props.settings;
+    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, peerChatEnable, userStyle } = this.props.settings;
 
     return (
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
-        <WideScreenControl isWideScreen={wideScreen} />
+        <WideScreenControl isWideScreen={wideScreenSpecial} />
         <PostTracker dispatch={this.dispatch} />
         <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
         <SideMenu

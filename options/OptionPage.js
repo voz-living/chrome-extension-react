@@ -39,6 +39,7 @@ export default class OptionPage extends Component {
       <div>
         <h3>Chung (General)</h3>
         <OnOffConfigItem configKey="wideScreen" parent={parent} >Dàn trang ra 2 bên</OnOffConfigItem>
+        <OnOffConfigItem configKey="wideScreenSpecial" parent={parent} >Dàn trang ra 2 bên (Special - chọn nếu trên có lỗi)</OnOffConfigItem>
         <OnOffConfigItem configKey="adsRemove" parent={parent} >Xoá quảng cáo</OnOffConfigItem>
         <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>

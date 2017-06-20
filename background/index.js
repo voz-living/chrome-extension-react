@@ -18,7 +18,7 @@ startServices();
 
 chrome.tabs.onCreated.addListener(injectOptionalCSS);
 chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
-  injectOptionalCSS(tab);
+  if (info.status && info.status === 'loading') injectOptionalCSS(tab);
 });
 
 export {

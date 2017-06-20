@@ -3,6 +3,7 @@ import _ from 'lodash';
 export const defaultStoreStructure = {
   settings: {
     wideScreen: true,
+    wideScreenSpecial: false,
     threadPreview: true,
     adsRemove: true,
     linkHelper: true,
