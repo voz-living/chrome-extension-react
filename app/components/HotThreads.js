@@ -19,7 +19,7 @@ export default class HotThreads extends Component {
   request() {
     chrome.runtime.sendMessage({ service: 'request-hotthreads' }, (data) => {
       this.updateFromAPI(data);
-      setTimeout(this.request.bind(this), 21 * 1000);
+      setTimeout(this.request.bind(this), 1000 * 60 * 30);
     });
   }
 
