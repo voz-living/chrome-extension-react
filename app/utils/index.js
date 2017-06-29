@@ -16,7 +16,14 @@ export function getCurrentView() {
 
 export function getAuthenticationInformation() {
   const queryString = "*:contains('You last') > *:contains('Welcome') > a[href*='member.php?u']";
+  const $user = $(queryString).eq(0);
   const username = $(queryString).eq(0).text();
+  let userId = -1;
+  try {
+    userId = $user.attr('href').match(/u=(\d+)/)[1]
+  } catch (e) {
+    // ignore
+  }
   if (username === '') {
     if ($('#nologin-message').length === 0) {
       $('.tborder:has(input[name="vb_login_username"])')
@@ -36,6 +43,7 @@ export function getAuthenticationInformation() {
     isLogin: true,
     token,
     username,
+    userId,
   };
 }
 
