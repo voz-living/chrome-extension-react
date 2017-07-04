@@ -4,7 +4,10 @@
   "description": "another voz extension",
   "main": "./src/index.js",
   "scripts": {
-    "test": "ava"
+    "dev-watch": "webpack --progress --colors --watch",
+    "build-prod": "env PRODUCTION=1 webpack --config=webpack.config.js",
+    "build-dll": "env PRODUCTION=1 webpack --config=dll.webpack.config.js",
+    "build-css": "env PRODUCTION=1 webpack --config=css.webpack.config.js"
   },
   "author": "sonnn",
   "license": "ISC",
