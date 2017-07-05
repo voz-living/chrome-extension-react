@@ -1,9 +1,10 @@
 const webpack = require('webpack');
+const path = require('path');
 /* eslint-disable max-len */
 
 const isProduction = typeof process.env.PRODUCTION !== 'undefined';
 console.log((isProduction ? 'Production' : 'Test') + ' build ...');
-const distPath = isProduction ? './dist/compiled/' : './dist/chrome/';
+const distPath = isProduction ? path.join(__dirname, './dist/compiled/') : path.join(__dirname, './dist/chrome/');
 
 module.exports = {
   entry: {
