@@ -4,7 +4,7 @@ const path = require('path');
 
 const isProduction = typeof process.env.PRODUCTION !== 'undefined';
 console.log((isProduction ? 'Production' : 'Test') + ' build ...');
-const distPath = isProduction ? path.join(__dirname, './dist/compiled/') : path.join(__dirname, './dist/chrome/');
+const distPath = isProduction ? './dist/compiled/' : './dist/chrome/';
 
 module.exports = {
   entry: {
@@ -26,7 +26,7 @@ module.exports = {
 
   output: {
     filename: '[name].dll.js',
-    path: distPath,
+    path: path.join(__dirname, distPath),
     library: '[name]_lib',
   },
 

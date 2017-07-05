@@ -18,7 +18,6 @@ import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import CapturePost from '../components/CapturePost';
 import SideMenu from './SideMenu';
-import PeerChatControl from '../components/peerchat/PeerChatControl';
 
 import {
   init,
@@ -164,7 +163,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, peerChatEnable, userStyle } = this.props.settings;
+    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle } = this.props.settings;
 
     return (
       <div id="voz-living">
@@ -179,7 +178,6 @@ class App extends Component {
         />
         {this.renderBaseOnCurrentView(this.currentView)}
         <PasteToUpload />
-        {this.authInfo.isLogin && peerChatEnable ? <PeerChatControl /> : null}
         <UserStyle userStyle={userStyle} />
       </div>
     );
