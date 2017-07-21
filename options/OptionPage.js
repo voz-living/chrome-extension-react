@@ -44,7 +44,6 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
         <NumberConfigItem configKey="delayFollowThread" parent={parent} max={60*24} min={1} >Cường độ quét thớt theo dõi (phút)</NumberConfigItem>
-        <OnOffConfigItem configKey="peerChatEnable" parent={parent} >Peer Chat</OnOffConfigItem>
         <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="LinhXinhBtn" parent={parent} >Hiện LinhXinh ở thanh công cụ</OnOffConfigItem>
         <TextConfigItem configKey="userStyle" parent={parent} > 
