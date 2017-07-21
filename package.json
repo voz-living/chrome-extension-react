@@ -4,7 +4,9 @@
   "description": "another voz extension",
   "main": "./src/index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "build-dev": "webpack --color --progress --watch",
+    "build-dll": "webpack --colors --progress --config=dll.webpack.config.js"
   },
   "author": "sonnn",
   "license": "ISC",

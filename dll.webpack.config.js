@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 /* eslint-disable max-len */
 
 const isProduction = typeof process.env.PRODUCTION !== 'undefined';
@@ -25,7 +26,7 @@ module.exports = {
 
   output: {
     filename: '[name].dll.js',
-    path: distPath,
+    path: path.join(__dirname, distPath),
     library: '[name]_lib',
   },
 
