@@ -4,6 +4,8 @@
   "description": "another voz extension",
   "main": "./src/index.js",
   "scripts": {
+    "build-dev-dll": "webpack --config=dll.webpack.config.js",
+    "build-dev-css": "webpack --config=css.webpack.config.js",
     "dev-watch": "webpack --progress --colors --watch",
     "build-prod": "env PRODUCTION=1 webpack --config=webpack.config.js",
     "build-dll": "env PRODUCTION=1 webpack --config=dll.webpack.config.js",

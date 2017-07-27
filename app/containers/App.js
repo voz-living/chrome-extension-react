@@ -14,6 +14,7 @@ import QuickPostQuotationControl from '../components/QuickPostQuotationControl';
 import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
+import SmartSelection from '../components/SmartSelection';
 import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import CapturePost from '../components/CapturePost';
@@ -154,6 +155,7 @@ class App extends Component {
         <QuickPostQuotationControl
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
+        <SmartSelection />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
         savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} key="saved-post-thread-binder" /> : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,

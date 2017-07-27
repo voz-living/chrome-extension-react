@@ -3114,3 +3114,9 @@ body .voz-living-side-menu .btn-group .btn-options.bookmark-list .bookmark-item-
   opacity: 1;
   z-index: 9999;
 }
+.voz-living-smart-selection {
+  position: absolute;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+}
