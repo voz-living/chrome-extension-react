@@ -96,6 +96,17 @@ export function resolveYoutube($html, isThreadContentOnly) {
 					</div>`);
       $this.after($img);
     }
+
+    if (/video\.vnexpress\.net\/parser/.test(href)) {
+      $this.attr('data-smartlink', 'vnexpress-video');
+      const uHref = 'https://' + href.replace(/http:\/\//, '');
+      const $img = $(`<div><iframe width='480' height='270' src='${uHref}'
+            					frameborder='0' allowfullscreen
+            					title='Có thể xảy ra sai sót trong việc tự động nhận biết youtube, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
+        					</iframe>
+					</div>`);
+      $this.after($img);
+    }
   });
 }
 

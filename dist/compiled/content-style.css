@@ -3116,7 +3116,14 @@ body .voz-living-side-menu .btn-group .btn-options.bookmark-list .bookmark-item-
 }
 .voz-living-smart-selection {
   position: absolute;
-  padding: 5px;
+  padding: 0;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid black;
+  color: black;
+  font-size: 14px;
+}
+.voz-living-smart-selection > a {
+  cursor: pointer;
+  padding: 5px;
+  display: inline-block;
 }
