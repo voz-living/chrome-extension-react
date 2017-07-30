@@ -71,6 +71,8 @@ class UIRevampThread extends Component {
     getNextPageDiv({ onClick: this.clickNext });
     getPreviousPageDiv({ onClick: this.clickPrevious });
     this.init();
+    window.__goNextPage = this.clickNext.bind(this);
+    window.__goPreviousPage = this.clickPrevious.bind(this);
   }
 
   disableNavigationControl() {
@@ -93,6 +95,7 @@ class UIRevampThread extends Component {
 
   clickPrevious = (e) => {
     const nextPage = Math.max(1, this.state.pageCurrent - 1);
+    if (nextPage === this.state.pageCurrent) return false;
     this.goToPage(nextPage)
       .then(posts => {
         $('#posts').empty();
@@ -104,6 +107,7 @@ class UIRevampThread extends Component {
   }
   clickNext = (e) => {
     const nextPage = Math.min(this.state.pageCurrent + 1, this.state.pageNum);
+    if (nextPage === this.state.pageCurrent) return false;
     this.goToPage(nextPage)
       .then(posts => {
         $('#posts').empty();
@@ -115,6 +119,7 @@ class UIRevampThread extends Component {
   }
   clickFirst = (e) => {
     const nextPage = 1;
+    if (nextPage === this.state.pageCurrent) return false;
     this.goToPage(nextPage)
       .then(posts => {
         $('#posts').empty();
@@ -126,6 +131,7 @@ class UIRevampThread extends Component {
   }
   clickLast = (e) => {
     const nextPage = this.state.pageNum;
+    if (nextPage === this.state.pageCurrent) return false;
     this.goToPage(nextPage)
       .then(posts => {
         $('#posts').empty();

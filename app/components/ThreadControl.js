@@ -16,7 +16,8 @@ class ThreadControl extends Component {
         .prepend(`<td class="voz-living-arrow-nav-help">
         Dùng phím mũi tên <- và -> để chuyển trang
         </td>`);
-      Mousetrap.bind('right', () => {
+      Mousetrap.bind('right', (e) => {
+        if (window.__goNextPage) return window.__goNextPage(e);
         const next = $('a[rel="next"]');
         if (next) {
           const href = next.eq(0).attr('href');
@@ -24,7 +25,8 @@ class ThreadControl extends Component {
         }
       });
 
-      Mousetrap.bind('left', () => {
+      Mousetrap.bind('left', (e) => {
+        if (window.__goPreviousPage) return window.__goPreviousPage(e);
         const prev = $('a[rel="prev"]');
         if (prev) {
           const href = prev.eq(0).attr('href');
