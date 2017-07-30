@@ -21,6 +21,9 @@ export default function postHelper($html) {
     },
     getPage: function getPage() {
       let page = 0;
+      if ($html.find('#meta_page_current').length > 0) {
+        return $html.find('#meta_page_current').attr('value');
+      }
       const $pageNav = $html.find('.pagenav');
       if ($pageNav.length === 0) {
         page = 1;

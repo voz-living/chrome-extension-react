@@ -22,6 +22,7 @@ class PostTracker extends Component {
     super(comProps);
     this.dispatch = comProps.dispatch;
     this.startTrack.call(this);
+    window.__postTrackerSetup = this.startTrack.bind(this); // FIXME
   }
 
   startTrack() {
@@ -38,7 +39,7 @@ class PostTracker extends Component {
           if (!isInView) return;
           const $this = $(this);
           const postId = parseInt($this.attr('id').match(/(\d+)/)[1], 10);
-          const postNum = posts.index($this) + 1;
+          const postNum = ~~$this.find('a[id^="postcount"]').attr('name') % 10;;
           const post = {
             threadId,
             postId,

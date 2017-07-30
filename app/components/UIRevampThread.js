@@ -101,6 +101,7 @@ class UIRevampThread extends Component {
         $('#posts').empty();
         $('#posts').prepend(posts);
         setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 100);
+        if (window.__postTrackerSetup) window.__postTrackerSetup();
       });
     e.preventDefault();
     return false;
@@ -113,6 +114,7 @@ class UIRevampThread extends Component {
         $('#posts').empty();
         $('#posts').append(posts);
         setTimeout(() => window.scrollTo(0, 0), 100);
+        if (window.__postTrackerSetup) window.__postTrackerSetup();
       });
     e.preventDefault();
     return false;
@@ -125,6 +127,7 @@ class UIRevampThread extends Component {
         $('#posts').empty();
         $('#posts').prepend(posts);
         setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 100);
+        if (window.__postTrackerSetup) window.__postTrackerSetup();
       });
     e.preventDefault();
     return false;
@@ -137,6 +140,7 @@ class UIRevampThread extends Component {
         $('#posts').empty();
         $('#posts').append(posts);
         setTimeout(() => window.scrollTo(0, 0), 100);
+        if (window.__postTrackerSetup) window.__postTrackerSetup();
       });
     e.preventDefault();
     return false;
@@ -240,6 +244,7 @@ class UIRevampThread extends Component {
     const pageProgress = (pageCurrent - 1) / (pageNum - 1) * 100;
     return (
       <div className={'page-control-bar' + (isLoading ? ' disabled' : '')}>
+        <span style={{ display: 'none' }} id="meta_page_current" value={pageCurrent}></span>
         <div 
           className="current-page-control"
           ref={(e) => { this.$curPage = e; }}
