@@ -11,7 +11,7 @@ import TextConfigItem from './TextConfigItem';
 
 const defaultSettings = defaultStoreStructure.settings;
 
-function getConfig() {
+export function getConfig() {
   return getChromeLocalStore(['settings'])
     .then((result) => Object.assign({}, defaultSettings, result.settings));
 }
@@ -57,7 +57,7 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="autoGotoNewthread" parent={parent} >Tự đi tới bài mới nhất</OnOffConfigItem>
         <h3>Trong thớt/Bài viết (Thread/Posts)</h3>
-        <OnOffConfigItem configKey="newThreadUI" parent={parent} >Giao diện mới</OnOffConfigItem>
+        <OnOffConfigItem configKey="newThreadUI" parent={parent} >Giao diện mới (Tải trang nhanh)</OnOffConfigItem>
         <OnOffConfigItem configKey="smartSelection" parent={parent} >Hiện công cụ khi quét chữ</OnOffConfigItem>
         <OnOffConfigItem configKey="emotionHelper" parent={parent} >Thêm emoticon</OnOffConfigItem>
         <OnOffConfigItem configKey="linkHelper" parent={parent} >Tự động xử lý link</OnOffConfigItem>

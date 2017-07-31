@@ -159,7 +159,8 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         smartSelection && <SmartSelection key="smart-selection" />,
-        newThreadUI && <UIRevampThread key="ui-revamp-thread" />,
+        (typeof newThreadUI !== 'undefined')
+          && <UIRevampThread key="ui-revamp-thread" enable={newThreadUI} />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
         savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} key="saved-post-thread-binder" /> : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,

@@ -7,6 +7,9 @@ import { toClassName } from '../utils';
 import { GET } from '../utils/http';
 import postHelper from '../utils/postHelper';
 import { insertTextIntoEditor } from '../common/editor';
+import { setConfig } from '../../options/ConfigItem';
+import { getConfig } from '../../options/OptionPage';
+
 let threadId;
 const genUrl = (page) => `https://vozforums.com/showthread.php?t=${threadId}&page=${page}`;
 const _c = (e) => document.createElement(e);
@@ -14,7 +17,7 @@ const _c = (e) => document.createElement(e);
 const getNextPageDiv = (props) => {
   const w = _c('div');
   w.id = 'page-control-next-end';
-  w.innerHTML = 'Load Next Page';
+  w.innerHTML = 'Load Next Page (HotKey: Phím →)';
   document.querySelector('#lastpost').parentNode.appendChild(w);
   w.addEventListener('click', props.onClick);
   return w;
@@ -22,7 +25,7 @@ const getNextPageDiv = (props) => {
 const getPreviousPageDiv = (props) => {
   const w = _c('div');
   w.id = 'page-control-prev-top';
-  w.innerHTML = 'Load Previous Page';
+  w.innerHTML = 'Load Previous Page (Hotkey: Phím ←)';
   document.querySelector('#posts').parentElement.insertBefore(w, document.querySelector('#posts'));
   w.addEventListener('click', props.onClick);
   return w;
@@ -42,7 +45,7 @@ const getPageNumState = ($html) => {
     }
   }
   return state;
-}
+};
 
 const loadPage = (page) => {
   const url = genUrl(page);
@@ -53,11 +56,11 @@ const loadPage = (page) => {
       const pageState = getPageNumState($html);
       return { posts, pageState, url };
     });
-}
+};
 
 class UIRevampThread extends Component {
   constructor(props) {
-    super(props);
+    super(props); // enable
 
     this.state = {
       status: null, /* processing, text, copied, cancel */
@@ -66,13 +69,35 @@ class UIRevampThread extends Component {
   }
 
   componentDidMount() {
-    require('../styles/thread-ui.less');
-    threadId = postHelper($(document.body)).getThreadId();
-    getNextPageDiv({ onClick: this.clickNext });
-    getPreviousPageDiv({ onClick: this.clickPrevious });
-    this.init();
-    window.__goNextPage = this.clickNext.bind(this);
-    window.__goPreviousPage = this.clickPrevious.bind(this);
+    if (this.props.enable === true) {
+      require('../styles/thread-ui.less');
+      threadId = postHelper($(document.body)).getThreadId();
+      getNextPageDiv({ onClick: this.clickNext });
+      getPreviousPageDiv({ onClick: this.clickPrevious });
+      this.init();
+      window.__goNextPage = this.clickNext.bind(this);
+      window.__goPreviousPage = this.clickPrevious.bind(this);
+    } else {
+      this.addRecommend();
+    }
+  }
+
+  addRecommend() {
+    const posts = document.querySelector("#posts");
+    const $btn = $('<a href="#" style="color: white;font-size: 14px;font-weight: bold;text-shadow: 0px 0px 2px black">Kích hoạt giao diện mới cho trang xem thớt</a>');
+    // console.log($(posts.previousElementSibling));
+    // console.log($(posts.previousElementSibling).find('.tcat > div'));
+    $(posts.previousElementSibling).find('.tcat > div').append($btn);
+    $btn.bind('click', () => {
+      getConfig()
+        .then(config => {
+          return setConfig('newThreadUI', true, config)
+        })
+        .then(() => {
+          window.location.href = window.location.href + '#newThreadUIFirstEnable';
+          location.reload();
+        });
+    });
   }
 
   disableNavigationControl() {

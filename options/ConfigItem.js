@@ -4,7 +4,7 @@ import {
 } from '../app/utils/settings';
 import { autobind } from 'core-decorators';
 
-function setConfig(name, value, settings) {
+export function setConfig(name, value, settings) {
   return setChromeLocalStore({ settings: {
     ...settings,
     [name]: value,
