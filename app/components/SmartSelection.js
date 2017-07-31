@@ -59,15 +59,15 @@ class SmartSelection extends Component {
   fCopy = () => <a 
     onClick={() => {
       copyText(this.state.textSel)
-    }}><i className="fa fa-copy"></i></a>;
+    }} key="copy"><i className="fa fa-copy"></i></a>;
   fGG = () => <a 
     onClick={() => {
       window.open('https://www.google.com/?gws_rd=ssl#q=' + this.state.textSel);
-    }}><i className="fa fa-google"></i></a>;
+    }} key="gg"><i className="fa fa-google"></i></a>;
   fYT = () => <a 
     onClick={() => {
       window.open('https://www.youtube.com/results?search_query=' + this.state.textSel);
-    }}><i className="fa fa-youtube-play"></i></a>;
+    }} key="YT"><i className="fa fa-youtube-play"></i></a>;
 
   render() {
     const { x, y, features } = this.state;
