@@ -21,6 +21,8 @@ export const defaultStoreStructure = {
     userStyle: '',
     delay: 1, // minute
     delayFollowThread: 5, // minute
+    newThreadUI: false,
+    smartSelection: false,
   },
   authInfo: {},
   quotes: [],
