@@ -140,6 +140,8 @@ class App extends Component {
       newThreadUI,
       smartSelection,
     } = settings;
+    let { pageStatusId } = this.props;
+    if (typeof linkHelper === 'undefined') pageStatusId = -1;
     if (currentView === 'thread-list') {
       return [
         <ThreadListControl
@@ -150,7 +152,7 @@ class App extends Component {
       ];
     } else if (currentView === 'thread') {
       return [
-        <LinkHelperControl linkHelper={linkHelper} key="voz-living-link-helper" />,
+        <LinkHelperControl linkHelper={linkHelper} pageStatusId={pageStatusId} key="voz-living-link-helper" />,
         <ThreadControl currentView={this.currentView} key="voz-living-thread-control" />,
         <MinimizeQuoteControl
           isMinimizeQuote={minimizeQuote} key="voz-living-minimize-quote-control"
@@ -192,8 +194,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { settings } = state.vozLiving;
-  return { settings };
+  const { settings, pageStatusId } = state.vozLiving;
+  return { settings, pageStatusId };
 };
 
 export default connect(mapStateToProps)(App);

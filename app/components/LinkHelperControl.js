@@ -5,6 +5,7 @@ import { proccessLink } from '../utils/link';
 class LinkHelperControl extends Component {
   static propTypes = {
     linkHelper: PropTypes.bool,
+    pageStatusId: PropTypes.number,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -12,9 +13,10 @@ class LinkHelperControl extends Component {
   }
 
   linkHelper(nextProps = this.props) {
-    const { linkHelper } = nextProps;
+    const { linkHelper, pageStatusId } = nextProps;
+    console.log('linkHelper', linkHelper, pageStatusId);
 
-    if (linkHelper) {
+    if (linkHelper && pageStatusId !== this.props.pageStatusId) {
       const body = $('body');
       proccessLink(body);
     }

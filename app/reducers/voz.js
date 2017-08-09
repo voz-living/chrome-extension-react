@@ -20,6 +20,7 @@ import {
   VOZ_LIVING_THREAD_UNSUBSCRIBE,
   VOZ_LIVING_SAVE_POST,
   VOZ_LIVING_UNSAVE_POST,
+  VOZ_LIVING_UPDATE_PAGE_STATUS_ID,
 } from '../constants/actionType';
 
 const initState = {
@@ -27,6 +28,7 @@ const initState = {
   threadList: [],
   quoteList: [],
   misc: {},
+  pageStatusId: 0,
 };
 
 const LIMIT_SAVE_POST = 200;
@@ -152,6 +154,9 @@ const actionsMap = {
     window.localStorage.removeItem(localStoreId);
     setChromeSyncStore({ savedPosts: updatedSavedPosts });
     return { ...state, savedPosts: updatedSavedPosts };
+  },
+  [VOZ_LIVING_UPDATE_PAGE_STATUS_ID](state) {
+    return { ...state, pageStatusId: state.pageStatusId + 1 };
   },
   [VOZ_LIVING_UPDATE_POST_TRACKER](state, action) {
     const {

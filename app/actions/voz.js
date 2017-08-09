@@ -15,6 +15,7 @@ import {
   VOZ_LIVING_THREAD_UNSUBSCRIBE,
   VOZ_LIVING_SAVE_POST,
   VOZ_LIVING_UNSAVE_POST,
+  VOZ_LIVING_UPDATE_PAGE_STATUS_ID,
 } from '../constants/actionType';
 
 export const init = (initState) => ({
@@ -96,4 +97,8 @@ export const savePost = (postId) => ({
 export const unsavePost = (postId) => ({
   type: VOZ_LIVING_UNSAVE_POST,
   postId,
+});
+
+export const increasePageStatusId = () => ({
+  type: VOZ_LIVING_UPDATE_PAGE_STATUS_ID,
 });

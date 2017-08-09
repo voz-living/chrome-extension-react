@@ -2,6 +2,7 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
+import { connect, Provider } from 'react-redux';
 import $ from 'jquery';
 import { toClassName } from '../utils';
 import { GET } from '../utils/http';
@@ -9,6 +10,7 @@ import postHelper from '../utils/postHelper';
 import { insertTextIntoEditor } from '../common/editor';
 import { setConfig } from '../../options/ConfigItem';
 import { getConfig } from '../../options/OptionPage';
+import { increasePageStatusId } from '../actions/voz';
 
 let threadId;
 const genUrl = (page) => `https://vozforums.com/showthread.php?t=${threadId}&page=${page}`;
@@ -59,6 +61,10 @@ const loadPage = (page) => {
 };
 
 class UIRevampThread extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func,
+  }
+
   constructor(props) {
     super(props); // enable
 
@@ -127,6 +133,7 @@ class UIRevampThread extends Component {
         $('#posts').prepend(posts);
         setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 100);
         if (window.__postTrackerSetup) window.__postTrackerSetup();
+        setTimeout(() => this.props.dispatch(increasePageStatusId()), 200);
       });
     e.preventDefault();
     return false;
@@ -140,6 +147,7 @@ class UIRevampThread extends Component {
         $('#posts').append(posts);
         setTimeout(() => window.scrollTo(0, 0), 100);
         if (window.__postTrackerSetup) window.__postTrackerSetup();
+        setTimeout(() => this.props.dispatch(increasePageStatusId()), 200);
       });
     e.preventDefault();
     return false;
@@ -153,6 +161,7 @@ class UIRevampThread extends Component {
         $('#posts').prepend(posts);
         setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 100);
         if (window.__postTrackerSetup) window.__postTrackerSetup();
+        setTimeout(() => this.props.dispatch(increasePageStatusId()), 200);
       });
     e.preventDefault();
     return false;
@@ -166,6 +175,7 @@ class UIRevampThread extends Component {
         $('#posts').append(posts);
         setTimeout(() => window.scrollTo(0, 0), 100);
         if (window.__postTrackerSetup) window.__postTrackerSetup();
+        setTimeout(() => this.props.dispatch(increasePageStatusId()), 200);
       });
     e.preventDefault();
     return false;
@@ -286,4 +296,8 @@ class UIRevampThread extends Component {
   }
 }
 
-export default UIRevampThread;
+const mapStateToProps = state => {
+  return state.vozLiving;
+};
+
+export default connect(mapStateToProps)(UIRevampThread);
