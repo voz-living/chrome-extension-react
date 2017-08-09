@@ -180,6 +180,20 @@ class UIRevampThread extends Component {
     e.preventDefault();
     return false;
   }
+  goToAny = (e) => {
+    const nextPage = window.prompt('Go to page ?', 1);
+    if (nextPage === this.state.pageCurrent) return false;
+    this.goToPage(nextPage)
+      .then(posts => {
+        $('#posts').empty();
+        $('#posts').append(posts);
+        setTimeout(() => window.scrollTo(0, 0), 100);
+        if (window.__postTrackerSetup) window.__postTrackerSetup();
+        setTimeout(() => this.props.dispatch(increasePageStatusId()), 200);
+      });
+    return false;
+    e.preventDefault();
+  }
 
   init = () => {
     const state = {
@@ -287,7 +301,11 @@ class UIRevampThread extends Component {
         >
           {this.renderFirstControl()}
           {this.renderPreviousControl()}
-          <div className="current-page-label"> {isLoading ? <i className="fa fa-spin fa-spinner"></i> : pageCurrent} / {pageNum} </div>
+          <div className="current-page-label">
+            {isLoading 
+              ? <i className="fa fa-spin fa-spinner"></i> 
+              : <a onClick={this.goToAny} className="tooltip-left" data-tooltip="Đi đến trang ...">{pageCurrent}</a>} / {pageNum}
+          </div>
           {this.renderNextControl()}
           {this.renderLastControl()}
         </div>
