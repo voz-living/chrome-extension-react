@@ -2503,6 +2503,7 @@ body .voz-living-side-menu {
   width: 40px;
   height: 100%;
   padding: 0 5px 0 5px;
+  z-index: 2;
 }
 body .voz-living-side-menu.trans-start {
   left: -50px;
