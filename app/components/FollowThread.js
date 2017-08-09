@@ -71,7 +71,7 @@ class FollowThread extends Component {
           </span>
         </div>
         <div className="quote-bottom">
-          <i className="fa fa-arrow-right"></i> Có {numPostDiff} bài mới
+          <i className="fa fa-arrow-right"></i> Có {numPostDiff} mới
         </div>
       </div>
     );
@@ -120,7 +120,7 @@ function estimateSubscribedThreads(followThreads, threadTracker) {
     const postId = tracked ? tracked.postId : null;
     const numPostFromTracker = tracked ? tracked.page * 10 + tracked.postNum : 0;
     const numPostTotal = page * 10 + postNum;
-    const numPostDiff = numPostTotal - numPostFromTracker;
+    const numPostDiff = Math.max(numPostTotal - numPostFromTracker, 0);
     return { id, postId, numPostDiff, numPostFromTracker, numPostTotal, title };
   });
 }
