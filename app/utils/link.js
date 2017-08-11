@@ -89,12 +89,26 @@ export function resolveYoutube($html, isThreadContentOnly) {
     }
     if (ytb !== null && ytb.length > 0) {
       $this.attr('data-smartlink', 'youtube');
+	    let ytbtime = href.match(/(?:youtu.be|youtube.com).*?t=(?:(\d*)h)*(?:(\d*)m)*(?:(\d*)s)*/i);
+        if (ytbtime !== null && ytb.length > 0) {
+          ytbtime[1] = ytbtime[1] || 0;
+          ytbtime[2] = ytbtime[2] || 0;
+          ytbtime[3] = ytbtime[3] || 0;
+          ytbtime = Number(ytbtime[1]) * 3600 + Number(ytbtime[2]) * 60 + Number(ytbtime[3]);
+          const $img = $(`<div><iframe width='560' height='315' src='https://www.youtube.com/embed/${ytb[1]}?start=${ytbtime}&amp;?rel=0'
+							frameborder='0' allowfullscreen
+            				title='Có thể xảy ra sai sót trong việc tự động nhận biết youtube, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
+        					</iframe>
+						</div>`);
+          $this.after($img);
+		} else {
       const $img = $(`<div><iframe width='560' height='315' src='https://www.youtube.com/embed/${ytb[1]}?rel=0'
             					frameborder='0' allowfullscreen
             					title='Có thể xảy ra sai sót trong việc tự động nhận biết youtube, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
         					</iframe>
 					</div>`);
       $this.after($img);
+		}
     }
 
     if (/video\.vnexpress\.net\/parser/.test(href)) {
