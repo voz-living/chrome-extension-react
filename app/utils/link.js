@@ -84,8 +84,8 @@ export function resolveYoutube($html, isThreadContentOnly) {
     const $this = $(this);
     const href = $this.attr('href');
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
-    let vne = /video\.vnexpress\.net\/parser/.test(href);
-    let mp4 = href.match(/.*\.mp4$/i);
+    const vne = /video\.vnexpress\.net\/parser/.test(href);
+    const mp4 = href.match(/.*\.mp4$/i);
     if (ytb === null || ytb.length === 0) {
       ytb = href.match(/youtu\.be\/([a-zA-Z0-9_-]+)/i);
     }
