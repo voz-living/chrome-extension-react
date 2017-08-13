@@ -67,6 +67,12 @@ export function resolveImage($html, isThreadContentOnly) {
       $this.after($img);
     }
   });
+  $('.voz-post-message img').each(function() {
+    const $this = $(this);
+    if ($this.width() <= 80 && $this.height() <= 80) {
+      $this.attr("class", "inlineimg");
+    }
+  });
 }
 
 export function resolveYoutube($html, isThreadContentOnly) {
@@ -96,14 +102,14 @@ export function resolveYoutube($html, isThreadContentOnly) {
             					title='Có thể xảy ra sai sót trong việc tự động nhận biết youtube, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
         					</iframe>
 					</div>`);
-	  $this.after($img);
+      $this.after($img);
       let ytbtime = href.match(/(?:youtu.be|youtube.com).*?t=(?:(\d*)h)*(?:(\d*)m)*(?:(\d*)s?)/i);
       if (ytbtime !== null && ytb.length > 0) {
         ytbtime[1] = ytbtime[1] || 0;
         ytbtime[2] = ytbtime[2] || 0;
         ytbtime[3] = ytbtime[3] || 0;
         ytbtime = Number(ytbtime[1]) * 3600 + Number(ytbtime[2]) * 60 + Number(ytbtime[3]);
-	  $img.children('iframe').attr("src", $img.children('iframe').attr("src") + "&amp;start=" + ytbtime);
+        $img.children('iframe').attr("src", $img.children('iframe').attr("src") + "&amp;start=" + ytbtime);
       }
     } else if (vne === true) {
       $this.attr('data-smartlink', 'vnexpress-video');
