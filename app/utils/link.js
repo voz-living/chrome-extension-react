@@ -67,7 +67,7 @@ export function resolveImage($html, isThreadContentOnly) {
       $this.after($img);
     }
   });
-  $('.voz-post-message img').each(function() {
+  $('.voz-post-message img[src^="http"]').each(function() {
     const $this = $(this);
     if ($this.width() <= 80 && $this.height() <= 80) {
       $this.attr("class", "inlineimg");
