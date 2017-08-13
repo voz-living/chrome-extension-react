@@ -97,7 +97,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
         					</iframe>
 					</div>`);
 	  $this.after($img);
-      let ytbtime = href.match(/(?:youtu.be|youtube.com).*?t=(?:(\d*)h)*(?:(\d*)m)*(?:(\d*)s)*/i);
+      let ytbtime = href.match(/(?:youtu.be|youtube.com).*?t=(?:(\d*)h)*(?:(\d*)m)*(?:(\d*)s?)/i);
       if (ytbtime !== null && ytb.length > 0) {
         ytbtime[1] = ytbtime[1] || 0;
         ytbtime[2] = ytbtime[2] || 0;
