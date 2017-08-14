@@ -122,7 +122,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
       $this.after($img);
     } else if (mp4 !== null && mp4.length > 0) {
       $this.attr('data-smartlink', 'mp4-video');
-      const $img = $(`<div><video src='${href}' width='560' preload='metadata' controls></video></div>`);
+      const $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
       $this.after($img);
     }
   });
