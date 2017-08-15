@@ -131,7 +131,7 @@ class UIRevampThread extends Component {
       .then(posts => {
         $('#posts').empty();
         $('#posts').prepend(posts);
-        setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 100);
+        setTimeout(() => window.scrollTo(0, 0), 100);
         if (window.__postTrackerSetup) window.__postTrackerSetup();
         setTimeout(() => this.props.dispatch(increasePageStatusId()), 200);
       });
@@ -159,7 +159,7 @@ class UIRevampThread extends Component {
       .then(posts => {
         $('#posts').empty();
         $('#posts').prepend(posts);
-        setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 100);
+        setTimeout(() => window.scrollTo(0, 0), 100);
         if (window.__postTrackerSetup) window.__postTrackerSetup();
         setTimeout(() => this.props.dispatch(increasePageStatusId()), 200);
       });
