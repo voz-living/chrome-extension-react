@@ -67,6 +67,12 @@ export function resolveImage($html, isThreadContentOnly) {
       $this.after($img);
     }
   });
+  $('.voz-post-message img[src^="http"]').each(function() {
+    const $this = $(this);
+    if ($this.width() <= 80 && $this.height() <= 80) {
+      $this.attr("class", "inlineimg");
+    }
+  });
 }
 
 export function resolveYoutube($html, isThreadContentOnly) {
@@ -84,27 +90,47 @@ export function resolveYoutube($html, isThreadContentOnly) {
     const $this = $(this);
     const href = $this.attr('href');
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
+    const vne = /video\.vnexpress\.net\/parser/.test(href);
+    const fb = href.match(/facebook.com.*\/videos\/.*/i);
+    const mp4 = href.match(/.*\.mp4$/i);
     if (ytb === null || ytb.length === 0) {
       ytb = href.match(/youtu\.be\/([a-zA-Z0-9_-]+)/i);
     }
     if (ytb !== null && ytb.length > 0) {
       $this.attr('data-smartlink', 'youtube');
-      const $img = $(`<div><iframe width='560' height='315' src='https://www.youtube.com/embed/${ytb[1]}?rel=0'
+      let $img = $(`<div><iframe width='560' height='315'  src='https://www.youtube.com/embed/${ytb[1]}?rel=0'
             					frameborder='0' allowfullscreen
             					title='Có thể xảy ra sai sót trong việc tự động nhận biết youtube, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
         					</iframe>
 					</div>`);
       $this.after($img);
-    }
-
-    if (/video\.vnexpress\.net\/parser/.test(href)) {
+      let ytbtime = href.match(/(?:youtu.be|youtube.com).*?t=(?:(\d*)h)*(?:(\d*)m)*(?:(\d*)s?)/i);
+      if (ytbtime !== null && ytb.length > 0) {
+        ytbtime[1] = ytbtime[1] || 0;
+        ytbtime[2] = ytbtime[2] || 0;
+        ytbtime[3] = ytbtime[3] || 0;
+        ytbtime = Number(ytbtime[1]) * 3600 + Number(ytbtime[2]) * 60 + Number(ytbtime[3]);
+        $img.children('iframe').attr("src", $img.children('iframe').attr("src") + "&amp;start=" + ytbtime);
+      }
+    } else if (vne === true) {
       $this.attr('data-smartlink', 'vnexpress-video');
       const uHref = 'https://' + href.replace(/http:\/\//, '');
       const $img = $(`<div><iframe width='480' height='270' src='${uHref}'
             					frameborder='0' allowfullscreen
-            					title='Có thể xảy ra sai sót trong việc tự động nhận biết youtube, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
+            					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
         					</iframe>
 					</div>`);
+      $this.after($img);
+    } else if (fb !== null && fb.length > 0) {
+      let $img = $(`<div><iframe src="https://www.facebook.com/plugins/video.php?href=${fb}&show_text=0&height=280"
+							width="560" height="315" style="border:none;overflow:hidden" scrolling="no"
+							frameborder="0" allowTransparency="true" allowFullScreen="true">
+						 </iframe>
+					</div>`);
+	  $this.after($img);
+    } else if (mp4 !== null && mp4.length > 0) {
+      $this.attr('data-smartlink', 'mp4-video');
+      const $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
       $this.after($img);
     }
   });
