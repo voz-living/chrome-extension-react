@@ -2,16 +2,28 @@
 
 #quick_reply {
   position: fixed;
-  bottom: 0;
+  bottom: 50px;
   max-height: 350px;
   overflow: auto;
   left: 60px;
+  transition: all 0.2s;
   > table {
     box-shadow: 0px 0px 8px rgba(0,0,0,0.8);
+    .tcat > a {
+      padding: 2px 2px 1px 40px;
+    }
   }
   &.expand {
+    bottom: 0px;
     #collapseobj_quickreply {
       display: block !important;
+      .panelsurround {
+        > div:nth-child(2) {
+          position: absolute;
+          top: 0;
+          right: 50px;
+        }
+      }
     }
   }
   #collapseobj_quickreply {

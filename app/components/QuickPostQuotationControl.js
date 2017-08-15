@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { GET } from '../utils/http';
 import $ from 'jquery';
 import { render } from 'react-dom';
@@ -7,7 +7,7 @@ import Cookie from 'tiny-cookie';
 import { autobind } from 'core-decorators';
 
 @autobind
-class QuickPostQuotation extends Component {
+class QuickPostQuotation extends PureComponent {
   static propTypes = {
     editor: PropTypes.any,
     href: PropTypes.string,
@@ -64,7 +64,7 @@ class QuickPostQuotation extends Component {
   }
 }
 
-class QuickPostQuotationControl extends Component {
+class QuickPostQuotationControl extends PureComponent {
   static propTypes = {
     isQuickPostQuotation: PropTypes.bool,
   }
@@ -78,7 +78,7 @@ class QuickPostQuotationControl extends Component {
 
     if (isQuickPostQuotation) {
       const editor = $('#vB_Editor_QR_textarea');
-      if (editor.length === 0) return;
+      if (editor.length === 0 || $('.voz-living-quick-quote-quotation').length > 0) return;
 
       const editorCont = editor.parents('#vB_Editor_QR').eq(0);
       const toolbar = $('<div class="voz-living-quick-quote-quotation"></div>');
