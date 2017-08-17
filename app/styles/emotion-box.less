@@ -1,16 +1,15 @@
 .emotion-box{
-  overflow: hidden;
-  max-height: 310px;
   overflow-y: scroll;
   padding: 5px 0;
   min-width: 155px;
-  min-height: 250px;
   margin-top: 5px;
+  white-space: nowrap;
+  padding-bottom: 20px;
 
   div.emo{
     width: 40px;
     height: 40px;
-    float: left;
+    display: inline-block;
     padding: 2px;
     position: relative;
     border-radius: 2px;
@@ -35,5 +34,14 @@
         transform: scale(1.1);
       }
     }
+  }
+}
+
+.smilebox.full {
+  .emotion-box{
+    overflow: auto;
+    white-space: normal;
+    max-height: 310px;
+    min-height: 250px;
   }
 }

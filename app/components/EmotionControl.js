@@ -43,20 +43,25 @@ class EmotionControl extends Component {
       if (currentView === 'thread' || currentView === 'new-reply' || currentView === 'edit-reply') {
         let smileCont = null;
         const stickerBox = document.createElement('div');
+        let classView = '';
 
         if (currentView === 'thread') {
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
+          classView = 'compact';
+          smileCont.append(stickerBox);
         } else if (currentView === 'new-reply' || currentView === 'edit-reply') {
           this.editor = $('#vB_Editor_001_textarea');
           smileCont = $('#vB_Editor_001_smiliebox');
           smileCont.find('table').remove();
+          classView = 'full';
+          this.editor.parent().append(stickerBox);
         }
-        this.editor.parent().append(stickerBox);
 
         const smileBox = document.createElement('div');
-        smileBox.className = 'smilebox';
+        smileBox.className = `smilebox ${classView}`;
+        stickerBox.className = classView;
         smileCont.append(smileBox);
 
         render(<EmotionPicker onIconClick={this.onIconClick} />, smileBox);

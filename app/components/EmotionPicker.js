@@ -8,6 +8,10 @@ export default class EmotionPicker extends Component {
     onIconClick: PropTypes.func,
   }
 
+  componentDidMount() {
+    require('../styles/emotion-box.less');
+  }
+
   prepareEmotionUrl(url) {
     let out = url;
     if (out.indexOf('http') > -1) return '';
