@@ -1,6 +1,64 @@
 {
   "cho-brown": {
-    "title": "Chó Nâu",
+    "title": "Brown",
     "list": "list"
+  },
+  "shiba": {
+    "title": "Shiba",
+    "list": [{
+        "url": "http://i.imgur.com/81oAEYK.gif"
+      },
+      {
+        "url": "http://i.imgur.com/xITMXnd.gif"
+      },
+      {
+        "url": "http://i.imgur.com/xBRyph0.gif"
+      },
+      {
+        "url": "http://i.imgur.com/raGDScH.gif"
+      },
+      {
+        "url": "http://i.imgur.com/ydsKPVL.gif"
+      },
+      {
+        "url": "http://i.imgur.com/7B30ocP.gif"
+      },
+      {
+        "url": "http://i.imgur.com/wAWmqej.gif"
+      },
+      {
+        "url": "http://i.imgur.com/WCS3oOV.gif"
+      },
+      {
+        "url": "http://i.imgur.com/AP1RRdQ.gif"
+      },
+      {
+        "url": "http://i.imgur.com/l1mA5tX.gif"
+      },
+      {
+        "url": "http://i.imgur.com/UBODv04.gif"
+      },
+      {
+        "url": "http://i.imgur.com/5FZQFsY.gif"
+      },
+      {
+        "url": "http://i.imgur.com/DwafnpM.gif"
+      },
+      {
+        "url": "http://i.imgur.com/aPhIEqI.gif"
+      },
+      {
+        "url": "http://i.imgur.com/PiWax0V.gif"
+      },
+      {
+        "url": "http://i.imgur.com/O5nmwZN.gif"
+      },
+      {
+        "url": "http://i.imgur.com/PtJSbmy.gif"
+      },
+      {
+        "url": "http://i.imgur.com/2TKUa4I.gif"
+      }
+    ]
   }
 }
