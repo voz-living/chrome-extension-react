@@ -14,7 +14,7 @@ export default class StickerPicker extends Component {
     super(props);
     this.state = {
       stickers: [],
-      selectedSticker: 0,
+      selectedSticker: window.localStorage.getItem('vozLivingStickerSelected'),
     };
   }
 
@@ -22,7 +22,9 @@ export default class StickerPicker extends Component {
     require('../styles/sticker-box.less');
     this.prepareStickerData()
       .then(stickers => {
-        this.setState({ stickers });
+        let { selectedSticker } = this.state;
+        if (!stickers.find(s => s.key === selectedSticker)) selectedSticker = stickers[0].key;
+        this.setState({ stickers, selectedSticker });
       });
   }
 
@@ -41,7 +43,7 @@ export default class StickerPicker extends Component {
     const data = JSON.parse(storageData);
     setTimeout(() => {
       const lastUpdate = window.localStorage.getItem('vozLivingStickerData_lastUpdate');
-      if (lastUpdate === null || (new Date().getTime() - parseInt(lastUpdate, 10) > 1000 * 60 * 60)) {
+      if (lastUpdate === null || (new Date().getTime() - parseInt(lastUpdate, 10) > 1000 * 60 * 5)) {
         this.downloadStickerData()
           .then(dlData => {
             const str = JSON.stringify(dlData);
@@ -55,13 +57,14 @@ export default class StickerPicker extends Component {
   }
 
   downloadStickerData() {
-    const stickerManifestUrl = stickerUrl + '/declare.json';
+    const stickerManifestUrl = `${stickerUrl}/declare.json?version=${chrome.runtime.getManifest().version}`;
     return PROXY_GET(stickerManifestUrl, { credentials: 'no-cors' })
       .then(res => {
         if (typeof res === 'string') res = JSON.parse(res);
         return Promise.all(Object.keys(res).map(k => {
           const sticker = res[k];
           sticker.key = k;
+          if (typeof sticker.list === 'object') return sticker;
           const stickerListUrl = `${stickerUrl}/${k}/list`;
           return PROXY_GET(stickerListUrl, { credentials: 'no-cors' })
             .then(sList => sList.split(/\n/).sort().map(name => ({
@@ -78,18 +81,35 @@ export default class StickerPicker extends Component {
     this.props.onStickerClick(sticker);
   }
 
+  selectStickerSet(key) {
+    this.setState({ selectedSticker: key });
+    window.localStorage.setItem('vozLivingStickerSelected', key);
+  }
+
   render() {
-    const { stickers } = this.state;
-    const selected = stickers[this.state.selectedSticker];
+    const { stickers, selectedSticker } = this.state;
+    const selected = stickers.find(s => s.key === selectedSticker);
     return (
-      <div className="sticker-box">
-        {stickers.length > 0
-          ? <div>
-          {selected.list.map(sticker => (
-            <img className="sticker" alt={sticker.url} onClick={() => this.choseSticker(sticker)} src={sticker.url} />
-          ))}
-          </div>
-          : <span>Loading</span>}
+      <div className="sticker-box-wrapper">
+        <div className="sticker-box">
+          {stickers.length > 0
+            ? <div>
+            {selected.list.map(sticker => (
+              <img className="sticker" alt={sticker.url} onClick={() => this.choseSticker(sticker)} src={sticker.url} />
+            ))}
+            </div>
+            : <span>Loading</span>}
+        </div>
+        {stickers.length > 0 &&
+          <ul className="sticker-set-list">
+            {stickers.map(sticker => (
+              <li
+                className={sticker.key === selectedSticker ? 'sticker-set-selected' : ''}
+                onClick={() => this.selectStickerSet(sticker.key)}
+              >{sticker.key === selectedSticker ? '▶' : <span>&nbsp;</span>} {sticker.title}&nbsp;</li>
+            ))}
+          </ul>
+        }
       </div>
     );
   }

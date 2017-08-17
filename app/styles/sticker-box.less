@@ -1,7 +1,8 @@
 .sticker-box{
   height: 102px;
   background: white;
-  overflow: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
   > div {
     margin-top: 2px;
     white-space: nowrap;
@@ -21,4 +22,23 @@
 }
 .full .sticker-box {
   width: 544px;
+}
+.sticker-set-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    display: inline-block;
+    line-height: 16px;
+    font-size: 14px;
+    margin: 0;
+    padding: 2px 5px;
+    border: 1px solid #999;
+    background: #fff;
+    transition: all 0.2s;
+    &.sticker-set-selected {
+      background: #ddd;
+      text-shadow: 0 0 5px rgba(255,255,255,0.9);
+    }
+  }
 }

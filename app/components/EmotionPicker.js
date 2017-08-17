@@ -1,15 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import emotions from '../constants/emotions';
 import { autobind } from 'core-decorators';
+import { setChromeSyncStore, getChromeSyncStore } from '../utils/settings';
 
 @autobind
 export default class EmotionPicker extends Component {
   static propTypes = {
     onIconClick: PropTypes.func,
   }
+  constructor(props) {
+    super(props);
+    this.usageData = {};
+  }
 
   componentDidMount() {
     require('../styles/emotion-box.less');
+    setTimeout(() => {
+      getChromeSyncStore(['stickerUsageData']).then(store => {
+        if (typeof store.stickerUsageData !== 'undefined') this.usageData = store.stickerUsageData;
+      });
+    }, 500);
   }
 
   prepareEmotionUrl(url) {
