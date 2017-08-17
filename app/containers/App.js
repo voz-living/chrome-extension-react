@@ -164,7 +164,7 @@ class App extends Component {
         (typeof newThreadUI !== 'undefined')
           && <UIRevampThread key="ui-revamp-thread" enable={newThreadUI} />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
-        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} key="saved-post-thread-binder" /> : null,
+        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,
       ];
     }

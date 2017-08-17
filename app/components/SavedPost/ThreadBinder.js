@@ -17,6 +17,7 @@ class SavedPostThreadBinder extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
     savedPosts: PropTypes.object,
+    pageStatusId: PropTypes.number,
   }
 
   constructor(comProps) {
@@ -26,6 +27,32 @@ class SavedPostThreadBinder extends Component {
   }
 
   componentDidMount() {
+    this.bindToPosts();
+    this.componentWillUpdate(this.props);
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.pageStatusId !== this.props.pageStatusId) {
+      this.bookmarks = [];
+      this.bindToPosts();
+    }
+    const { savedPosts } = nextProps;
+    this.bookmarks.forEach(({ $bookmark, postId }) => {
+      if (savedPosts[postId]) {
+        if (!$bookmark.hasClass('bookmarked')) {
+          $bookmark.addClass('bookmarked');
+          $bookmark.attr('data-tooltip', 'Bỏ đánh dấu');
+        }
+      } else {
+        if ($bookmark.hasClass('bookmarked')) {
+          $bookmark.removeClass('bookmarked');
+          $bookmark.attr('data-tooltip', 'Đánh dấu');
+        }
+      }
+    });
+  }
+
+  bindToPosts() {
     $('.voz-postbit').each((i, e) => {
       const $post = $(e);
       try {
@@ -42,24 +69,6 @@ class SavedPostThreadBinder extends Component {
       } catch (er) {
         console.error(er);
         return;
-      }
-    });
-    this.componentWillUpdate(this.props);
-  }
-
-  componentWillUpdate(nextProps) {
-    const { savedPosts } = nextProps;
-    this.bookmarks.forEach(({ $bookmark, postId }) => {
-      if (savedPosts[postId]) {
-        if (!$bookmark.hasClass('bookmarked')) {
-          $bookmark.addClass('bookmarked');
-          $bookmark.attr('data-tooltip', 'Bỏ đánh dấu');
-        }
-      } else {
-        if ($bookmark.hasClass('bookmarked')) {
-          $bookmark.removeClass('bookmarked');
-          $bookmark.attr('data-tooltip', 'Đánh dấu');
-        }
       }
     });
   }
