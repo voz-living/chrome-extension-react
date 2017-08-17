@@ -19,5 +19,4 @@ chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
 
 export {
   quoteBackground,
-  peerChartBackground,
 };
