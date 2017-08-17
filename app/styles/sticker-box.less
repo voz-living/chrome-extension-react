@@ -1,0 +1,22 @@
+.sticker-box{
+  width: 614px;
+  height: 102px;
+  background: white;
+  overflow: auto;
+  > div {
+    margin-top: 2px;
+    white-space: nowrap;
+    .sticker {
+      height: 80px;
+      margin: 4px;
+      transition: all 0.2s;
+      border: 1px solid white;
+      cursor: pointer;
+      &:hover {
+        margin: 0;
+        height: 88px;
+        border: 1px solid #666;
+      }
+    }
+  }
+}

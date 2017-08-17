@@ -4,6 +4,7 @@ import { autobind } from 'core-decorators';
 import { render } from 'react-dom';
 import { insertTextIntoEditor } from '../common/editor';
 import EmotionPicker from './EmotionPicker';
+import StickerPicker from './StickerPicker';
 
 @autobind
 class EmotionControl extends Component {
@@ -27,6 +28,13 @@ class EmotionControl extends Component {
     }
   }
 
+  onStickerClick(sticker) {
+    if (this.editor && sticker.url) {
+      const bbcode = `[IMG]${sticker.url}[/IMG]`;
+      insertTextIntoEditor(bbcode, this.editor);
+    }
+  }
+
   updateEmotionHelper(nextProps = this.props) {
     const { emotionHelper, currentView } = nextProps;
     const hasSmileBox = $('.smilebox').length !== 0;
@@ -34,6 +42,7 @@ class EmotionControl extends Component {
     if (emotionHelper && !hasSmileBox) {
       if (currentView === 'thread' || currentView === 'new-reply' || currentView === 'edit-reply') {
         let smileCont = null;
+        const stickerBox = document.createElement('div');
 
         if (currentView === 'thread') {
           this.editor = $('#vB_Editor_QR_textarea');
@@ -44,11 +53,14 @@ class EmotionControl extends Component {
           smileCont = $('#vB_Editor_001_smiliebox');
           smileCont.find('table').remove();
         }
+        this.editor.parent().append(stickerBox);
+
         const smileBox = document.createElement('div');
         smileBox.className = 'smilebox';
         smileCont.append(smileBox);
 
         render(<EmotionPicker onIconClick={this.onIconClick} />, smileBox);
+        render(<StickerPicker onStickerClick={this.onStickerClick} />, stickerBox);
       }
     }
   }
