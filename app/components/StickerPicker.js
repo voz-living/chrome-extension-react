@@ -166,19 +166,32 @@ export default class StickerPicker extends Component {
     if (!selected) selected = stickers[0];
     return (
       <div className="sticker-box-wrapper">
-        <div className="sticker-box">
+        <div className={'sticker-box' + (stickers.length === 0 ? ' empty-sticker' : '')}>
           {stickers.length > 0
             ? <div>
             {selected.list.map(sticker => (
               <img className="sticker" alt={sticker.url} onClick={() => this.choseSticker(sticker)} src={sticker.url} />
             ))}
             </div>
-            : <span>Bạn chưa có bộ sticker nào, Thêm vào hoặc <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank">vào đây</a> để xem 1 số bộ stickers</span>}
+            : <span>&nbsp;Bạn chưa có bộ sticker nào,&nbsp;
+              {
+                isAdding
+                ? <span> chờ tí <i className="fa fa-spinner fa-spin"></i></span>
+                : <a href="#" onClick={(e) => {
+                  e.preventDefault();
+                  this.addStickerSet();
+                  return false;
+                }}>Tự thêm vào</a>
+              }
+              &nbsp;hoặc <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank">vào đây để xem 1 số bộ stickers </a></span>}
         </div>
         <ul className="sticker-set-list">
-          {isAdding
-            ? <li><i className="fa fa-spinner fa-spin"></i></li>
-            : <li onClick={() => this.addStickerSet()}>+</li>}
+          {stickers.length > 0 ?
+           isAdding
+              ? <li><i className="fa fa-spinner fa-spin"></i></li>
+              : <li onClick={() => this.addStickerSet()}>+</li>
+            : null
+          }
           {stickers.map(sticker => (
             <li
               className={sticker.key === selectedSticker ? 'sticker-set-selected' : ''}

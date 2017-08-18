@@ -1,5 +1,5 @@
 .sticker-box{
-  height: 102px;
+  height: 82px;
   background: white;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -7,14 +7,14 @@
     margin-top: 2px;
     white-space: nowrap;
     .sticker {
-      height: 80px;
-      margin: 4px;
+      height: 60px;
+      margin: 2px;
       transition: all 0.2s;
       border: 1px solid white;
       cursor: pointer;
       &:hover {
         margin: 0;
-        height: 88px;
+        height: 64px;
         border: 1px solid #666;
       }
     }
@@ -22,6 +22,10 @@
   span a {
     text-decoration: underline;
     font-weight: bold;
+  }
+
+  &.empty-sticker {
+    height: 20px;
   }
 }
 .full .sticker-box {
