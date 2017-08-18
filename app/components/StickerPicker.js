@@ -1,8 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
-import { PROXY_GET } from '../utils/http';
+import $ from 'jquery';
+import { getChromeSyncStore, setChromeSyncStore, getChromeLocalStore, setChromeLocalStore } from '../utils/settings';
 
-const stickerUrl = 'https://raw.githubusercontent.com/voz-living/chrome-extension-react/master/resource/sticker';
+const candy = '11f712f3240e20c';
+const STICKER_CONFIG_KEY = 'stickerConfig';
+
+function loadStickers(id) {
+  return new Promise((resolve) => {
+    $.ajax({
+      async: true,
+      crossDomain: true,
+      url: `https://api.imgur.com/3/album/${id}/images`,
+      method: 'GET',
+      headers: {
+        Authorization: `Client-ID ${candy}`,
+      },
+    })
+    .done((res) => {
+      const images = res.data;
+      resolve(images.map(img => ({
+        url: img.link,
+      })));
+    });
+  });
+}
+
+function getStickerSets() {
+  return getChromeSyncStore([STICKER_CONFIG_KEY])
+    .then(store => (store[STICKER_CONFIG_KEY] ? store[STICKER_CONFIG_KEY] : []));
+}
 
 @autobind
 export default class StickerPicker extends Component {
@@ -14,67 +41,46 @@ export default class StickerPicker extends Component {
     super(props);
     this.state = {
       stickers: [],
+      isAdding: false,
       selectedSticker: window.localStorage.getItem('vozLivingStickerSelected'),
     };
+    this.getStickerConfig()
+      .then(this.updateStateStickers);
   }
 
   componentDidMount() {
     require('../styles/sticker-box.less');
-    this.prepareStickerData()
-      .then(stickers => {
-        let { selectedSticker } = this.state;
-        if (!stickers.find(s => s.key === selectedSticker)) selectedSticker = stickers[0].key;
-        this.setState({ stickers, selectedSticker });
-      });
+    window.__addStickerSet = this.addStickerSet.bind(this);
   }
 
-  prepareStickerData() {
-    const storageData = window.localStorage.getItem('vozLivingStickerData');
-    if (storageData === null) {
-      return this.downloadStickerData()
-        .then(data => {
-          window.localStorage.setItem('vozLivingStickerData', JSON.stringify(data));
-          window.localStorage.setItem('vozLivingStickerData_lastUpdate', new Date().getTime());
-          return data;
-        }).catch((e) => {
-          console.log(e);
-        });
-    }
-    const data = JSON.parse(storageData);
-    setTimeout(() => {
-      const lastUpdate = window.localStorage.getItem('vozLivingStickerData_lastUpdate');
-      if (lastUpdate === null || (new Date().getTime() - parseInt(lastUpdate, 10) > 1000 * 60 * 5)) {
-        this.downloadStickerData()
-          .then(dlData => {
-            const str = JSON.stringify(dlData);
-            if (str === storageData) return;
-            window.localStorage.setItem('vozLivingStickerData', str);
-            window.localStorage.setItem('vozLivingStickerData_lastUpdate', new Date().getTime());
-          }).catch(() => {});
-      }
-    }, 2000);
-    return Promise.resolve(data);
-  }
-
-  downloadStickerData() {
-    const stickerManifestUrl = `${stickerUrl}/declare.json?version=${chrome.runtime.getManifest().version}`;
-    return PROXY_GET(stickerManifestUrl, { credentials: 'no-cors' })
-      .then(res => {
-        if (typeof res === 'string') res = JSON.parse(res);
-        return Promise.all(Object.keys(res).map(k => {
-          const sticker = res[k];
-          sticker.key = k;
-          if (typeof sticker.list === 'object') return sticker;
-          const stickerListUrl = `${stickerUrl}/${k}/list`;
-          return PROXY_GET(stickerListUrl, { credentials: 'no-cors' })
-            .then(sList => sList.split(/\n/).sort().map(name => ({
-              url: `${stickerUrl}/${k}/${name}`,
-            }))).then(list => {
-              sticker.list = list;
-              return sticker;
+  getStickerConfig() {
+    return getStickerSets()
+      .then((items) => {
+        return Promise.all(items.map(({ key, title }) => {
+          const k = `sticker_${key}`;
+          return getChromeLocalStore([k])
+            .then((lstore) => {
+              if (lstore[k]) {
+                return lstore[k];
+              }
+              return loadStickers(key);
+            })
+            .then((list) => {
+              setChromeLocalStore({ [k]: list });
+              return {
+                key,
+                title,
+                list,
+              };
             });
-        }));
+        }))
       });
+  }
+
+  updateStateStickers(stickers) {
+    let { selectedSticker } = this.state;
+    if (!stickers.find(s => s.key === selectedSticker) && stickers.length > 0) selectedSticker = stickers[0].key;
+    this.setState({ stickers, selectedSticker });
   }
 
   choseSticker(sticker) {
@@ -86,9 +92,78 @@ export default class StickerPicker extends Component {
     window.localStorage.setItem('vozLivingStickerSelected', key);
   }
 
+  removeStickerSet(key) {
+    try {
+      const stickers = this.state.stickers.slice();
+      const idx = stickers.findIndex(s => s.key === key);
+      stickers.splice(idx, 1);
+      this.updateStateStickers(stickers);
+      setChromeSyncStore({ [STICKER_CONFIG_KEY]: stickers.map(sticker => ({
+        key: sticker.key,
+        title: sticker.title,
+      })) });
+      chrome.storage.local.remove(`sticker_${key}`);
+    } catch (e) {
+      alert('Không thể xoá, xin thử lại sau');
+      console.log(e.stack);
+    }
+  }
+
+  addStickerSet(url = null, suggestName = null) {
+    if (url === null) {
+      url = prompt('imgur album url:', 'http://imgur.com/a/');
+    }
+    if (url === null) return;
+    if (/imgur\.com\/a\/.+/.test(url) === false) {
+      return alert('Invalid album url');
+    }
+    const match = url.match(/a\/([^ ]*)/);
+    if (match === null) return;
+    const aId = match[1];
+
+    let name;
+    let validName = true;
+    do {
+      validName = true;
+      name = prompt('tên của sticker set (<= 20 kí tự)', suggestName !== null ? suggestName : aId);
+      if (name === null) return;
+      if (name.trim() === '') {
+        alert('Tên bị trống');
+        validName = false;
+      }
+      if (name.length > 20) {
+        alert('Tên quá dài');
+        validName = false;
+      }
+    } while (!validName);
+
+    this.setState({ isAdding: true });
+    Promise.all([
+      getStickerSets()
+        .then((set) => {
+          set.push({ key: aId, title: name });
+          return setChromeSyncStore({ [STICKER_CONFIG_KEY]: set });
+        }),
+      loadStickers(aId),
+    ])
+    .then(([, list]) => {
+      const k = 'sticker_' + aId;
+      return setChromeLocalStore({ [k]: list });
+    })
+    .then(() => {
+      alert(`Đã thêm '${name}'`);
+      this.getStickerConfig()
+        .then((stickers) => {
+          this.updateStateStickers(stickers);
+        });
+      this.setState({ isAdding: false });
+    });
+  }
+
   render() {
-    const { stickers, selectedSticker } = this.state;
-    const selected = stickers.find(s => s.key === selectedSticker);
+    const { stickers, selectedSticker, isAdding } = this.state;
+    let selected = stickers.find(s => s.key === selectedSticker);
+    if (!selected) selected = stickers[0];
     return (
       <div className="sticker-box-wrapper">
         <div className="sticker-box">
@@ -98,19 +173,28 @@ export default class StickerPicker extends Component {
               <img className="sticker" alt={sticker.url} onClick={() => this.choseSticker(sticker)} src={sticker.url} />
             ))}
             </div>
-            : <span>Loading</span>}
+            : <span>Bạn chưa có bộ sticker nào, Thêm vào hoặc <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank">vào đây</a> để xem 1 số bộ stickers</span>}
         </div>
-        {stickers.length > 0 &&
-          <ul className="sticker-set-list">
-            {stickers.map(sticker => (
-              <li
-                className={sticker.key === selectedSticker ? 'sticker-set-selected' : ''}
-                onClick={() => this.selectStickerSet(sticker.key)}
-              >{sticker.key === selectedSticker ? '▶' : <span>&nbsp;</span>} {sticker.title}&nbsp;</li>
-            ))}
-            <li onClick={() => alert('Voz Living không giữ bản quyền các hình ảnh này, xin vui lòng liên hệ vozliving.official@gmail.com.')}>ℹ</li>
-          </ul>
-        }
+        <ul className="sticker-set-list">
+          {isAdding
+            ? <li><i className="fa fa-spinner fa-spin"></i></li>
+            : <li onClick={() => this.addStickerSet()}>+</li>}
+          {stickers.map(sticker => (
+            <li
+              className={sticker.key === selectedSticker ? 'sticker-set-selected' : ''}
+              onClick={() => this.selectStickerSet(sticker.key)}
+            >
+              {sticker.key === selectedSticker ? '▶' : <span>&nbsp;</span>}
+              {sticker.title}&nbsp;
+              <button onClick={(e) => {
+                e.preventDefault();
+                this.removeStickerSet(sticker.key);
+                return false;
+              }}
+              >x</button>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

@@ -19,6 +19,7 @@ import UIRevampThread from '../components/UIRevampThread';
 import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import CapturePost from '../components/CapturePost';
+import StickerPicker from '../components/StickerPicker';
 import SideMenu from './SideMenu';
 
 import {
@@ -166,6 +167,14 @@ class App extends Component {
         <QuickBanUser key="voz-living-quick-ban-user" />,
         savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,
+      ];
+    } else if (currentView === 'post') {
+      return [
+        <LinkHelperControl linkHelper={linkHelper} pageStatusId={pageStatusId} key="voz-living-link-helper" />,
+        <QuickBanUser key="voz-living-quick-ban-user" />,
+        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
+        capturePostEnable ? <CapturePost key="capture-post" /> : null,
+        <div style={{ display: 'none' }}><StickerPicker /></div>,
       ];
     }
     return null;

@@ -67,13 +67,12 @@ export function resolveImage($html, isThreadContentOnly) {
       $this.after($img);
     }
   });
-  // What this for ? @phong
-  // $('.voz-post-message img[src^="http"]').each(function() {
-  //   const $this = $(this);
-  //   if ($this.width() <= 80 && $this.height() <= 80) {
-  //     $this.attr("class", "inlineimg");
-  //   }
-  // });
+  $('.voz-post-message img[src^="http"]').each(function() {
+    const $this = $(this);
+    if ($this.width() <= 80 && $this.height() <= 80) {
+      $this.attr('class', 'inlineimg');
+    }
+  });
 }
 
 export function resolveYoutube($html, isThreadContentOnly) {
@@ -90,6 +89,25 @@ export function resolveYoutube($html, isThreadContentOnly) {
   $context.each(function f() {
     const $this = $(this);
     const href = $this.attr('href');
+    if (/imgur\.com\/a\//.test(href)) {
+      const node = $this[0];
+      if (!(node.previousSibling && node.previousSibling.nodeName === '#text'))  return;
+      const match = node.previousSibling.textContent.trim().match(/Sticker (.*)/);
+      if (match === null) return;
+      const name = match[1];
+      const btn = document.createElement('button');
+      btn.textContent = 'Add Sticker';
+      btn.addEventListener('click', (e) => {
+        if (window.__addStickerSet) {
+          window.__addStickerSet(href, name);
+          btn.setAttribute('disabled', 'true');
+        }
+        e.preventDefault();
+        return false;
+      });
+      $this.after(btn);
+      $this.after('<span>&nbsp;</span>');
+    } return;
     let $img = null;
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
     const fb = href.match(/facebook.com.*\/videos\/.*/i);

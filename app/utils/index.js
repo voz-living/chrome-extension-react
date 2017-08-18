@@ -6,6 +6,8 @@ export function getCurrentView() {
     currentView = 'thread-list';
   } else if (/showthread/.test(window.location.pathname)) {
     currentView = 'thread';
+  } else if (/showpost/.test(window.location.pathname)) {
+    currentView = 'post';
   } else if (/newreply/.test(window.location.pathname)) {
     currentView = 'new-reply';
   } else if (/editpost/.test(window.location.pathname)) {

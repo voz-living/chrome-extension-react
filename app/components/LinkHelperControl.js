@@ -14,7 +14,6 @@ class LinkHelperControl extends Component {
 
   linkHelper(nextProps = this.props) {
     const { linkHelper, pageStatusId } = nextProps;
-    console.log('linkHelper', linkHelper, pageStatusId);
 
     if (linkHelper && pageStatusId !== this.props.pageStatusId) {
       const body = $('body');
