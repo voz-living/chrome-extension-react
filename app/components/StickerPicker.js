@@ -108,6 +108,7 @@ export default class StickerPicker extends Component {
                 onClick={() => this.selectStickerSet(sticker.key)}
               >{sticker.key === selectedSticker ? '▶' : <span>&nbsp;</span>} {sticker.title}&nbsp;</li>
             ))}
+            <li onClick={() => alert('Voz Living không giữ bản quyền các hình ảnh này, xin vui lòng liên hệ vozliving.official@gmail.com.')}>ℹ</li>
           </ul>
         }
       </div>
