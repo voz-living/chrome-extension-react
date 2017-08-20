@@ -5,6 +5,19 @@ import { getChromeSyncStore, setChromeSyncStore, getChromeLocalStore, setChromeL
 
 const candy = '11f712f3240e20c';
 const STICKER_CONFIG_KEY = 'stickerConfig';
+const stickerSizeRef = {};
+const getImageSize = (src) => (stickerSizeRef[src]
+  ? Promise.resolve(stickerSizeRef[src])
+  : new Promise((resolve) => {
+    const newImg = new Image();
+    newImg.onload = () => {
+      const height = newImg.height;
+      const width = newImg.width;
+      stickerSizeRef[src] = { width, height };
+      resolve(stickerSizeRef[src]);
+    };
+    newImg.src = src;
+  }));
 
 function loadStickers(id) {
   return new Promise((resolve) => {
@@ -43,6 +56,7 @@ export default class StickerPicker extends Component {
       stickers: [],
       isAdding: false,
       selectedSticker: window.localStorage.getItem('vozLivingStickerSelected'),
+      information: null,
     };
     this.getStickerConfig()
       .then(this.updateStateStickers);
@@ -90,6 +104,23 @@ export default class StickerPicker extends Component {
   selectStickerSet(key) {
     this.setState({ selectedSticker: key });
     window.localStorage.setItem('vozLivingStickerSelected', key);
+  }
+
+  stickerOver(sticker, e) {
+    const information = <div className="sticker-preview">
+      <img src={sticker.url} />
+      <div className="sticker-preview-label">Kích thước thật</div>
+    </div>;
+    this.setState({ information });
+    // getImageSize(sticker.url)
+    //   .then(({ width, height }) => {
+    //     const information = <span>Size: {width} x {height} | {width} px: <div className="sticker-ruler" style={{ width }}></div></span>;
+    //     this.setState({ information });
+    //   });
+  }
+
+  containerOut() {
+    this.setState({ information: null });
   }
 
   removeStickerSet(key) {
@@ -161,16 +192,33 @@ export default class StickerPicker extends Component {
   }
 
   render() {
-    const { stickers, selectedSticker, isAdding } = this.state;
+    const { stickers, selectedSticker, isAdding, information } = this.state;
     let selected = stickers.find(s => s.key === selectedSticker);
     if (!selected) selected = stickers[0];
+    const infoStyle = {
+      opacity: 0,
+      visibility: 'hidden',
+    }
+    if (information) Object.assign(infoStyle, { opacity: 0.8, visibility: 'visible' });
     return (
       <div className="sticker-box-wrapper">
-        <div className={'sticker-box' + (stickers.length === 0 ? ' empty-sticker' : '')}>
+        <div className="sticker-information" style={infoStyle}>
+          {information}
+        </div>
+        <div
+          className={'sticker-box' + (stickers.length === 0 ? ' empty-sticker' : '')}
+          onMouseOut={this.containerOut}
+        >
           {stickers.length > 0
             ? <div>
             {selected.list.map(sticker => (
-              <img className="sticker" alt={sticker.url} onClick={() => this.choseSticker(sticker)} src={sticker.url} />
+              <img
+                className="sticker"
+                alt={sticker.url}
+                onClick={() => this.choseSticker(sticker)} src={sticker.url}
+                onMouseOver={this.stickerOver.bind(this, sticker)}
+                // onMouseOver={this.stickerOver.bind(sticker)}
+              />
             ))}
             </div>
             : <span>&nbsp;Bạn chưa có bộ sticker nào,&nbsp;
@@ -188,8 +236,8 @@ export default class StickerPicker extends Component {
         <ul className="sticker-set-list">
           {stickers.length > 0 ?
            isAdding
-              ? <li><i className="fa fa-spinner fa-spin"></i></li>
-              : <li onClick={() => this.addStickerSet()}>+</li>
+              ? <li data-tooltip="Đang them"><i className="fa fa-spinner fa-spin"></i></li>
+              : <li onClick={() => this.addStickerSet()} data-tooltip="Thêm sticker">+</li>
             : null
           }
           {stickers.map(sticker => (
@@ -204,9 +252,13 @@ export default class StickerPicker extends Component {
                 this.removeStickerSet(sticker.key);
                 return false;
               }}
+                data-tooltip="Xoá sticker"
               >x</button>
             </li>
           ))}
+          <li>
+            <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank" data-tooltip="Sticker List">ℹ</a>
+          </li>
         </ul>
       </div>
     );
