@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 import { insertTextIntoEditor } from '../common/editor';
 import EmotionPicker from './EmotionPicker';
 import StickerPicker from './StickerPicker';
+import { getChromeLocalStore, setChromeLocalStore } from '../utils/settings';
 
 @autobind
 class EmotionControl extends Component {
@@ -49,7 +50,12 @@ class EmotionControl extends Component {
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
-          classView = 'compact';
+          const emoExpand = getChromeLocalStore(['emoExpand']); // khong get duoc gia tri?
+          if (emoExpand !== null && emoExpand.length > 0) {
+            classView = emoExpand;
+          } else {
+            classView = 'compact';
+          }
           smileCont.append(stickerBox);
         } else if (currentView === 'new-reply' || currentView === 'edit-reply') {
           this.editor = $('#vB_Editor_001_textarea');
