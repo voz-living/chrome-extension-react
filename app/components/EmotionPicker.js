@@ -35,7 +35,6 @@ export default class EmotionPicker extends Component {
   }
 
   expandEmo() {
-    console.log('worked');
     const emoHeader = $('.emo-header i');
     emoHeader.toggleClass('fa-expand fa-minus');
     emoHeader.parents('.smilebox').toggleClass('compact full');
