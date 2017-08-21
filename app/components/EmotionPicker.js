@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import emotions from '../constants/emotions';
 import { autobind } from 'core-decorators';
 import { setChromeSyncStore, getChromeSyncStore } from '../utils/settings';
+import $ from 'jquery';
 
 @autobind
 export default class EmotionPicker extends Component {
@@ -33,8 +34,21 @@ export default class EmotionPicker extends Component {
     this.props.onIconClick(emotion);
   }
 
+  expandEmo() {
+    const emoHeader = $('.emo-header i');
+    emoHeader.toggleClass('fa-expand fa-minus');
+    emoHeader.parents('.smilebox').toggleClass('compact full');
+  }
   render() {
-    return (
+    return (<div>
+      <div className="emo-header">Smiles
+        <div className="emo-expand">
+          <i
+            className="fa fa-expand fa-lg" aria-hidden
+            onClick={() => this.expandEmo()}
+          />
+        </div>
+      </div>
       <div className="emotion-box">
         {emotions.map(emotion => (
           <div className="emo" key={emotion.text}>
@@ -45,7 +59,7 @@ export default class EmotionPicker extends Component {
             />
           </div>
         ))}
-      </div>
+      </div></div>
     );
   }
 }
