@@ -50,12 +50,10 @@ class EmotionControl extends Component {
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
-          const emoExpand = getChromeLocalStore(['emoExpand']); // khong get duoc gia tri?
-          if (emoExpand !== null && emoExpand.length > 0) {
-            classView = emoExpand;
-          } else {
-            classView = 'compact';
-          }
+          getChromeLocalStore(['emoExpand'])
+            .then(({ emoExpand = 'compact' }) => {
+              smileCont.find('.smilebox').addClass(emoExpand);
+            });
           smileCont.append(stickerBox);
         } else if (currentView === 'new-reply' || currentView === 'edit-reply') {
           this.editor = $('#vB_Editor_001_textarea');
