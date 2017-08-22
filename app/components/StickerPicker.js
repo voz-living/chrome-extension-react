@@ -35,6 +35,9 @@ function loadStickers(id) {
       resolve(images.map(img => ({
         url: img.link,
       })));
+    })
+    .fail(() => {
+      resolve([]);
     });
   });
 }
