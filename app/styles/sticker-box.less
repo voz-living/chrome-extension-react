@@ -38,6 +38,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
     position: relative;
+    transition: all 0.3s;
     > div {
       margin-top: 2px;
       white-space: nowrap;
@@ -63,6 +64,16 @@
       height: 40px;
       > span {
         white-space: nowrap;
+      }
+    }
+
+    &.full {
+      height: 200px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      > div {
+        margin-top: 0 !important;
+        white-space: normal !important;
       }
     }
   }

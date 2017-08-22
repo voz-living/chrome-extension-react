@@ -39,10 +39,10 @@ export default class EmotionPicker extends Component {
     emoHeader.toggleClass('fa-expand fa-minus');
     if (emoHeader.hasClass('fa-expand')) {
       emoHeader.parents('.smilebox').addClass('compact').removeClass('full');
-      setChromeLocalStore({ emoExpand: 'compact' });
+      setChromeLocalStore({ emoticonPanelExpand: 'compact' });
     } else if (emoHeader.hasClass('fa-minus')) {
       emoHeader.parents('.smilebox').addClass('full').removeClass('compact');
-      setChromeLocalStore({ emoExpand: 'full' });
+      setChromeLocalStore({ emoticonPanelExpand: 'full' });
     }
   }
   render() {

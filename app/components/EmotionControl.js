@@ -12,6 +12,7 @@ class EmotionControl extends Component {
   static propTypes = {
     emotionHelper: PropTypes.bool,
     currentView: PropTypes.string,
+    stickerPanelExpand: PropTypes.bool,
   }
 
   constructor(comProps) {
@@ -37,7 +38,7 @@ class EmotionControl extends Component {
   }
 
   updateEmotionHelper(nextProps = this.props) {
-    const { emotionHelper, currentView } = nextProps;
+    const { emotionHelper, currentView, stickerPanelExpand } = nextProps;
     const hasSmileBox = $('.smilebox').length !== 0;
 
     if (emotionHelper && !hasSmileBox) {
@@ -50,9 +51,9 @@ class EmotionControl extends Component {
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
-          getChromeLocalStore(['emoExpand'])
-            .then(({ emoExpand = 'compact' }) => {
-              smileCont.find('.smilebox').addClass(emoExpand);
+          getChromeLocalStore(['emoticonPanelExpand'])
+            .then(({ emoticonPanelExpand = 'compact' }) => {
+              smileCont.find('.smilebox').addClass(emoticonPanelExpand);
             });
           smileCont.append(stickerBox);
         } else if (currentView === 'new-reply' || currentView === 'edit-reply') {
@@ -69,7 +70,7 @@ class EmotionControl extends Component {
         smileCont.append(smileBox);
 
         render(<EmotionPicker onIconClick={this.onIconClick} />, smileBox);
-        render(<StickerPicker onStickerClick={this.onStickerClick} />, stickerBox);
+        render(<StickerPicker onStickerClick={this.onStickerClick} stickerPanelExpand={stickerPanelExpand} />, stickerBox);
       }
     }
   }

@@ -140,6 +140,7 @@ class App extends Component {
       capturePostEnable,
       newThreadUI,
       smartSelection,
+      stickerPanelExpand,
     } = settings;
     let { pageStatusId } = this.props;
     if (typeof linkHelper === 'undefined') pageStatusId = -1;
@@ -181,14 +182,14 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle } = this.props.settings;
+    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand } = this.props.settings;
 
     return (
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreenSpecial} />
         <PostTracker dispatch={this.dispatch} />
-        <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} />
+        <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
         <SideMenu
           dispatch={this.dispatch}
           settings={this.props.settings}

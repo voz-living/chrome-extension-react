@@ -22,6 +22,7 @@ export const defaultStoreStructure = {
     delay: 1, // minute
     delayFollowThread: 5, // minute
     newThreadUI: false,
+    stickerPanelExpand: false,
     smartSelection: false,
   },
   authInfo: {},

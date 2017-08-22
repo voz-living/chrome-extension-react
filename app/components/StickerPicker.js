@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import $ from 'jquery';
 import { getChromeSyncStore, setChromeSyncStore, getChromeLocalStore, setChromeLocalStore } from '../utils/settings';
+import { setConfig } from '../../options/ConfigItem';
+import { getConfig } from '../../options/OptionPage';
 
 const candy = '11f712f3240e20c';
 const STICKER_CONFIG_KEY = 'stickerConfig';
@@ -51,6 +53,7 @@ function getStickerSets() {
 export default class StickerPicker extends Component {
   static propTypes = {
     onStickerClick: PropTypes.func,
+    stickerPanelExpand: PropTypes.bool,
   }
 
   constructor(props) {
@@ -60,6 +63,7 @@ export default class StickerPicker extends Component {
       isAdding: false,
       selectedSticker: window.localStorage.getItem('vozLivingStickerSelected'),
       information: null,
+      stickerPanelExpand: props.stickerPanelExpand,
     };
     this.getStickerConfig()
       .then(this.updateStateStickers);
@@ -90,7 +94,7 @@ export default class StickerPicker extends Component {
                 list,
               };
             });
-        }))
+        }));
       });
   }
 
@@ -124,6 +128,15 @@ export default class StickerPicker extends Component {
 
   containerOut() {
     this.setState({ information: null });
+  }
+
+  toggleExpand(expand) {
+    const stickerPanelExpand = !expand;
+    getConfig()
+      .then(config => {
+        return setConfig('stickerPanelExpand', stickerPanelExpand, config);
+      });
+    this.setState({ stickerPanelExpand });
   }
 
   removeStickerSet(key) {
@@ -195,7 +208,7 @@ export default class StickerPicker extends Component {
   }
 
   render() {
-    const { stickers, selectedSticker, isAdding, information } = this.state;
+    const { stickers, selectedSticker, isAdding, information, stickerPanelExpand } = this.state;
     let selected = stickers.find(s => s.key === selectedSticker);
     if (!selected) selected = stickers[0];
     const infoStyle = {
@@ -209,7 +222,7 @@ export default class StickerPicker extends Component {
           {information}
         </div>
         <div
-          className={'sticker-box' + (stickers.length === 0 ? ' empty-sticker' : '')}
+          className={'sticker-box' + (stickers.length === 0 ? ' empty-sticker' : '') + (stickerPanelExpand ? ' compact' : ' full')}
           onMouseOut={this.containerOut}
         >
           {stickers.length > 0
@@ -237,9 +250,17 @@ export default class StickerPicker extends Component {
               &nbsp;hoặc <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank">vào đây để xem 1 số bộ stickers </a></span>}
         </div>
         <ul className="sticker-set-list">
+          {stickers.length > 0 &&
+            <li
+              onClick={() => this.toggleExpand(stickerPanelExpand)}
+              data-tooltip={!stickerPanelExpand ? 'Thu nhỏ' : 'Mở rộng'}
+            >
+              <i className={'fa ' + (stickerPanelExpand ? 'fa-expand' : 'fa-minus')}></i>
+            </li>
+          }
           {stickers.length > 0 ?
            isAdding
-              ? <li data-tooltip="Đang them"><i className="fa fa-spinner fa-spin"></i></li>
+              ? <li data-tooltip="Đang thêm"><i className="fa fa-spinner fa-spin"></i></li>
               : <li onClick={() => this.addStickerSet()} data-tooltip="Thêm sticker">+</li>
             : null
           }
@@ -259,9 +280,9 @@ export default class StickerPicker extends Component {
               >x</button>
             </li>
           ))}
-          <li>
+          {stickers.length > 0 && <li>
             <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank" data-tooltip="Sticker List">ℹ</a>
-          </li>
+          </li>}
         </ul>
       </div>
     );
