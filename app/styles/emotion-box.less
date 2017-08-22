@@ -2,10 +2,11 @@
   overflow-x: scroll;
   overflow-y: hidden;
   padding: 5px 0;
-  min-width: 155px;
-  margin-top: 5px;
+  min-width: 165px;
   white-space: nowrap;
-  padding-bottom: 20px;
+  border: gray 1px solid;
+  border-top: 0;
+  margin:0px;
 
   div.emo{
     width: 40px;
@@ -40,9 +41,23 @@
 
 .smilebox.full {
   .emotion-box{
-    overflow-y: auto;
+    overflow: auto;
     white-space: normal;
     max-height: 310px;
     min-height: 250px;
   }
+}
+
+.emo-header{
+  margin-top:5px;
+  background-color:#d6d4d4;
+  border: gray 1px solid;
+  font-size:15px;
+  padding:2px 3px;
+}
+.emo-expand{
+  float:right;
+  color:#353535;
+  cursor:pointer;
+  padding:3px;
 }
