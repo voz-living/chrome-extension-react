@@ -12,6 +12,10 @@ export function getCurrentView() {
     currentView = 'new-reply';
   } else if (/editpost/.test(window.location.pathname)) {
     currentView = 'edit-reply';
+  } else if (/showpm/.test(window.location.href)) {
+    currentView = 'pm';
+  } else if (/insertpm/.test(window.location.href)) {
+    currentView = 'insert-pm';
   }
   return currentView;
 }

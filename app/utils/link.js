@@ -67,7 +67,7 @@ export function resolveImage($html, isThreadContentOnly) {
       $this.after($img);
     }
   });
-  $('.voz-post-message img[src^="http"]').each(function() {
+  $('.voz-post-message img[src^="http"]').each(function () {
     const $this = $(this);
     if ($this.width() <= 80 && $this.height() <= 80) {
       $this.attr('class', 'inlineimg');
@@ -91,7 +91,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
     const href = $this.attr('href');
     if (/imgur\.com\/a\//.test(href)) {
       const node = $this[0];
-      if (!(node.previousSibling && node.previousSibling.nodeName === '#text'))  return;
+      if (!(node.previousSibling && node.previousSibling.nodeName === '#text')) return;
       const match = node.previousSibling.textContent.trim().match(/Sticker (.*)/);
       if (match === null) return;
       const name = match[1];
@@ -113,7 +113,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
     const fb = href.match(/facebook.com.*\/videos\/.*/i);
     const mp4 = href.match(/.*\.mp4$/i);
-    console.log(href, mp4);
+    // console.log(href, mp4);
     if (ytb === null || ytb.length === 0) { // 2nd try
       ytb = href.match(/youtu\.be\/([a-zA-Z0-9_-]+)/i);
     }
