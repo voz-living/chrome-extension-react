@@ -40,14 +40,17 @@ class EmotionControl extends Component {
   updateEmotionHelper(nextProps = this.props) {
     const { emotionHelper, currentView, stickerPanelExpand } = nextProps;
     const hasSmileBox = $('.smilebox').length !== 0;
-
     if (emotionHelper && !hasSmileBox) {
-      if (currentView === 'thread' || currentView === 'new-reply' || currentView === 'edit-reply') {
+      if (currentView === 'thread'
+          || currentView === 'new-reply'
+          || currentView === 'edit-reply'
+          || currentView === 'pm'
+          || currentView === 'insert-pm') {
         let smileCont = null;
         const stickerBox = document.createElement('div');
         let classView = '';
 
-        if (currentView === 'thread') {
+        if (currentView === 'thread' || currentView === 'pm') {
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
@@ -56,7 +59,9 @@ class EmotionControl extends Component {
               smileCont.find('.smilebox').addClass(emoticonPanelExpand);
             });
           smileCont.append(stickerBox);
-        } else if (currentView === 'new-reply' || currentView === 'edit-reply') {
+        } else if (currentView === 'new-reply'
+            || currentView === 'edit-reply'
+            || currentView === 'insert-pm') {
           this.editor = $('#vB_Editor_001_textarea');
           smileCont = $('#vB_Editor_001_smiliebox');
           smileCont.find('table').remove();
