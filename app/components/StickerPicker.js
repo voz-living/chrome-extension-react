@@ -35,7 +35,7 @@ function loadStickers(id) {
     .done((res) => {
       const images = res.data;
       resolve(images.map(img => ({
-        url: img.link,
+        url: img.link.replace(/http/, 'https'),
       })));
     })
     .fail(() => {
@@ -101,6 +101,7 @@ export default class StickerPicker extends Component {
   updateStateStickers(stickers) {
     let { selectedSticker } = this.state;
     if (!stickers.find(s => s.key === selectedSticker) && stickers.length > 0) selectedSticker = stickers[0].key;
+    // stickers = stickers.map(st => Object.assign({}, st, { url: st.url.replace(/http/, 'https') }));
     this.setState({ stickers, selectedSticker });
   }
 
