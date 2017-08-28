@@ -7,6 +7,16 @@ import { toClassName } from '../utils';
 import { copyText } from '../utils/clipboard';
 import { insertTextIntoEditor } from '../common/editor';
 
+function isInPost(target) {
+  do {
+    if (target.classList.contains('voz-post-message') === true) {
+      return target;
+    }
+    target = target.parentElement;
+  } while(target !== null);
+  return false;
+}
+
 class SmartSelection extends Component {
   constructor(props) {
     super(props);
@@ -33,15 +43,13 @@ class SmartSelection extends Component {
       }
       return; // nothing here
     }
-    console.log(e);
     features.push(this.fCopy());
     features.push(this.fGG());
-    if (e.target.classList.contains('voz-post-message')) {
-      const pid = e.target.getAttribute('id').match(/post_message_(\d+)/)[1];
+    const post = isInPost(e.target);
+    if (post !== false) {
+      const pid = post.getAttribute('id').match(/post_message_(\d+)/)[1];
       meta = { pid };
       features.unshift(this.fQuote());
-    }
-    if (features.length > 0) {
       const x = e.pageX + 5;
       const y = e.pageY + 10;
       this.setState({ features, x, y, textSel, meta });

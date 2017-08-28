@@ -15,11 +15,12 @@ import PostTracker from '../components/PostTracker';
 import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
 import SmartSelection from '../components/SmartSelection';
-import UIRevampThread from '../components/UIRevampThread';
+// import UIRevampThread from '../components/UIRevampThread';
 import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import CapturePost from '../components/CapturePost';
 import StickerPicker from '../components/StickerPicker';
+import RichEditor from '../components/RichEditor';
 import SideMenu from './SideMenu';
 
 import {
@@ -163,8 +164,9 @@ class App extends Component {
           isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
         />,
         smartSelection && <SmartSelection key="smart-selection" />,
-        (typeof newThreadUI !== 'undefined')
-          && <UIRevampThread key="ui-revamp-thread" enable={newThreadUI} />,
+        // (typeof newThreadUI !== 'undefined')
+        //   && <UIRevampThread key="ui-revamp-thread" enable={newThreadUI} />,
+        <RichEditor />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
         savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,

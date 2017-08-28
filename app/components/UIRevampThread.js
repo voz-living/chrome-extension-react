@@ -76,15 +76,15 @@ class UIRevampThread extends Component {
 
   componentDidMount() {
     if (this.props.enable === true) {
-      require('../styles/thread-ui.less');
-      threadId = postHelper($(document.body)).getThreadId();
-      getNextPageDiv({ onClick: this.clickNext });
-      getPreviousPageDiv({ onClick: this.clickPrevious });
-      this.init();
+      // require('../styles/thread-ui.less');
+      // threadId = postHelper($(document.body)).getThreadId();
+      // getNextPageDiv({ onClick: this.clickNext });
+      // getPreviousPageDiv({ onClick: this.clickPrevious });
+      // this.init();
       window.__goNextPage = this.clickNext.bind(this);
       window.__goPreviousPage = this.clickPrevious.bind(this);
     } else {
-      this.addRecommend();
+      // this.addRecommend();
     }
   }
 
