@@ -9,9 +9,27 @@ import CommandPrompt from './CommandPrompt';
 // import { insertTextIntoEditor } from '../common/editor';
 import emotions from '../../constants/emotions';
 const emoMap = emotions.reduce((acc, { text, src }) => Object.assign(acc, { [src]: text }), {});
+/** TODOs:
+ * Handle image paste & update
+ * Insert emo panels and handle insertion
+ * Insert quotes
+ * Handle Advanced editor page
+ */
+function rgb2hex(rgb){
+ rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+ return (rgb && rgb.length === 4) ? '#' +
+  ('0' + parseInt(rgb[1],10).toString(16)).slice(-2) +
+  ('0' + parseInt(rgb[2],10).toString(16)).slice(-2) +
+  ('0' + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+}
+
+function ensureProperColor(color) {
+  if (/rgba?/.test(color)) return rgb2hex(color);
+  return color;
+}
 
 function wrappingArround({ pre, post} , pr, po) {
-  if (typeof pre !== 'undefined' && pre !== null) pre.push(pr);
+  if (typeof pre !== 'undefined' && pre !== null) pre.unshift(pr);
   if (typeof post !== 'undefined' && post !== null) post.push(po);
 }
 
@@ -20,12 +38,16 @@ function parseToBB(node, nextNode) {
   const pre = [];
   const post = [];
   const pp = wrappingArround.bind(null, { pre, post });
+  let processBasedOnStyle = true;
   if (typeof node.getAttribute === 'undefined'
     || !(node.getAttribute('contenteditable') === 'true'
       || node.getAttribute('contenteditable') === true)) {
     switch (node.nodeType) {
       case 1: { // tag
         switch (node.tagName.toUpperCase()) {
+          case 'UL': { pp('[LIST]', '[/LIST]'); processBasedOnStyle = true; break; }
+          case 'OL': { pp('[LIST=1]', '[/LIST]'); break; }
+          case 'LI': { pp('[*]'); break; }
           case 'B': { pp('[B]', '[/B]'); break; }
           case 'U': { pp('[U]', '[/U]'); break; }
           case 'I': { pp('[I]', '[/I]'); break; }
@@ -33,6 +55,7 @@ function parseToBB(node, nextNode) {
           case 'DIV': { pp(null, '\n'); break; }
           case 'P': { pp('\n', '\n'); break; }
           case 'BR': { pp('\n'); break; }
+          case 'BLOCKQUOTE': { pp('[INDENT]', '[/INDENT]'); break; }
           case 'IMG': {
             const { src } = node;
             if (/:\/\/vozforums\.com\/images\//.test(src)) {
@@ -41,6 +64,13 @@ function parseToBB(node, nextNode) {
             }
             return `[IMG]${src}[/IMG]`;
           }
+          case 'FONT': {
+            const { color } = node;
+            if (color) {
+              pp(`[COLOR="${ensureProperColor(color)}"]`, '[/COLOR]');
+            }
+            break;
+          }
           case 'A': {
             const { href } = node;
             if (href && href.length > 0) {
@@ -48,21 +78,35 @@ function parseToBB(node, nextNode) {
             }
             break;
           }
-          case 'H1': { pp('[B][SIZE="6"]', '[/SIZE][/B]\n'); break; }
-          case 'H2': { pp('[B][SIZE="5"]', '[/SIZE][/B]\n'); break; }
-          case 'H3': { pp('[B][SIZE="4"]', '[/SIZE][/B]\n'); break; }
-          case 'H4': { pp('[B][SIZE="3"]', '[/SIZE][/B]\n'); break; }
+
+          case 'H1': { pp('[B][SIZE="7"]', '[/SIZE][/B]\n'); break; }
+          case 'H2': { pp('[B][SIZE="6"]', '[/SIZE][/B]\n'); break; }
+          case 'H3': { pp('[B][SIZE="5"]', '[/SIZE][/B]\n'); break; }
+          case 'H4': { pp('[B][SIZE="4"]', '[/SIZE][/B]\n'); break; }
           case 'TABLE':
           case 'TR': {
             pp(null, '\n');
             break;
           }
+          case 'IFRAME': {
+            const { src } = node;
+            if (/video/.test(src)) return `\n${src}\n`;
+            return '';
+          }
         }
-        const { textAlign } = node.style;
-        switch (textAlign.toUpperCase()) {
-          case 'LEFT': { pp('[LEFT]', '[/LEFT]'); break; }
-          case 'RIGHT': { pp('[RIGHT]', '[/RIGHT]'); break; }
-          case 'CENTER': { pp('[CENTER]', '[/CENTER]'); break; }
+        if (processBasedOnStyle === true) {
+          const { textAlign, fontWeight, fontStyle, textDecoration, color } = node.style;
+          switch (textAlign.toUpperCase()) {
+            case 'LEFT': { pp('[LEFT]', '[/LEFT]'); break; }
+            case 'RIGHT': { pp('[RIGHT]', '[/RIGHT]'); break; }
+            case 'CENTER': { pp('[CENTER]', '[/CENTER]'); break; }
+          }
+          if (fontWeight === 'bold' || ~~fontWeight >= 600) {
+            pp('[B]', '[/B]');
+          }
+          if (fontStyle === 'italic') pp('[I]', ['/I']);
+          if (textDecoration === 'underline') pp('[U]', ['/U']);
+          if (color && color.trim() !== '') pp(`[COLOR="${ensureProperColor(color)}"]`, '[/COLOR]');
         }
         break;
       }
@@ -160,6 +204,8 @@ class Editor extends Component {
           <Command command="insertOrderedList" faClass="list-ol" />
           <CommandFormatBlock block="h1" />
           <CommandFormatBlock block="h2" />
+          <CommandFormatBlock block="h3" />
+          <CommandFormatBlock block="h4" />
           <CommandPrompt command="createlink" faClass="link" ask="Link:" def="http://" />
           <Command command="unlink" faClass="unlink" />
           <CommandPrompt command="insertimage" faClass="image" ask="Link:" def="http://" />
