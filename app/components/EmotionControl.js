@@ -18,6 +18,7 @@ class EmotionControl extends Component {
   constructor(comProps) {
     super(comProps);
     this.editor = null;
+    this.updateEmotionHelper(comProps);
   }
 
   componentWillReceiveProps(nextProps) {

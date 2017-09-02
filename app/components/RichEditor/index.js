@@ -4,14 +4,16 @@ import { autobind } from 'core-decorators';
 import { render } from 'react-dom';
 // import { insertTextIntoEditor } from '../common/editor';
 import Editor from './Editor';
+import Recommendation from './Recommendation';
 
 @autobind
 class RichEditor extends Component {
-  static propTypes = {}
+  static propTypes = {
+    stickerPanelExpand: PropTypes.bool.isRequired,
+  }
 
   constructor(comProps) {
     super(comProps);
-    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -26,7 +28,7 @@ class RichEditor extends Component {
     const target = $('form#qrform');
     const $editor = $('<div class="vozliving-editor"></div>');
     $editor.insertBefore(target);
-    render(<Editor target="vB_Editor_QR_textarea" />, $editor[0]);
+    render(<Editor target="vB_Editor_QR_textarea" stickerPanelExpand={this.props.stickerPanelExpand} />, $editor[0]);
   }
 
   render() { 
@@ -35,4 +37,5 @@ class RichEditor extends Component {
   }
 }
 
+RichEditor.Recommendation = Recommendation;
 export default RichEditor;

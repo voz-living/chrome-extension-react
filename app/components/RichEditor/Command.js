@@ -41,4 +41,6 @@ class Command extends Component {
   }
 }
 
+export const Separator = () => <span className="command-separator"></span>;
+
 export default Command;

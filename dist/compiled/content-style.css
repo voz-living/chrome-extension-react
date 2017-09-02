@@ -2209,7 +2209,7 @@ body {
 .pull-left {
   float: left;
 }
-.btn {
+.voz-living-side-menu .btn {
   height: 40px;
   width: 40px;
   display: inline-block;
@@ -2228,10 +2228,10 @@ body {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.btn:hover {
+.voz-living-side-menu .btn:hover {
   text-decoration: none;
 }
-.btn > i {
+.voz-living-side-menu .btn > i {
   line-height: 40px;
 }
 a.voz-living-newtab {

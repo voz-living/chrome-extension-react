@@ -8,12 +8,18 @@ import { autobind } from 'core-decorators';
 import NumberConfigItem from './NumberConfigItem';
 import OnOffConfigItem from './OnOffConfigItem';
 import TextConfigItem from './TextConfigItem';
+import { setConfig } from './ConfigItem';
 
 const defaultSettings = defaultStoreStructure.settings;
 
 export function getConfig() {
   return getChromeLocalStore(['settings'])
     .then((result) => Object.assign({}, defaultSettings, result.settings));
+}
+
+export function updateConfig(name, value) {
+  return getConfig()
+    .then(config => setConfig(name, value, config));
 }
 
 @autobind

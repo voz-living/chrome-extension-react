@@ -5,13 +5,42 @@
 .editor-wrapper {
   .editor {
     box-shadow: 0 0 2px #CCC;
-    min-height: 150px;
+    min-height: 30px;
     overflow: auto;
     padding: 1em;
     margin-top: 20px;
     resize: vertical;
     outline: none;
     background: #F5F5FF;
+    border: 1px solid #999;
+
+    quote {
+      background: #e1e4f2;
+      border: 1px inset;
+      padding: 6px;
+      display: block;
+      position: relative;
+      margin-top: 20px;
+      min-height: 15px;
+      &::before {
+        content: "Quote:";
+        display: block;
+        position: absolute;
+        top: -17px;
+        left: 1px;
+        font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif; 
+      }
+      &[data-by] {
+        padding-top: 15px;
+        &::after {
+          content: "Originally Posted by " attr(data-by);
+          display: block;
+          position: absolute;
+          top:0;
+          left:6px;
+        }
+      }
+    }
   }
   a {
       cursor: pointer;
@@ -20,7 +49,12 @@
     text-align: center;
     font-family: 'Dosis';
   }
-
+  .toolbar .command-separator {
+    width: 1px;
+    margin: 0 10px;
+    height: 30px;
+    display: inline-block;
+  }
   .toolbar a,
   .fore-wrapper,
   .back-wrapper {
@@ -114,5 +148,41 @@
   .back-palette a {
     background: #FFF;
     margin-bottom: 2px;
+  }
+  .RE-btn-control {
+    button {
+      border-radius: 0;
+      padding: 5px;
+      margin: 2px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  .smilebox .emotion-box {
+    overflow: auto;
+    white-space: normal;
+    max-height: 42px;
+    min-height: 42px;
+  }
+  .sticker-box {
+    height: 75px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    > div {
+      margin-top: 0 !important;
+      white-space: normal !important;
+    }
+  }
+}
+.rich-quote {
+  cursor: pointer;
+  padding: 4px;
+  display: inline-block;
+  background: rgb(35, 73, 124);
+  font-size: 17px;
+  margin: 0 2px;
+  position: relative;
+  i {
+    color: white;
   }
 }

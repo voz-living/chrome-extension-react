@@ -24,6 +24,7 @@ export const defaultStoreStructure = {
     newThreadUI: false,
     stickerPanelExpand: false,
     smartSelection: false,
+    enableRichEditor: false,
   },
   authInfo: {},
   quotes: [],

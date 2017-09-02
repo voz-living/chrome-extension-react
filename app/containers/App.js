@@ -142,6 +142,7 @@ class App extends Component {
       newThreadUI,
       smartSelection,
       stickerPanelExpand,
+      enableRichEditor,
     } = settings;
     let { pageStatusId } = this.props;
     if (typeof linkHelper === 'undefined') pageStatusId = -1;
@@ -166,7 +167,8 @@ class App extends Component {
         smartSelection && <SmartSelection key="smart-selection" />,
         // (typeof newThreadUI !== 'undefined')
         //   && <UIRevampThread key="ui-revamp-thread" enable={newThreadUI} />,
-        <RichEditor />,
+        !_.isUndefined(enableRichEditor) 
+          && (enableRichEditor ? <RichEditor stickerPanelExpand={stickerPanelExpand} /> : <RichEditor.Recommendation />),
         <QuickBanUser key="voz-living-quick-ban-user" />,
         savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,
@@ -184,14 +186,17 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand } = this.props.settings;
+    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor } = this.props.settings;
 
     return (
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreenSpecial} />
         <PostTracker dispatch={this.dispatch} />
-        <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
+        {this.currentView === 'thread'
+          ? !_.isUndefined(enableRichEditor) && enableRichEditor === false && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
+          : !_.isUndefined(emotionHelper) && emotionHelper === false && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
+        }
         <SideMenu
           dispatch={this.dispatch}
           settings={this.props.settings}
