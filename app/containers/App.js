@@ -195,7 +195,7 @@ class App extends Component {
         <PostTracker dispatch={this.dispatch} />
         {this.currentView === 'thread'
           ? !_.isUndefined(enableRichEditor) && enableRichEditor === false && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
-          : !_.isUndefined(emotionHelper) && emotionHelper === false && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
+          : !_.isUndefined(emotionHelper) && emotionHelper === true && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
         }
         <SideMenu
           dispatch={this.dispatch}

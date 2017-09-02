@@ -223,7 +223,8 @@ class Editor extends Component {
         </div>
         <div className="RE-btn-control">
           <a href="#" onClick={this.addNewLine} style={{ position: 'relative' }} data-tooltip="Thêm dòng mới ở dưới cùng">Thêm dòng mới</a>&nbsp;|&nbsp;
-          <a href="#" onClick={this.turnFeatureOff} style={{ position: 'relative' }} data-tooltip="Tắt và load lại trang">Tắt WYSIWYG Editor</a>
+          <a href="#" onClick={this.turnFeatureOff} style={{ position: 'relative' }} data-tooltip="Tắt và load lại trang">Tắt WYSIWYG Editor</a> &nbsp;|&nbsp;
+          <a href="https://vozforums.com/newreply.php?do=newreply&p=124977693" target="_blank" style={{ position: 'relative' }} data-tooltip="Mở ra trang mới">Góp ý</a>
           <div style={{ float: 'right' }}>
             <button onClick={this.toBBCode} data-tooltip="Không gửi bài" style={{ position: 'relative' }} data-tooltip="Không gửi bài">To BBCode</button>
             <button onClick={this.submit}>Gửi bài</button>
