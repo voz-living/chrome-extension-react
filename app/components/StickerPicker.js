@@ -35,7 +35,7 @@ function loadStickers(id) {
     .done((res) => {
       const images = res.data;
       resolve(images.map(img => ({
-        url: img.link.replace(/http/, 'https'),
+        url: img.link.replace(/http:/, 'https:'),
       })));
     })
     .fail(() => {
