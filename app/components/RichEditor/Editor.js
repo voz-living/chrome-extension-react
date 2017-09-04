@@ -15,20 +15,32 @@ import EmotionPicker from '../EmotionPicker';
 import StickerPicker from '../StickerPicker';
 import { GET } from '../../utils/http';
 
+const RMB_KEY = 'voz_living_post_data';
 
 /** TODOs:
  * /Handle image paste & update
  * /Insert emo panels and handle insertion
  * /Insert quotes
  * /configuration - setting
- * roll out
+ * /roll out
  * Handle Advanced editor page
  * -- advanced
  * Nested div and zero size div
  */
 
 function doSubmit() {
-  document.querySelector('#qr_submit').click();
+  const btns = ['#vB_Editor_001_save', '#qr_submit'];
+  for (let i = 0; i < btns.length; i++) {
+    const btn = document.querySelector(btns[i]);
+    if (btn !== null) {
+      btn.click();
+      return;
+    }
+  }
+}
+
+function doPreview() {
+  document.querySelector('[name="preview"]').click();
 }
 
 function isInTag(target, tagName) {
@@ -42,11 +54,20 @@ function isInTag(target, tagName) {
   return false;
 }
 
+function saveEditing(content) {
+  localStorage.setItem(RMB_KEY, content);
+}
+
+function clearEditing() {
+  localStorage.removeItem(RMB_KEY);
+}
+
 @autobind
 class Editor extends Component {
   static propTypes = {
     target: PropTypes.string,
     stickerPanelExpand: PropTypes.bool.isRequired,
+    currentView: PropTypes.string,
   }
 
   constructor(comProps) {
@@ -134,7 +155,8 @@ class Editor extends Component {
   }
 
   submit(e) {
-    this.toBBCode();
+    this.toBBCode(e);
+    clearEditing();
     doSubmit();
   }
 
@@ -146,10 +168,20 @@ class Editor extends Component {
     document.execCommand('insertimage', false, sticker.url);
   }
 
-  toBBCode() {
+  toBBCode(e) {
+    if (e) e.preventDefault();
     const bbcode = parseToBB(this.editableNode);
     const { target } = this.props;
     document.getElementById(target).value = bbcode;
+    return false;
+  }
+
+  preview(e) {
+    e.preventDefault();
+    this.toBBCode(e);
+    saveEditing(this.editableNode.innerHTML);
+    doPreview();
+    return false;
   }
 
   addNewLine(e) {
@@ -163,6 +195,9 @@ class Editor extends Component {
 
   render() {
     const { stickerPanelExpand } = this.props;
+    let prevData = localStorage.getItem(RMB_KEY);
+    if (prevData === null) prevData = '<br /><br />';
+    prevData = prevData.replace(/script>/g, ''); // prevent xss
 
     return (
       <div className="editor-wrapper">
@@ -216,10 +251,8 @@ class Editor extends Component {
           onInput={this.onChangeThrottled}
           onKeyDown={this.onKeyDown}
           ref={(editableNode) => { this.editableNode = editableNode; }}
-          // dangerouslySetInnerHTML={{ __html: `<div>left<br><div style="text-align: right;">right<br><div style="text-align: center;">right</div></div>center<br><br></div><div><br></div><div>Test normal test</div><!-- react-text: 123 -->Test text with emo<!-- /react-text --><img class="sticker" alt="https://i.imgur.com/gzNgdi2.gif" src="https://i.imgur.com/gzNgdi2.gif"><div><!-- react-text: 126 -->Test <!-- /react-text --><b>bold </b><!-- react-text: 128 -->text<!-- /react-text --></div><div><!-- react-text: 130 -->Test <!-- /react-text --><i>italic</i><!-- react-text: 132 --> text<!-- /react-text --><br><!-- react-text: 134 -->shift enter<!-- /react-text --></div><div><!-- react-text: 136 -->Test <!-- /react-text --><u>underline</u><!-- react-text: 138 --> text<!-- /react-text --></div><div><!-- react-text: 140 -->Test <!-- /react-text --><u><strike>strikethrough and underline</strike></u><!-- react-text: 143 -->&nbsp;text<!-- /react-text --></div><div><!-- react-text: 145 -->test <!-- /react-text --><a href="https://vozforums.com/showthread.php?p=124291205#">hyperlink</a><!-- react-text: 147 -->&nbsp;&nbsp;<!-- /react-text --></div><p>Test P</p><p><!-- react-text: 150 -->Test voz emo&nbsp;<!-- /react-text --><img alt=":sexy:" src="https://vozforums.com/images/smilies/Off/sexy_girl.gif"><br></p><p style="text-align: left;">left</p><p style="text-align: center;">center<br>center</p><p style="text-align: right;">right<br><div style="text-align: left;">dsad</div></p>` }}
+          dangerouslySetInnerHTML={{ __html: prevData }}
         >
-        <br />
-        <br />
         </div>
         <div className="RE-btn-control">
           <a href="#" onClick={this.addNewLine} style={{ position: 'relative' }} data-tooltip="Thêm dòng mới ở dưới cùng">Thêm dòng mới</a>&nbsp;|&nbsp;
@@ -227,6 +260,7 @@ class Editor extends Component {
           <a href="https://vozforums.com/newreply.php?do=newreply&p=124977693" target="_blank" style={{ position: 'relative' }} data-tooltip="Mở ra trang mới">Góp ý</a>
           <div style={{ float: 'right' }}>
             <button onClick={this.toBBCode} data-tooltip="Không gửi bài" style={{ position: 'relative' }} data-tooltip="Không gửi bài">To BBCode</button>
+            <button onClick={this.preview}>Preview</button>
             <button onClick={this.submit}>Gửi bài</button>
           </div>
         </div>
@@ -239,7 +273,7 @@ class Editor extends Component {
           </div>
         </div>
         <div>
-          Ô Quick Reply ở phía dưới chỉ nhằm mục đích tham khảo, bạn có thể nhấn vào <img src="https://vozforums.com/images/buttons/collapse_tcat.gif" /> để đóng tạm
+          Ô Reply ở phía dưới chỉ nhằm mục đích tham khảo, bạn có thể nhấn vào <img src="https://vozforums.com/images/buttons/collapse_tcat.gif" /> để đóng tạm
         </div>
       </div>
     );

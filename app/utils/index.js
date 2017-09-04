@@ -16,6 +16,8 @@ export function getCurrentView() {
     currentView = 'pm';
   } else if (/insertpm/.test(window.location.href)) {
     currentView = 'insert-pm';
+  } else if (/newthread/.test(window.location.href)) {
+    currentView = 'new-thread';
   }
   return currentView;
 }
