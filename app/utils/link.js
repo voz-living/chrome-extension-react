@@ -112,6 +112,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
     let $img = null;
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
     const fb = href.match(/facebook.com.*\/videos\/.*/i);
+    const openload = href.match(/openload\.(?:co|link|io)\/f\/(\w*)/i);
     const mp4 = href.match(/.*\.mp4$/i);
     // console.log(href, mp4);
     if (ytb === null || ytb.length === 0) { // 2nd try
@@ -152,11 +153,19 @@ export function resolveYoutube($html, isThreadContentOnly) {
     //     					</iframe>
     //       </div>`);
     } else if (fb !== null && fb.length > 0) {
+      $this.attr('data-smartlink', 'fb-video');
       $img = $(`<div><iframe src="https://www.facebook.com/plugins/video.php?href=${fb}&show_text=0&height=280"
 							width="560" height="315" style="border:none;overflow:hidden" scrolling="no"
 							frameborder="0" allowTransparency="true" allowFullScreen="true">
 						 </iframe>
 					</div>`);
+    } else if (openload !== null && openload.length > 0) {
+      $this.attr('data-smartlink', 'ol-video');
+      $img = $(`<div><iframe src="https://openload.co/embed/${openload[1]}/" 
+                             scrolling="no" frameborder="0" width="560" height="315"
+                             allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+				</div>`);
+
     } else if (mp4 !== null && mp4.length > 0) {
       $this.attr('data-smartlink', 'mp4-video');
       $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
