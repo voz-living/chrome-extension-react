@@ -112,7 +112,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
     let $img = null;
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
     const fb = href.match(/facebook.com.*\/videos\/.*/i);
-    const openload = href.match(/openload\.(?:co|link|io)\/f\/(\w*)/i);
+    const openload = href.match(/openload\.(?:co|link|io)\/(?:f|embed)\/(\w*)/i);
     const mp4 = href.match(/.*\.mp4$/i);
     // console.log(href, mp4);
     if (ytb === null || ytb.length === 0) { // 2nd try
