@@ -167,8 +167,6 @@ class App extends Component {
         smartSelection && <SmartSelection key="smart-selection" />,
         // (typeof newThreadUI !== 'undefined')
         //   && <UIRevampThread key="ui-revamp-thread" enable={newThreadUI} />,
-        !_.isUndefined(enableRichEditor) 
-          && (enableRichEditor ? <RichEditor stickerPanelExpand={stickerPanelExpand} /> : <RichEditor.Recommendation />),
         <QuickBanUser key="voz-living-quick-ban-user" />,
         savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,
@@ -187,13 +185,13 @@ class App extends Component {
 
   render() {
     const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor } = this.props.settings;
-
+    const currentView = this.currentView;
     return (
       <div id="voz-living">
         <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreenSpecial} />
         <PostTracker dispatch={this.dispatch} />
-        {this.currentView === 'thread'
+        {this.currentView !== 'edit-reply'
           ? !_.isUndefined(enableRichEditor) && enableRichEditor === false && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
           : !_.isUndefined(emotionHelper) && emotionHelper === true && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
         }
@@ -202,9 +200,16 @@ class App extends Component {
           settings={this.props.settings}
           autoHide={autoHideSidebar}
         />
-        {this.renderBaseOnCurrentView(this.currentView)}
+        {this.renderBaseOnCurrentView(currentView)}
         <PasteToUpload />
         <UserStyle userStyle={userStyle} />
+        {!_.isUndefined(enableRichEditor)
+          && (currentView === 'thread'
+          || currentView === 'new-reply'
+          || currentView === 'new-thread'
+          || currentView === 'pm'
+          || currentView === 'insert-pm')
+          && (enableRichEditor ? <RichEditor stickerPanelExpand={stickerPanelExpand} currentView={currentView} /> : <RichEditor.Recommendation />)}
       </div>
     );
   }
