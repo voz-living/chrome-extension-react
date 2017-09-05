@@ -13,14 +13,14 @@ export default class HotThreads extends Component {
   }
 
   componentDidMount() {
-    this.request();
+    // this.request();
   }
 
   request() {
-    chrome.runtime.sendMessage({ service: 'request-hotthreads' }, (data) => {
-      this.updateFromAPI(data);
-      setTimeout(this.request.bind(this), 1000 * 60 * 30);
-    });
+    // chrome.runtime.sendMessage({ service: 'request-hotthreads' }, (data) => {
+    //   this.updateFromAPI(data);
+    //   setTimeout(this.request.bind(this), 1000 * 60 * 30);
+    // });
   }
 
   updateFromAPI(rows) {
@@ -56,22 +56,13 @@ export default class HotThreads extends Component {
           className="voz-mask quote-list-mask"
           onClick={() => this.setState({ isOpen: !this.state.isOpen })}
         ></div>
-        <div className="btn-options" style={{ display: isOpen ? 'flex' : 'none' }}>
+        <div className="btn-options" style={{ display: isOpen ? 'flex' : 'none', height: '170px', minHeight: '170px' }}>
           <h3>Hot Threads (Thời gian thực)</h3>
           <div>
-            <i>(Đang được xem trong 30 phút trước cho tới hiện tại)</i>
-          </div>
-          <div className="quote-list">
-          {threads.map(({ threadId, threadTitle, count }) => (
-            <div className="quote-row" key={threadId}>
-              <div className="quote-title">
-                <a href={`showthread.php?t=${threadId}`} target="_blank">{threadTitle}</a>
-              </div>
-              <div className="quote-bottom">
-                <i className="fa fa-arrow-right"></i> Có {count} người đang xem
-              </div>
-            </div>
-          ))}
+            <i>(Đang được xem trong 30 phút trước cho tới hiện tại)</i><br/>
+            <p>Chức năng này đang được cân nhắc đóng tạm vì tốn kém chi phí duy trì cũng như lợi ích mang lại không thiết thực lắm.</p>
+            <p>Nếu có ý kiến khắc xin mời góp ý ở dưới hoặc trong <a href="https://vozforums.com/showthread.php?t=2846050" target="_blank">thớt</a><br/></p>
+            Xin lỗi nếu có gì bất tiện, message này sẽ được xoá trong 1 tháng tới.
           </div>
         </div>
       </div>
