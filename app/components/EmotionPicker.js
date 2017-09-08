@@ -21,6 +21,10 @@ export default class EmotionPicker extends Component {
         if (typeof store.stickerUsageData !== 'undefined') this.usageData = store.stickerUsageData;
       });
     }, 500);
+    getChromeLocalStore(['emoticonPanelExpand'])
+      .then(({ emoticonPanelExpand = 'compact' }) => {
+        $(this.$this).closest('.smilebox').addClass(emoticonPanelExpand);
+      });
   }
 
   prepareEmotionUrl(url) {
@@ -35,18 +39,19 @@ export default class EmotionPicker extends Component {
   }
 
   expandEmo() {
-    const emoHeader = $('.emo-header i');
+    const $parent = $(this.$this).closest('.smilebox');
+    const emoHeader = $parent.find('.emo-header i');
     emoHeader.toggleClass('fa-expand fa-minus');
     if (emoHeader.hasClass('fa-expand')) {
-      emoHeader.parents('.smilebox').addClass('compact').removeClass('full');
+      $parent.addClass('compact').removeClass('full');
       setChromeLocalStore({ emoticonPanelExpand: 'compact' });
     } else if (emoHeader.hasClass('fa-minus')) {
-      emoHeader.parents('.smilebox').addClass('full').removeClass('compact');
+      $parent.addClass('full').removeClass('compact');
       setChromeLocalStore({ emoticonPanelExpand: 'full' });
     }
   }
   render() {
-    return (<div>
+    return (<div ref={r => this.$this = r} >
       {$('#vB_Editor_QR_textarea').length > 0 &&
         <div className="emo-header">Smiles
           <div className="emo-expand">
