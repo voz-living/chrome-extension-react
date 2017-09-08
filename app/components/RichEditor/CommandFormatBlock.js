@@ -20,8 +20,9 @@ class CommandFormatBlock extends Command {
   }
 
   render() {
+    const { tt, block } = this.props;
     return (
-      <a href="#" data-command="#" onClick={this.onClick}>{this.props.block.toUpperCase()}</a>
+      <a href="#" data-command="#" data-tooltip={tt} style={{ position: 'relative' }} onClick={this.onClick}>{block.toUpperCase()}</a>
     );
   }
 }

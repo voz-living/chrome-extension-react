@@ -34,9 +34,9 @@ class Command extends Component {
   }
 
   render() {
-    const { faClass, extraProps } = this.props;
+    const { faClass, extraProps, tt } = this.props;
     return (
-      <a href="#" data-command="bold" onClick={this.onClick} { ...extraProps }><i className={'fa fa-' + faClass}></i></a>
+      <a href="#" data-command="bold" data-tooltip={tt} style={{ position: 'relative' }} onClick={this.onClick} { ...extraProps }><i className={'fa fa-' + faClass}></i></a>
     );
   }
 }

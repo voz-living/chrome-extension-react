@@ -33,6 +33,7 @@ class CommandFormatBlock extends Command {
                 className: 'palette-item',
                 style: { backgroundColor: color },
               }}
+              tt={this.props.tt}
             />
           )}
         </div>

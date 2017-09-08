@@ -205,6 +205,7 @@ class Editor extends Component {
           <CommandColor
             command="forecolor"
             palette={['black', 'sienna', 'darkolivegreen', 'darkgreen', 'darkslateblue', 'navy', 'indigo', 'darkslategray', 'darkred', 'darkorange', 'olive', 'green', 'teal', 'blue', 'slategray', 'dimgray', 'red', 'sandybrown', 'yellowgreen', 'seagreen', 'mediumturquoise', 'royalblue', 'purple', 'gray', 'magenta', 'orange', 'yellow', 'lime', 'cyan', 'deepskyblue', 'darkorchid', 'silver', 'pink', 'wheat', 'lemonchiffon', 'palegreen', 'paleturquoise', 'lightblue', 'plum', 'white']}
+            tt="Màu chữ"
           />
           {/*
           <div className="fore-wrapper"><i className="fa fa-font" style="color:#C96;"></i>
@@ -216,34 +217,34 @@ class Editor extends Component {
             </div>
           </div>
           */}
-          <Command command="bold" faClass="bold" />
-          <Command command="italic" faClass="italic" />
-          <Command command="underline" faClass="underline" />
-          <Command command="strikeThrough" faClass="strikethrough" />
+          <Command command="bold" faClass="bold" tt="Bôi đậm" />
+          <Command command="italic" faClass="italic" tt="In nghiêng" />
+          <Command command="underline" faClass="underline" tt="Gạch chân" />
+          <Command command="strikeThrough" faClass="strikethrough" tt="Gạch chữ" />
           <Separator />
-          <Command command="justifyLeft" faClass="align-left" />
-          <Command command="justifyCenter" faClass="align-center" />
-          <Command command="justifyRight" faClass="align-right" />
+          <Command command="justifyLeft" faClass="align-left" tt="Canh trái" />
+          <Command command="justifyCenter" faClass="align-center" tt="Canh giữa" />
+          <Command command="justifyRight" faClass="align-right" tt="Canh phải" />
           <Separator />
-          <Command command="indent" faClass="indent" />
-          <Command command="outdent" faClass="outdent" />
-          <CommandCustom html={'<quote>__SELECTION__</quote>'} label={<i className="fa fa-quote-right"></i>} />
-          <Command command="insertUnorderedList" faClass="list-ul" />
-          <Command command="insertOrderedList" faClass="list-ol" />
+          <Command command="indent" faClass="indent" tt="Thụt vào" />
+          <Command command="outdent" faClass="outdent" tt="Thụt ra" />
+          <CommandCustom html={'<quote>__SELECTION__</quote>'} label={<i className="fa fa-quote-right"></i>} tt="Khung trích dẫn" />
+          <Command command="insertUnorderedList" faClass="list-ul" tt="Đánh danh sách" />
+          <Command command="insertOrderedList" faClass="list-ol" tt="Đánh số" />
           <Separator />
-          <CommandPrompt command="createlink" faClass="link" ask="Link:" def="http://" />
-          <Command command="unlink" faClass="unlink" />
-          <CommandPrompt command="insertimage" faClass="image" ask="Link:" def="http://" />
+          <CommandPrompt command="createlink" faClass="link" ask="Link:" def="http://" tt="Chèn link" />
+          <Command command="unlink" faClass="unlink" tt="Xoá link" />
+          <CommandPrompt command="insertimage" faClass="image" ask="Link:" def="http://" tt="Chèn ảnh" />
           <Separator />
-          <CommandFormatBlock block="h1" />
-          <CommandFormatBlock block="h2" />
-          <CommandFormatBlock block="h3" />
-          <CommandFormatBlock block="h4" />
+          <CommandFormatBlock block="h1" tt="Tiêu đề (SIZE=7)" />
+          <CommandFormatBlock block="h2" tt="Tiêu đề (SIZE=6)" />
+          <CommandFormatBlock block="h3" tt="Tiêu đề (SIZE=5)" />
+          <CommandFormatBlock block="h4" tt="Tiêu đề (SIZE=4)" />
           <Separator />
-          <CommandFormatBlock block="p" />
+          <CommandFormatBlock block="p" tt="Định dạng đoạn văn" />
           <Separator />
-          <Command command="undo" faClass="undo" />
-          <Command command="redo" faClass="repeat" />
+          <Command command="undo" faClass="undo" tt="Undo" />
+          <Command command="redo" faClass="repeat" tt="Redo" />
         </div>
         <div
           className="editor"
