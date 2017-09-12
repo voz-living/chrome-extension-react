@@ -55,10 +55,6 @@ class EmotionControl extends Component {
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
-          getChromeLocalStore(['emoticonPanelExpand'])
-            .then(({ emoticonPanelExpand = 'compact' }) => {
-              smileCont.find('.smilebox').addClass(emoticonPanelExpand);
-            });
           smileCont.append(stickerBox);
         } else if (currentView === 'new-reply'
             || currentView === 'edit-reply'

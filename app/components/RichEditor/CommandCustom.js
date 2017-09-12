@@ -27,8 +27,9 @@ class CommandCustom extends Command {
   }
 
   render() {
+    const { label, tt } = this.props;
     return (
-      <a href="#" data-command="#" onClick={this.onClick}>{this.props.label}</a>
+      <a href="#" data-command="#" data-tooltip={tt} style={{ position: 'relative' }} onClick={this.onClick}>{label}</a>
     );
   }
 }

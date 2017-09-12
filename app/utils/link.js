@@ -164,7 +164,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
       $img = $(`<div><iframe src="https://openload.co/embed/${openload[1]}/" 
                              scrolling="no" frameborder="0" width="560" height="315"
                              allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-				</div>`);
+				<div style="font-size: 10px; color: #aaa">(Nên dùng thêm <a style="color: #999" href ="https://chrome.google.com/webstore/detail/openload-video-only/leallakffbiflfgpmamdgcojddnbfdgo" target="_blank">extension để chặn ad của openload</a>)</div></div>`);
 
     } else if (mp4 !== null && mp4.length > 0) {
       $this.attr('data-smartlink', 'mp4-video');
