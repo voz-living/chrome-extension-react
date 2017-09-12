@@ -183,7 +183,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
       $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
     }
     if ($img !== null) {
-      if (frameCount <= 20) {
+      if (frameCount <= 15) {
         $this.after($img);
       } else {
         const button = $('<span>&nbsp;</span><button>Hiện Player</button>');
