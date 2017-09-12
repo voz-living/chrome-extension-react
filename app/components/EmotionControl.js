@@ -46,7 +46,8 @@ class EmotionControl extends Component {
           || currentView === 'new-reply'
           || currentView === 'edit-reply'
           || currentView === 'pm'
-          || currentView === 'insert-pm') {
+          || currentView === 'insert-pm'
+          || currentView === 'new-thread') {
         let smileCont = null;
         const stickerBox = document.createElement('div');
         let classView = '';
@@ -58,7 +59,8 @@ class EmotionControl extends Component {
           smileCont.append(stickerBox);
         } else if (currentView === 'new-reply'
             || currentView === 'edit-reply'
-            || currentView === 'insert-pm') {
+            || currentView === 'insert-pm'
+            || currentView === 'new-thread') {
           this.editor = $('#vB_Editor_001_textarea');
           smileCont = $('#vB_Editor_001_smiliebox');
           smileCont.find('table').remove();
