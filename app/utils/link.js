@@ -77,7 +77,7 @@ export function resolveImage($html, isThreadContentOnly) {
 
 export function resolveYoutube($html, isThreadContentOnly) {
   let $context;
-
+  let frameCount = null;
   if (isThreadContentOnly) {
     $context = $html.find('a');
     const isReplace = $html.find('a[data-smartlink="youtube"]');
@@ -85,6 +85,12 @@ export function resolveYoutube($html, isThreadContentOnly) {
   } else {
     $context = $html.find("[id^='post_message_'] a");
   }
+  $context.each(function () {
+    const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|facebook.com.*\/videos\/.*|openload\.(?:co|link|io)\/f\/[\w-]*|soundcloud.com|.*\.mp4$/i);
+    if (match !== null && match.length > 0) {
+      frameCount += 1;
+    }
+  });
 
   $context.each(function f() {
     const $this = $(this);
@@ -113,6 +119,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
     const fb = href.match(/facebook.com.*\/videos\/.*/i);
     const openload = href.match(/openload\.(?:co|link|io)\/f\/([\w-]*)/i);
+    const soundcloud = href.match(/soundcloud.com/i);
     const mp4 = href.match(/.*\.mp4$/i);
     // console.log(href, mp4);
     if (ytb === null || ytb.length === 0) { // 2nd try
@@ -165,12 +172,28 @@ export function resolveYoutube($html, isThreadContentOnly) {
                              scrolling="no" frameborder="0" width="560" height="315"
                              allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
 				<div style="font-size: 10px; color: #aaa">(Nên dùng thêm <a style="color: #999" href ="https://chrome.google.com/webstore/detail/openload-video-only/leallakffbiflfgpmamdgcojddnbfdgo" target="_blank">extension để chặn ad của openload</a>)</div></div>`);
-
+    } else if (soundcloud !== null && soundcloud.length > 0) {
+      $this.attr('data-smartlink', 'sc-video');
+      $img = $(`<div><iframe width="560" height="315" scrolling="no" frameborder="no"
+                             src="https://w.soundcloud.com/player/?url=${href}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">
+                     </iframe>
+                </div>`);
     } else if (mp4 !== null && mp4.length > 0) {
       $this.attr('data-smartlink', 'mp4-video');
       $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
     }
-    if ($img !== null) $this.after($img);
+    if ($img !== null) {
+      if (frameCount <= 15) {
+        $this.after($img);
+      } else {
+        const button = $('<span>&nbsp;</span><button>Hiện Player</button>');
+        button.click(() => {
+          $this.after($img);
+          button.remove();
+        });
+        $this.after(button);
+      }
+    }
   });
 }
 
