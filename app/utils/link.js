@@ -67,11 +67,13 @@ export function resolveImage($html, isThreadContentOnly) {
       $this.after($img);
     }
   });
-  $('.voz-post-message img[src^="http"]').each(function () {
-    const $this = $(this);
-    if ($this.width() <= 200 && $this.height() <= 200) {
-      $this.attr('class', 'inlineimg');
-    }
+  $(window).on('load', () => {
+    $('.voz-post-message img[src^="http"]').each(function () {
+      const $this = $(this);
+      if ($this.height() <= 200) {
+        $this.attr('class', 'inlineimg');
+      }
+    });
   });
 }
 
