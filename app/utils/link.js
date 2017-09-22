@@ -224,14 +224,25 @@ export function imageControl($html) {
         control.find('.control-button[id^="rotate"]').on('click', function (e) {
           e.preventDefault();
           deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
-          $this.css({ transform: `rotate(${deg}deg)` });
+          if (deg / 90 % 2 === 1) {
+            const translate = ($this.width() - $this.height()) / 2;
+            $this.parent().css({ height: $this.width() });
+            if (deg / 90 % 4 === 1) {
+              $this.css({ transform: `rotate(${deg}deg) translate(${translate}px, ${translate}px)` });
+            } else if (deg / 90 % 4 === 3) {
+              $this.css({ transform: `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)` });
+            }
+          } else {
+            $this.parent().css({ height: '' });
+            $this.css({ transform: `rotate(${deg}deg)` });
+          }
         });
         if (url.match(/scontent.+?fbcdn.net.+/)) {
           const sp = url.split('/');
           const id = sp[sp.length - 1].split('_');
           control.append(`&nbsp;<a href="https://www.facebook.com/${id[1]}" target="_blank" data-tooltip="Tìm kiếm Facebook"><i class="fa fa-facebook-square fa-lg control-button" id="fb-resolve" ></i></a>`);
         }
-        if ($this.prop('naturalHeight') > $this.height() && $this.prop('naturalWidth') > $this.width()) {
+        if ($this.prop('naturalHeight') - 2 > $this.height() && $this.prop('naturalWidth') - 2 > $this.width()) {
           control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
           control.find('.control-button#expand').on('click', function (e) {
             e.preventDefault();
