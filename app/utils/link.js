@@ -263,15 +263,15 @@ export function imageControl($html) {
               $this.css({ 'max-width': fullsize });
             });
           }
+          control.children('a').on('click', function () {
+            $(this).blur();
+          });
         }
         control.children('button').on('click', () => {
           control.empty();
           controls();
         });
       }
-    });
-    $('[data-tooltip]').on('click', function () {
-      $(this).blur();
     });
   });
 }
