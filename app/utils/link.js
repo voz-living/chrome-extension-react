@@ -80,6 +80,7 @@ export function resolveImage($html, isThreadContentOnly) {
 export function resolveYoutube($html, isThreadContentOnly) {
   let $context;
   let frameCount = null;
+  let fbPosts = null;
   if (isThreadContentOnly) {
     $context = $html.find('a');
     const isReplace = $html.find('a[data-smartlink="youtube"]');
@@ -88,12 +89,17 @@ export function resolveYoutube($html, isThreadContentOnly) {
     $context = $html.find("[id^='post_message_'] a");
   }
   $context.each(function () {
-    const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|facebook.com.*\/videos\/.*|openload\.(?:co|link|io)\/f\/[\w-]*|soundcloud.com|.*\.mp4$/i);
+    const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|facebook.com.*\/videos\/.*|facebook.com.*\/posts\/.*|openload\.(?:co|link|io)\/f\/[\w-]*|soundcloud.com|.*\.mp4$/i);
+    if ($(this).attr('href').match(/facebook\.com.*\/posts\/.*/i)) {
+      fbPosts = true;
+    }
     if (match !== null && match.length > 0) {
       frameCount += 1;
     }
   });
-
+  if (fbPosts) {
+    $('body').prepend('<script> window.fbAsyncInit = function() { FB.init({ xfbml : true, version : \'v2.10\' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, \'script\', \'facebook-jssdk\')); </script>');
+  }
   $context.each(function f() {
     const $this = $(this);
     const href = $this.attr('href');
@@ -119,7 +125,8 @@ export function resolveYoutube($html, isThreadContentOnly) {
     }
     let $img = null;
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
-    const fb = href.match(/facebook.com.*\/videos\/.*/i);
+    const fbPost = href.match(/facebook\.com.*\/posts\/.*/i);
+    const fbVideo = href.match(/facebook\.com.*\/videos\/.*/i);
     const openload = href.match(/openload\.(?:co|link|io)\/f\/([\w-]*)/i);
     const soundcloud = href.match(/soundcloud.com/i);
     const mp4 = href.match(/.*\.mp4$/i);
@@ -161,13 +168,18 @@ export function resolveYoutube($html, isThreadContentOnly) {
     //         					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
     //     					</iframe>
     //       </div>`);
-    } else if (fb !== null && fb.length > 0) {
-      $this.attr('data-smartlink', 'fb-video');
-      $img = $(`<div><iframe src="https://www.facebook.com/plugins/video.php?href=${fb}&show_text=0&height=280"
+    } else if (href.match(/facebook.com.*/i)) {
+      if (fbVideo) {
+        $this.attr('data-smartlink', 'fb-video');
+        $img = $(`<div><iframe src="https://www.facebook.com/plugins/video.php?href=${href}&show_text=0&height=280"
 							width="560" height="315" style="border:none;overflow:hidden" scrolling="no"
 							frameborder="0" allowTransparency="true" allowFullScreen="true">
 						 </iframe>
 					</div>`);
+      } else if (fbPost) {
+        $this.attr('data-smartlink', 'fb-post');
+        $img = $(`<br/><div class="fb-post" data-href="${href}" data-width="300"></div>`);
+      }
     } else if (openload !== null && openload.length > 0) {
       $this.attr('data-smartlink', 'ol-video');
       $img = $(`<div><iframe src="https://openload.co/embed/${openload[1]}/" 
@@ -208,49 +220,58 @@ export function imageControl($html) {
       if ($this.width() > 200 && $this.height() > 200) {
         $this.wrap('<div class="img-wrapper"></div>');
         const url = $this.attr('src');
-        console.log(url);
         $this.before('<div class="img-controls"></div>');
         const control = $this.siblings();
-        control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
-                      <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
-                      <a href="https://images.google.com/searchbyimage?image_url=${url}" target="_blank" data-tooltip="Tìm qua Google Image"><i class="fa fa-search fa-lg control-button" id="google-search" ></i></a>
-                      <a href="${url}" data-tooltip="Lưu hình ảnh" download><i class="fa fa-download fa-lg control-button" id="save-image"></i></a>`);
-        control.css({ opacity: 0 });
+        control.append('<button>Hiện controller</button>');
         $this.parent().hover(() => {
           control.css({ opacity: 1 });
         }, () => {
           control.css({ opacity: 0 });
         });
-        control.find('.control-button[id^="rotate"]').on('click', function (e) {
-          e.preventDefault();
-          deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
-          if (deg / 90 % 2 === 1) {
-            const translate = ($this.width() - $this.height()) / 2;
-            $this.parent().css({ height: $this.width() });
-            if (deg / 90 % 4 === 1) {
-              $this.css({ transform: `rotate(${deg}deg) translate(${translate}px, ${translate}px)` });
-            } else if (deg / 90 % 4 === 3) {
-              $this.css({ transform: `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)` });
-            }
-          } else {
-            $this.parent().css({ height: '' });
-            $this.css({ transform: `rotate(${deg}deg)` });
-          }
-        });
-        if (url.match(/scontent.+?fbcdn.net.+/)) {
-          const sp = url.split('/');
-          const id = sp[sp.length - 1].split('_');
-          control.append(`&nbsp;<a href="https://www.facebook.com/${id[1]}" target="_blank" data-tooltip="Tìm kiếm Facebook"><i class="fa fa-facebook-square fa-lg control-button" id="fb-resolve" ></i></a>`);
-        }
-        if ($this.prop('naturalHeight') - 2 > $this.height() && $this.prop('naturalWidth') - 2 > $this.width()) {
-          control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
-          control.find('.control-button#expand').on('click', function (e) {
+        function controls() {
+          control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
+                      <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
+                      <a href="https://images.google.com/searchbyimage?image_url=${url}" target="_blank" data-tooltip="Tìm qua Google Image"><i class="fa fa-search fa-lg control-button" id="google-search" ></i></a>
+                      <a href="${url}" data-tooltip="Lưu hình ảnh" download><i class="fa fa-download fa-lg control-button" id="save-image"></i></a>`);
+          control.css({ opacity: 0 });
+          control.find('.control-button[id^="rotate"]').on('click', function (e) {
             e.preventDefault();
-            fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
-            $this.css({ 'max-width': fullsize });
+            deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
+            if (deg / 90 % 2 === 1) {
+              const translate = ($this.width() - $this.height()) / 2;
+              $this.parent().css({ height: $this.width() });
+              if (deg / 90 % 4 === 1) {
+                $this.css({ transform: `rotate(${deg}deg) translate(${translate}px, ${translate}px)` });
+              } else if (deg / 90 % 4 === 3) {
+                $this.css({ transform: `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)` });
+              }
+            } else {
+              $this.parent().css({ height: '' });
+              $this.css({ transform: `rotate(${deg}deg)` });
+            }
           });
+          if (url.match(/scontent.+?fbcdn.net.+/)) {
+            const sp = url.split('/');
+            const id = sp[sp.length - 1].split('_');
+            control.append(`&nbsp;<a href="https://www.facebook.com/${id[1]}" target="_blank" data-tooltip="Tìm kiếm Facebook"><i class="fa fa-facebook-square fa-lg control-button" id="fb-resolve" ></i></a>`);
+          }
+          if ($this.prop('naturalHeight') - 2 > $this.height() && $this.prop('naturalWidth') - 2 > $this.width()) {
+            control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
+            control.find('.control-button#expand').on('click', function (e) {
+              e.preventDefault();
+              fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
+              $this.css({ 'max-width': fullsize });
+            });
+          }
         }
+        control.children('button').on('click', () => {
+          control.empty();
+          controls();
+        });
       }
+    });
+    $('[data-tooltip]').on('click', function () {
+      $(this).blur();
     });
   });
 }
