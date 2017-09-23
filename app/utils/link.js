@@ -223,6 +223,7 @@ export function imageControl($html) {
         $this.before('<div class="img-controls"></div>');
         const control = $this.siblings();
         control.append('<button>Hiện controller</button>');
+        control.css({ opacity: 0 });
         $this.parent().hover(() => {
           control.css({ opacity: 1 });
         }, () => {
@@ -233,7 +234,6 @@ export function imageControl($html) {
                       <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
                       <a href="https://images.google.com/searchbyimage?image_url=${url}" target="_blank" data-tooltip="Tìm qua Google Image"><i class="fa fa-search fa-lg control-button" id="google-search" ></i></a>
                       <a href="${url}" data-tooltip="Lưu hình ảnh" download><i class="fa fa-download fa-lg control-button" id="save-image"></i></a>`);
-          control.css({ opacity: 0 });
           control.find('.control-button[id^="rotate"]').on('click', function (e) {
             e.preventDefault();
             deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
