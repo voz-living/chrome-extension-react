@@ -172,7 +172,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
       $this.attr('data-smartlink', 'ol-video');
       $img = $(`<div><iframe src="https://openload.co/embed/${openload[1]}/" 
                              scrolling="no" frameborder="0" width="560" height="315"
-                             allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                             allowfullscreen="true" ></iframe>
 				<div style="font-size: 10px; color: #aaa">(Nên dùng thêm <a style="color: #999" href ="https://chrome.google.com/webstore/detail/openload-video-only/leallakffbiflfgpmamdgcojddnbfdgo" target="_blank">extension để chặn ad của openload</a>)</div></div>`);
     } else if (soundcloud !== null && soundcloud.length > 0) {
       $this.attr('data-smartlink', 'sc-video');
@@ -199,6 +199,62 @@ export function resolveYoutube($html, isThreadContentOnly) {
   });
 }
 
+export function imageControl($html) {
+  $(window).on('load', () => {
+    $html.find('.voz-post-message img[src^="http"]').each(function a() {
+      const $this = $(this);
+      let deg = null;
+      let fullsize = null;
+      if ($this.width() > 200 && $this.height() > 200) {
+        $this.wrap('<div class="img-wrapper"></div>');
+        const url = $this.attr('src');
+        console.log(url);
+        $this.before('<div class="img-controls"></div>');
+        const control = $this.siblings();
+        control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
+                      <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
+                      <a href="https://images.google.com/searchbyimage?image_url=${url}" target="_blank" data-tooltip="Tìm qua Google Image"><i class="fa fa-search fa-lg control-button" id="google-search" ></i></a>
+                      <a href="${url}" data-tooltip="Lưu hình ảnh" download><i class="fa fa-download fa-lg control-button" id="save-image"></i></a>`);
+        control.css({ opacity: 0 });
+        $this.parent().hover(() => {
+          control.css({ opacity: 1 });
+        }, () => {
+          control.css({ opacity: 0 });
+        });
+        control.find('.control-button[id^="rotate"]').on('click', function (e) {
+          e.preventDefault();
+          deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
+          if (deg / 90 % 2 === 1) {
+            const translate = ($this.width() - $this.height()) / 2;
+            $this.parent().css({ height: $this.width() });
+            if (deg / 90 % 4 === 1) {
+              $this.css({ transform: `rotate(${deg}deg) translate(${translate}px, ${translate}px)` });
+            } else if (deg / 90 % 4 === 3) {
+              $this.css({ transform: `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)` });
+            }
+          } else {
+            $this.parent().css({ height: '' });
+            $this.css({ transform: `rotate(${deg}deg)` });
+          }
+        });
+        if (url.match(/scontent.+?fbcdn.net.+/)) {
+          const sp = url.split('/');
+          const id = sp[sp.length - 1].split('_');
+          control.append(`&nbsp;<a href="https://www.facebook.com/${id[1]}" target="_blank" data-tooltip="Tìm kiếm Facebook"><i class="fa fa-facebook-square fa-lg control-button" id="fb-resolve" ></i></a>`);
+        }
+        if ($this.prop('naturalHeight') - 2 > $this.height() && $this.prop('naturalWidth') - 2 > $this.width()) {
+          control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
+          control.find('.control-button#expand').on('click', function (e) {
+            e.preventDefault();
+            fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
+            $this.css({ 'max-width': fullsize });
+          });
+        }
+      }
+    });
+  });
+}
+
 /* eslint-enable no-param-reassign */
 /* eslint-enable max-len */
 
@@ -207,5 +263,6 @@ export function proccessLink($html, isThreadContentOnly = false) {
   removeRedirect($html);
   resolveImage($html, isThreadContentOnly);
   resolveYoutube($html, isThreadContentOnly);
+  imageControl($html);
   return $html;
 }
