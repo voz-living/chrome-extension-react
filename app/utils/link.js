@@ -217,6 +217,7 @@ export function imageControl($html) {
       const $this = $(this);
       let deg = null;
       let fullsize = null;
+      let collapse = null;
       if ($this.width() > 200 && $this.height() > 200) {
         $this.wrap('<div class="img-wrapper"></div>');
         const url = $this.attr('src');
@@ -259,8 +260,11 @@ export function imageControl($html) {
             control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
             control.find('.control-button#expand').on('click', function (e) {
               e.preventDefault();
+              const table = $this.closest('table.voz-postbit');
               fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
+              collapse = table.css('table-layout') === 'fixed' ? 'initial' : 'fixed';
               $this.css({ 'max-width': fullsize });
+              table.css({ 'table-layout': collapse });
             });
           }
           control.children('a').on('click', function () {
