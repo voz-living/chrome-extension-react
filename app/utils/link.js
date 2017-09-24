@@ -249,15 +249,15 @@ export function imageControl($html) {
               const translate = ($this.width() - $this.height()) / 2;
               $this.parent().css({ height: $this.width() });
               if (deg / 90 % 4 === 1) {
-                transform = `rotate(${deg}deg) translate(${translate}px, ${translate}px)`
+                transform = `rotate(${deg}deg) translate(${translate}px, ${translate}px)`;
                 $this.css({ transform: `${transform} scaleX(${scale})` });
               } else if (deg / 90 % 4 === 3) {
-                transform = `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)`
+                transform = `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)`;
                 $this.css({ transform: `${transform} scaleX(${scale})` });
               }
             } else {
               $this.parent().css({ height: '' });
-              transform = `rotate(${deg}deg)`
+              transform = `rotate(${deg}deg)`;
               $this.css({ transform: `${transform} scaleX(${scale})` });
             }
           });
@@ -276,7 +276,7 @@ export function imageControl($html) {
               table.css({ 'table-layout': collapse });
             });
           }
-          control.children('a').on('click', function(e) {
+          control.children('a').on('click', function (e) {
             e.preventDefault();
             $(this).blur();
           });
