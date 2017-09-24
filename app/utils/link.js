@@ -219,7 +219,7 @@ export function imageControl($html) {
       let fullsize = null;
       let collapse = null;
       let scale = 1;
-      let transform = null;
+      let transform = '';
       if ($this.width() > 200 && $this.height() > 200) {
         $this.wrap('<div class="img-wrapper"></div>');
         const url = $this.attr('src');
