@@ -225,7 +225,7 @@ export function imageControl($html) {
         const url = $this.attr('src');
         $this.before('<div class="img-controls"></div>');
         const control = $this.siblings();
-        control.append('<button>Hiện controller</button>');
+        control.append('<a href="#" onclick="return false;"><button>Hiện controller</button></a>');
         control.css({ opacity: 0 });
         $this.parent().hover(() => {
           control.css({ opacity: 1 });
@@ -281,7 +281,7 @@ export function imageControl($html) {
             $(this).blur();
           });
         }
-        control.children('button').on('click', () => {
+        control.find('button').on('click', () => {
           control.empty();
           controls();
         });
