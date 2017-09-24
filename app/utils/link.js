@@ -218,6 +218,8 @@ export function imageControl($html) {
       let deg = null;
       let fullsize = null;
       let collapse = null;
+      let scale = 1;
+      let transform = null;
       if ($this.width() > 200 && $this.height() > 200) {
         $this.wrap('<div class="img-wrapper"></div>');
         const url = $this.attr('src');
@@ -233,22 +235,30 @@ export function imageControl($html) {
         function controls() {
           control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
                       <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
+                      <a href="#" data-tooltip="Lật ngược"><i class="fa fa-exchange fa-lg control-button" id="flip-h" ></i></a>
                       <a href="https://images.google.com/searchbyimage?image_url=${url}" target="_blank" data-tooltip="Tìm qua Google Image"><i class="fa fa-search fa-lg control-button" id="google-search" ></i></a>
                       <a href="${url}" data-tooltip="Lưu hình ảnh" download><i class="fa fa-download fa-lg control-button" id="save-image"></i></a>`);
-          control.find('.control-button[id^="rotate"]').on('click', function (e) {
-            e.preventDefault();
+          control.find('.control-button#flip-h').on('click', () => {
+            scale = -scale;
+            console.log(scale);
+            $this.css({ transform: `${transform} scaleX(${scale})` });
+          });
+          control.find('.control-button[id^="rotate"]').on('click', () => {
             deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
             if (deg / 90 % 2 === 1) {
               const translate = ($this.width() - $this.height()) / 2;
               $this.parent().css({ height: $this.width() });
               if (deg / 90 % 4 === 1) {
-                $this.css({ transform: `rotate(${deg}deg) translate(${translate}px, ${translate}px)` });
+                transform = `rotate(${deg}deg) translate(${translate}px, ${translate}px)`
+                $this.css({ transform: `${transform} scaleX(${scale})` });
               } else if (deg / 90 % 4 === 3) {
-                $this.css({ transform: `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)` });
+                transform = `rotate(${deg}deg) translate(${-translate}px, ${-translate}px)`
+                $this.css({ transform: `${transform} scaleX(${scale})` });
               }
             } else {
               $this.parent().css({ height: '' });
-              $this.css({ transform: `rotate(${deg}deg)` });
+              transform = `rotate(${deg}deg)`
+              $this.css({ transform: `${transform} scaleX(${scale})` });
             }
           });
           if (url.match(/scontent.+?fbcdn.net.+/)) {
@@ -258,8 +268,7 @@ export function imageControl($html) {
           }
           if ($this.prop('naturalHeight') - 2 > $this.height() && $this.prop('naturalWidth') - 2 > $this.width()) {
             control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
-            control.find('.control-button#expand').on('click', function (e) {
-              e.preventDefault();
+            control.find('.control-button#expand').on('click', () => {
               const table = $this.closest('table.voz-postbit');
               fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
               collapse = table.css('table-layout') === 'fixed' ? 'initial' : 'fixed';
@@ -267,7 +276,8 @@ export function imageControl($html) {
               table.css({ 'table-layout': collapse });
             });
           }
-          control.children('a').on('click', function () {
+          control.children('a').on('click', function(e) {
+            e.preventDefault();
             $(this).blur();
           });
         }
