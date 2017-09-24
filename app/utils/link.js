@@ -277,8 +277,10 @@ export function imageControl($html) {
             });
           }
           control.children('a').on('click', function (e) {
-            e.preventDefault();
-            $(this).blur();
+            if ($(this).attr('href') === '#') {
+              e.preventDefault();
+              $(this).blur();
+            }
           });
         }
         control.find('button').on('click', () => {
