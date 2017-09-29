@@ -1,0 +1,121 @@
+.sticker-box-wrapper {
+  position: relative;
+  .sticker-information {
+    position: absolute;
+    // top: -20px;
+    // left: 5px;
+    // height: 20px;
+    // color: black;
+    // background: rgba(255, 255, 255, 0.2);
+    // text-shadow: 0px 0px 2px white;
+    // pointer-events: none;
+    // font-size: 12px;
+    // .sticker-ruler {
+    //   display: inline-block;
+    //   height: 3px;
+    //   background: rgba(0,0,0, 0.5);
+    // }
+    .sticker-preview {
+      position: absolute;
+      left: 3px;
+      bottom: 2px;
+      img {
+        opacity: 0.8;
+      }
+      .sticker-preview-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: black;
+        white-space: nowrap;
+        text-shadow: 0px 0px 2px white;
+      }
+    }
+  }
+  .sticker-box{
+    height: 82px;
+    background: white;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    position: relative;
+    transition: all 0.3s;
+    > div {
+      margin-top: 2px;
+      white-space: nowrap;
+      .sticker {
+        height: 60px;
+        margin: 2px;
+        transition: all 0.2s;
+        border: 1px solid white;
+        cursor: pointer;
+        &:hover {
+          margin: 0;
+          height: 64px;
+          border: 1px solid #666;
+        }
+      }
+    }
+    span a {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    &.empty-sticker {
+      height: 40px!important;
+      > span {
+        white-space: nowrap;
+      }
+    }
+
+    &.full {
+      height: 200px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      > div {
+        margin-top: 0 !important;
+        white-space: normal !important;
+      }
+    }
+  }
+  .sticker-set-list {
+    display:flex;
+    flex-flow:row wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li[class]:not(data-tooltip) {
+      flex-grow:1;
+      text-align:center;
+      max-width:180px;
+    }
+    li {
+      position: relative;
+      display: inline-block;
+      line-height: 16px;
+      font-size: 14px;
+      margin: 0;
+      padding: 2px 5px;
+      border: 1px solid #999;
+      background: #fff;
+      transition: all 0.2s;
+      cursor: pointer;
+      &.sticker-set-selected {
+        background: #ddd;
+        text-shadow: 0 0 5px rgba(255,255,255,0.9);
+      }
+      button {
+        float: right;
+        position: relative;
+        border-radius: 0;
+        padding: 0 5px;
+        margin: 0;
+        line-height: 18px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+.full .sticker-box {
+  width: 544px;
+}

@@ -1,0 +1,104 @@
+.voz-postbit .thead{
+  position: relative;
+  padding-right: 30px;
+}
+.voz-living-post-bookmark {
+  position: absolute;
+  top: 0px;
+  right: -1px;
+  display: block;
+  font-size: 30px;
+  margin-right: 10px;
+  margin-top: -6px;
+  margin-left: 5px;
+  text-shadow: -1px 0px 3px rgba(0, 0, 0, 0.48);
+  transition: all 0.3s;
+  > i {
+    color: white;
+  }
+  &:hover {
+    color: rgba(0,0,0,0.1);
+  }
+  &.bookmarked {
+    &:hover {
+      > i {
+        color: #6979ff;  
+      }
+    }
+    > i {
+      color: #6979ff;
+    }
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  }
+}
+
+body .voz-living-side-menu .btn-group .btn-options.bookmark-list {
+  padding: 2px;
+  .show-full-post-option {
+
+  }
+  &.hide-full-post-info {
+    .bookmark-item-wrapper {
+      table.voz-postbit {
+        > tbody > tr {
+          display: none;
+          &:nth-child(3) {
+            display: block;
+            > td {
+              > * {
+                display: none;
+              }
+              > div[id^=post_message] {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .bookmark-item-wrapper {
+    position: relative;
+    margin: 2px 0;
+    table.voz-postbit {
+      > tbody > tr {
+        &:nth-child(3) {
+          // display: block;
+          > td {
+            > * {
+              // display: none;
+            }
+            > div[id^=post_message] {
+              // display: block;
+            }
+          }
+        }
+      }
+    }
+
+    .bookmark-tools {
+      opacity: 0;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background: rgba(255,255,255,0.8);
+      transition: all 0.3s;
+      > * {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        line-height: 16px;
+        font-size: 18px;
+        text-align: center;
+        color: #23497C;
+        padding: 4px;
+      }
+    }
+    &:hover {
+      .bookmark-tools {
+        opacity: 1;
+        z-index: 9999;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+rm -rf ./dist/compiled/*
+echo "Build DLL"
+PRODUCTION=1 webpack --progress --colors --config=dll.webpack.config.js
+echo "Build CSS"
+PRODUCTION=1 webpack --progress --colors --config=css.webpack.config.js
+echo "Build main"
+PRODUCTION=1 webpack --progress --colors
+cd ./dist/compiled
+zip -r voz-living.zip .
+cd ..
+cd ..

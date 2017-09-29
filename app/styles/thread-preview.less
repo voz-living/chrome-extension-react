@@ -1,0 +1,73 @@
+td[id^="td_threadtitle_"]{
+  position: relative;
+
+  >div>span{
+    margin-right: 50px;
+  }
+}
+
+.btn-view{
+  float: right;
+  margin-top: -33px;
+  background: #ddd;
+  z-index: 1000;
+  font-weight: bold;
+}
+
+.btn-next-post, .btn-prev-post{
+  background: #ddd;
+  height: 30px !important;
+  width: 30px !important;
+  line-height: 33px !important;
+  margin-left: 10px;
+  position: relative;
+  .border-radius(40px);
+
+  > i {
+    line-height: 30px !important;
+  }
+}
+
+.preview-wrapper{
+  width: 100%;
+
+  .left-preview{
+    padding: 10px;
+    box-sizing: border-box;
+    background: #E1E4F2;
+
+    .preview-control{
+      padding-bottom: 6px;
+      line-height: 36px;
+      font-size: 11px;
+    }
+
+    .preview-content{
+      min-height: 120px;
+      max-height: 600px;
+      width: 100%;
+      overflow-y: scroll;
+
+      img{
+        max-width: 600px;
+      }
+
+      >table{ // user_info
+      }
+
+      >div{
+        >div.smallfont{
+          display: none;
+        }
+      }
+    }
+  }
+
+  .right-preview{
+    width: 40px;
+
+    .btn {
+      margin-top: 5px;
+    }
+  }
+}

@@ -1,0 +1,190 @@
+@chat-window-width: 380px;
+@chat-window-height: 400px;
+@chat-input-height: 30px;
+@chat-button-width: 50px;
+@chat-header-height: 30px;
+@font-message: 12px;
+
+@voz-blue: #5C7099;
+
+.voz-living-peer-chat-wrapper{
+  width: @chat-window-width;
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  background: #fff;
+  z-index: 1000;
+  height: @chat-header-height;
+  transition: all 0.3s;
+  
+  &.open{
+    height: @chat-window-height + @chat-header-height;
+  }
+
+  &.vlpc-maximized {
+    height: 100%;
+    width: 600px;
+  }
+
+  .voz-living-peer-chat{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    
+    .voz-living-peer-chat-header{
+      font-size: @font-message;
+      height: @chat-header-height;
+      line-height: @chat-header-height;
+      font-weight: bold;
+      color: #fff;
+      background: @voz-blue;
+      padding: 2px 2px 2px 10px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .voz-living-peer-chat-body {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .voz-living-peer-chat-input {
+        display: flex;
+        flex-basis: 30px;
+      }
+
+      .emotion-box{
+        position: absolute;
+        background: #fff;
+        border: 1px solid @voz-blue;
+        width: 200px;
+        bottom: 35px;
+        right: 5px;
+        box-sizing: border-box;
+
+        &:after, &::before{
+          top: 100%;
+          left: 50%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+        }
+
+        &:after {
+          border-color: rgba(136, 183, 213, 0);
+          border-top-color: #88b7d5;
+          border-width: 5px;
+          margin-left: -5px;
+        }
+
+        &:before{
+          border-color: rgba(194, 225, 245, 0);
+          border-top-color: #c2e1f5;
+          border-width: 6px;
+          margin-left: -6px;
+        }
+      }
+    }
+
+    .voz-living-peer-chat-connect{
+      color: #201F25;
+      font-size: 20px;
+      text-align: center;
+      height: @chat-window-height - @chat-input-height;
+      line-height: 30px;
+      margin-top: 40px;
+      cursor: pointer;
+
+      small{
+        font-size: 12px;
+      }
+      .voz-living-chat-description {
+        padding-left: 5px;
+        text-align: left;
+        font-size: 10px;
+        line-height: 14px;
+        font-style: italic;
+      }
+    }
+
+    .voz-living-message-list{
+      flex-grow: 3;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      border: 1px solid #ddd;
+      
+      ul{
+        margin: 0;
+        padding: 3px;
+        height: 10px;
+        li{
+          margin: 0;
+          padding: 0;
+          color: #000;
+          font-size: @font-message;
+
+          > div {
+            padding: 0 5px;
+            margin: 2px 0;
+            border-left: 3px solid @voz-blue;
+
+            .voz-living-chat-name{
+              font-weight: bold;
+              font-size: @font-message + 1;
+            }
+            .voz-living-chat-time{
+              font-size: @font-message - 2;
+              color: #999;
+              font-style: italic;
+              margin-right: 4px;
+              font-size: 10px;
+            }
+            .voz-living-chat-message{
+              padding: 4px 0;
+              word-break: break-word;
+            }
+          }
+        }
+      }
+    }
+    input{
+      width: auto;
+      display: flex;
+      flex-grow: 1;
+      height: @chat-input-height;
+      font-size: 12px;
+      line-height: 16px;
+      padding: 1px;
+      margin: 0;
+      border: 0;
+
+      &:focus{
+        outline: none;
+      }
+    }
+    button{
+      flex-basis: 50px;
+      height: @chat-input-height;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  .voz-living-peerchat-max,
+  .voz-living-peerchat-off {
+    position: relative;
+    font-size: 16px;
+    padding: 5px;
+    float: right;
+    color: white;
+  }
+}

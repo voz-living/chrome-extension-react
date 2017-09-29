@@ -1,0 +1,68 @@
+.emotion-box{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 5px 0;
+  min-width: 165px;
+  white-space: nowrap;
+  border: gray 1px solid;
+  border-top: 0;
+  margin:0px;
+  transition: all 0.3s;
+  max-height: 60px;
+  min-height: 40px;
+
+  div.emo{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    padding: 2px;
+    position: relative;
+    border-radius: 2px;
+    transition: all 0.5s;
+    margin-right: 5px;
+    
+    img{
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:hover{
+      background: #fff;
+      
+      img{
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.smilebox.full .emotion-box,
+.editor-wrapper .smilebox.full .emotion-box {
+  overflow: auto;
+  white-space: normal;
+  max-height: 220px;
+  min-height: 200px;
+}
+
+.emo-header{
+  margin-top:5px;
+  background-color:#d6d4d4;
+  border: gray 1px solid;
+  font-size:15px;
+  padding:2px 3px;
+}
+.emo-expand{
+  float:right;
+  color:#353535;
+  cursor:pointer;
+  padding:3px;
+}
+#vB_Editor_001_textarea[name='message'] {
+  width:540px!important;
+}
