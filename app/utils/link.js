@@ -154,7 +154,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
 					</div>`);
     } else if (/video\.vnexpress\.net\/parser/.test(href) === true) {
       $this.attr('data-smartlink', 'vnexpress-video');
-      const uHref = 'https://' + href.replace(/http:\/\//, '');
+      const uHref = href.replace(/^http:\/\//, 'https://');
       $img = $(`<div><iframe width='480' height='270' src='${uHref}'
             					frameborder='0' allowfullscreen
             					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
@@ -194,7 +194,8 @@ export function resolveYoutube($html, isThreadContentOnly) {
                 </div>`);
     } else if (mp4 !== null && mp4.length > 0) {
       $this.attr('data-smartlink', 'mp4-video');
-      $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
+      const uHref = href.replace(/^http:\/\//, 'https://');
+      $img = $(`<div><video src='${uHref}' width='560' height='315' preload='metadata' controls></video></div>`);
     }
     if ($img !== null) {
       if (frameCount <= 15) {
