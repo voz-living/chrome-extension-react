@@ -25,7 +25,7 @@ class MinimizeQuote extends Component {
           dangerouslySetInnerHTML={{ __html: element }}
         >
         </div>
-        <div style={{ textAlign: 'center', position: 'relative' }}>
+        <div style={{ textAlign: 'center', position: 'relative', marginRight: '72px' }}>
           <div
             className="btn btn-minimize-quote"
             onClick={() => { this.setState({ isOpen: !this.state.isOpen }); }}
