@@ -238,8 +238,9 @@ export function imageControl($html) {
         });
         if ($this.height() / $this.width() > 1.6 && $this.height() >= 1000) {
           oversized = true;
-          fullsize = '40%';
+          fullsize = '400px';
           $this.css({ 'max-width': fullsize });
+          $this.parent().attr({ 'data-tooltip': 'Hình được thu nhỏ bởi VozLiving' });
         }
         function controls() {
           control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
@@ -289,7 +290,8 @@ export function imageControl($html) {
           if (oversized) {
             control.append('&nbsp;<a href="#"  data-tooltip="Quay về kích cỡ ban đầu"><i class="fa fa-arrows-h fa-lg control-button" id="size-default"></i></a>');
             control.find('.control-button#size-default').on('click', () => {
-              fullsize = $this.css('max-width') === '40%' ? '100%' : '40%';
+              $this.parent().removeAttr('data-tooltip');
+              fullsize = $this.css('max-width') === '400px' ? '100%' : '400px';
               $this.css({ 'max-width': fullsize });
             });
           }
