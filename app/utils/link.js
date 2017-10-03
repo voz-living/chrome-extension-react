@@ -238,7 +238,7 @@ export function imageControl($html) {
         });
         if ($this.height() / $this.width() > 1.6 && $this.height() >= 1000) {
           oversized = true;
-          fullsize = '400px';
+          fullsize = '500px';
           $this.css({ 'max-width': fullsize });
           $this.parent().attr({ 'data-tooltip': 'Hình được thu nhỏ bởi VozLiving' });
         }
@@ -291,13 +291,14 @@ export function imageControl($html) {
             control.append('&nbsp;<a href="#"  data-tooltip="Quay về kích cỡ ban đầu"><i class="fa fa-arrows-h fa-lg control-button" id="size-default"></i></a>');
             control.find('.control-button#size-default').on('click', () => {
               $this.parent().removeAttr('data-tooltip');
-              fullsize = $this.css('max-width') === '400px' ? '100%' : '400px';
+              fullsize = $this.css('max-width') === '500px' ? '100%' : '500px';
               $this.css({ 'max-width': fullsize });
             });
           }
           if ($this.prop('naturalWidth') > cWidth + 1 && !$this.closest('.voz-bbcode-quote').length > 0) {
             control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
             control.find('.control-button#expand').on('click', () => {
+              $this.parent().removeAttr('data-tooltip');
               fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
               margin = $this.css('margin-right') === '20px' ? '0' : '20px';
               $this.css({
