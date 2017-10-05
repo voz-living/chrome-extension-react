@@ -24,14 +24,42 @@ function handleWideScreenOptions(settings) {
     } while (optionalCSS.findIndex(e => e.name === 'wideScreen') > -1);
   }
 }
-chrome.storage.local.get('settings', (storage) => {
-  handleWideScreenOptions(storage.settings);
-});
+
+function handleAdsRemoveOptions(settings) {
+  if (settings.adsRemove === false) {
+    optionalCSS.push({
+      name: 'adsRemove',
+      css: `
+      [id^=div-gpt-ad],
+      [id^=google_ads_div],
+      .middleads,
+      [id^=ads_zone]
+      {
+        display: block !important;
+      }`,
+    });
+  } else {
+    do {
+      optionalCSS.splice(optionalCSS.findIndex(e => e.name === 'adsRemove'), 1);
+    } while (optionalCSS.findIndex(e => e.name === 'adsRemove') > -1);
+  }
+}
 chrome.storage.onChanged.addListener((changes, area) => {
   if (changes.settings) {
     handleWideScreenOptions(changes.settings.newValue);
+    handleAdsRemoveOptions(changes.settings.newValue);
   }
 });
+chrome.storage.local.get('settings', (storage) => {
+  handleWideScreenOptions(storage.settings);
+  handleAdsRemoveOptions(storage.settings);
+});
+setInterval(() => {
+  chrome.storage.local.get('settings', (storage) => {
+    handleWideScreenOptions(storage.settings);
+    handleAdsRemoveOptions(storage.settings);
+  });
+}, 10000);
 
 module.exports = {
   optionalCSS,
