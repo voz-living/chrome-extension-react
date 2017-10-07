@@ -44,11 +44,10 @@ export default class HotThreads extends Component {
       <div className={'btn-group hot-threads'}>
         <a
           className={'btn tooltip-right' + (isOpen ? ' active' : '')}
-          href="javascript:void(0)"
+          href="#"
           style={{ fontSize: '20px' }}
-          target="_blank"
           data-tooltip="Thớt hot"
-          onClick={() => this.setState({ isOpen: !this.state.isOpen })}
+          onClick={() => { this.setState({ isOpen: !this.state.isOpen }); return false; }}
         ><i className="fa fa-fire"></i></a>
         <div
           key="voz-mask-quote-list"

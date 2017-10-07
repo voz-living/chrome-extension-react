@@ -89,8 +89,8 @@ export function resolveYoutube($html, isThreadContentOnly) {
     $context = $html.find("[id^='post_message_'] a");
   }
   $context.each(function () {
-    const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|facebook.com.*\/videos\/.*|facebook.com.*\/posts\/.*|openload\.(?:co|link|io)\/f\/[\w-]*|soundcloud.com\/.+|.*\.mp4$/i);
-    if ($(this).attr('href').match(/facebook\.com.*\/posts\/.*/i)) {
+    const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|youtu\.be\/[a-zA-Z0-9_-]+|facebook\.com.*\/(posts|photos)\/.+|facebook\.com.*\/videos\/.+|(?:openload\.(?:co|link|io|us)|oload\.info)\/(?:f|embed)\/([\w-]+)|soundcloud\.com\/.+|(?:mp4|webm|ogg)$|(?:mp3|wav)$|dai\.ly\/.+|dailymotion\.com\/.*?\/.+|liveleak\.com\/.*i=(.*)/i);
+    if ($(this).attr('href').match(/facebook\.com.*\/(?:posts|photos)\/.+/i)) {
       fbPosts = true;
     }
     if (match !== null && match.length > 0) {
@@ -125,14 +125,21 @@ export function resolveYoutube($html, isThreadContentOnly) {
     }
     let $img = null;
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
-    const fbPost = href.match(/facebook\.com.*\/posts\/.*/i);
-    const fbVideo = href.match(/facebook\.com.*\/videos\/.*/i);
-    const openload = href.match(/openload\.(?:co|link|io)\/f\/([\w-]*)/i);
-    const soundcloud = href.match(/soundcloud.com\/.+/i);
-    const mp4 = href.match(/.*\.mp4$/i);
+    const fbPost = href.match(/facebook\.com.*\/(?:posts|photos)\/.+/i);
+    const fbVideo = href.match(/facebook\.com.*\/videos\/.+/i);
+    let openload = href.match(/(?:openload\.(?:co|link|io|us)|oload\.info)\/(?:f|embed)\/([\w-]+)/i);
+    const soundcloud = href.match(/soundcloud\.com\/.+/i);
+    const liveleak = href.match(/liveleak\.com\/.*i=(.*)/i);
+    let dailymotion = href.match(/dailymotion\.com\/.*?\/(.+)/i);
+    const mp4 = href.match(/(?:mp4|webm)$/i);
+    const mp3 = href.match(/(?:mp3|wav|ogg)$/i);
+    let media = false;
     // console.log(href, mp4);
     if (ytb === null || ytb.length === 0) { // 2nd try
       ytb = href.match(/youtu\.be\/([a-zA-Z0-9_-]+)/i);
+    }
+    if (dailymotion === null || dailymotion.length === 0) {
+      dailymotion = href.match(/dai\.ly\/(.+)/i);
     }
     if (ytb !== null && ytb.length > 0) {
       $this.attr('data-smartlink', 'youtube');
@@ -178,9 +185,9 @@ export function resolveYoutube($html, isThreadContentOnly) {
 					</div>`);
       } else if (fbPost) {
         $this.attr('data-smartlink', 'fb-post');
-        $img = $(`<br/><div class="fb-post" data-href="${href}" data-width="300"></div>`);
+        $img = $(`<br/><div class="fb-post" data-href="${href}" data-width="400"></div>`);
       }
-    } else if (openload !== null && openload.length > 0) {
+    } else if (openload !== null && openload.length > 0 && !href.match(/\.rar$|\.zip$/)) {
       $this.attr('data-smartlink', 'ol-video');
       $img = $(`<div><iframe src="https://openload.co/embed/${openload[1]}/" 
                              scrolling="no" frameborder="0" width="560" height="315"
@@ -192,19 +199,40 @@ export function resolveYoutube($html, isThreadContentOnly) {
                              src="https://w.soundcloud.com/player/?url=${href}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">
                      </iframe>
                 </div>`);
+    } else if (liveleak !== null && liveleak.length > 0) {
+      $this.attr('data-smartlink', 'll-video');
+      $img = $(`<div><iframe width="560" height="315" src="https://www.liveleak.com/ll_embed?i=${liveleak[1]}" frameborder="0" allowfullscreen></iframe>
+                </div>`);
+    } else if (dailymotion !== null && dailymotion.length > 0) {
+      $this.attr('data-smartlink', 'dly-video');
+      $img = $(`<div><iframe frameborder="0" width="560" height="315" src="https://www.dailymotion.com/embed/video/${dailymotion[1]}" allowfullscreen></iframe>
+                </div>`);
     } else if (mp4 !== null && mp4.length > 0) {
       $this.attr('data-smartlink', 'mp4-video');
-      const uHref = href.replace(/^http:\/\//, 'https://');
-      $img = $(`<div><video src='${uHref}' width='560' height='315' preload='metadata' controls></video></div>`);
+      $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
+      media = true;
+    } else if (mp3 !== null && mp3.length > 0) {
+      $this.attr('data-smartlink', 'mp3-link');
+      $img = $(`<div><audio src='${href}' preload='metadata' controls></audio></div>`);
+      media = true;
+    }
+    function brokenDetect() {
+      if (media) {
+        $img.children().on('error', function e() {
+          $(this).parent().remove();
+        });
+      }
     }
     if ($img !== null) {
       if (frameCount <= 15) {
         $this.after($img);
+        brokenDetect();
       } else {
         const button = $('<span>&nbsp;</span><button>Hiện Player</button>');
         button.click(() => {
           $this.after($img);
           button.remove();
+          brokenDetect();
         });
         $this.after(button);
       }

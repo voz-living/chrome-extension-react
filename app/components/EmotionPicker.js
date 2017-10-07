@@ -24,6 +24,9 @@ export default class EmotionPicker extends Component {
     getChromeLocalStore(['emoticonPanelExpand'])
       .then(({ emoticonPanelExpand = 'compact' }) => {
         $(this.$this).closest('.smilebox').addClass(emoticonPanelExpand);
+        if (emoticonPanelExpand === 'full') {
+          $('.emo-header i').removeClass('fa-expand').addClass('fa-minus');
+        }
       });
   }
 
