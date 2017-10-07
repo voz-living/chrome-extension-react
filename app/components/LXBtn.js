@@ -13,11 +13,10 @@ export default class LXBtn extends Component {
       <div className={'btn-group'}>
         <a
           className={'btn tooltip-right' + (isOpen ? ' active' : '')}
-          href="javascript:void(0)"
+          href="#"
           style={{ fontSize: '20px' }}
-          target="_blank"
           data-tooltip="Linh Xinh"
-          onClick={() => this.setState({ isOpen: !this.state.isOpen })}
+          onClick={() => { this.setState({ isOpen: !this.state.isOpen }); return false; }}
         >LX</a>
         <div
           key="voz-mask-quote-list"
