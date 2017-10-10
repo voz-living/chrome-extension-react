@@ -67,7 +67,7 @@ export const unsubscribeThread = (threadId) => ({
 });
 
 export const getThreadList = () => {
-  const titleList = $('#threadslist tbody[id^="threadbits_forum"] tr td[id^="td_threadtitle_"]');
+  const titleList = $('#threadslist tbody tr td[id^="td_threadtitle_"]');
   const threadList = _.map(titleList, titleTD => {
     const $title = $(titleTD);
     const id = $title.attr('id').match(/\d+/)[0];

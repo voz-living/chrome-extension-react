@@ -18,6 +18,8 @@ export function getCurrentView() {
     currentView = 'insert-pm';
   } else if (/newthread/.test(window.location.href)) {
     currentView = 'new-thread';
+  } else if (/search\.php\?searchid/.test(window.location.href)) {
+    currentView = 'search-result';
   }
   return currentView;
 }

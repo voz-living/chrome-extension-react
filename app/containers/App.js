@@ -110,7 +110,7 @@ class App extends Component {
       storage.settings = settings; // eslint-disable-line
       this.props.dispatch(init({ ...storage, ...syncStore, misc }));
 
-      if (settings.threadPreview === true && this.currentView === 'thread-list') {
+      if (settings.threadPreview === true && (this.currentView === 'thread-list' || this.currentView === 'search-result')) {
         this.props.dispatch(getThreadList());
       }
 
@@ -146,7 +146,7 @@ class App extends Component {
     } = settings;
     let { pageStatusId } = this.props;
     if (typeof linkHelper === 'undefined') pageStatusId = -1;
-    if (currentView === 'thread-list') {
+    if (currentView === 'thread-list' || currentView === 'search-result') {
       return [
         <ThreadListControl
           key="voz-living-thread-list-control"
