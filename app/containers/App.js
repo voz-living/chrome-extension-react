@@ -16,6 +16,7 @@ import QuickBanUser from '../components/QuickBanUser';
 import PasteToUpload from '../components/PasteToUpload';
 import SmartSelection from '../components/SmartSelection';
 // import UIRevampThread from '../components/UIRevampThread';
+import EyesProtect from '../components/EyesProtect/index';
 import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import CapturePost from '../components/CapturePost';
@@ -184,7 +185,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor } = this.props.settings;
+    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyeDurationEnd } = this.props.settings;
     const currentView = this.currentView;
     return (
       <div id="voz-living">
@@ -210,6 +211,16 @@ class App extends Component {
           || currentView === 'pm'
           || currentView === 'insert-pm')
           && (enableRichEditor ? <RichEditor stickerPanelExpand={stickerPanelExpand} currentView={currentView} /> : <RichEditor.Recommendation />)}
+        <EyesProtect
+          eyeSchedule={eyesSchedule}
+          eyeDuration={eyesDuration}
+          eyeDurationEnd={eyeDurationEnd}
+          enableDarkMode={enableDarkMode}
+          enableFluxMode={enableWarmMode}
+          lightAdjust={lightAdjust}
+          enableEyesNotify={enableEyesNotify}
+          delayEyesNotify={delayEyesNotify}
+        />
       </div>
     );
   }
