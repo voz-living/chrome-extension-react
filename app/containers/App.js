@@ -185,7 +185,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyeDurationEnd } = this.props.settings;
+    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyesDurationEnd } = this.props.settings;
     const currentView = this.currentView;
     return (
       <div id="voz-living">
@@ -212,11 +212,11 @@ class App extends Component {
           || currentView === 'insert-pm')
           && (enableRichEditor ? <RichEditor stickerPanelExpand={stickerPanelExpand} currentView={currentView} /> : <RichEditor.Recommendation />)}
         <EyesProtect
-          eyeSchedule={eyesSchedule}
-          eyeDuration={eyesDuration}
-          eyeDurationEnd={eyeDurationEnd}
+          eyesSchedule={eyesSchedule}
+          eyesDuration={eyesDuration}
+          eyesDurationEnd={eyesDurationEnd}
           enableDarkMode={enableDarkMode}
-          enableFluxMode={enableWarmMode}
+          enableWarmMode={enableWarmMode}
           lightAdjust={lightAdjust}
           enableEyesNotify={enableEyesNotify}
           delayEyesNotify={delayEyesNotify}

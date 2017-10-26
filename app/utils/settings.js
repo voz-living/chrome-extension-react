@@ -29,7 +29,7 @@ export const defaultStoreStructure = {
     eyesDuration: '18:15',
     eyesDurationEnd: '05:30',
     enableDarkMode: false,
-    enableFluxMode: false,
+    enableWarmMode: false,
     lightAdjust: 0.4,
     enableEyesNotify: false,
     delayEyesNotify: 30,   // minute

@@ -67,7 +67,7 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="enableDarkMode" parent={parent} >Kích hoạt theme ban đêm</OnOffConfigItem>
         <OnOffConfigItem configKey="enableWarmMode" parent={parent} >Kích hoạt ánh sáng ấm</OnOffConfigItem>
         <blockquote>
-          <NumberConfigItem configKey="lightAdjust" parent={parent} min={0.2} max={0.5} step={0.05}>Cường độ ánh sáng ấm (0.2 - 0.5) </NumberConfigItem>
+          <NumberConfigItem configKey="lightAdjust" parent={parent} min={0.2} max={0.5} step={0.05}>Cường độ ánh sáng ấm (0,2 - 0,5) </NumberConfigItem>
         </blockquote>
         <OnOffConfigItem configKey="enableEyesNotify" parent={parent} >Kích hoạt thông báo bảo vệ mắt</OnOffConfigItem>
         <blockquote>
