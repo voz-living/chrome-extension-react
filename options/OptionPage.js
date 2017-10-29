@@ -71,7 +71,7 @@ export default class OptionPage extends Component {
         </blockquote>
         <OnOffConfigItem configKey="enableEyesNotify" parent={parent} >Kích hoạt thông báo bảo vệ mắt</OnOffConfigItem>
         <blockquote>
-          <NumberConfigItem configKey="delayEyesNotify" parent={parent} >Tự động nhắc nhở sau (phút) </NumberConfigItem>
+          <NumberConfigItem configKey="delayEyesNotify" parent={parent} >Nhắc nhở sau (15 - 360) (phút) </NumberConfigItem>
         </blockquote>
         <h3>Trang danh sách thớt (Thread List)</h3>
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>

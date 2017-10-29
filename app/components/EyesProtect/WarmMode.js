@@ -6,10 +6,6 @@ export default class WarmMode extends Component {
   render() {
     document.documentElement.style.backgroundColor = '#111111';
     let { lightAdjust } = this.props;
-    console.log(lightAdjust);
-    if (lightAdjust.length <= 0) { lightAdjust = 0.4; } else
-        if (lightAdjust > 0.5) { lightAdjust = 0.5; } else
-        if (lightAdjust < 0.2) { lightAdjust = 0.2; }
     return (<div
       className="voz-warm-filter"
       style={{
