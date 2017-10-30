@@ -8,6 +8,7 @@ import { autobind } from 'core-decorators';
 import NumberConfigItem from './NumberConfigItem';
 import OnOffConfigItem from './OnOffConfigItem';
 import TextConfigItem from './TextConfigItem';
+import ScheduleConfigItem from './ScheduleConfigItem';
 import { setConfig } from './ConfigItem';
 
 const defaultSettings = defaultStoreStructure.settings;
@@ -48,17 +49,30 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="wideScreenSpecial" parent={parent} >Dàn trang ra 2 bên (Special - chọn nếu trên có lỗi)</OnOffConfigItem>
         <OnOffConfigItem configKey="adsRemove" parent={parent} >Xoá quảng cáo</OnOffConfigItem>
         <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
-        <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút)</NumberConfigItem>
-        <NumberConfigItem configKey="delayFollowThread" parent={parent} max={60*24} min={1} >Cường độ quét thớt theo dõi (phút)</NumberConfigItem>
+        <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút) </NumberConfigItem>
+        <NumberConfigItem configKey="delayFollowThread" parent={parent} max={60*24} min={1} >Cường độ quét thớt theo dõi (phút) </NumberConfigItem>
         <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="LinhXinhBtn" parent={parent} >Hiện LinhXinh ở thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="enableRichEditor" parent={parent} >Kích hoạt WYSIWYG Editor</OnOffConfigItem>
         <TextConfigItem configKey="userStyle" parent={parent}>
           userStyle Url &nbsp;
           <a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-Tu%E1%BB%B3-ch%E1%BB%8Dn-style-v%E1%BB%9Bi-userStyle">
-            (?)  
+            (?)
           </a>&nbsp;
         </TextConfigItem>
+        <h4>Bảo vệ mắt</h4>
+        <OnOffConfigItem configKey="eyesSchedule" parent={parent} >Chạy theo lịch trình:</OnOffConfigItem>
+        <ScheduleConfigItem configKey="eyesDuration" parent={parent}>&nbsp;&nbsp;&nbsp;Chạy từ </ScheduleConfigItem>
+        <ScheduleConfigItem configKey="eyesDurationEnd" parent={parent}>&emsp;&emsp;&ensp;đến </ScheduleConfigItem>
+        <OnOffConfigItem configKey="enableDarkMode" parent={parent} >Kích hoạt theme ban đêm</OnOffConfigItem>
+        <OnOffConfigItem configKey="enableWarmMode" parent={parent} >Kích hoạt ánh sáng ấm</OnOffConfigItem>
+        <blockquote>
+          <NumberConfigItem configKey="lightAdjust" parent={parent} min={0.2} max={0.5} step={0.05}>Cường độ ánh sáng ấm (0,2 - 0,5) </NumberConfigItem>
+        </blockquote>
+        <OnOffConfigItem configKey="enableEyesNotify" parent={parent} >Kích hoạt thông báo bảo vệ mắt</OnOffConfigItem>
+        <blockquote>
+          <NumberConfigItem configKey="delayEyesNotify" parent={parent} >Nhắc nhở sau (15 - 360) (phút) </NumberConfigItem>
+        </blockquote>
         <h3>Trang danh sách thớt (Thread List)</h3>
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>

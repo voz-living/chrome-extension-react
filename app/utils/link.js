@@ -185,7 +185,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
 					</div>`);
       } else if (fbPost) {
         $this.attr('data-smartlink', 'fb-post');
-        $img = $(`<br/><div class="fb-post" data-href="${href}" data-width="400"></div>`);
+        $img = $(`<br/><div class="fb-post" data-href="${href}" data-width="400" style="background-color: white"></div>`);
       }
     } else if (openload !== null && openload.length > 0 && !href.match(/\.rar$|\.zip$/)) {
       $this.attr('data-smartlink', 'ol-video');
@@ -264,7 +264,7 @@ export function imageControl($html) {
         }, () => {
           control.css({ opacity: 0 });
         });
-        if ($this.height() / $this.width() > 1.6 && $this.height() >= 1000) {
+        if ($this.height() / $this.width() > 1.5 && $this.height() >= 1000) {
           oversized = true;
           fullsize = '500px';
           $this.css({ 'max-width': fullsize });
