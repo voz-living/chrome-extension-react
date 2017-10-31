@@ -16,7 +16,7 @@ export default class LXBtn extends Component {
           href="#"
           style={{ fontSize: '20px' }}
           data-tooltip="Linh Xinh"
-          onClick={() => { this.setState({ isOpen: !this.state.isOpen }); return false; }}
+          onClick={(e) => { e.preventDefault(); this.setState({ isOpen: !this.state.isOpen }); }}
         >LX</a>
         <div
           key="voz-mask-quote-list"

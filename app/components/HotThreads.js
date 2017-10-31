@@ -47,7 +47,7 @@ export default class HotThreads extends Component {
           href="#"
           style={{ fontSize: '20px' }}
           data-tooltip="Thớt hot"
-          onClick={() => { this.setState({ isOpen: !this.state.isOpen }); return false; }}
+          onClick={(e) => { e.preventDefault(); this.setState({ isOpen: !this.state.isOpen }); }}
         ><i className="fa fa-fire"></i></a>
         <div
           key="voz-mask-quote-list"
