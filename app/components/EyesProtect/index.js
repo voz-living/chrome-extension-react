@@ -22,9 +22,6 @@ class EyesProtect extends Component {
     const date = new Date();
     this.eyesTime = parseInt(date.getTime(), 10);
     this.curTime = date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
-    this.state = {
-      newFeatureAck: window.localStorage.getItem('darkModeAck') === 'true',
-    };
   }
   darkMode() {
     require('../../styles/dark-mode.less');
@@ -116,35 +113,7 @@ class EyesProtect extends Component {
         });
   }
 
-  openSettings(e) {
-    e.preventDefault();
-    chrome.runtime.sendMessage({ service: 'open-options' });
-    return false;
-  }
-
-  closeAckDiaglog(e) {
-    this.setState({ newFeatureAck: true });
-    window.localStorage.setItem('darkModeAck', 'true');
-  }
-
   render() {
-    const { newFeatureAck } = this.state;
-    if (!newFeatureAck) {
-      return (<div
-        style={{
-          position: 'fixed',
-          top: '5px',
-          right: '5px',
-          background: 'rgba(255,255,255, 0.9)',
-          color: 'black',
-          width: '340px',
-          padding: '10px',
-        }}>
-        <h4 style={{ margin: `5px 0` }}>Nhằm chào mừng halloween, vozliving thêm tính năng mới để bảo vệ đôi mắt thân thương của thím</h4>
-        <h5 style={{ margin: `3px 0` }}>Để tắt tính năng này xin vào <a href="#" onClick={this.openSettings}>phần settings</a>(Mục: bảo vệ mắt)</h5> 
-        <button onClick={this.closeAckDiaglog}>Đóng thông báo</button>
-      </div>);
-    }
     return null; 
   }
 }

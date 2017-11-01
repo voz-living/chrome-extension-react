@@ -16,6 +16,13 @@ export default class EyesNotify extends Component {
   componentWillUnmount() {
     clearInterval(this.notiInterval);
   }
+
+  openSettings(e) {
+    e.preventDefault();
+    chrome.runtime.sendMessage({ service: 'open-options' });
+    return false;
+  }
+
   render() {
     return (
             <div className="voz-bao-ve-mat">
@@ -52,7 +59,7 @@ export default class EyesNotify extends Component {
                 <br />
                 <strong> Thông báo này sẽ tự tắt sau </strong>
                 <strong className="dem-nguoc">{this.state.timer} giây</strong>
-                <div style={{ fontSize: '9px' }}>Bạn có thể tắt thông báo tại menu cài đặt voz living</div>
+                <div style={{ fontSize: '9px' }}>Bạn có thể tắt thông báo tại <a href="#" onClick={this.openSettings}>menu cài đặt voz living</a></div>
                 <div
                   className="eyes-close"
                   onClick={() => unmountComponentAtNode(document.getElementById('voz-eyes-notify'))} style={{
