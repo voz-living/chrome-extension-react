@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export default function forHaveEatNo() {
   const div = document.createElement('div');
   const eatWarn = document.createElement('b');
@@ -9,17 +10,18 @@ export default function forHaveEatNo() {
   function eatNo() {
     const text = this.value;
     const length = text.match(/\S+/g).length;
-    if ((text.match('ăn') || text.match('eat')) && length < 50) {
+    if (length < 50 && (/eat|ăn/.test(text))) {
       if (!document.getElementById('cho-an-warning')) {
-        this.parentElement.insertBefore(div, this);
+        this.parentElement.appendChild(div);
       }
     } else {
       div.remove();
     }
   }
+  const throttled = _.throttle(eatNo, 300); // improve performance
   if (document.getElementById('vB_Editor_QR_textarea')) {
-    document.getElementById('vB_Editor_QR_textarea').addEventListener('input', eatNo);
+    document.getElementById('vB_Editor_QR_textarea').addEventListener('input', throttled);
   } else if (document.getElementById('vB_Editor_001_textarea')) {
-    document.getElementById('vB_Editor_001_textarea').addEventListener('input', eatNo);
+    document.getElementById('vB_Editor_001_textarea').addEventListener('input', throttled);
   }
 }
