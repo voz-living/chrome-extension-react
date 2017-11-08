@@ -17,6 +17,24 @@ class AdsControl extends Component {
         </a></h4>
       </div>
     `);
+    $(document.body).prepend(`
+      <style>
+      .important-survey {
+        background: #188218;
+        color: white;
+        padding: 5px 2px;
+        font-size: 12px;
+        font-weight: normal;
+        font-family: 'Helvetica neue', 'Roboto', sans-serif;
+        text-align: center;
+        text-shadow: 0 0 1px rgba(0,0,0, 1);
+      }
+      .important-survey a {
+        color: #f9f996 !important;  
+      }
+      </style>
+      <div class="important-survey">Bạn muốn VozLiving bản mới nhất trên Firefox, Edge, Mobile, ... ? Góp ý chung ? <a href="https://goo.gl/forms/z7RgIvyfpv2ElZf53" target="_blank">trả lời khảo sát ở đây</a></div>
+    `);
   }
 
   componentWillReceiveProps(nextProps) {

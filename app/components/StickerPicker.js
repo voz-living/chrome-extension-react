@@ -30,6 +30,7 @@ function loadStickers(id) {
       method: 'GET',
       headers: {
         Authorization: `Client-ID ${candy}`,
+        Accept: 'application/json',
       },
     })
     .done((res) => {
