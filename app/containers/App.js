@@ -23,6 +23,7 @@ import CapturePost from '../components/CapturePost';
 import StickerPicker from '../components/StickerPicker';
 import RichEditor from '../components/RichEditor';
 import SideMenu from './SideMenu';
+import forHaveEatNo from '../utils/forHaveEatNo';
 
 import {
   init,
@@ -117,6 +118,12 @@ class App extends Component {
 
       if (_.isEmpty(authInfo) || !_.isEqual(authInfo, this.authInfo)) {
         setChromeLocalStore({ authInfo: this.authInfo });
+      }
+      const f33 = document.querySelector('tr:nth-child(1) > td:nth-child(3) > span:nth-child(4) > a');
+      if (f33) {
+        if (f33.innerText === 'Điểm báo') {
+          forHaveEatNo();
+        }
       }
     });
 
