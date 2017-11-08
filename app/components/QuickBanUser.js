@@ -18,7 +18,7 @@ export default class QuickBanUser extends Component {
       const ignoreRow = $((`<tr> 
         <td class='vbmenu_option vbmenu_option_alink'>
         <a target='_blank' href='https://vozforums.com/profile.php?do=addlist&userlist=ignore&u=${uid}' 
-        title='Mở trong tab mới'><i class="fa fa-ban"/>&nbsp;Add to ban list</a>
+        title='Mở trong tab mới'><i class="fa fa-ban"/>&nbsp;Ignore user này (tab mới)</a>
         </td>
         </tr>`
       ));
