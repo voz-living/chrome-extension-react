@@ -53,7 +53,7 @@ class QuoteList extends Component {
             {quote.thread.title}
           </a>
         </div>
-        <div className="quote-content">{quote.post.content}</div>
+        <div className="quote-content" style={{ wordBreak: 'break-word' }}>{quote.post.content}</div>
         <div className="quote-bottom">
           By <a
             className="quote-item-author"
