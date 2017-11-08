@@ -17,24 +17,42 @@ class AdsControl extends Component {
         </a></h4>
       </div>
     `);
-    $(document.body).prepend(`
-      <style>
-      .important-survey {
-        background: #188218;
-        color: white;
-        padding: 5px 2px;
-        font-size: 12px;
-        font-weight: normal;
-        font-family: 'Helvetica neue', 'Roboto', sans-serif;
-        text-align: center;
-        text-shadow: 0 0 1px rgba(0,0,0, 1);
-      }
-      .important-survey a {
-        color: #f9f996 !important;  
-      }
-      </style>
-      <div class="important-survey">Bạn muốn VozLiving bản mới nhất trên Firefox, Edge, Mobile, ... ? Góp ý chung ? <a href="https://goo.gl/forms/z7RgIvyfpv2ElZf53" target="_blank">trả lời khảo sát ở đây</a></div>
-    `);
+    if (window.localStorage.getItem('survey_done') !== 'yes') {
+      $(document.body).prepend(`
+        <style>
+        .important-survey {
+          background: #188218;
+          color: white;
+          padding: 5px 2px;
+          font-size: 12px;
+          font-weight: normal;
+          font-family: 'Helvetica neue', 'Roboto', sans-serif;
+          text-align: center;
+          text-shadow: 0 0 1px rgba(0,0,0, 1);
+          position: relative;
+        }
+        .important-survey a {
+          color: #f9f996 !important;  
+        }
+        .important-survey a.close {
+          color: white !important;
+          font-size: 11px;
+          display: block;
+          padding: 2px;
+          position: absolute;
+          top: 3px;
+          right: 3px; 
+        }
+        </style>
+        <div class="important-survey">Bạn muốn VozLiving bản mới nhất trên Firefox, Edge, Mobile, ... ? Góp ý chung ? <a href="https://goo.gl/forms/z7RgIvyfpv2ElZf53" target="_blank">trả lời khảo sát ở đây</a></div>
+      `);
+      const closeBtn = $('<a href="#" class="close">Đã làm ×</a>');
+      $('.important-survey').append(closeBtn);
+      closeBtn.click(() => {
+        window.localStorage.setItem('survey_done', 'yes');
+        $('.important-survey').fadeOut(300);
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
