@@ -18,26 +18,33 @@ class QuoteBackground {
 
   getQuoteList(authInfo) {
     return new Promise((resolve) => {
-      const { isLogin, username, token } = authInfo;
+      const { isLogin, username, token, userId } = authInfo;
 
       if (isLogin) {
-        const url = 'https://vozforums.com/search.php';
-        const formData = new FormData();
+        getChromeLocalStore((['settings'])).then(({ settings }) => {
+          const { advancedNotifyQuote } = settings;
+          const url = 'https://vozforums.com/search.php';
+          const formData = new FormData();
 
-        formData.append('do', 'process');
-        formData.append('quicksearch', 1);
-        formData.append('childforums', 1);
-        formData.append('exactname', 1);
-        formData.append('securitytoken', token);
-        formData.append('query', username);
-        formData.append('showposts', 1);
+          formData.append('do', 'process');
+          formData.append('quicksearch', 1);
+          formData.append('childforums', 1);
+          formData.append('exactname', 1);
+          formData.append('securitytoken', token);
+          if (advancedNotifyQuote) {
+            formData.append('query', `http://${userId}`);
+          } else {
+            formData.append('query', username);
+          }
+          formData.append('showposts', 1);
 
         /* eslint-disable new-cap */
-        POST(url, { body: formData }).then(response => {
-          const quotes = processQuoteHtml(response);
-          resolve(quotes);
-        }).catch(() => {
-          resolve([]);
+          POST(url, { body: formData }).then(response => {
+            const quotes = processQuoteHtml(response);
+            resolve(quotes);
+          }).catch(() => {
+            resolve([]);
+          });
         });
         /* eslint-enable new-cap */
       } else {
