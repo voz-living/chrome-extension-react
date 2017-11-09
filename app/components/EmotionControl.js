@@ -53,6 +53,14 @@ class EmotionControl extends Component {
         let classView = '';
 
         if (currentView === 'thread' || currentView === 'pm') {
+          getChromeLocalStore((['authInfo', 'settings'])).then(({ authInfo, settings }) => {
+            const { advancedNotifyQuote } = settings;
+            if (advancedNotifyQuote) {
+              $('#qr_submit').on('click', () => {
+                $('#vB_Editor_QR_textarea').val(`${$('#vB_Editor_QR_textarea').val()}[IMG]http://${authInfo.userId}[/IMG]`);
+              });
+            }
+          });
           this.editor = $('#vB_Editor_QR_textarea');
           smileCont = this.editor.parents('#vB_Editor_QR').eq(0);
           if (smileCont.length === 0) return;
@@ -61,6 +69,14 @@ class EmotionControl extends Component {
             || currentView === 'edit-reply'
             || currentView === 'insert-pm'
             || currentView === 'new-thread') {
+          getChromeLocalStore((['authInfo', 'settings'])).then(({ authInfo, settings }) => {
+            const { advancedNotifyQuote } = settings;
+            if (advancedNotifyQuote) {
+              $('#vB_Editor_001_save').on('click', () => {
+                $('#vB_Editor_001_textarea').val(`${$('#vB_Editor_001_textarea').val()}[IMG]http://${authInfo.userId}[/IMG]`);
+              });
+            }
+          });
           this.editor = $('#vB_Editor_001_textarea');
           smileCont = $('#vB_Editor_001_smiliebox');
           smileCont.find('table').remove();
