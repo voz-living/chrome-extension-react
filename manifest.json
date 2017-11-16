@@ -32,6 +32,7 @@
     "http://www.vozforums.com/*",
     "https://www.vozforums.com/*",
     "http://*.pik.vn/*",
+    "https://api.imgur.com/*",
     "notifications",
     "storage",
     "tabs"
