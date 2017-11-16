@@ -7,6 +7,19 @@ import EmotionPicker from './EmotionPicker';
 import StickerPicker from './StickerPicker';
 import { getChromeLocalStore, setChromeLocalStore } from '../utils/settings';
 
+function addUserId(content, authInfo) {
+  const url = `https://${authInfo.userId}`;
+  if (content.indexOf(url) > -1) return content;
+  return `${content}[IMG]${url}[/IMG]`;
+}
+
+function insertUserId($editor, authInfo) {
+  const content = $editor.val();
+  const updatedContent = addUserId(content, authInfo);
+  if (updatedContent === content) return;
+  $editor.val(updatedContent);
+}
+
 @autobind
 class EmotionControl extends Component {
   static propTypes = {
@@ -57,7 +70,7 @@ class EmotionControl extends Component {
             const { advancedNotifyQuote } = settings;
             if (advancedNotifyQuote) {
               $('#qr_submit').on('click', () => {
-                $('#vB_Editor_QR_textarea').val(`${$('#vB_Editor_QR_textarea').val()}[IMG]http://${authInfo.userId}[/IMG]`);
+                insertUserId($('#vB_Editor_QR_textarea'), authInfo);
               });
             }
           });
@@ -73,7 +86,7 @@ class EmotionControl extends Component {
             const { advancedNotifyQuote } = settings;
             if (advancedNotifyQuote) {
               $('#vB_Editor_001_save').on('click', () => {
-                $('#vB_Editor_001_textarea').val(`${$('#vB_Editor_001_textarea').val()}[IMG]http://${authInfo.userId}[/IMG]`);
+                insertUserId($('#vB_Editor_001_textarea'), authInfo);
               });
             }
           });

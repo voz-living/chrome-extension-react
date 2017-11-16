@@ -91,7 +91,21 @@ class QuoteList extends Component {
                 onClick={() => this.setState({ showQuoteList: !this.state.showQuoteList })}
               ></div>,
               <div className="btn-options" key="quote-list">
-                <h3>Quotes</h3>
+                <h3>Quotes
+                  <a
+                    style={{
+                      color: 'red',
+                      fontSize: '10px',
+                      marginLeft: '8px',
+                      textShadow: '0 0 3px rgba(255,255,255,1)',
+                    }}
+                    title="Bấm để xem tính năng mới của voz trong tab mới"
+                    target="_blank"
+                    href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-Tr%C3%ADch-d%E1%BA%ABn-n%C3%A2ng-cao-(d%C3%A0nh-cho-c%C3%A1c-id-ph%E1%BB%95-bi%E1%BA%BFn)">
+                    Bạn bị nhận quá nhiều quote không liên quan vì tên id phổ biến ?
+                  </a>
+                </h3>
+                
                 <div className="quote-list">
                   {quoteList.map(quote => this.renderQuote(quote))}
                 </div>

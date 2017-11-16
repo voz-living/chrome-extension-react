@@ -23,23 +23,22 @@ const getImageSize = (src) => (stickerSizeRef[src]
 
 function loadStickers(id) {
   return new Promise((resolve) => {
-    $.ajax({
-      async: true,
-      crossDomain: true,
-      url: `https://api.imgur.com/3/album/${id}/images`,
+    fetch(`https://api.imgur.com/3/album/${id}/images`, {
       method: 'GET',
-      headers: {
+      headers: new Headers({
         Authorization: `Client-ID ${candy}`,
         Accept: 'application/json',
-      },
+      }),
+      mode: 'cors',
     })
-    .done((res) => {
+    .then(resp => resp.json())
+    .then(res => {
       const images = res.data;
       resolve(images.map(img => ({
         url: img.link.replace(/http:/, 'https:'),
       })));
-    })
-    .fail(() => {
+    }).catch((error) => {
+      console.error(`Error while loading ${id}: ${error.message}`);
       resolve([]);
     });
   });
@@ -196,11 +195,17 @@ export default class StickerPicker extends Component {
       loadStickers(aId),
     ])
     .then(([, list]) => {
+      if (list.length === 0) return false;
       const k = 'sticker_' + aId;
       return setChromeLocalStore({ [k]: list });
     })
-    .then(() => {
-      alert(`Đã thêm '${name}'`);
+    .then((success) => {
+      if (success === false) {
+        alert(`Thêm vào sticker '${name}' thất bại`);
+        this.setState({ isAdding: false });
+        return;
+      }
+      alert(`Đã thêm '${name}'`);  
       this.getStickerConfig()
         .then((stickers) => {
           this.updateStateStickers(stickers);
