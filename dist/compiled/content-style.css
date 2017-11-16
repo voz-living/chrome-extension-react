@@ -3084,9 +3084,6 @@ body .voz-living-side-menu .btn-group .btn-options.bookmark-list .bookmark-item-
   position: relative;
   display: inline-block;
 }
-.img-wrapper > img {
-  transition: all 0.5s;
-}
 .img-controls {
   position: absolute;
   top: 5px;

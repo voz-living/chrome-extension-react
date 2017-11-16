@@ -4,3 +4,11 @@ node_modules
 dist/chrome/*
 npm-debug.log
 dist/compiled/*
+
+dist/
+
+dist/compiled/voz-living.js
+
+dist/compiled/options.js
+
+dist/compiled.zip
