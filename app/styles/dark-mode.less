@@ -34,7 +34,7 @@ a[id^="thread_title"]:link, a[id^="thread_title"]:visited, .tborder [nowrap] a:v
 .voz-bbcode-quote td.alt2, #vB_Editor_QR, .vBulletin_editor, *:not(.controlbar) > fieldset, pre.alt2, input, div[style^="margin:20px; margin-top:5px"] table td {
   border: 1px solid #4e4c4c!important
 }
-img[src^="images/misc"], img[src^="images/buttons"], img[src^="https://vozforums.com/images/buttons"], .rich-quote {
+img[src^="images/misc"], img[src^="images/buttons"], img[src^="https://vozforums.com/images/buttons"], .rich-quote, .fa-external-link {
   filter: invert(0.8) hue-rotate(180deg)!important;
 }
 img[src^="images/statusicon"], [data-tooltip="Thread preview"] {
@@ -45,7 +45,7 @@ img[src^="images/statusicon"], [data-tooltip="Thread preview"] {
 }
 table td .imagebutton {
   background-color: transparent!important;
-  filter: invert() hue-rotate(180deg)!important;
+  filter: invert(1) hue-rotate(180deg)!important;
 }
 [data-tooltip="Thread preview"], .thread-preview-wrapper, .preview-content .bigusername, .preview-content .smallfont{
   color: black!important
@@ -54,7 +54,7 @@ font[color="White"], font[color="#ffffff"] {color: #212121 !important}
 a.vozsticky:link, a.vozsticky:visited {
   color: #c59577!important
 }
-a:link, a:visited, form#qrform *:not(.control) > a, #collapseobj_forumrules a, tbody > tr:nth-child(2) > td > a, tbody > tr:nth-child(3) > td > div > a[href^="member"], .tborder a[href="profile.php?do=ignorelist"], .tborder a[href^="profile.php?userlist=ignore"]{
+a:link, a:visited, form#qrform *:not(.control) > a, #collapseobj_forumrules a, tbody > tr:nth-child(2) > td > a, tbody > tr:nth-child(3) > td > div > a[href^="member"], .tborder a[href="profile.php?do=ignorelist"], .tborder a[href^="profile.php?userlist=ignore"], em a[href^="posthistory.php"]{
   color: #579FFD;
 }
 .sticker-box {
@@ -62,7 +62,7 @@ a:link, a:visited, form#qrform *:not(.control) > a, #collapseobj_forumrules a, t
   border: 1px solid #a9a9a9!important;
 }
 div.alt2[dir="ltr"] {
-  filter: invert()!important;
+  filter: invert(1)!important;
   border: 1px solid #a9a9a9!important;
   background-color:  #c5c5c5!important;
 }
@@ -70,7 +70,7 @@ div.alt2[dir="ltr"] {
   border: none!important;
 }
 .mini-quote-wrapper .quote::before {
-  background-image: -webkit-linear-gradient(top, rgba(105, 105, 105, 0) 0px, rgb(85, 88, 92) 100%);
+  background-image: -webkit-linear-gradient(top, rgba(105, 105, 105, 0) 0px, rgb(85, 88, 92) 100%)!important;
 }
 ::-webkit-scrollbar {
   width: 13px;
