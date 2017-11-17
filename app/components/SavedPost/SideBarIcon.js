@@ -5,7 +5,6 @@ import {
   unsavePost,
 } from '../../actions/voz';
 import LazyPost from './LazyPost';
-import openNewTab from '../../utils/openNewTab';
 import { toClassName } from '../../utils';
 
 class SavedPostSideBarIcon extends Component {
@@ -27,10 +26,6 @@ class SavedPostSideBarIcon extends Component {
     return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
   }
 
-  openPostInNewTab(postId) {
-    openNewTab(`/showthread.php?p=${postId}`);
-    return false;
-  }
 
   unsavePost(postId) {
     this.dispatch(unsavePost(postId));
@@ -38,15 +33,14 @@ class SavedPostSideBarIcon extends Component {
   }
 
   renderPost(postId) {
-    const openInNewTab = this.openPostInNewTab.bind(this, postId);
     const unsavePostClick = this.unsavePost.bind(this, postId);
     return (
       <div className="bookmark-item-wrapper" key={postId}>
         <div className="bookmark-tools">
-          <a href="javscript:void(0)" className="bookmark-remove" onClick={unsavePostClick}>
+          <a className="bookmark-remove" onClick={(e) => { e.preventDefault(); unsavePostClick(); }}>
             <i className="fa fa-trash" />
           </a>
-          <a href="javscript:void(0)" className="open-post-new-tab" onClick={openInNewTab}>
+          <a className="open-post-new-tab" href={`/showthread.php?p=${postId}`} target="_blank">
             <i className="fa fa-external-link" />
           </a>
         </div>

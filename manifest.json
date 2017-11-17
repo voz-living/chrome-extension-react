@@ -32,6 +32,8 @@
     "http://www.vozforums.com/*",
     "https://www.vozforums.com/*",
     "http://*.pik.vn/*",
+    "https://api.imgur.com/*",
+    "https://userstyles.org/*",
     "notifications",
     "storage",
     "tabs"
