@@ -5,7 +5,6 @@ import $ from 'jquery';
 import _ from 'lodash';
 import ThreadPreview from './ThreadPreview';
 import Mousetrap from 'mousetrap';
-import openNewTab from '../utils/openNewTab';
 import { store } from '../containers/Root';
 
 class ThreadListControl extends Component {
@@ -88,7 +87,6 @@ class ThreadListControl extends Component {
         &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
       </a>`);
     $link.after($a);
-    $a.on('click', () => openNewTab(href));
   }
 
   render() { return null; }
