@@ -92,6 +92,13 @@ class QuoteBackground {
           title: 'VOZLiving',
           message: `Bạn có ${hasNotSeen.length} quote(s) chưa đọc.`,
           iconUrl: '../assert/icon/64.png',
+        }, () => {
+          if (hasNotSeen.length === 1) {
+            chrome.notifications.onClicked.addListener(() => {
+              window.open(`https://vozforums.com/showthread.php?p=${hasNotSeen[0].post.id}#post${hasNotSeen[0].post.id}`, '_blank');
+              chrome.notifications.clear('voz-living');
+            });
+          }
         });
         this.hasNotify = true;
       }
