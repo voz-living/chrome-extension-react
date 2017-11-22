@@ -89,8 +89,8 @@ export function resolveYoutube($html, isThreadContentOnly) {
     $context = $html.find("[id^='post_message_'] a");
   }
   $context.each(function () {
-    const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|youtu\.be\/[a-zA-Z0-9_-]+|facebook\.com.*\/(posts|photos)\/.+|facebook\.com.*\/videos\/.+|(?:openload\.(?:co|link|io|us)|oload\.info)\/(?:f|embed)\/([\w-]+)|soundcloud\.com\/.+|(?:mp4|webm|ogg)$|(?:mp3|wav)$|dai\.ly\/.+|dailymotion\.com\/.*?\/.+|liveleak\.com\/.*i=(.*)/i);
-    if ($(this).attr('href').match(/facebook\.com.*\/(?:posts|photos)\/.+/i)) {
+    const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|youtu\.be\/[a-zA-Z0-9_-]+|facebook\.com.*\/(?:(?:posts|photos)\/.+|story\.php\?story_fbid=\d+.*&id=\d+)|facebook\.com.*\/videos\/.+|(?:openload\.(?:co|link|io|us)|oload\.info)\/(?:f|embed)\/([\w-]+)|soundcloud\.com\/.+|(?:mp4|webm|ogg)$|(?:mp3|wav)$|dai\.ly\/.+|dailymotion\.com\/.*?\/.+|liveleak\.com\/.*i=(.*)/i);
+    if ($(this).attr('href').match(/facebook\.com.*\/(?:(?:posts|photos)\/.+|story\.php\?story_fbid=\d+.*&id=\d+)/i)) {
       fbPosts = true;
     }
     if (match !== null && match.length > 0) {
@@ -127,10 +127,12 @@ export function resolveYoutube($html, isThreadContentOnly) {
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
     const fbPost = href.match(/facebook\.com.*\/(?:posts|photos)\/.+/i);
     const fbVideo = href.match(/facebook\.com.*\/videos\/.+/i);
+    const fbStory = href.match(/facebook\.com\/story\.php\?story_fbid=(\d+).*&id=(\d+)/i);
     let openload = href.match(/(?:openload\.(?:co|link|io|us)|oload\.info)\/(?:f|embed)\/([\w-]+)/i);
     const soundcloud = href.match(/soundcloud\.com\/.+/i);
     const liveleak = href.match(/liveleak\.com\/.*i=(.*)/i);
     let dailymotion = href.match(/dailymotion\.com\/.*?\/(.+)/i);
+//    const vcplayer = href.match(/vcplayer\.mediacdn\.vn\/*/)
     const mp4 = href.match(/(?:mp4|webm)$/i);
     const mp3 = href.match(/(?:mp3|wav|ogg)$/i);
     let media = false;
@@ -167,14 +169,14 @@ export function resolveYoutube($html, isThreadContentOnly) {
             					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
         					</iframe>
           </div>`);
-    // } else if (/video\.vnexpress\.net/.test(href) === true) {
-    //   $this.attr('data-smartlink', 'vnexpress-video');
-    //   const uHref = 'https://' + href.replace(/http:\/\//, '') + '#wrapper_container';
-    //   $img = $(`<div><iframe width='600' height='340' src='${uHref}'
-    //         					frameborder='0' allowfullscreen
-    //         					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
-    //     					</iframe>
-    //       </div>`);
+      // } else if (/video\.vnexpress\.net/.test(href) === true) {
+      //   $this.attr('data-smartlink', 'vnexpress-video');
+      //   const uHref = 'https://' + href.replace(/http:\/\//, '') + '#wrapper_container';
+      //   $img = $(`<div><iframe width='600' height='340' src='${uHref}'
+      //         					frameborder='0' allowfullscreen
+      //         					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
+      //     					</iframe>
+      //       </div>`);
     } else if (href.match(/facebook.com.*/i)) {
       if (fbVideo) {
         $this.attr('data-smartlink', 'fb-video');
@@ -185,7 +187,10 @@ export function resolveYoutube($html, isThreadContentOnly) {
 					</div>`);
       } else if (fbPost) {
         $this.attr('data-smartlink', 'fb-post');
-        $img = $(`<br/><div class="fb-post" data-href="${href}" data-width="400" style="background-color: white"></div>`);
+        $img = $(`<br/><div class="fb-post" data-href="${href}" data-width="500" style="background-color: white"></div>`);
+      } else if (fbStory) {
+        $this.attr('data-smartlink', 'fb-story');
+        $img = $(`<br/><div class="fb-post" data-href="https://www.facebook.com/${fbStory[2]}/posts/${fbStory[1]}" data-width="500" style="background-color: white"></div>`);
       }
     } else if (openload !== null && openload.length > 0 && !href.match(/\.rar$|\.zip$/)) {
       $this.attr('data-smartlink', 'ol-video');
@@ -207,6 +212,11 @@ export function resolveYoutube($html, isThreadContentOnly) {
       $this.attr('data-smartlink', 'dly-video');
       $img = $(`<div><iframe frameborder="0" width="560" height="315" src="https://www.dailymotion.com/embed/video/${dailymotion[1]}" allowfullscreen></iframe>
                 </div>`);
+//    } else if (vcplayer !== null && vcplayer.length > 0) {
+//      $this.attr('data-smartlink', 'vc-video');
+//      const hrefs = href.replace(/&_listsuggest.*/i, '').replace(/^http:\/\//, 'https://');
+//      $img = $(`<div><iframe width="560" height="315" src="${hrefs}" data-type="video-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>
+//                </div>`);
     } else if (mp4 !== null && mp4.length > 0) {
       $this.attr('data-smartlink', 'mp4-video');
       $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
@@ -216,6 +226,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
       $img = $(`<div><audio src='${href}' preload='metadata' controls></audio></div>`);
       media = true;
     }
+    // TODO: make ^ more organizable
     function brokenDetect() {
       if (media) {
         $img.children().on('error', function e() {
