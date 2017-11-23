@@ -132,7 +132,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
     const soundcloud = href.match(/soundcloud\.com\/.+/i);
     const liveleak = href.match(/liveleak\.com\/.*i=(.*)/i);
     let dailymotion = href.match(/dailymotion\.com\/.*?\/(.+)/i);
-//    const vcplayer = href.match(/vcplayer\.mediacdn\.vn\/*/)
+    const vcplayer = href.match(/vcplayer\.mediacdn\.vn\/*/i);
     const mp4 = href.match(/(?:mp4|webm)$/i);
     const mp3 = href.match(/(?:mp3|wav|ogg)$/i);
     let media = false;
@@ -169,14 +169,14 @@ export function resolveYoutube($html, isThreadContentOnly) {
             					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
         					</iframe>
           </div>`);
-    // } else if (/video\.vnexpress\.net/.test(href) === true) {
-    //   $this.attr('data-smartlink', 'vnexpress-video');
-    //   const uHref = 'https://' + href.replace(/http:\/\//, '') + '#wrapper_container';
-    //   $img = $(`<div><iframe width='600' height='340' src='${uHref}'
-    //         					frameborder='0' allowfullscreen
-    //         					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
-    //     					</iframe>
-    //       </div>`);
+      // } else if (/video\.vnexpress\.net/.test(href) === true) {
+      //   $this.attr('data-smartlink', 'vnexpress-video');
+      //   const uHref = 'https://' + href.replace(/http:\/\//, '') + '#wrapper_container';
+      //   $img = $(`<div><iframe width='600' height='340' src='${uHref}'
+      //         					frameborder='0' allowfullscreen
+      //         					title='Có thể xảy ra sai sót trong việc tự động nhận biết video Vnexpress, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
+      //     					</iframe>
+      //       </div>`);
     } else if (href.match(/facebook.com.*/i)) {
       if (fbVideo) {
         $this.attr('data-smartlink', 'fb-video');
@@ -212,14 +212,14 @@ export function resolveYoutube($html, isThreadContentOnly) {
       $this.attr('data-smartlink', 'dly-video');
       $img = $(`<div><iframe frameborder="0" width="560" height="315" src="https://www.dailymotion.com/embed/video/${dailymotion[1]}" allowfullscreen></iframe>
                 </div>`);
-//    } else if (vcplayer !== null && vcplayer.length > 0) {
-//      $this.attr('data-smartlink', 'vc-video');
-//      const hrefs = href.replace(/&_listsuggest.*/i, '').replace(/^http:\/\//, 'https://');
-//      $img = $(`<div><iframe width="560" height="315" src="${hrefs}" data-type="video-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>
-//                </div>`);
-    } else if (mp4 !== null && mp4.length > 0) {
+    } else if ((mp4 !== null && mp4.length > 0) || vcplayer) {
       $this.attr('data-smartlink', 'mp4-video');
-      $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
+      if (vcplayer) {
+        const uHref = href.match(/vid=(.*?)&/i);
+        $img = $(`<div><video src='http://vhosting.vcmedia.vn/${uHref[1]}' width='560' height='315' preload='metadata' controls></video></div>`);
+      } else {
+        $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
+      }
       media = true;
     } else if (mp3 !== null && mp3.length > 0) {
       $this.attr('data-smartlink', 'mp3-link');
