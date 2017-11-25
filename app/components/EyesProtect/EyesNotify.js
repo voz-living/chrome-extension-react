@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { unmountComponentAtNode } from 'react-dom';
+import { setChromeLocalStore, getChromeLocalStore } from '../../utils/settings';
 export default class EyesNotify extends Component {
   constructor(props) {
     super(props);
     this.state = { timer: 30 };
     this.notiInterval = setInterval(() => {
+      getChromeLocalStore(['globalClosed']).then((value) => { // somewhat inefficient
+        if (value.globalClosed) {
+          unmountComponentAtNode(document.getElementById('voz-eyes-notify'));
+          setTimeout(() => { setChromeLocalStore({ globalClosed: false }); }, 2000);
+        }
+      });
       if (this.state.timer > 0) {
         this.setState({ timer: this.state.timer - 1 });
       } else {
         unmountComponentAtNode(document.getElementById('voz-eyes-notify'));
-        clearInterval();
       }
     }, 1000);
   }
@@ -53,8 +59,8 @@ export default class EyesNotify extends Component {
               >
                 <strong> Vì một đôi mắt khoẻ mạnh, các thím hãy cùng nhau không nhìn vào máy tính trong lúc này
                 nào! </strong>
-                <img style={{ verticalAlign: 'middle' }} src="/images/smilies/Off/byebye.gif"/>
-                <img style={{ verticalAlign: 'middle' }}src="/images/smilies/Off/matrix.gif" />
+                <img style={{ verticalAlign: 'middle' }} src="/images/smilies/Off/byebye.gif" />
+                <img style={{ verticalAlign: 'middle' }} src="/images/smilies/Off/matrix.gif" />
                 <img style={{ verticalAlign: 'middle' }} src="/images/smilies/Off/matrix.gif" />
                 <br />
                 <strong> Thông báo này sẽ tự tắt sau </strong>
@@ -62,7 +68,10 @@ export default class EyesNotify extends Component {
                 <div style={{ fontSize: '9px' }}>Bạn có thể tắt thông báo tại <a href="#" onClick={this.openSettings}>menu cài đặt voz living</a></div>
                 <div
                   className="eyes-close"
-                  onClick={() => unmountComponentAtNode(document.getElementById('voz-eyes-notify'))} style={{
+                  onClick={() => {
+                    setChromeLocalStore({ globalClosed: true });
+                    unmountComponentAtNode(document.getElementById('voz-eyes-notify'));
+                  }} style={{
                     position: 'absolute',
                     width: '150px',
                     height: '50px',

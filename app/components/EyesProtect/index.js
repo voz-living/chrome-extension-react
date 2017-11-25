@@ -96,6 +96,7 @@ class EyesProtect extends Component {
               } else {
                 setChromeLocalStore({ delayEyesNotifyStamp: this.eyesTime + delayMinutes });
                 setInterval(() => {
+                  setChromeLocalStore({ delayEyesNotifyStamp: this.eyesTime + delayMinutes });
                   render(<EyesNotify />, document.getElementById('voz-eyes-notify'));
                 }, delayMinutes);
               }
@@ -114,7 +115,7 @@ class EyesProtect extends Component {
   }
 
   render() {
-    return null; 
+    return null;
   }
 }
 
