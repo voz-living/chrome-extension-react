@@ -6,12 +6,6 @@ export default class EyesNotify extends Component {
     super(props);
     this.state = { timer: 30 };
     this.notiInterval = setInterval(() => {
-      getChromeLocalStore(['globalClosed']).then((value) => { // somewhat inefficient
-        if (value.globalClosed) {
-          unmountComponentAtNode(document.getElementById('voz-eyes-notify'));
-          setTimeout(() => { setChromeLocalStore({ globalClosed: false }); }, 2000);
-        }
-      });
       if (this.state.timer > 0) {
         this.setState({ timer: this.state.timer - 1 });
       } else {
@@ -68,10 +62,7 @@ export default class EyesNotify extends Component {
                 <div style={{ fontSize: '9px' }}>Bạn có thể tắt thông báo tại <a href="#" onClick={this.openSettings}>menu cài đặt voz living</a></div>
                 <div
                   className="eyes-close"
-                  onClick={() => {
-                    setChromeLocalStore({ globalClosed: true });
-                    unmountComponentAtNode(document.getElementById('voz-eyes-notify'));
-                  }} style={{
+                  onClick={() => unmountComponentAtNode(document.getElementById('voz-eyes-notify'))} style={{
                     position: 'absolute',
                     width: '150px',
                     height: '50px',
