@@ -101,6 +101,7 @@ class QuoteBackground {
                 chrome.notifications.removeListener(handler);
               };
               chrome.notifications.onClicked.addListener(handler);
+              chrome.notifications.onClosed.removeListener(handler);
             }
           } catch (e) {
             console.log(e);
