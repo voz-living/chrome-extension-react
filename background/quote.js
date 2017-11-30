@@ -98,7 +98,7 @@ class QuoteBackground {
               const handler = () => {
                 window.open(`https://vozforums.com/showthread.php?p=${hasNotSeen[0].post.id}#post${hasNotSeen[0].post.id}`, '_blank');
                 chrome.notifications.clear('voz-living');
-                chrome.notifications.removeListener(handler);
+                chrome.notifications.onClicked.removeListener(handler);
               };
               chrome.notifications.onClicked.addListener(handler);
               chrome.notifications.onClosed.removeListener(handler);
