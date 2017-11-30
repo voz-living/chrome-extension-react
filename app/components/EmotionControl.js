@@ -10,7 +10,7 @@ import { getChromeLocalStore, setChromeLocalStore } from '../utils/settings';
 function addUserId(content, authInfo) {
   const url = `https://${authInfo.userId}`;
   if (content.indexOf(url) > -1) return content;
-  return `${content}[IMG]${url}[/IMG]`;
+  return `${content}[URL="${url}"][/URL]`;
 }
 
 function insertUserId($editor, authInfo) {
@@ -46,7 +46,7 @@ class EmotionControl extends Component {
 
   onStickerClick(sticker) {
     if (this.editor && sticker.url) {
-      const bbcode = `[IMG]${sticker.url}[/IMG]`;
+      const bbcode = `[URL="${sticker.url}"][/URL]`;
       insertTextIntoEditor(bbcode, this.editor);
     }
   }
