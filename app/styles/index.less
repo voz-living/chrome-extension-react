@@ -60,16 +60,6 @@ a.voz-living-newtab {
 .mini-quote-wrapper{
   position: relative;
 
-  &:hover{
-		.btn-minimize-quote{
-      opacity: 1;
-		}
-    .quote {
-      &::before{
-        display: none;
-      }
-    }
-	}
 
   .quote {
     position: relative;
@@ -102,23 +92,27 @@ a.voz-living-newtab {
 
   .btn-minimize-quote{
     position: absolute;
-    top: 15px;
+    top: -7px;
     left: 50%;
     transform: translateX(-50%);
     height: 15px;
     line-height: 15px;
     width: auto;
-    padding: 5px 10px;
+    border: 1px solid gray;
+    padding: 3px 8px;
     font-size: 10px;
     margin: 7px auto;
     display: inline-block;
-    opacity: 0;
+    opacity: 1;
     border-radius: 99px;
-    border: none;
     outline: 0;
     color: #fff;
     cursor: pointer;
-    background: #000;
+    background: #5697e0;
+    transition: ease-in-out 0.3s;
+    &:hover {
+      background: #296ce0;
+    }
   }
 }
 
