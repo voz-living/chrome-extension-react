@@ -90,7 +90,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
   }
   $context.each(function () {
     const match = $(this).attr('href').match(/youtube\.com[^\s]+v=[a-zA-Z0-9_-]+|youtu\.be\/[a-zA-Z0-9_-]+|facebook\.com.*\/(?:(?:posts|photos)\/.+|story\.php\?story_fbid=\d+.*&id=\d+)|facebook\.com.*\/videos\/.+|(?:openload\.(?:co|link|io|us)|oload\.info)\/(?:f|embed)\/([\w-]+)|soundcloud\.com\/.+|(?:mp4|webm|ogg)$|(?:mp3|wav)$|dai\.ly\/.+|dailymotion\.com\/.*?\/.+|liveleak\.com\/.*i=(.*)/i);
-    if ($(this).attr('href').match(/facebook\.com.*\/(?:(?:posts|photos)\/.+|story\.php\?story_fbid=\d+.*&id=\d+)/i)) {
+    if ($(this).attr('href').match(/facebook\.com.*\/(?:(?:posts|photos)\/.+|(?:permalink|story)\.php\?story_fbid=\d+&.*id=\d+)/i)) {
       fbPosts = true;
     }
     if (match !== null && match.length > 0) {
@@ -127,7 +127,7 @@ export function resolveYoutube($html, isThreadContentOnly) {
     let ytb = href.match(/youtube\.com[^\s]+v=([a-zA-Z0-9_-]+)/i);
     const fbPost = href.match(/facebook\.com.*\/(?:posts|photos)\/.+/i);
     const fbVideo = href.match(/facebook\.com.*\/videos\/.+/i);
-    const fbStory = href.match(/facebook\.com\/story\.php\?story_fbid=(\d+).*&id=(\d+)/i);
+    const fbStory = href.match(/facebook\.com\/(?:permalink|story)\.php\?story_fbid=(\d+)&.*id=(\d+)/i);
     let openload = href.match(/(?:openload\.(?:co|link|io|us)|oload\.info)\/(?:f|embed)\/([\w-]+)/i);
     const soundcloud = href.match(/soundcloud\.com\/.+/i);
     const liveleak = href.match(/liveleak\.com\/.*i=(.*)/i);
