@@ -46,7 +46,7 @@ class EmotionControl extends Component {
 
   onStickerClick(sticker) {
     if (this.editor && sticker.url) {
-      const bbcode = `[URL="${sticker.url}"][/URL]`;
+      const bbcode = `[IMG]${sticker.url}[/IMG]`;
       insertTextIntoEditor(bbcode, this.editor);
     }
   }
