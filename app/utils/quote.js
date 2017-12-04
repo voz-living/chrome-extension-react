@@ -43,9 +43,11 @@ export function processQuoteHtml(html) {
           const datemod = now.getDate() - dateoffset;
           datetime = new Date(
             parseInt(now.getFullYear(), 10),
-            now.getMonth(), datemod,
+            now.getMonth(),
+            datemod,
             parseInt(sDatetimeEs[1], 10),
-            parseInt(sDatetimeEs[2], 10), 0);
+            parseInt(sDatetimeEs[2], 10),
+            0);
         }
       }
       data.push({

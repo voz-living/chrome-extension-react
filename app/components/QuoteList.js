@@ -30,7 +30,7 @@ class QuoteList extends Component {
   getTime(timeStamp) {
     const date = new Date(timeStamp);
     /* eslint-disable max-len */
-    return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    return `${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     /* eslint-enable max-len */
   }
 
