@@ -2253,12 +2253,6 @@ a.voz-living-newtab:hover {
 .mini-quote-wrapper {
   position: relative;
 }
-.mini-quote-wrapper:hover .btn-minimize-quote {
-  opacity: 1;
-}
-.mini-quote-wrapper:hover .quote::before {
-  display: none;
-}
 .mini-quote-wrapper .quote {
   position: relative;
   overflow: hidden;
@@ -2286,21 +2280,27 @@ a.voz-living-newtab:hover {
 }
 .mini-quote-wrapper .btn-minimize-quote {
   position: absolute;
-  top: -40px;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
   height: 15px;
   line-height: 15px;
   width: auto;
-  padding: 5px 10px;
+  border: 1px solid gray;
+  padding: 3px 8px;
   font-size: 10px;
   margin: 7px auto;
   display: inline-block;
-  opacity: 0;
+  opacity: 1;
   border-radius: 99px;
-  border: none;
   outline: 0;
   color: #fff;
   cursor: pointer;
-  background: #000;
+  background: #5697e0;
+  transition: ease-in-out 0.3s;
+}
+.mini-quote-wrapper .btn-minimize-quote:hover {
+  background: #296ce0;
 }
 #nologin-message {
   padding: 5px;
@@ -2584,6 +2584,30 @@ body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row {
   border-bottom: 1px solid #ccc;
   padding: 5px 0;
   font-size: 12px;
+  position: relative;
+}
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote {
+  filter: blur(1px);
+  opacity: 0.3;
+  transition: 0.3s;
+}
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:before {
+  content: "T\1EF0   QUOTE";
+  color: red;
+  border: 3px double;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 25px;
+  font-weight: bold;
+  transform: translate(-50%, -50%) rotate(1deg);
+}
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:hover {
+  opacity: 1;
+  filter: none;
+}
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:hover:before {
+  content: none;
 }
 body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row .quote-title {
   font-weight: bold;
