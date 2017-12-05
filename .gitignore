@@ -12,3 +12,5 @@ dist/compiled/voz-living.js
 dist/compiled/options.js
 
 dist/compiled.zip
+
+dist/compiled/manifest.json
