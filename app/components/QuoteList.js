@@ -30,7 +30,7 @@ class QuoteList extends Component {
   getTime(timeStamp) {
     const date = new Date(timeStamp);
     /* eslint-disable max-len */
-    return `${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    return `${date.getHours()}:${('0' + date.getMinutes()).slice(-2)} ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     /* eslint-enable max-len */
   }
 
@@ -47,7 +47,7 @@ class QuoteList extends Component {
 
   renderQuote(quote) {
     return (
-      <div className="quote-row" key={quote.post.id}>
+      <div className={`quote-row${quote.selfQuote ? ' self-quote' : ''}`} key={quote.post.id}>
         <div className="quote-title">
           <a href={`showthread.php?p=${quote.post.id}#post${quote.post.id}`} target="_blank">
             {quote.thread.title}
