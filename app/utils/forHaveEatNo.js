@@ -10,7 +10,7 @@ export default function forHaveEatNo() {
   function eatNo() {
     const text = this.value;
     const length = text.match(/\S+/g).length;
-    if (length < 50 && (/eat|ăn/.test(text))) {
+    if (length < 50 && (/(?:[^a-z]|^)eat|(?:[^a-z]|^)(?:ă|Ă)n(?:[^a-z]|$)/i.test(text))) {
       if (!document.getElementById('cho-an-warning')) {
         this.parentElement.appendChild(div);
       }

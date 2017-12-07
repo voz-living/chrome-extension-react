@@ -99,6 +99,30 @@ body{
             border-bottom: 1px solid #ccc;
             padding: 5px 0;
             font-size: 12px;
+            position: relative;
+            &.self-quote{
+              filter: blur(1px);
+              opacity: 0.3;
+              transition: 0.3s;
+              &:before{
+                content: "TỰ QUOTE";
+                color: red;
+                border: 3px double;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                font-size: 25px;
+                font-weight:bold;
+                transform: translate(-50%, -50%) rotate(1deg);
+              }
+              &:hover{
+                opacity: 1;
+                filter: none;
+                &:before{
+                  content: none;
+                }
+              }
+            }
 
             .quote-title{
               font-weight: bold;
