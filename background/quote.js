@@ -32,7 +32,7 @@ class QuoteBackground {
           formData.append('exactname', 1);
           formData.append('securitytoken', token);
           if (advancedNotifyQuote) {
-            formData.append('query', `http://${userId}`);
+            formData.append('query', `https://${userId}`);
           } else {
             formData.append('query', username);
           }

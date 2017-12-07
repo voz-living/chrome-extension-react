@@ -10,6 +10,7 @@ class QuoteList extends Component {
     dispatch: PropTypes.func,
     quoteList: PropTypes.array,
     countUnseen: PropTypes.number,
+    advancedNotifyQuote: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -47,7 +48,7 @@ class QuoteList extends Component {
 
   renderQuote(quote) {
     return (
-      <div className={`quote-row${quote.selfQuote ? ' self-quote' : ''}`} key={quote.post.id}>
+      <div className={`quote-row${quote.selfQuote ? ' self-quote' : ''}`} key={quote.post.id} style={(this.props.advancedNotifyQuote && quote.selfQuote) === true ? { display: 'none' } : null}>
         <div className="quote-title">
           <a href={`showthread.php?p=${quote.post.id}#post${quote.post.id}`} target="_blank">
             {quote.thread.title}

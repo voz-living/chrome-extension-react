@@ -192,7 +192,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyesDurationEnd } = this.props.settings;
+    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyesDurationEnd, advancedNotifyQuote } = this.props.settings;
     const currentView = this.currentView;
     return (
       <div id="voz-living">
@@ -207,6 +207,7 @@ class App extends Component {
           dispatch={this.dispatch}
           settings={this.props.settings}
           autoHide={autoHideSidebar}
+          advancedNotifyQuote={advancedNotifyQuote}
         />
         {this.renderBaseOnCurrentView(currentView)}
         <PasteToUpload />
