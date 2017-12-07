@@ -17,6 +17,7 @@ class SideMenu extends Component {
     settings: PropTypes.object,
     dispatch: PropTypes.func,
     autoHide: PropTypes.bool,
+    advancedNotifyQuote: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -46,12 +47,12 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { settings, autoHide } = this.props;
+    const { settings, autoHide, advancedNotifyQuote } = this.props;
 
     return (
       <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide })}>
         <SettingOptions settings={settings} dispatch={this.dispatch} />
-        <QuoteList dispatch={this.dispatch} />
+        <QuoteList dispatch={this.dispatch} advancedNotifyQuote={advancedNotifyQuote} />
         <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
         <HotThreads />
