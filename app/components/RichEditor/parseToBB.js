@@ -113,8 +113,8 @@ export default function parseToBB(node, nextNode) {
           if (fontWeight === 'bold' || ~~fontWeight >= 600) {
             pp('[B]', '[/B]');
           }
-          if (fontStyle === 'italic') pp('[I]', ['/I']);
-          if (textDecoration === 'underline') pp('[U]', ['/U']);
+          if (fontStyle === 'italic') pp('[I]', '[/I]');
+          if (textDecoration === 'underline') pp('[U]', '[/U]');
           if (color && color.trim() !== '') pp(`[COLOR="${ensureProperColor(color)}"]`, '[/COLOR]');
         }
         break;
