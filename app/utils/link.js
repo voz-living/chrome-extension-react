@@ -67,14 +67,119 @@ export function resolveImage($html, isThreadContentOnly) {
       $this.after($img);
     }
   });
-  $(window).on('load', () => {
+  setTimeout(() => {
     $('.voz-post-message img[src^="http"]').each(function () {
       const $this = $(this);
-      if ($this.height() <= 200) {
-        $this.attr('class', 'inlineimg');
-      }
+      $this.on('load', function () {
+        if ($this.height() <= 200) {
+          $this.attr('class', 'inlineimg');
+        }
+        if ($this.width() > 200 && $this.height() > 200) {
+          let deg = null;
+          let fullsize = null;
+          let scale = 1;
+          let transform = '';
+          let margin = null;
+          let oversized = false;
+          let container = $this.closest('.voz-post-message');
+          let cWidth = container.width();
+          $this.wrap('<div class="img-wrapper" />');
+          const url = $this.attr('src');
+          $this.before('<div class="img-controls" />');
+          const control = $this.siblings();
+          control.append('<a href="#" onclick="return false;"><button>Hiện controller</button></a>');
+          control.css({ opacity: 0 });
+          $this.parent().hover(() => {
+            control.css({ opacity: 1 });
+          }, () => {
+            control.css({ opacity: 0 });
+          });
+          if ($this.height() / $this.width() > 1.5 && $this.height() >= 1000) {
+            oversized = true;
+            fullsize = '500px';
+            $this.css({ 'max-width': fullsize });
+            $this.parent().attr({ 'data-tooltip': 'Hình được thu nhỏ bởi VozLiving' });
+          }
+          function controls() {
+            control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
+                      <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
+                      <a href="#" data-tooltip="Lật ngược"><i class="fa fa-exchange fa-lg control-button" id="flip-h" ></i></a>
+                      <a href="https://images.google.com/searchbyimage?image_url=${url}" target="_blank" data-tooltip="Tìm qua Google Image"><i class="fa fa-search fa-lg control-button" id="google-search" ></i></a>
+                      <a href="${url}" data-tooltip="Lưu hình ảnh" download><i class="fa fa-download fa-lg control-button" id="save-image"></i></a>`);
+            control.find('.control-button#flip-h').on('click', () => {
+              scale = -scale;
+              $this.css({ transform: `${transform} scaleX(${scale})` });
+            });
+            control.find('.control-button[id^="rotate"]').on('click', function () {
+              if ($this.closest('.voz-bbcode-quote').length > 0) {
+                container = $this.closest('.voz-bbcode-quote');
+                cWidth = container.width() - 14;
+              }
+              deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
+              if (deg === -90) { deg = 270; }
+              if (deg === 360) { deg = 0; }
+              if (deg / 90 % 2 === 1) {
+                const translate = ($this.width() - $this.height()) / 2;
+                let heSo = 1;
+                $this.parent().css({ height: $this.width() });
+                if ($this.height() > cWidth + 1) {
+                  heSo = cWidth / $this.height();
+                  $this.css({ 'max-height': cWidth });
+                }
+                if (deg === 90) {
+                  transform = `rotate(${deg}deg) translate(${translate * heSo}px, ${translate * heSo}px)`;
+                  $this.css({ transform: `${transform} scaleX(${scale})` });
+                } else if (deg === 270) {
+                  transform = `rotate(${deg}deg) translate(${-translate * heSo}px, ${-translate * heSo}px)`;
+                  $this.css({ transform: `${transform} scaleX(${scale})` });
+                }
+              } else {
+                $this.parent().css({ height: '' });
+                transform = `rotate(${deg}deg)`;
+                $this.css({ transform: `${transform} scaleX(${scale})` });
+                $this.css({ 'max-height': '' });
+              }
+            });
+            if (url.match(/scontent.+?fbcdn.net.+/)) {
+              const sp = url.split('/');
+              const id = sp[sp.length - 1].split('_');
+              control.append(`&nbsp;<a href="https://www.facebook.com/${id[1]}" target="_blank" data-tooltip="Tìm kiếm Facebook"><i class="fa fa-facebook-square fa-lg control-button" id="fb-resolve" ></i></a>`);
+            }
+            if (oversized) {
+              control.append('&nbsp;<a href="#"  data-tooltip="Quay về kích cỡ ban đầu"><i class="fa fa-arrows-h fa-lg control-button" id="size-default"></i></a>');
+              control.find('.control-button#size-default').on('click', () => {
+                $this.parent().removeAttr('data-tooltip');
+                fullsize = $this.css('max-width') === '500px' ? '100%' : '500px';
+                $this.css({ 'max-width': fullsize });
+              });
+            }
+            if ($this.prop('naturalWidth') > cWidth + 1 && !$this.closest('.voz-bbcode-quote').length > 0) {
+              control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
+              control.find('.control-button#expand').on('click', () => {
+                $this.parent().removeAttr('data-tooltip');
+                fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
+                margin = $this.css('margin-right') === '20px' ? '0' : '20px';
+                $this.css({
+                  'max-width': fullsize,
+                  'margin-right': margin,
+                });
+              });
+            }
+            control.children('a').on('click', function (e) {
+              $(this).blur();
+              if ($(this).attr('href') === '#') {
+                e.preventDefault();
+              }
+            });
+          }
+          control.find('button').on('click', () => {
+            control.empty();
+            controls();
+          });
+        }
+      }).attr('src', $this.attr('src') /* img cache recognizing */);
     });
-  });
+  }, 20);
 }
 
 export function resolveYoutube($html, isThreadContentOnly) {
@@ -251,116 +356,6 @@ export function resolveYoutube($html, isThreadContentOnly) {
   });
 }
 
-export function imageControl($html) {
-  $(window).on('load', () => {
-    $html.find('.voz-post-message img[src^="http"]').each(function a() {
-      const $this = $(this);
-      let deg = null;
-      let fullsize = null;
-      let scale = 1;
-      let transform = '';
-      let margin = null;
-      let oversized = false;
-      let container = $this.closest('.voz-post-message');
-      let cWidth = container.width();
-      if ($this.width() > 200 && $this.height() > 200) {
-        $this.wrap('<div class="img-wrapper"></div>');
-        const url = $this.attr('src');
-        $this.before('<div class="img-controls"></div>');
-        const control = $this.siblings();
-        control.append('<a href="#" onclick="return false;"><button>Hiện controller</button></a>');
-        control.css({ opacity: 0 });
-        $this.parent().hover(() => {
-          control.css({ opacity: 1 });
-        }, () => {
-          control.css({ opacity: 0 });
-        });
-        if ($this.height() / $this.width() > 1.5 && $this.height() >= 1000) {
-          oversized = true;
-          fullsize = '500px';
-          $this.css({ 'max-width': fullsize });
-          $this.parent().attr({ 'data-tooltip': 'Hình được thu nhỏ bởi VozLiving' });
-        }
-        function controls() {
-          control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
-                      <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
-                      <a href="#" data-tooltip="Lật ngược"><i class="fa fa-exchange fa-lg control-button" id="flip-h" ></i></a>
-                      <a href="https://images.google.com/searchbyimage?image_url=${url}" target="_blank" data-tooltip="Tìm qua Google Image"><i class="fa fa-search fa-lg control-button" id="google-search" ></i></a>
-                      <a href="${url}" data-tooltip="Lưu hình ảnh" download><i class="fa fa-download fa-lg control-button" id="save-image"></i></a>`);
-          control.find('.control-button#flip-h').on('click', () => {
-            scale = -scale;
-            $this.css({ transform: `${transform} scaleX(${scale})` });
-          });
-          control.find('.control-button[id^="rotate"]').on('click', function () {
-            if ($this.closest('.voz-bbcode-quote').length > 0) {
-              container = $this.closest('.voz-bbcode-quote');
-              cWidth = container.width() - 14;
-            }
-            deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
-            if (deg === -90) { deg = 270; }
-            if (deg === 360) { deg = 0; }
-            if (deg / 90 % 2 === 1) {
-              const translate = ($this.width() - $this.height()) / 2;
-              let heSo = 1;
-              $this.parent().css({ height: $this.width() });
-              if ($this.height() > cWidth + 1) {
-                heSo = cWidth / $this.height();
-                $this.css({ 'max-height': cWidth });
-              }
-              if (deg === 90) {
-                transform = `rotate(${deg}deg) translate(${translate * heSo}px, ${translate * heSo}px)`;
-                $this.css({ transform: `${transform} scaleX(${scale})` });
-              } else if (deg === 270) {
-                transform = `rotate(${deg}deg) translate(${-translate * heSo}px, ${-translate * heSo}px)`;
-                $this.css({ transform: `${transform} scaleX(${scale})` });
-              }
-            } else {
-              $this.parent().css({ height: '' });
-              transform = `rotate(${deg}deg)`;
-              $this.css({ transform: `${transform} scaleX(${scale})` });
-              $this.css({ 'max-height': '' });
-            }
-          });
-          if (url.match(/scontent.+?fbcdn.net.+/)) {
-            const sp = url.split('/');
-            const id = sp[sp.length - 1].split('_');
-            control.append(`&nbsp;<a href="https://www.facebook.com/${id[1]}" target="_blank" data-tooltip="Tìm kiếm Facebook"><i class="fa fa-facebook-square fa-lg control-button" id="fb-resolve" ></i></a>`);
-          }
-          if (oversized) {
-            control.append('&nbsp;<a href="#"  data-tooltip="Quay về kích cỡ ban đầu"><i class="fa fa-arrows-h fa-lg control-button" id="size-default"></i></a>');
-            control.find('.control-button#size-default').on('click', () => {
-              $this.parent().removeAttr('data-tooltip');
-              fullsize = $this.css('max-width') === '500px' ? '100%' : '500px';
-              $this.css({ 'max-width': fullsize });
-            });
-          }
-          if ($this.prop('naturalWidth') > cWidth + 1 && !$this.closest('.voz-bbcode-quote').length > 0) {
-            control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
-            control.find('.control-button#expand').on('click', () => {
-              $this.parent().removeAttr('data-tooltip');
-              fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
-              margin = $this.css('margin-right') === '20px' ? '0' : '20px';
-              $this.css({
-                'max-width': fullsize,
-                'margin-right': margin,
-              });
-            });
-          }
-          control.children('a').on('click', function (e) {
-            $(this).blur();
-            if ($(this).attr('href') === '#') {
-              e.preventDefault();
-            }
-          });
-        }
-        control.find('button').on('click', () => {
-          control.empty();
-          controls();
-        });
-      }
-    });
-  });
-}
 
 /* eslint-enable no-param-reassign */
 /* eslint-enable max-len */
@@ -370,6 +365,5 @@ export function proccessLink($html, isThreadContentOnly = false) {
   removeRedirect($html);
   resolveImage($html, isThreadContentOnly);
   resolveYoutube($html, isThreadContentOnly);
-  imageControl($html);
   return $html;
 }
