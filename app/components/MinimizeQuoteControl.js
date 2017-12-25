@@ -22,6 +22,7 @@ class MinimizeQuote extends Component {
       <div className="mini-quote-wrapper" >
         <div
           className={isOpen ? 'quote open' : 'quote'}
+          onClick={() => { if (isOpen === false) { this.setState({ isOpen: !this.state.isOpen }); } }}
           dangerouslySetInnerHTML={{ __html: element }}
         >
         </div>

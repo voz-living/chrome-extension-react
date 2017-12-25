@@ -39,7 +39,9 @@ export default class CapturePost extends Component {
       const $txt = $('<input class="voz-living-capture-post-link" type="text" size=30 value="Capturing by Voz Living" />');
       $btn.append($txt);
       setTimeout(() => {
-        html2canvas($post.parents('table.voz-postbit')[0])
+        const post = $post.parents('table.voz-postbit')[0];
+        post.scrollIntoView();
+        html2canvas(post, { useCORS: true })
         .then(canvas => canvas.toDataURL('image/png'))
         .then((imageData) => {
           $txt.val('Uploading to pik.vn');
@@ -53,7 +55,7 @@ export default class CapturePost extends Component {
         .then((res) => {
           const url = res.url;
           if (_.isUndefined(url)) {
-            $txt.val('Faild to upload');
+            $txt.val('Failed to upload');
           } else {
             $txt.val(url);
           }
@@ -61,7 +63,7 @@ export default class CapturePost extends Component {
             let to = 100;
             if (!_.isUndefined(url)) {
               copyText(url);
-              $txt.val('Coppied');
+              $txt.val('Copied');
               to = 1000;
             }
             setTimeout(() => $txt.remove(), to);
