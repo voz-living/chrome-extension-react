@@ -34,7 +34,8 @@
     "http://*.pik.vn/*",
     "notifications",
     "storage",
-    "tabs"
+    "tabs",
+    "cookies"
   ],
   "content_scripts": [{
     "all_frames": false,

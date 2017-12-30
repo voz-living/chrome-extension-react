@@ -46,7 +46,8 @@
     "style-loader": "^0.13.1",
     "tiny-cookie": "^1.0.1",
     "url-loader": "^0.5.7",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.0.0",
+    "md5": "^2.2.1"
   },
   "ava": {
     "files": [

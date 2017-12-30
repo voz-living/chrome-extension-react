@@ -34,6 +34,7 @@ export const defaultStoreStructure = {
     enableEyesNotify: true,
     delayEyesNotify: 30,   // minute
     advancedNotifyQuote: false,
+    multiAcc: false,
   },
   authInfo: {},
   quotes: [],
