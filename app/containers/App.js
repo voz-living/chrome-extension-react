@@ -91,6 +91,7 @@ class App extends Component {
       getChromeLocalStore([
         'settings', 'quotes', 'authInfo',
         'quickLinks', 'followThreads', 'threadTracker',
+        'cookieList',
       ]),
       getChromeSyncStore([
         'savedPosts',

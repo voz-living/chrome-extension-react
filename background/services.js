@@ -34,52 +34,77 @@ function renewToken() {
   });
 }
 
-function getSessionCookie(username, password) {
-  const sToken = $('tr:nth-child(2) > td > form > input[type="hidden"]:nth-child(6)').attr('value');
-  chrome.cookies.remove({ url: 'https://vozforums.com', name: 'vfsessionhash' });
-  const loginForm = new FormData();
-  const md5pass = md5(password);
-  loginForm.append('do', 'login');
-  loginForm.append('vb_login_username', username);
-  loginForm.append('vb_login_md5password', md5pass);
-  loginForm.append('cookieuser', 1);
-  loginForm.append('securitytoken', sToken);
-  $.ajax({
-    type: 'POST',
-    processData: false,
-    contentType: false,
-    url: 'https://vozforums.com/login.php',
-    data: loginForm,
-  })
-    .done(res => {
-      chrome.cookies.get(
-        { url: 'https://vozforums.com', name: 'vfsessionhash' }, cookie => console.log(cookie.value));
-    })
-    .fail(err => { console.log(`Failed to get cookie ${err}`); });
-}
-
-function setSessionCookie(hash) {
+function setSessionCookie(request) {
+  chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfsessionhash' });
+  chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfpassword' });
+  const sessHash = request.sessHash;
+  const passHash = request.passHash;
   chrome.cookies.set(
-    { url: 'https://vozforums.com', name: 'vfsessionhash', value: hash });
+    { url: 'https://.vozforums.com/', name: 'vfsessionhash', value: sessHash });
+  chrome.cookies.set(
+    { url: 'https://.vozforums.com/', name: 'vfpassword', value: passHash });
 }
 
-function logoutSession() {
-  const sToken = $('tr:nth-child(2) > td > form > input[type="hidden"]:nth-child(6)').attr('value');
-  const logoutForm = new FormData();
-  logoutForm.append('do', 'logout');
-  logoutForm.append('logouthash', sToken);
-  logoutForm.append('securitytoken', sToken);
-  console.log(sToken);
-  $.ajax({
-    type: 'POST',
-    processData: false,
-    contentType: false,
-    url: 'https://vozforums.com/login.php',
-    data: logoutForm,
-  })
-    .done(res => { console.log(res); })
-    .fail(err => { console.log(`Failed to log out ${err}`); });
+function getSessionCookie(request, sendResponse) {
+  chrome.cookies.getAll({ url: 'https://.vozforums.com/' }, oldCookies => {
+    let oldSessHash = '';
+    const oldSessDir = oldCookies.filter(cookie => cookie.name === 'vfsessionhash')[0];
+    if (oldSessDir !== undefined) { oldSessHash = oldSessDir.value; }
+    let oldPassHash = '';
+    const oldPassDir = oldCookies.filter(cookie => cookie.name === 'vfpassword')[0];
+    if (oldPassDir !== undefined) { oldPassHash = oldPassDir.value; }
+    chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfsessionhash' });
+    chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfpassword' });
+    const sToken = $('tr:nth-child(2) > td > form > input[type="hidden"]:nth-child(6)').attr('value');
+    const loginForm = new FormData();
+    const md5pass = md5(request.password);
+    console.log('Initialize verification');
+    loginForm.append('do', 'login');
+    loginForm.append('vb_login_username', request.username);
+    loginForm.append('vb_login_md5password', md5pass);
+    loginForm.append('cookieuser', 1);
+    loginForm.append('securitytoken', sToken);
+    $.ajax({
+      type: 'POST',
+      processData: false,
+      contentType: false,
+      url: 'https://vozforums.com/login.php',
+      data: loginForm,
+    })
+      .done(res => {
+        if (/STANDARD_REDIRECT/.test(res)) {
+          chrome.cookies.getAll({ url: 'https://.vozforums.com/' }, cookies => {
+            const sessHash = cookies.filter(cookie => cookie.name === 'vfsessionhash')[0].value;
+            const passHash = cookies.filter(cookie => cookie.name === 'vfpassword')[0].value;
+            sendResponse({ resolve: { sessHash, passHash } });
+          });
+        } else {
+          sendResponse({ reject: 'Error encountered' });
+        }
+        setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash });
+      })
+      .fail(() => { sendResponse({ reject: 'Error encountered' }); });
+  });
 }
+
+
+// function logoutSession() {
+//   const sToken = $('tr:nth-child(2) > td > form > input[type="hidden"]:nth-child(6)').attr('value');
+//   const logoutForm = new FormData();
+//   logoutForm.append('do', 'logout');
+//   logoutForm.append('logouthash', sToken);
+//   logoutForm.append('securitytoken', sToken);
+//   $.ajax({
+//     type: 'POST',
+//     processData: false,
+//     contentType: false,
+//     url: 'https://vozforums.com/login.php',
+//     data: logoutForm,
+//   })
+//     .done(res => { console.log(res); })
+//     .fail(err => { console.log(`Failed to log out: ${err}`); });
+// }
+
 // function hotThreadsService(request, sendResponse) {
 //   if (new Date().getTime() > cachedHotThreads.ts + 20 * 1000) {
 //     cachedHotThreads.ts = new Date().getTime();
@@ -119,11 +144,11 @@ export default function startServices() {
           return true;
         }
         if (request.service === 'get-session-hash') {
-          getSessionCookie();
+          getSessionCookie(request.request, sendResponse);
           return true;
         }
         if (request.service === 'set-session-hash') {
-          setSessionCookie();
+          setSessionCookie(request.request);
           return true;
         }
         // if (request.service === 'request-hotthreads') {

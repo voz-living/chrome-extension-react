@@ -27,10 +27,8 @@
     "default_popup": "assert/popup.html"
   },
   "permissions": [
-    "http://vozforums.com/*",
-    "https://vozforums.com/*",
-    "http://www.vozforums.com/*",
-    "https://www.vozforums.com/*",
+    "*://*.vozforums.com/*",
+    "*://.vozforums.com/*",
     "http://*.pik.vn/*",
     "notifications",
     "storage",
