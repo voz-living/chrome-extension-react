@@ -113,8 +113,9 @@ function postWithCookie(request, sendResponse) {
       // console.log([request, token, oldSessHash, oldPassHash, oldIdHash]);
       const postForm = new FormData();
       if (request.currentView === 'new-thread') {
-        postForm.append('do', 'newthread');
+        postForm.append('do', 'postthread');
         postForm.append('f', request.thread);
+        postForm.append('subject', request.subject);
         postForm.append('message', request.message);
         postForm.append('securitytoken', token);
         $.ajax({

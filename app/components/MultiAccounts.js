@@ -79,6 +79,7 @@ class MultiAccounts extends Component {
 
   postMessage(thread, currentView, sessHash, passHash, idHash) {
     let message = null;
+    let subject = '';
     if (currentView === 'thread') {
       message = document.querySelector('#vB_Editor_QR_textarea').value;
     } else {
@@ -88,8 +89,15 @@ class MultiAccounts extends Component {
       alert('Post quá ngắn, vui lòng thử lại');
       return null;
     }
+    if (currentView === 'new-thread' || currentView === 'new-reply') {
+      subject = document.querySelector('.panel .bginput').value;
+    }
+    if (subject.length < 1 && currentView === 'new-thread') {
+      alert('Bạn chưa nhập tiêu đề');
+      return null;
+    }
     document.getElementById('voz-living-loader-wrapper').className = 'loading';
-    chrome.runtime.sendMessage({ service: 'post-message', request: { message, thread, currentView, sessHash, passHash, idHash } }, res => {
+    chrome.runtime.sendMessage({ service: 'post-message', request: { message, thread, currentView, sessHash, passHash, idHash, subject } }, res => {
       if (res.resolve === 'new-thread') {
         window.location.href = `https://vozforums.com/forumdisplay.php?f=${thread}`;
       } else {
