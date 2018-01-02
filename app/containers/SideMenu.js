@@ -9,8 +9,9 @@ import Subscription from '../components/Subscription';
 import SavedPostSideBarIcon from '../components/SavedPost/SideBarIcon';
 import LXBtn from '../components/LXBtn';
 import FeedbackBtn from '../components/FeedbackBtn';
-import HotThreads from '../components/HotThreads';
+// import HotThreads from '../components/HotThreads';
 import { toClassName } from '../utils';
+import MultiAccounts from "../components/MultiAccounts";
 
 class SideMenu extends Component {
   static propTypes = {
@@ -18,6 +19,8 @@ class SideMenu extends Component {
     dispatch: PropTypes.func,
     autoHide: PropTypes.bool,
     advancedNotifyQuote: PropTypes.bool,
+    multiAcc: PropTypes.bool,
+    currentView: PropTypes.string,
   }
 
   static defaultProps = {
@@ -47,7 +50,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { settings, autoHide, advancedNotifyQuote } = this.props;
+    const { settings, autoHide, advancedNotifyQuote, multiAcc, currentView } = this.props;
 
     return (
       <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide })}>
@@ -55,9 +58,10 @@ class SideMenu extends Component {
         <QuoteList dispatch={this.dispatch} advancedNotifyQuote={advancedNotifyQuote} />
         <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
-        <HotThreads />
+
         {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
         {settings.LinhXinhBtn === true ? <LXBtn /> : null}
+        {multiAcc && <MultiAccounts currentView={currentView} />}
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">
           <FeedbackBtn />

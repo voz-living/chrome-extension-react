@@ -93,6 +93,7 @@ export default class OptionPage extends Component {
           Lưu bài viết (post)
           &nbsp;<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-L%C6%B0u-b%C3%A0i-vi%E1%BA%BFt">(?)</a>
         </OnOffConfigItem>
+        <OnOffConfigItem configKey="multiAcc" parent={parent} >Sử dụng đa tài khoản</OnOffConfigItem>
         <hr />
         <div className="warning">Tuỳ chọn mới sẽ được áp dụng khi bạn tải trang mới hoặc tải lại trang</div>
       </div>
