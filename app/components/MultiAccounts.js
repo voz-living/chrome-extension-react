@@ -88,11 +88,12 @@ class MultiAccounts extends Component {
       alert('Post quá ngắn, vui lòng thử lại');
       return null;
     }
+    document.getElementById('voz-living-loader-wrapper').className = 'loading';
     chrome.runtime.sendMessage({ service: 'post-message', request: { message, thread, currentView, sessHash, passHash, idHash } }, res => {
       if (res.resolve === 'new-thread') {
         window.location.href = `https://vozforums.com/forumdisplay.php?f=${thread}`;
       } else {
-        window.location.href = `https://vozforums.com/showthread.php?t=${thread}`;
+        window.location.reload();
       }
     });
     return null;

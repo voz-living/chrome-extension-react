@@ -110,7 +110,7 @@ function postWithCookie(request, sendResponse) {
       oldIdHash = oldIdDir.value;
     }
     getToken(token => {
-      console.log([request, token, oldSessHash, oldPassHash, oldIdHash]);
+      // console.log([request, token, oldSessHash, oldPassHash, oldIdHash]);
       const postForm = new FormData();
       if (request.currentView === 'new-thread') {
         postForm.append('do', 'newthread');
