@@ -209,6 +209,7 @@ class App extends Component {
           settings={this.props.settings}
           autoHide={autoHideSidebar}
           advancedNotifyQuote={advancedNotifyQuote}
+          currentView={currentView}
           multiAcc={multiAcc}
         />
         {this.renderBaseOnCurrentView(currentView)}

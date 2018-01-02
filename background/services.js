@@ -27,22 +27,24 @@ const cachedHotThreads = {
   ts: new Date().getTime(),
 };
 
-function renewToken() {
+function getToken(response) {
   $.ajax({ url: 'https://vozforums.com', type: 'GET', dataType: 'text' }).done(data => {
     const token = data.match(/SECURITYTOKEN = "(.*?)";/);
-    return token[1];
+    response(token[1]);
   });
 }
 
+
 function setSessionCookie(request) {
-  chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfsessionhash' });
-  chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfpassword' });
   const sessHash = request.sessHash;
   const passHash = request.passHash;
+  const idHash = request.idHash;
   chrome.cookies.set(
     { url: 'https://.vozforums.com/', name: 'vfsessionhash', value: sessHash });
   chrome.cookies.set(
     { url: 'https://.vozforums.com/', name: 'vfpassword', value: passHash });
+  chrome.cookies.set(
+    { url: 'https://.vozforums.com/', name: 'vfuserid', value: idHash });
 }
 
 function getSessionCookie(request, sendResponse) {
@@ -53,9 +55,11 @@ function getSessionCookie(request, sendResponse) {
     let oldPassHash = '';
     const oldPassDir = oldCookies.filter(cookie => cookie.name === 'vfpassword')[0];
     if (oldPassDir !== undefined) { oldPassHash = oldPassDir.value; }
+    let oldIdHash = '';
+    const oldIdDir = oldCookies.filter(cookie => cookie.name === 'vfuserid')[0];
+    if (oldIdDir !== undefined) { oldIdHash = oldIdDir.value; }
     chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfsessionhash' });
     chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfpassword' });
-    const sToken = $('tr:nth-child(2) > td > form > input[type="hidden"]:nth-child(6)').attr('value');
     const loginForm = new FormData();
     const md5pass = md5(request.password);
     console.log('Initialize verification');
@@ -63,7 +67,6 @@ function getSessionCookie(request, sendResponse) {
     loginForm.append('vb_login_username', request.username);
     loginForm.append('vb_login_md5password', md5pass);
     loginForm.append('cookieuser', 1);
-    loginForm.append('securitytoken', sToken);
     $.ajax({
       type: 'POST',
       processData: false,
@@ -76,17 +79,73 @@ function getSessionCookie(request, sendResponse) {
           chrome.cookies.getAll({ url: 'https://.vozforums.com/' }, cookies => {
             const sessHash = cookies.filter(cookie => cookie.name === 'vfsessionhash')[0].value;
             const passHash = cookies.filter(cookie => cookie.name === 'vfpassword')[0].value;
-            sendResponse({ resolve: { sessHash, passHash } });
+            const idHash = cookies.filter(cookie => cookie.name === 'vfuserid')[0].value;
+            sendResponse({ resolve: { sessHash, passHash, idHash } });
           });
         } else {
           sendResponse({ reject: 'Error encountered' });
         }
-        setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash });
+        setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash, idHash: oldIdHash });
       })
       .fail(() => { sendResponse({ reject: 'Error encountered' }); });
   });
 }
 
+function postWithCookie(request, sendResponse) {
+  chrome.cookies.getAll({ url: 'https://.vozforums.com/' }, oldCookies => {
+    setSessionCookie({ sessHash: request.sessHash, passHash: request.passHash, idHash: request.idHash });
+    let oldSessHash = '';
+    const oldSessDir = oldCookies.filter(cookie => cookie.name === 'vfsessionhash')[0];
+    if (oldSessDir !== undefined) {
+      oldSessHash = oldSessDir.value;
+    }
+    let oldPassHash = '';
+    const oldPassDir = oldCookies.filter(cookie => cookie.name === 'vfpassword')[0];
+    if (oldPassDir !== undefined) {
+      oldPassHash = oldPassDir.value;
+    }
+    let oldIdHash = '';
+    const oldIdDir = oldCookies.filter(cookie => cookie.name === 'vfuserid')[0];
+    if (oldIdDir !== undefined) {
+      oldIdHash = oldIdDir.value;
+    }
+    getToken(token => {
+      console.log([request, token, oldSessHash, oldPassHash, oldIdHash]);
+      const postForm = new FormData();
+      if (request.currentView === 'new-thread') {
+        postForm.append('do', 'newthread');
+        postForm.append('f', request.thread);
+        postForm.append('message', request.message);
+        postForm.append('securitytoken', token);
+        $.ajax({
+          type: 'POST',
+          processData: false,
+          contentType: false,
+          url: 'https://vozforums.com/newthread.php',
+          data: postForm,
+        }).done(() => {
+          setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash, idHash: oldIdHash });
+          sendResponse({ resolve: 'new-thread' });
+        });
+      } else {
+        postForm.append('do', 'postreply');
+        postForm.append('t', request.thread);
+        postForm.append('message', request.message);
+        postForm.append('securitytoken', token);
+        $.ajax({
+          type: 'POST',
+          processData: false,
+          contentType: false,
+          url: 'https://vozforums.com/newreply.php',
+          data: postForm,
+        }).done(() => {
+          setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash, idHash: oldIdHash });
+          sendResponse({ resolve: 'post-reply' });
+        });
+      }
+    });
+  });
+}
 
 // function logoutSession() {
 //   const sToken = $('tr:nth-child(2) > td > form > input[type="hidden"]:nth-child(6)').attr('value');
@@ -149,6 +208,10 @@ export default function startServices() {
         }
         if (request.service === 'set-session-hash') {
           setSessionCookie(request.request);
+          return true;
+        }
+        if (request.service === 'post-message') {
+          postWithCookie(request.request, sendResponse);
           return true;
         }
         // if (request.service === 'request-hotthreads') {

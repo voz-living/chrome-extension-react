@@ -20,6 +20,7 @@ class SideMenu extends Component {
     autoHide: PropTypes.bool,
     advancedNotifyQuote: PropTypes.bool,
     multiAcc: PropTypes.bool,
+    currentView: PropTypes.string,
   }
 
   static defaultProps = {
@@ -49,7 +50,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { settings, autoHide, advancedNotifyQuote, multiAcc } = this.props;
+    const { settings, autoHide, advancedNotifyQuote, multiAcc, currentView } = this.props;
 
     return (
       <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide })}>
@@ -60,7 +61,7 @@ class SideMenu extends Component {
 
         {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
         {settings.LinhXinhBtn === true ? <LXBtn /> : null}
-        {multiAcc && <MultiAccounts />}
+        {multiAcc && <MultiAccounts currentView={currentView} />}
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">
           <FeedbackBtn />
