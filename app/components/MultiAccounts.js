@@ -202,8 +202,8 @@ class MultiAccounts extends Component {
               <table className="multi-acc-table">
                 <thead>
                   <tr>
-                    <th>Username</th>
-                    <th>Password</th>
+                    <th style={{ width: '175px' }}>Username</th>
+                    <th style={{ width: '175px' }}>Password</th>
                     <th style={{ width: '160px' }}>Action</th>
                     <th />
                   </tr>
