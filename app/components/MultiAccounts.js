@@ -77,6 +77,60 @@ class MultiAccounts extends Component {
     return text.toLowerCase().replace(/\s+/g, ' ').trim();
   }
 
+  componentDidMount() {
+    const uDir = document.querySelector('.tborder .alt2 > .smallfont > strong > a');
+    let uName = null;
+    if (uDir !== null) {
+      uName = this.normalizeText(uDir.textContent);
+    }
+    const { currentView } = this.props;
+    const { cookieList } = this.state;
+    if (uDir !== null && (currentView === 'thread' || currentView === 'new-thread' || currentView === 'new-reply')) {
+      let postButton;
+      let thread;
+      if (currentView === 'thread') {
+        thread = document.querySelector('#qr_threadid').value;
+      } else if (currentView === 'new-thread') {
+        thread = window.location.href.match(/do=newthread&f=(\d+)/i)[1];
+      } else {
+        thread = document.querySelector('.panelsurround input[name="t"]').value;
+      }
+      if (currentView === 'thread') {
+        postButton = document.querySelector('.button#qr_submit');
+      } else {
+        postButton = document.querySelector('.button#vB_Editor_001_save');
+      }
+      postButton.style.display = 'none';
+      postButton.id = '';
+      postButton.insertAdjacentHTML('beforebegin',
+        '<span id="vl-account-menu" style="margin-right:3px;"></span>');
+      render(
+        <span>
+          <select style={{ marginRight: '3px' }}>
+            <option key="default" value="default">{uDir.textContent}</option>
+            {cookieList.map((cookie, i) => {
+              return (this.normalizeText(cookie.username) !== uName && cookie.verified)
+                ? <option key={i} value={i}>{cookie.username}</option>
+                : '';
+            })}
+          </select>
+          <button
+            className="button vl-button"
+            id={currentView === 'thread' ? 'qr_submit' : 'vB_Editor_001_save'}
+            onClick={e => {
+              const elem = document.querySelector('#vl-account-menu select');
+              const value = elem.options[elem.selectedIndex].value;
+              if (value !== 'default') {
+                e.preventDefault();
+                this.postMessage(thread, currentView, cookieList[value].sessHash, cookieList[value].passHash, cookieList[value].idHash);
+              }
+            }}
+          >{currentView === 'new-thread' ? 'Submit New Thread' : 'Post Reply'}</button>
+        </span>
+        , document.getElementById('vl-account-menu'));
+    }
+  }
+
   postMessage(thread, currentView, sessHash, passHash, idHash) {
     let message = null;
     let subject = '';
@@ -98,10 +152,14 @@ class MultiAccounts extends Component {
     }
     document.getElementById('voz-living-loader-wrapper').className = 'loading';
     chrome.runtime.sendMessage({ service: 'post-message', request: { message, thread, currentView, sessHash, passHash, idHash, subject } }, res => {
-      if (res.resolve === 'new-thread') {
-        window.location.href = `https://vozforums.com/forumdisplay.php?f=${thread}`;
-      } else {
-        window.location.reload();
+      if (res.resolve === 'post-reply') {
+        if (res.url) {
+          window.location.href = res.url;
+        } else {
+          window.location.href = `https://vozforums.com/showthread.php?t=${thread}`;
+        }
+      } else if (res.resolve === 'new-thread') {
+        window.location.href = res.url;
       }
     });
     return null;
@@ -109,54 +167,11 @@ class MultiAccounts extends Component {
 
   render() {
     const { isOpen, cookieList } = this.state;
-    const { currentView } = this.props;
     const uDir = document.querySelector('.tborder .alt2 > .smallfont > strong > a');
-    let uName = '';
+    let uName = null;
     if (uDir !== null) {
       uName = this.normalizeText(uDir.textContent);
     }
-    if (uDir !== null && (currentView === 'thread' || currentView === 'new-thread' || currentView === 'new-reply')) {
-      let postButton;
-      let thread;
-      if (currentView === 'new-reply') {
-        thread = window.location.href.match(/do=postreply&t=(\d+)/i)[1];
-      } else if (currentView === 'new-thread') {
-        thread = window.location.href.match(/do=newthread&f=(\d+)/i)[1];
-      }
-      if (currentView === 'thread') {
-        thread = window.location.href.match(/showthread\.php\?t=(\d+)/i)[1];
-        postButton = document.querySelector('.button#qr_submit');
-      } else {
-        postButton = document.querySelector('.button#vB_Editor_001_save');
-      }
-      postButton.style.display = 'none';
-      postButton.insertAdjacentHTML('beforebegin',
-        '<span id="vl-account-menu" style="margin-right:3px;"></span>');
-      render(
-        <span>
-          <select style={{ marginRight: '3px' }}>
-            <option key="default" value="default">{uDir.textContent}</option>
-            {cookieList.map((cookie, i) => {
-              return (this.normalizeText(cookie.username) !== uName && cookie.verified)
-                ? <option key={i} value={i}>{cookie.username}</option>
-                : '';
-            })}
-          </select>
-          <button
-            style={{ font: '11px verdana' }}
-            onClick={e => {
-              const elem = document.querySelector('#vl-account-menu select');
-              const value = elem.options[elem.selectedIndex].value;
-              if (value !== 'default') {
-                e.preventDefault();
-                this.postMessage(thread, currentView, cookieList[value].sessHash, cookieList[value].passHash, cookieList[value].idHash);
-              }
-            }}
-          >Post Quick Reply</button>
-        </span>
-      , document.getElementById('vl-account-menu'));
-    }
-
     // console.log([cookieList, isOpen, uName, currentView]);
     if (!isOpen) {
       cookieList.map(arr => { arr.icon = 'fa-question-circle'; return arr; });

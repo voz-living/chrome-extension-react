@@ -124,9 +124,10 @@ function postWithCookie(request, sendResponse) {
           contentType: false,
           url: 'https://vozforums.com/newthread.php',
           data: postForm,
-        }).done(() => {
+        }).done(res => {
+          const threadUrl = res.match(/value="(\d+)" id="qr_threadid"/);
           setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash, idHash: oldIdHash });
-          sendResponse({ resolve: 'new-thread' });
+          sendResponse({ resolve: 'new-thread', url: `https://vozforums.com/showthread.php?t=${threadUrl[1]}` });
         });
       } else {
         postForm.append('do', 'postreply');
@@ -139,7 +140,11 @@ function postWithCookie(request, sendResponse) {
           contentType: false,
           url: 'https://vozforums.com/newreply.php',
           data: postForm,
-        }).done(() => {
+        }).done(res => {
+          const pageMatch = res.match(/<title>.*?Page (\d+).*<\/title>/);
+          if (!!pageMatch) {
+            sendResponse({ resolve: 'post-reply', url: `https://vozforums.com/showthread.php?t=${request.thread}&page=${pageMatch[1]}` });
+          }
           setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash, idHash: oldIdHash });
           sendResponse({ resolve: 'post-reply' });
         });
