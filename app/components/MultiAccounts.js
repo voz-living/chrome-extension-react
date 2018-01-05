@@ -197,7 +197,7 @@ class MultiAccounts extends Component {
               className="voz-mask multi-acc-mask"
               onClick={() => this.setState({ isOpen: !this.state.isOpen })}
             />,
-            <div key="multi-acc-options" className="btn-options" style={{ display: 'flex', height: '450px', minHeight: '450px', width: '545px' }}>
+            <div key="multi-acc-options" className="btn-options" style={{ display: 'flex', height: '450px', width: '565px', overflow: 'auto' }}>
               <h3>Đa tài khoản</h3>
               <table className="multi-acc-table">
                 <thead>
@@ -239,7 +239,16 @@ class MultiAccounts extends Component {
                 ))}
                 </tbody>
               </table>
-              <button onClick={() => { this.addNewAccount(); }}>Add new account</button>
+              <div>
+                <button style={{ marginRight: '3px' }} onClick={() => { this.addNewAccount(); }}>Add new account</button>
+                {!document.getElementsByClassName('thead').length &&
+                  <button
+                    onClick={() => {
+                      location.href = 'https://vozforums.com/login.php?do=logout';
+                    }}
+                  >
+                  Logout banned account </button>}
+              </div>
             </div>,
           ]}
       </div>
