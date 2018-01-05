@@ -247,7 +247,8 @@ class MultiAccounts extends Component {
                       location.href = 'https://vozforums.com/login.php?do=logout';
                     }}
                   >
-                  Logout banned account </button>}
+                    Logout banned account
+                  </button>}
               </div>
             </div>,
           ]}

@@ -40,11 +40,11 @@ function setSessionCookie(request) {
   const passHash = request.passHash;
   const idHash = request.idHash;
   chrome.cookies.set(
-    { url: 'https://.vozforums.com/', name: 'vfsessionhash', value: sessHash });
+    { url: 'https://.vozforums.com/', name: 'vfsessionhash', value: sessHash, httpOnly: true, expirationDate: 2147483647  });
   chrome.cookies.set(
-    { url: 'https://.vozforums.com/', name: 'vfpassword', value: passHash });
+    { url: 'https://.vozforums.com/', name: 'vfpassword', value: passHash, security: true, httpOnly: true, expirationDate: 2147483647 });
   chrome.cookies.set(
-    { url: 'https://.vozforums.com/', name: 'vfuserid', value: idHash });
+    { url: 'https://.vozforums.com/', name: 'vfuserid', value: idHash, security: true, httpOnly: true, expirationDate: 2147483647 });
 }
 
 function getSessionCookie(request, sendResponse) {
