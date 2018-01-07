@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { setChromeLocalStore } from '../utils/settings';
 import { autobind } from 'core-decorators';
+import _ from 'lodash';
 
 
 @autobind
@@ -11,6 +12,7 @@ class MultiAccounts extends Component {
   static propTypes = {
     cookieList: PropTypes.array,
     currentView: PropTypes.string,
+    exportPass: PropTypes.string,
   };
 
   static defaultProps = {
@@ -19,62 +21,12 @@ class MultiAccounts extends Component {
 
   constructor(props) {
     super(props);
+    const pass = this.props.exportPass || null;
     this.state = {
       isOpen: false,
       cookieList: this.props.cookieList,
+      exportPass: pass,
     };
-  }
-
-  handleChange(event, i, type) {
-    const { cookieList } = this.state;
-    if (type === 'username') {
-      cookieList[i].username = event.target.value;
-    } else
-    if (type === 'password') {
-      cookieList[i].password = event.target.value;
-    }
-  }
-
-  addNewAccount() {
-    const { cookieList } = this.state;
-    cookieList.push({ username: '', password: '', sessHash: '', passHash: '', idHash: '', verified: false, icon: 'fa-question-circle' });
-    this.setState({ cookieList });
-  }
-
-  removeAccount(i) {
-    const { cookieList } = this.state;
-    cookieList.splice(i, 1);
-    this.setState({ cookieList });
-  }
-
-  verifyAccount(username, password, i) {
-    const { cookieList } = this.state;
-    cookieList[i].icon = 'fa-spinner fa-spin';
-    this.setState({ cookieList });
-    chrome.runtime.sendMessage({ service: 'get-session-hash', request: { username, password } }, response => {
-      if (response.resolve) {
-        cookieList[i].sessHash = response.resolve.sessHash;
-        cookieList[i].passHash = response.resolve.passHash;
-        cookieList[i].idHash = response.resolve.idHash;
-        cookieList[i].verified = true;
-        cookieList[i].icon = 'fa-check';
-      } else if (response.reject) {
-        cookieList[i].icon = 'fa-exclamation-triangle';
-        alert('Something went wrong.');
-      }
-      this.setState({ cookieList });
-    });
-  }
-
-  changeAccount(sessHash, passHash, idHash) {
-    const { cookieList } = this.state;
-    setChromeLocalStore({ cookieList });
-    chrome.runtime.sendMessage({ service: 'set-session-hash', request: { sessHash, passHash, idHash } });
-    setTimeout(() => { location.reload(); }, 100);
-  }
-
-  normalizeText(text) {
-    return text.toLowerCase().replace(/\s+/g, ' ').trim();
   }
 
   componentDidMount() {
@@ -129,6 +81,153 @@ class MultiAccounts extends Component {
         </span>
         , document.getElementById('vl-account-menu'));
     }
+  }
+
+  handleChange(event, i, type) {
+    const { cookieList } = this.state;
+    if (type === 'username') {
+      cookieList[i].username = event.target.value;
+    } else
+    if (type === 'password') {
+      cookieList[i].password = event.target.value;
+    }
+  }
+
+  addNewAccount() {
+    const { cookieList } = this.state;
+    cookieList.push({ username: '', password: '', sessHash: '', passHash: '', idHash: '', verified: false, icon: 'fa-question-circle' });
+    this.setState({ cookieList });
+  }
+
+  removeAccount(i) {
+    const { cookieList } = this.state;
+    cookieList.splice(i, 1);
+    this.setState({ cookieList });
+  }
+
+  verifyAccount(username, password, i) {
+    const { cookieList } = this.state;
+    cookieList[i].icon = 'fa-spinner fa-spin';
+    this.setState({ cookieList });
+    chrome.runtime.sendMessage({ service: 'get-session-hash', request: { username, password } }, response => {
+      if (response.resolve) {
+        cookieList[i].sessHash = response.resolve.sessHash;
+        cookieList[i].passHash = response.resolve.passHash;
+        cookieList[i].idHash = response.resolve.idHash;
+        cookieList[i].verified = true;
+        cookieList[i].icon = 'fa-check';
+      } else if (response.reject) {
+        cookieList[i].icon = 'fa-exclamation-triangle';
+        alert('Something went wrong.');
+      }
+      this.setState({ cookieList });
+    });
+  }
+
+  changeAccount(sessHash, passHash, idHash) {
+    const { cookieList } = this.state;
+    setChromeLocalStore({ cookieList });
+    chrome.runtime.sendMessage({ service: 'set-session-hash', request: { sessHash, passHash, idHash } });
+    setTimeout(() => { location.reload(); }, 100);
+  }
+
+  modifyPassword() {
+    document.getElementById('vl-require-export-pass').style.display = 'none';
+    console.log(this.state.exportPass);
+    if (this.state.exportPass === null) {
+      document.getElementById('vl-add-pass').style.display = 'inline-block';
+    } else {
+      document.getElementById('vl-remove-pass').style.display = 'inline-block';
+    }
+  }
+
+  addExportPassword() {
+    if (this.state.exportPass === null) {
+      const addPass = prompt('Hãy nhập pass bảo mật bạn muốn(Nhớ lưu pass này ra nơi nào đó):');
+      if (addPass !== null) {
+        const reAddPass = prompt('Hãy nhập lại pass:');
+        if (reAddPass !== null) {
+          if (addPass === reAddPass) {
+            setChromeLocalStore({ exportPass: addPass });
+            this.setState({ exportPass: addPass });
+            alert('Xác nhận pass thành công.');
+          } else {
+            alert('Pass không trùng nhau.');
+          }
+        }
+      }
+    }
+    document.getElementById('vl-require-export-pass').style.display = 'inline';
+    document.getElementById('vl-add-pass').style.display = 'none';
+  }
+
+  removeExportPassword() {
+    const pass = prompt('Hãy nhập pass bảo mật');
+    if (pass !== null) {
+      if (pass === this.state.exportPass) {
+        setChromeLocalStore({ exportPass: null });
+        this.setState({ exportPass: null });
+        alert('Pass bảo mật đã được xoá');
+      } else {
+        alert('Bạn đã nhập sai pass');
+      }
+    }
+    document.getElementById('vl-require-export-pass').style.display = 'inline';
+    document.getElementById('vl-remove-pass').style.display = 'none';
+  }
+
+  exportAccount() {
+    if (this.state.exportPass !== null) {
+      const pass = prompt('Hãy nhập pass bảo mật');
+      if (pass !== null) {
+        if (pass !== this.state.exportPass) {
+          alert('Bạn đã nhập sai pass');
+          return null;
+        }
+      } else {
+        return null;
+      }
+    }
+    const elem = document.createElement('input');
+    document.body.appendChild(elem);
+    elem.setAttribute('value', JSON.stringify(this.state.cookieList));
+    elem.select();
+    document.execCommand('copy');
+    document.body.removeChild(elem);
+    alert('Tài khoản đã được export ra clipboard.');
+    return null;
+  }
+
+  importAccount() {
+    const input = prompt('Nhập tài khoản export được tại đây:');
+    if (input === '') {
+      alert('Bạn chưa nhập gì cả.');
+    } else if (input !== null) {
+      try {
+        JSON.parse(input);
+      } catch (e) {
+        alert('Định dạng nhập vào không đúng');
+        return null;
+      }
+      const content = JSON.parse(input);
+      if (content.length === 0 || Object.keys(content).length === 0) {
+        alert('Bạn chưa nhập gì cả.');
+        return null;
+      }
+      const params = ['username', 'password', 'sessHash', 'passHash', 'idHash', 'verified', 'icon'];
+      for (let i = 0; i < content.length; i++) {
+        if (_.intersection(_.keys(content[i]), params).length < 7) {
+          alert('Định dạng nhập vào không đúng');
+          return null;
+        }
+      }
+      this.setState({ cookieList: content });
+    }
+    return null;
+  }
+
+  normalizeText(text) {
+    return text.toLowerCase().replace(/\s+/g, ' ').trim();
   }
 
   postMessage(thread, currentView, sessHash, passHash, idHash) {
@@ -241,6 +340,8 @@ class MultiAccounts extends Component {
               </table>
               <div>
                 <button style={{ marginRight: '3px' }} onClick={() => { this.addNewAccount(); }}>Add new account</button>
+                <button style={{ marginRight: '3px' }} onClick={() => { this.importAccount(); }}>Import</button>
+                <button style={{ marginRight: '3px' }} onClick={() => { this.exportAccount(); }}>Export</button>
                 {!document.getElementsByClassName('thead').length &&
                   <button
                     onClick={() => {
@@ -250,6 +351,24 @@ class MultiAccounts extends Component {
                     Logout banned account
                   </button>}
               </div>
+              <div id="vl-require-pass-wrapper" style={{ paddingTop: '10px' }} >
+                <a
+                  id="vl-require-export-pass"
+                  onClick={() => { this.modifyPassword(); }}
+                  style={{ fontSize: '11px', float: 'right' }}
+                  title="Yêu cầu nhập mật khẩu trước khi export"
+                >Require export password...</a>
+                <button
+                  id="vl-add-pass"
+                  style={{ display: 'none', float: 'right' }}
+                  onClick={() => { this.addExportPassword(); }}
+                >Add new password</button>
+                <button
+                  id="vl-remove-pass"
+                  style={{ display: 'none', float: 'right' }}
+                  onClick={() => { this.removeExportPassword(); }}
+                >Remove password</button>
+              </div>
             </div>,
           ]}
       </div>
@@ -258,8 +377,8 @@ class MultiAccounts extends Component {
 
 }
 const mapStateToProps = state => {
-  const { cookieList } = state.vozLiving;
-  return { cookieList };
+  const { cookieList, exportPass } = state.vozLiving;
+  return { cookieList, exportPass };
 };
 
 export default connect(mapStateToProps)(MultiAccounts);
