@@ -9,6 +9,7 @@ import reducer from '../reducers';
 
 const logger = createLogger({
   level: 'log',
+  predicate: (getState, action) => action.type !== 'VOZ_LIVING_INIT', // delete to see full log
 });
 
 export const store = createStore(
