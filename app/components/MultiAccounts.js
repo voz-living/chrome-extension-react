@@ -199,29 +199,40 @@ class MultiAccounts extends Component {
   }
 
   importAccount() {
-    const input = prompt('Nhập tài khoản export được tại đây:');
-    if (input === '') {
-      alert('Bạn chưa nhập gì cả.');
-    } else if (input !== null) {
-      try {
-        JSON.parse(input);
-      } catch (e) {
-        alert('Định dạng nhập vào không đúng');
+    const method = prompt('Chọn kiểu import bạn muốn:\n1. Thay thế\n2. Thêm vào');
+    if (method !== null) {
+      if (method !== '1' && method !== '2') {
+        alert('Lựa chọn không hợp lệ');
         return null;
       }
-      const content = JSON.parse(input);
-      if (content.length === 0 || Object.keys(content).length === 0) {
+      const input = prompt('Nhập tài khoản export được tại đây:');
+      if (input === '') {
         alert('Bạn chưa nhập gì cả.');
-        return null;
-      }
-      const params = ['username', 'password', 'sessHash', 'passHash', 'idHash', 'verified', 'icon'];
-      for (let i = 0; i < content.length; i++) {
-        if (_.intersection(_.keys(content[i]), params).length < 7) {
+      } else if (input !== null) {
+        try {
+          JSON.parse(input);
+        } catch (e) {
           alert('Định dạng nhập vào không đúng');
           return null;
         }
+        const content = JSON.parse(input);
+        if (content.length === 0 || Object.keys(content).length === 0) {
+          alert('Bạn chưa nhập gì cả.');
+          return null;
+        }
+        const params = ['username', 'password', 'sessHash', 'passHash', 'idHash', 'verified', 'icon'];
+        for (let i = 0; i < content.length; i++) {
+          if (_.intersection(_.keys(content[i]), params).length < 7) {
+            alert('Định dạng nhập vào không đúng');
+            return null;
+          }
+        }
+        if (method === '1') {
+          this.setState({ cookieList: content });
+        } else {
+          this.setState({ cookieList: content.concat(this.state.cookieList) });
+        }
       }
-      this.setState({ cookieList: content });
     }
     return null;
   }
@@ -289,88 +300,98 @@ class MultiAccounts extends Component {
           }}
         ><i className="fa fa-users" /></a>
         {isOpen &&
-          [
-            <div
-              key="multi-acc-mask"
-              style={{ display: 'block' }}
-              className="voz-mask multi-acc-mask"
-              onClick={() => this.setState({ isOpen: !this.state.isOpen })}
-            />,
-            <div key="multi-acc-options" className="btn-options" style={{ display: 'flex', height: '450px', width: '565px', overflow: 'auto' }}>
-              <h3>Đa tài khoản</h3>
-              <table className="multi-acc-table">
-                <thead>
-                  <tr>
-                    <th style={{ width: '175px' }}>Username</th>
-                    <th style={{ width: '175px' }}>Password</th>
-                    <th style={{ width: '160px' }}>Action</th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody id="multi-acc-body">
-                {cookieList.map((cookie, i) => (
-                  <tr key={Math.random()}>
-                    <td>
-                      <input defaultValue={cookie.username} maxLength="24" onChange={event => { this.handleChange(event, i, 'username'); }} />
-                    </td>
-                    <td>
-                      <input
-                        type="password" defaultValue="vozliving" onFocus={e => {
-                          if (e.target.value === 'vozliving') { e.target.value = ''; }
-                        }}
-                        onChange={event => { this.handleChange(event, i, 'password'); }}
-                      />
-                    </td>
-                    <td>
-                      <button style={{ width: '54px' }} onClick={() => { this.verifyAccount(cookieList[i].username, cookieList[i].password, i); }}>
-                        {!cookieList[i].verified ? '\u00A0Verify\u00A0' : 'Check'}</button>
-                      {cookieList[i].verified && <button
-                        disabled={uName === this.normalizeText(cookieList[i].username)}
-                        onClick={() => {
-                          this.changeAccount(cookieList[i].sessHash, cookieList[i].passHash, cookieList[i].idHash);
-                        }}
-                      >Default</button>
-                      }
-                      <button onClick={() => { this.removeAccount(i); }}><i className="fa fa-times" aria-hidden="true" /></button>
-                    </td>
-                    <td><i className={`fa fa-lg ${cookieList[i].icon}`} aria-hidden="true" /></td>
-                  </tr>
-                ))}
-                </tbody>
-              </table>
-              <div>
-                <button style={{ marginRight: '3px' }} onClick={() => { this.addNewAccount(); }}>Add new account</button>
-                <button style={{ marginRight: '3px' }} onClick={() => { this.importAccount(); }}>Import</button>
-                <button style={{ marginRight: '3px' }} onClick={() => { this.exportAccount(); }}>Export</button>
-                {!document.getElementsByClassName('thead').length &&
-                  <button
-                    onClick={() => {
-                      location.href = 'https://vozforums.com/login.php?do=logout';
+        [
+          <div
+            key="multi-acc-mask"
+            style={{ display: 'block' }}
+            className="voz-mask multi-acc-mask"
+            onClick={() => this.setState({ isOpen: !this.state.isOpen })}
+          />,
+          <div key="multi-acc-options" className="btn-options" style={{ display: 'flex', height: '450px', width: '565px', overflow: 'auto' }}>
+            <h3>Đa tài khoản</h3>
+            <table className="multi-acc-table">
+              <thead>
+              <tr>
+                <th style={{ width: '175px' }}>Username</th>
+                <th style={{ width: '175px' }}>Password</th>
+                <th style={{ width: '160px' }}>Action</th>
+                <th />
+              </tr>
+              </thead>
+              <tbody id="multi-acc-body">
+              {cookieList.map((cookie, i) => (
+                <tr key={Math.random()}>
+                  <td>
+                    <input
+                      defaultValue={cookie.username}
+                      maxLength="25"
+                      onChange={event => { this.handleChange(event, i, 'username'); }}
+                      disabled={cookieList[i].password === null}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      disabled={cookieList[i].password === null}
+                      type="password" defaultValue="vozliving" onFocus={e => {
+                      if (e.target.value === 'vozliving') { e.target.value = ''; }
                     }}
-                  >
-                    Logout banned account
-                  </button>}
-              </div>
-              <div id="vl-require-pass-wrapper" style={{ paddingTop: '10px' }} >
-                <a
-                  id="vl-require-export-pass"
-                  onClick={() => { this.modifyPassword(); }}
-                  style={{ fontSize: '11px', float: 'right' }}
-                  title="Yêu cầu nhập mật khẩu trước khi export"
-                >Require export password...</a>
-                <button
-                  id="vl-add-pass"
-                  style={{ display: 'none', float: 'right' }}
-                  onClick={() => { this.addExportPassword(); }}
-                >Add new password</button>
-                <button
-                  id="vl-remove-pass"
-                  style={{ display: 'none', float: 'right' }}
-                  onClick={() => { this.removeExportPassword(); }}
-                >Remove password</button>
-              </div>
-            </div>,
-          ]}
+                      onChange={event => { this.handleChange(event, i, 'password'); }}
+                    />
+                  </td>
+                  <td>
+                    <button
+                      style={{ width: '54px' }}
+                      onClick={() => { this.verifyAccount(cookieList[i].username, cookieList[i].password, i); }}
+                      disabled={cookieList[i].password === null}
+                    >
+                      {!cookieList[i].verified ? '\u00A0Verify\u00A0' : 'Check'}</button>
+                    {cookieList[i].verified && <button
+                      disabled={uName === this.normalizeText(cookieList[i].username)}
+                      onClick={() => {
+                        this.changeAccount(cookieList[i].sessHash, cookieList[i].passHash, cookieList[i].idHash);
+                      }}
+                    >Default</button>
+                    }
+                    <button onClick={() => { this.removeAccount(i); }}><i className="fa fa-times" aria-hidden="true" /></button>
+                  </td>
+                  <td><i className={`fa fa-lg ${cookieList[i].icon}`} aria-hidden="true" /></td>
+                </tr>
+              ))}
+              </tbody>
+            </table>
+            <div>
+              <button style={{ marginRight: '3px' }} onClick={() => { this.addNewAccount(); }}>Add new account</button>
+              <button style={{ marginRight: '3px' }} onClick={() => { this.importAccount(); }}>Import</button>
+              <button style={{ marginRight: '3px' }} onClick={() => { this.exportAccount(); }}>Export</button>
+              {!document.getElementsByClassName('thead').length &&
+              <button
+                onClick={() => {
+                  location.href = 'https://vozforums.com/login.php?do=logout';
+                }}
+              >
+                Logout banned account
+              </button>}
+            </div>
+            <div id="vl-require-pass-wrapper" style={{ paddingTop: '10px' }} >
+              <a
+                id="vl-require-export-pass"
+                onClick={() => { this.modifyPassword(); }}
+                style={{ fontSize: '11px', float: 'right' }}
+                title="Yêu cầu nhập mật khẩu trước khi export"
+              >Require export password...</a>
+              <button
+                id="vl-add-pass"
+                style={{ display: 'none', float: 'right' }}
+                onClick={() => { this.addExportPassword(); }}
+              >Add new password</button>
+              <button
+                id="vl-remove-pass"
+                style={{ display: 'none', float: 'right' }}
+                onClick={() => { this.removeExportPassword(); }}
+              >Remove password</button>
+            </div>
+          </div>,
+        ]}
       </div>
     );
   }
