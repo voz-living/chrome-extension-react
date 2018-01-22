@@ -7,16 +7,11 @@ class AdsControl extends Component {
   }
 
   componentDidMount() {
-    $('#neo_logobar').append(`
-      <div style="display: block; float: right">
-        <h3><a href="https://goo.gl/forms/jgSa6ZXtIsRvLJMj1" target="_blank" style="color: white;">
-          <i class="fa fa-wechat"></i> Chat với cộng đồng VozLiving (mở ra tab mới)
-        </a></h3>
-        <h4><a href="https://vozliving.slack.com" target="_blank" style="color: white;">
-          Đã tham gia ? ghé vô chém gió (tab mới)
-        </a></h4>
-      </div>
-    `);
+    document.querySelector('body > div > form').remove();
+    $(document.body).append(`<a target="_blank" title="Aura U23 VN" href="https://www.google.com.vn/search?q=u23+vietnam+afc" style="display: block; background-size: cover;
+    background-image: url(https://github.com/voz-living/chrome-extension-react/raw/master/assert/banner-u23.png);
+    background-position: top center; width: 600px; height: 250px; margin: 0 auto;">
+    </a>`);
     if (window.localStorage.getItem('survey_done') !== 'yes') {
       $(document.body).prepend(`
         <style>

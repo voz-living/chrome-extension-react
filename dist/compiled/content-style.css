@@ -2260,6 +2260,8 @@ a.voz-living-newtab:hover {
 }
 .mini-quote-wrapper .quote::before {
   content: '';
+  z-index: 11;
+  cursor: pointer;
   position: absolute;
   display: block;
   top: 0;
@@ -2282,6 +2284,7 @@ a.voz-living-newtab:hover {
   position: absolute;
   top: -7px;
   left: 50%;
+  z-index: 12;
   transform: translateX(-50%);
   height: 15px;
   line-height: 15px;
@@ -2841,7 +2844,10 @@ body .voz-living-side-menu.auto-hide:hover .btn-group {
   text-align: center;
 }
 .quick-link-table tr td input {
-  width: 100%;
+  width: 99%;
+}
+.multi-acc-table button {
+  margin: 0 2px;
 }
 .voz-living-peer-chat-wrapper {
   width: 380px;
@@ -3115,7 +3121,7 @@ body .voz-living-side-menu .btn-group .btn-options.bookmark-list .bookmark-item-
   padding: 5px;
   border-radius: 3px;
   background: rgba(35, 35, 35, 0.8);
-  z-index: 99999;
+  z-index: 10;
   transition: 0.2s;
 }
 .control-button {
