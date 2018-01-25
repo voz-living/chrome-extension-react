@@ -7,12 +7,14 @@ class AdsControl extends Component {
   }
 
   componentDidMount() {
-    document.querySelector('body > div > form').remove();
-    $(document.body).append(`<a target="_blank" title="Aura U23 VN" href="https://www.google.com.vn/search?q=u23+vietnam+afc" style="display: block; background-size: cover;
-    background-image: url(https://github.com/voz-living/chrome-extension-react/raw/master/assert/banner-u23.png);
-    background-position: top center; width: 600px; height: 250px; margin: 0 auto;">
-    </a>`);
-    if (window.localStorage.getItem('survey_done') !== 'yes') {
+    const toRemove = document.querySelector('body > div > form');
+    if (toRemove && toRemove.remove) toRemove.remove();
+    // $(document.body).append(`<a target="_blank" title="Aura U23 VN" href="https://www.google.com.vn/search?q=u23+vietnam+afc" style="display: block; background-size: cover;
+    // background-image: url(https://github.com/voz-living/chrome-extension-react/raw/master/assert/banner-u23.png);
+    // background-position: top center; width: 600px; height: 250px; margin: 0 auto;">
+    // </a>`);
+    // https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme
+    if (window.localStorage.getItem('survey_done') !== 'u23vn') {
       $(document.body).prepend(`
         <style>
         .important-survey {
@@ -39,12 +41,12 @@ class AdsControl extends Component {
           right: 3px; 
         }
         </style>
-        <div class="important-survey">Bạn muốn VozLiving bản mới nhất trên Firefox, Edge, Mobile, ... ? Góp ý chung ? <a href="https://goo.gl/forms/z7RgIvyfpv2ElZf53" target="_blank">trả lời khảo sát ở đây</a></div>
+        <div class="important-survey">Theme đã được đổi để ăn mừng U23 VN nếu bạn muốn trở về như cũ hãy chỉnh trong setting hoặc <a href="https://vozforums.com/showthread.php?p=135404057#post135404057" target="_blank"> xem hướng dẫn tại đây</a></div>
       `);
-      const closeBtn = $('<a href="#" class="close">Đã làm ×</a>');
+      const closeBtn = $('<a href="#" class="close">OK ×</a>');
       $('.important-survey').append(closeBtn);
       closeBtn.click(() => {
-        window.localStorage.setItem('survey_done', 'yes');
+        window.localStorage.setItem('survey_done', 'u23vn');
         $('.important-survey').fadeOut(300);
       });
     }

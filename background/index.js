@@ -35,6 +35,29 @@ chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
   if (info.status && info.status === 'loading') injectOptionalCSS(tab);
 });
 
+export function onNewVersion(fn) {
+  const manifestData = chrome.runtime.getManifest();
+  const oldVersion = localStorage.getItem('current_version');
+  const newVersion = manifestData.version + '';
+  console.log(oldVersion, newVersion);
+  if (oldVersion !== newVersion) {
+    fn();
+    localStorage.setItem('current_version', newVersion);
+  }
+}
+
+onNewVersion(() => {
+  // reset settings
+  chrome.storage.local.get('settings', (storage) => {
+    chrome.storage.local.set({
+      settings: {
+        ...storage.settings,
+        userStyle: 'https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme',
+      },
+    });
+  });
+});
+
 export {
   quoteBackground,
 };
