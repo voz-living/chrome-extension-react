@@ -49,12 +49,14 @@ export function onNewVersion(fn) {
 onNewVersion(() => {
   // reset settings
   chrome.storage.local.get('settings', (storage) => {
-    chrome.storage.local.set({
-      settings: {
-        ...storage.settings,
-        userStyle: 'https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme',
-      },
-    });
+    if (storage.settings.userStyle === 'https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme') {
+      chrome.storage.local.set({
+        settings: {
+          ...storage.settings,
+          userStyle: 'https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme',
+        },
+      });
+    }
   });
 });
 

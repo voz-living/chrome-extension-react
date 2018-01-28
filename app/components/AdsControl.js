@@ -14,42 +14,42 @@ class AdsControl extends Component {
     // background-position: top center; width: 600px; height: 250px; margin: 0 auto;">
     // </a>`);
     // https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme
-    if (window.localStorage.getItem('survey_done') !== 'u23vn') {
-      $(document.body).prepend(`
-        <style>
-        .important-survey {
-          background: #188218;
-          color: white;
-          padding: 5px 2px;
-          font-size: 12px;
-          font-weight: normal;
-          font-family: 'Helvetica neue', 'Roboto', sans-serif;
-          text-align: center;
-          text-shadow: 0 0 1px rgba(0,0,0, 1);
-          position: relative;
-        }
-        .important-survey a {
-          color: #f9f996 !important;  
-        }
-        .important-survey a.close {
-          color: white !important;
-          font-size: 11px;
-          display: block;
-          padding: 2px;
-          position: absolute;
-          top: 3px;
-          right: 3px; 
-        }
-        </style>
-        <div class="important-survey">Theme đã được đổi để ăn mừng U23 VN nếu bạn muốn trở về như cũ hãy chỉnh trong setting hoặc <a href="https://vozforums.com/showthread.php?p=135404057#post135404057" target="_blank"> xem hướng dẫn tại đây</a></div>
-      `);
-      const closeBtn = $('<a href="#" class="close">OK ×</a>');
-      $('.important-survey').append(closeBtn);
-      closeBtn.click(() => {
-        window.localStorage.setItem('survey_done', 'u23vn');
-        $('.important-survey').fadeOut(300);
-      });
-    }
+    // if (window.localStorage.getItem('survey_done') !== 'u23vn') {
+    //   $(document.body).prepend(`
+    //     <style>
+    //     .important-survey {
+    //       background: #188218;
+    //       color: white;
+    //       padding: 5px 2px;
+    //       font-size: 12px;
+    //       font-weight: normal;
+    //       font-family: 'Helvetica neue', 'Roboto', sans-serif;
+    //       text-align: center;
+    //       text-shadow: 0 0 1px rgba(0,0,0, 1);
+    //       position: relative;
+    //     }
+    //     .important-survey a {
+    //       color: #f9f996 !important;  
+    //     }
+    //     .important-survey a.close {
+    //       color: white !important;
+    //       font-size: 11px;
+    //       display: block;
+    //       padding: 2px;
+    //       position: absolute;
+    //       top: 3px;
+    //       right: 3px; 
+    //     }
+    //     </style>
+    //     <div class="important-survey">Theme đã được đổi để ăn mừng U23 VN nếu bạn muốn trở về như cũ hãy chỉnh trong setting hoặc <a href="https://vozforums.com/showthread.php?p=135404057#post135404057" target="_blank"> xem hướng dẫn tại đây</a></div>
+    //   `);
+    //   const closeBtn = $('<a href="#" class="close">OK ×</a>');
+    //   $('.important-survey').append(closeBtn);
+    //   closeBtn.click(() => {
+    //     window.localStorage.setItem('survey_done', 'u23vn');
+    //     $('.important-survey').fadeOut(300);
+    //   });
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
