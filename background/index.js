@@ -52,7 +52,7 @@ onNewVersion(() => {
     chrome.storage.local.set({
       settings: {
         ...storage.settings,
-        userStyle: 'https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme',
+        userStyle: '',
       },
     });
   });

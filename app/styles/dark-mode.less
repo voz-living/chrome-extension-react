@@ -31,7 +31,7 @@ a[id^="thread_title"]:link, a[id^="thread_title"]:visited, .tborder [nowrap] a:v
 .tborder, select, .button {
   border-color: #4e4c4c!important;
 }
-.voz-bbcode-quote td.alt2, #vB_Editor_QR, .vBulletin_editor, *:not(.controlbar) > fieldset, pre.alt2, input, div[style^="margin:20px; margin-top:5px"] table td {
+.voz-bbcode-quote td.alt2, #vB_Editor_QR, .vBulletin_editor, *:not(.controlbar) > fieldset, pre.alt2, input, div[style^="margin:20px; margin-top:5px"] table td, .vl-button, .alt2[style$="border:2px groove"] {
   border: 1px solid #4e4c4c!important
 }
 img[src^="images/misc"], img[src^="images/buttons"], img[src^="https://vozforums.com/images/buttons"], .rich-quote, .fa-external-link {
@@ -43,11 +43,11 @@ img[src^="images/statusicon"], [data-tooltip="Thread preview"] {
 [title^="Showing results"] strong, .voz-post-message a {
   color: white!important
 }
-table td .imagebutton {
+table td .imagebutton, #vl_additional_cmd a {
   background-color: transparent!important;
   filter: invert(1) hue-rotate(180deg)!important;
 }
-[data-tooltip="Thread preview"], .thread-preview-wrapper, .preview-content .bigusername, .preview-content .smallfont,.quick-link-table input{
+[data-tooltip="Thread preview"], .thread-preview-wrapper, .preview-content .bigusername, .preview-content .smallfont,.quick-link-table input, #multi-acc-body input{
   color: black!important
 }
 font[color="White"], font[color="#ffffff"] {color: #212121 !important}
@@ -100,4 +100,10 @@ div.alt2[dir="ltr"] {
 }
 .voz-post-message img[src^="images/smilies"], .voz-post-message img[src^="/images/smilies"] {
   filter: drop-shadow(1px 1px 2px white) drop-shadow(-1px -1px 2px white);
+}
+.btn.btn-minimize-quote {
+  background-color: #717171;
+  &:hover {
+    background-color: #55585c;
+  }
 }

@@ -64,9 +64,36 @@
   padding:3px;
 }
 #vB_Editor_001_textarea[name='message'] {
-  width:540px!important;
+  min-width:540px!important;
 }
 
 #collapseobj_quickreply .panel div {
   max-width: 1000px!important
+}
+
+#vl_additional_cmd {
+  margin: 5px 0px;
+  a {
+    padding: 3px 3px 5px 3px;
+    color: black!important;
+    border: 1px solid transparent;
+    &:hover {
+      background-color: #98b5e2;
+      border: 1px solid blue;
+    }
+  }
+}
+
+font[color="Spoiler"], font[color="spoiler"], font[color="SPOILER"] { /*css4 now supports case insensitive selector*/
+  background: black;
+  color: black;
+  &:hover {
+    color: white;
+  }
+  font {
+    color: black;
+    &:hover {
+      color: white;
+    }
+  }
 }
