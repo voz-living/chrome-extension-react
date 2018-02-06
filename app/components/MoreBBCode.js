@@ -28,24 +28,26 @@ export default class MoreBBCode extends Component {
         this.editor = $('#vB_Editor_001_textarea');
         $('#vB_Editor_001_controls').after('<div id="vl_additional_cmd"></div>');
       }
-      render(
-        <div>
-          <a
-            href="#"
-            data-tooltip="Gạch chéo chữ"
-            onClick={e => { e.preventDefault(); this.strikeText(); }}
-          >
-            <i className="fa fa-strikethrough fa-lg" />
-          </a>
-          <a
-            href="#"
-            data-tooltip="Thêm tag spoiler (voz-living)"
-            onClick={e => { e.preventDefault(); this.spoilerText(); }}
-          >
-            <i className="fa fa-eye-slash fa-lg" />
-          </a>
-        </div>
-      , document.getElementById('vl_additional_cmd'));
+      if (this.editor.length !== 0) {
+        render(
+          <div>
+            <a
+              href="#"
+              data-tooltip="Gạch chéo chữ"
+              onClick={e => { e.preventDefault(); this.strikeText(); }}
+            >
+              <i className="fa fa-strikethrough fa-lg" />
+            </a>
+            <a
+              href="#"
+              data-tooltip="Thêm tag spoiler (voz-living)"
+              onClick={e => { e.preventDefault(); this.spoilerText();}}
+            >
+              <i className="fa fa-eye-slash fa-lg" />
+            </a>
+          </div>
+          , document.getElementById('vl_additional_cmd'));
+      }
     }
   }
 
