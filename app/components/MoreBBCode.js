@@ -32,14 +32,14 @@ export default class MoreBBCode extends Component {
         <div>
           <a
             href="#"
-            title="Gạch chéo chữ"
+            data-tooltip="Gạch chéo chữ"
             onClick={e => { e.preventDefault(); this.strikeText(); }}
           >
             <i className="fa fa-strikethrough fa-lg" />
           </a>
           <a
             href="#"
-            title="Thêm tag spoiler (voz-living)"
+            data-tooltip="Thêm tag spoiler (voz-living)"
             onClick={e => { e.preventDefault(); this.spoilerText(); }}
           >
             <i className="fa fa-eye-slash fa-lg" />
@@ -50,13 +50,15 @@ export default class MoreBBCode extends Component {
   }
 
   strikeText() {
-    const text = `[STRIKE]${window.getSelection().toString()}[/STRIKE]`;
-    insertTextIntoEditor(text, this.editor);
+    const text = window.getSelection().toString();
+    const insert = `[STRIKE]${text}[/STRIKE]`;
+    insertTextIntoEditor(insert, this.editor, {}, -insert.length + 8, -9);
   }
 
   spoilerText() {
-    const text = `[COLOR="Spoiler"][COLOR="White"]${window.getSelection().toString()}[/COLOR][/COLOR]`;
-    insertTextIntoEditor(text, this.editor);
+    const text = window.getSelection().toString();
+    const insert = `[COLOR="Spoiler"][COLOR="White"]${text}[/COLOR][/COLOR]`;
+    insertTextIntoEditor(insert, this.editor, {}, -insert.length + 32, -16);
   }
 
   render() {
