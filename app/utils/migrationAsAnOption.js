@@ -13,7 +13,7 @@ function disableNextVoz() {
 
 function appendScript() {
   const script = document.createElement('script');
-  script.textContent = `${disableNextVoz.toString()}; disableNextVoz()`;
+  script.textContent = `(${disableNextVoz.toString()})()`;
   document.head.appendChild(script);
 }
 
