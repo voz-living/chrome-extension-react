@@ -1,4 +1,4 @@
-export function insertTextIntoEditor(text, $editor, position = {}) {
+export function insertTextIntoEditor(text, $editor, position = {}, curOffsetStart = 0, curOffsetEnd = 0) {
   const value = $editor.val();
   const {
     start = $editor.prop('selectionStart'),
@@ -9,8 +9,8 @@ export function insertTextIntoEditor(text, $editor, position = {}) {
   const textAfter = value.substring(end, value.length);
 
   $editor.val(textBefore + text + textAfter);
-  $editor[0].setSelectionRange(
-    start + text.length, start + text.length);
   $editor.focus();
+  $editor[0].setSelectionRange(
+    start + text.length + curOffsetStart, start + text.length + curOffsetEnd);
   return { start, end: end + text.length };
 }

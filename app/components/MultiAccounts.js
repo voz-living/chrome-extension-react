@@ -177,6 +177,10 @@ class MultiAccounts extends Component {
   }
 
   exportAccount() {
+    if (this.state.cookieList.length === 0) {
+      alert('Không có gì để export');
+      return null;
+    }
     if (this.state.exportPass !== null) {
       const pass = prompt('Hãy nhập pass bảo mật');
       if (pass !== null) {
@@ -190,7 +194,16 @@ class MultiAccounts extends Component {
     }
     const elem = document.createElement('input');
     document.body.appendChild(elem);
-    elem.setAttribute('value', JSON.stringify(this.state.cookieList));
+    const nopass = confirm('Bạn có muốn extract không bao gồm mật khẩu không?');
+    if (nopass === true) {
+      elem.setAttribute('value', JSON.stringify(this.state.cookieList.map(arr => {
+        const newArr = Object.assign({}, arr);
+        newArr.password = null;
+        return newArr;
+      })));
+    } else {
+      elem.setAttribute('value', JSON.stringify(this.state.cookieList));
+    }
     elem.select();
     document.execCommand('copy');
     document.body.removeChild(elem);
@@ -230,7 +243,7 @@ class MultiAccounts extends Component {
         if (method === '1') {
           this.setState({ cookieList: content });
         } else {
-          this.setState({ cookieList: content.concat(this.state.cookieList) });
+          this.setState({ cookieList: this.state.cookieList.concat(content) });
         }
       }
     }
@@ -326,15 +339,16 @@ class MultiAccounts extends Component {
                       defaultValue={cookie.username}
                       maxLength="25"
                       onChange={event => { this.handleChange(event, i, 'username'); }}
-                      disabled={cookieList[i].password === null}
                     />
                   </td>
                   <td>
                     <input
                       disabled={cookieList[i].password === null}
                       type="password" defaultValue="vozliving" onFocus={e => {
-                      if (e.target.value === 'vozliving') { e.target.value = ''; }
-                    }}
+                        if (e.target.value === 'vozliving') { e.target.value = ''; }
+                      }} onBlur={e => {
+                        if (e.target.value === '') { e.target.value = 'vozliving'; }
+                      }}
                       onChange={event => { this.handleChange(event, i, 'password'); }}
                     />
                   </td>

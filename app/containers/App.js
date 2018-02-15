@@ -24,6 +24,7 @@ import StickerPicker from '../components/StickerPicker';
 import RichEditor from '../components/RichEditor';
 import SideMenu from './SideMenu';
 import forHaveEatNo from '../utils/forHaveEatNo';
+import MoreBBCode from '../components/MoreBBCode';
 
 import {
   init,
@@ -232,6 +233,7 @@ class App extends Component {
           enableEyesNotify={enableEyesNotify}
           delayEyesNotify={delayEyesNotify}
         />
+        <MoreBBCode currentView={currentView} />
       </div>
     );
   }

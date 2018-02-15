@@ -7,8 +7,8 @@ class AdsControl extends Component {
   }
 
   componentDidMount() {
-    const toRemove = document.querySelector('body > div > form');
-    if (toRemove && toRemove.remove) toRemove.remove();
+    // const toRemove = document.querySelector('body > div > form');
+    // if (toRemove && toRemove.remove) toRemove.remove();
     // $(document.body).append(`<a target="_blank" title="Aura U23 VN" href="https://www.google.com.vn/search?q=u23+vietnam+afc" style="display: block; background-size: cover;
     // background-image: url(https://github.com/voz-living/chrome-extension-react/raw/master/assert/banner-u23.png);
     // background-position: top center; width: 600px; height: 250px; margin: 0 auto;">

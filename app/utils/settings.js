@@ -35,6 +35,7 @@ export const defaultStoreStructure = {
     delayEyesNotify: '30',   // minute
     advancedNotifyQuote: false,
     multiAcc: false,
+    disableNextVoz: true,
   },
   authInfo: {},
   quotes: [],
@@ -93,6 +94,16 @@ export const getChromeLocalStore = (
     });
   })
 );
+
+// to fix the issue that setting is not generated as first load
+export const getLocalSettings = () => {
+  return getChromeLocalStore(['settings']).then(({ settings }) => {
+    return {
+      ...defaultStoreStructure.settings,
+      ...settings,
+    }
+  })
+}
 
 export const setChromeLocalStore = (items, store = 'local') => (
   new Promise(resolve => {

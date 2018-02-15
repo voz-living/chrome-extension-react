@@ -61,6 +61,7 @@ export default class OptionPage extends Component {
             (?)
           </a>&nbsp;
         </TextConfigItem>
+        <OnOffConfigItem configKey="disableNextVoz" parent={parent} >Chặn tự động chuyển sang theNextVoz (có độ trễ nhất định)</OnOffConfigItem>
         <h4>Bảo vệ mắt</h4>
         <OnOffConfigItem configKey="eyesSchedule" parent={parent} >Chạy theo lịch trình:</OnOffConfigItem>
         <ScheduleConfigItem configKey="eyesDuration" parent={parent}>&nbsp;&nbsp;&nbsp;Chạy từ </ScheduleConfigItem>
