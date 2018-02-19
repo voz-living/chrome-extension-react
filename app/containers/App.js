@@ -134,7 +134,7 @@ class App extends Component {
       if (request.quotes) this.dispatch(updateQuotes(request.quotes));
     });
     /* eslint-enable no-undef */
-    window.vozLivingLoader.stop();
+    // window.vozLivingLoader.stop();
   }
 
   renderBaseOnCurrentView(currentView) {

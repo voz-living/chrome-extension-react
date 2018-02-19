@@ -12,7 +12,7 @@ keepMeBaby();
 
 document.onreadystatechange = () => {
   if (document.readyState === 'interactive') {
-    window.vozLivingLoader = VOZLivingLoader.init().start();
+    window.vozLivingLoader = VOZLivingLoader.init();
     const injector = document.createElement('div');
     injector.id = 'voz-living-app';
     document.body.appendChild(injector);
