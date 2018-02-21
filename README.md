@@ -11,11 +11,12 @@
 - load unpack extension in /chrome dir
 
 ### Publish
-* `npm install`
-* `npm run build-prod`
-* `npm run build-css`
-* `npm run build-dll`
-* zip the dist/compiled
+* `./compile` or
+    * `npm install`
+    * `npm run build-prod`
+    * `npm run build-css`
+    * `npm run build-dll`
+    * zip the dist/compiled
 * upload to store
 
 ### TODO Features:

@@ -70,6 +70,15 @@
 #collapseobj_quickreply .panel div {
   max-width: 1000px!important
 }
+form[action^="newthread"] .panel > div[align="left"],
+form[action^="private"] .panel > div,
+form[action^="private"] .panel > div > div {
+  min-width: 820px;
+  text-align: left
+}
+form[action^="newreply"] tr:nth-child(2) div.panel > div {
+  min-width: 960px!important
+}
 
 #vl_additional_cmd {
   margin: 6px 0 8px 0;
