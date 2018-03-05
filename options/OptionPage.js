@@ -9,6 +9,7 @@ import NumberConfigItem from './NumberConfigItem';
 import OnOffConfigItem from './OnOffConfigItem';
 import TextConfigItem from './TextConfigItem';
 import ScheduleConfigItem from './ScheduleConfigItem';
+import SelectConfigItem from './SelectConfigItem';
 import { setConfig } from './ConfigItem';
 
 const defaultSettings = defaultStoreStructure.settings;
@@ -76,6 +77,14 @@ export default class OptionPage extends Component {
           <NumberConfigItem configKey="delayEyesNotify" parent={parent} >Nhắc nhở sau (15 - 360) (phút) </NumberConfigItem>
         </blockquote>
         <h3>Trang danh sách thớt (Thread List)</h3>
+        <SelectConfigItem
+          configKey="uploader"
+          selections={[
+          ['imgur', 'Imgur.com'],
+          ['pik', 'Pik.vn'],
+          ]}
+          parent={parent}
+        >Host up ảnh: </SelectConfigItem>
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="autoGotoNewthread" parent={parent} >Tự đi tới bài mới nhất</OnOffConfigItem>

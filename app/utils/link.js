@@ -322,9 +322,9 @@ export function resolveYoutube($html, isThreadContentOnly) {
         $this.attr('data-smartlink', 'mp4-video');
         if (vcplayer) {
           const uHref = href.match(/vid=(.*?)&/i);
-          $img = $(`<div><video src='http://vhosting.vcmedia.vn/${uHref[1]}' width='560' height='315' preload='metadata' controls></video></div>`);
+          $img = $(`<div><video src='http://vhosting.vcmedia.vn/${uHref[1]}' width='560' height='315' preload='metadata' controls onclick="this.paused ? this.play() : this.pause();"></video></div>`);
         } else {
-          $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls></video></div>`);
+          $img = $(`<div><video src='${href}' width='560' height='315' preload='metadata' controls onclick="this.paused ? this.play() : this.pause();"></video></div>`);
         }
         media = true;
       } else if (mp3 !== null && mp3.length > 0) {

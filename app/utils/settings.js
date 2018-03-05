@@ -36,6 +36,7 @@ export const defaultStoreStructure = {
     advancedNotifyQuote: false,
     multiAcc: false,
     disableNextVoz: true,
+    uploader: 'imgur',
   },
   authInfo: {},
   quotes: [],

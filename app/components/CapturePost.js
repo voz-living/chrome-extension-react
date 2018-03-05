@@ -36,20 +36,28 @@ export default class CapturePost extends Component {
     $btn.find('.voz-living-capture-post-link').remove();
     $btn.find('.voz-living-capture-post-image').remove();
     try {
-      const $txt = $('<input class="voz-living-capture-post-link" type="text" size=30 value="Capturing by Voz Living" />');
+      const $txt = $('<input class="voz-living-capture-post-link" size=30 value="Capturing by Voz Living" />');
       $btn.append($txt);
       setTimeout(() => {
         const post = $post.parents('table.voz-postbit')[0];
+        let object;
+        if ($(post).find('img[src^="http\:"]').length) {
+          object = { useCORS: true, allowTaint: true };
+        } else {
+          object = { useCORS: true };
+        }
         post.scrollIntoView();
-        html2canvas(post, { useCORS: true })
+        $(post).find('img[src^="http"]').attr({ crossOrigin: 'anonymous' });
+        $('.img-controls, .btn-minimize-quote').css({ display: 'none' });
+        $txt.val('Captured by Voz Living');
+        html2canvas(post, object)
         .then(canvas => canvas.toDataURL('image/png'))
+        .catch(() => alert('Có lỗi xảy ra, không thể chụp được bài viết'))
         .then((imageData) => {
-          $txt.val('Uploading to pik.vn');
-          const $image = $(`<a href="${imageData}" target="_blank" class="voz-living-capture-post-image"><i class="fa fa-file-photo-o" /></a>`)
-          $btn.append($image);
-          $image.on('click', () => {
-            setTimeout(() => $image.remove(), 500);
-          });
+          $txt.val('Uploading to destined source');
+          post.scrollIntoView(false);
+          scrollBy(0, 200);
+          $('.img-controls, .btn-minimize-quote').css({ display: '' });
           return uploadImage(imageData);
         })
         .then((res) => {
@@ -58,6 +66,7 @@ export default class CapturePost extends Component {
             $txt.val('Failed to upload');
           } else {
             $txt.val(url);
+            open(url, '_blank');
           }
           $txt.on('click', () => {
             let to = 100;
@@ -72,6 +81,7 @@ export default class CapturePost extends Component {
         .catch((e) => {
           throw e;
         });
+        return null;
       }, 100);
     } catch (e) {
       alert('Có lỗi xảy ra, không thể chụp được bài viết này');

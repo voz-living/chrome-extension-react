@@ -38,6 +38,33 @@ export function uploadImageToPikVn(imageData) {
   // }).catch(e => console.log(e));
 }
 
+export function uploadImageToImgur(imageData) {
+  const candy = '11f712f3240e20c';
+  const form = new FormData();
+  form.append('image', imageData.replace(/^data:image\/\w{2,4};base64,/i, ''));
+  const settings = {
+    async: true,
+    crossDomain: true,
+    url: 'https://api.imgur.com/3/image',
+    method: 'POST',
+    headers: {
+      Authorization: `Client-ID ${candy}`,
+    },
+    processData: false,
+    contentType: false,
+    mimeType: 'multipart/form-data',
+    data: form,
+  };
+  return new Promise((resolve, reject) => {
+    $.ajax(settings).done((response) => {
+      const parsed = JSON.parse(response);
+      const image = parsed.data.link;
+      resolve({ url: image });
+    })
+      .fail((xhr, status, error) => reject(error));
+  });
+}
+
 export function uploadImage(imageData) {
   return new Promise((resolve) => {
     chrome.runtime.sendMessage({ service: 'image-upload', imageData }, (response) => {
