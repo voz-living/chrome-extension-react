@@ -57,7 +57,7 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="LinhXinhBtn" parent={parent} >Hiện LinhXinh ở thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="enableRichEditor" parent={parent} >Kích hoạt WYSIWYG Editor</OnOffConfigItem>
         <TextConfigItem configKey="userStyle" parent={parent}>
-          userStyle Url &nbsp;
+          userStyle Url (Các style ngăn cách nhau bằng dấu phấy ",") &nbsp;
           <a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-Tu%E1%BB%B3-ch%E1%BB%8Dn-style-v%E1%BB%9Bi-userStyle">
             (?)
           </a>&nbsp;
@@ -104,6 +104,7 @@ export default class OptionPage extends Component {
           &nbsp;<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-L%C6%B0u-b%C3%A0i-vi%E1%BA%BFt">(?)</a>
         </OnOffConfigItem>
         <OnOffConfigItem configKey="multiAcc" parent={parent} >Sử dụng đa tài khoản</OnOffConfigItem>
+        <OnOffConfigItem configKey="lagReducer" parent={parent} >Giảm lag khi post bài</OnOffConfigItem>
         <hr />
         <div className="warning">Tuỳ chọn mới sẽ được áp dụng khi bạn tải trang mới hoặc tải lại trang</div>
       </div>

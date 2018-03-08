@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import _ from 'lodash';
 
-import AdsControl from '../components/AdsControl';
 import WideScreenControl from '../components/WideScreenControl';
 import ThreadListControl from '../components/ThreadListControl';
 import LinkHelperControl from '../components/LinkHelperControl';
@@ -17,7 +16,6 @@ import PasteToUpload from '../components/PasteToUpload';
 import SmartSelection from '../components/SmartSelection';
 // import UIRevampThread from '../components/UIRevampThread';
 import EyesProtect from '../components/EyesProtect/index';
-import UserStyle from '../components/UserStyle';
 import SavedPostThreadBinder from '../components/SavedPost/ThreadBinder';
 import CapturePost from '../components/CapturePost';
 import StickerPicker from '../components/StickerPicker';
@@ -25,6 +23,7 @@ import RichEditor from '../components/RichEditor';
 import SideMenu from './SideMenu';
 import forHaveEatNo from '../utils/forHaveEatNo';
 import MoreBBCode from '../components/MoreBBCode';
+import InputLagReducer from '../components/InputLagReducer';
 
 import {
   init,
@@ -127,6 +126,9 @@ class App extends Component {
           forHaveEatNo();
         }
       }
+      if (settings.lagReducer) {
+        InputLagReducer();
+      }
     });
 
     /* eslint-disable no-undef */
@@ -194,11 +196,10 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, adsRemove, emotionHelper, autoHideSidebar, userStyle, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyesDurationEnd, advancedNotifyQuote, multiAcc } = this.props.settings;
+    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyesDurationEnd, advancedNotifyQuote, multiAcc } = this.props.settings;
     const currentView = this.currentView;
     return (
       <div id="voz-living">
-        <AdsControl isRemoveAds={adsRemove} />
         <WideScreenControl isWideScreen={wideScreenSpecial} />
         <PostTracker dispatch={this.dispatch} />
         {this.currentView !== 'edit-reply'
@@ -215,7 +216,6 @@ class App extends Component {
         />
         {this.renderBaseOnCurrentView(currentView)}
         <PasteToUpload />
-        <UserStyle userStyle={userStyle} />
         {!_.isUndefined(enableRichEditor)
           && (currentView === 'thread'
           || currentView === 'new-reply'

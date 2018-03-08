@@ -37,6 +37,7 @@ export const defaultStoreStructure = {
     multiAcc: false,
     disableNextVoz: true,
     uploader: 'imgur',
+    lagReducer: true,
   },
   authInfo: {},
   quotes: [],

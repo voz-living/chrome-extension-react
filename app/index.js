@@ -3,12 +3,16 @@ import { render } from 'react-dom';
 import Root from './containers/Root';
 import VOZLivingLoader from './components/PageLoader';
 import { keepMeBaby } from './utils/migrationAsAnOption';
+import { AdsControl } from './components/AdsControl';
+import { UserStyle } from './components/UserStyle';
 window.trackEvent = (category, action, label) => {
   chrome.runtime.sendMessage({ __ga: true, category, action, label });
 };
 trackEvent('view-content', location.href);
 
 keepMeBaby();
+AdsControl();
+UserStyle();
 
 document.onreadystatechange = () => {
   if (document.readyState === 'interactive') {

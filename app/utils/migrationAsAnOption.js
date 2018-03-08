@@ -32,15 +32,17 @@ function observe() {
 
 export function keepMeBaby() {
   // double shield
-  if (localStorage.getItem('disableNextVoz') === "true") {
+  let observed = false;
+  if (localStorage.getItem('disableNextVoz') === 'true') {
     observe();
+    observed = true;
   }
 
   getLocalSettings()
     .then((settings) => {
-      if (settings.disableNextVoz === true) {
+      if (settings.disableNextVoz === true && !observed) {
         observe();
       }
-      localStorage.setItem("disableNextVoz", settings.disableNextVoz === true ? 'true' : 'false');
-    })
+      localStorage.setItem('disableNextVoz', settings.disableNextVoz === true ? 'true' : 'false');
+    });
 }
