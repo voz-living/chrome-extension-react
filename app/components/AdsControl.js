@@ -3,7 +3,8 @@ import $ from 'jquery';
 
 function removeAds() {
     $('head').append(`<style>[id^=div-gpt-ad],[id^=google_ads_div],.middleads,[id^=ads_zone], tbody > tr > td:nth-child(2)[width="160"]{
-  display: none;
+  display: none}
+  [align="center"] > div.page{ width:100%!important }
 }</style>`);
   if ($('.middleads+table > tbody > tr > td:eq(1) [id^=div-gpt-ad]').length > 0) {
     $('.middleads+table > tbody > tr > td:eq(1)').remove();

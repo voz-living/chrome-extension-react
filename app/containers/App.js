@@ -196,7 +196,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, eyesSchedule, eyesDuration, enableDarkMode, enableWarmMode, lightAdjust, enableEyesNotify, delayEyesNotify, eyesDurationEnd, advancedNotifyQuote, multiAcc } = this.props.settings;
+    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, advancedNotifyQuote, multiAcc } = this.props.settings;
     const currentView = this.currentView;
     return (
       <div id="voz-living">
@@ -223,16 +223,6 @@ class App extends Component {
           || currentView === 'pm'
           || currentView === 'insert-pm')
           && (enableRichEditor ? <RichEditor stickerPanelExpand={stickerPanelExpand} currentView={currentView} /> : <RichEditor.Recommendation />)}
-        <EyesProtect
-          eyesSchedule={eyesSchedule}
-          eyesDuration={eyesDuration}
-          eyesDurationEnd={eyesDurationEnd}
-          enableDarkMode={enableDarkMode}
-          enableWarmMode={enableWarmMode}
-          lightAdjust={lightAdjust}
-          enableEyesNotify={enableEyesNotify}
-          delayEyesNotify={delayEyesNotify}
-        />
         <MoreBBCode currentView={currentView} />
       </div>
     );
