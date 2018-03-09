@@ -42,7 +42,7 @@ function checkAddStyle(userStyleUrl) {
 export function UserStyle() {
   let isAdded = false;
   let uStyle = localStorage.getItem('userStyle');
-  if (uStyle !== '') {
+  if (uStyle && uStyle !== '') {
     uStyle = uStyle.split(',');
     setTimeout(() => {
       for (const eachStyle of uStyle) {
@@ -54,7 +54,7 @@ export function UserStyle() {
   getLocalSettings()
     .then((settings) => {
       let { userStyle } = settings;
-      if (userStyle !== '' && !isAdded) {
+      if (userStyle && userStyle !== '' && !isAdded) {
         userStyle = userStyle.split(',');
         for (const eachStyle of userStyle) {
           checkAddStyle(eachStyle);
