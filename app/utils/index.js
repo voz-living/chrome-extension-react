@@ -14,7 +14,7 @@ export function getCurrentView() {
     currentView = 'edit-reply';
   } else if (/showpm/.test(window.location.href)) {
     currentView = 'pm';
-  } else if (/insertpm/.test(window.location.href)) {
+  } else if (/insertpm|newpm/.test(window.location.href)) {
     currentView = 'insert-pm';
   } else if (/newthread/.test(window.location.href)) {
     currentView = 'new-thread';

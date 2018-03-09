@@ -1,17 +1,28 @@
 import {
   uploadImageToPikVn,
+  uploadImageToImgur,
 } from '../app/common/uploadImage';
 
 import {
   GET,
 } from '../app/utils/http';
+import { getLocalSettings } from '../app/utils/settings';
 import $ from 'jquery';
 import md5 from 'md5';
 
 function imageUploadService(request, sendResponse) {
-  uploadImageToPikVn(request.imageData).then((res) => {
-    sendResponse(res);
-  });
+  getLocalSettings()
+    .then((settings) => {
+      if (settings.uploader === 'pik') {
+        uploadImageToPikVn(request.imageData).then((res) => {
+          sendResponse(res);
+        });
+      } else {
+        uploadImageToImgur(request.imageData).then((res) => {
+          sendResponse(res);
+        });
+      }
+    });
 }
 
 function proxyService(request, sendResponse) {

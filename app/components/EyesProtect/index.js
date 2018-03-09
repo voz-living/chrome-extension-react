@@ -26,16 +26,16 @@ class EyesProtect extends Component {
   darkMode() {
     require('../../styles/dark-mode.less');
   }
-  eyesFunc(nextProps = this.props) {
-    const { eyesSchedule, eyesDuration, eyesDurationEnd, enableDarkMode, enableWarmMode, enableEyesNotify, delayEyesNotify } = nextProps;
-    let { lightAdjust } = nextProps;
+  eyesFunc() {
+    const { eyesSchedule, eyesDuration, eyesDurationEnd, enableDarkMode, enableWarmMode, enableEyesNotify, delayEyesNotify } = this.props;
+    let { lightAdjust } = this.props;
     let delayMinutes = parseInt(delayEyesNotify * 60 * 1000, 10);
     const scheduledFunc = () => {
       if (enableDarkMode) { this.darkMode(); }
       if (enableWarmMode) {
         const wrapper = document.createElement('div');
         wrapper.id = 'voz-warm-wrapper';
-        document.body.appendChild(wrapper);
+        document.head.after(wrapper);
         if (lightAdjust.length <= 0) { lightAdjust = 0.4; } else
           if (lightAdjust > 0.5) { lightAdjust = 0.5; } else
           if (lightAdjust < 0.2) { lightAdjust = 0.2; }
@@ -75,13 +75,14 @@ class EyesProtect extends Component {
       }
     }
     if (enableEyesNotify) {
-      if (delayMinutes.length <= 0) { delayMinutes = 900000; } else
+      setTimeout(() => {
+        if (delayMinutes.length <= 0) { delayMinutes = 900000; } else
         if (delayMinutes > 21600000) { delayMinutes = 21600000; } else
         if (delayMinutes < 900000) { delayMinutes = 900000; }
-      const eyesWrap = document.createElement('div');
-      eyesWrap.id = 'voz-eyes-notify';
-      document.body.appendChild(eyesWrap);
-      getChromeLocalStore(['delayEyesNotifyStamp'])
+        const eyesWrap = document.createElement('div');
+        eyesWrap.id = 'voz-eyes-notify';
+        document.body.appendChild(eyesWrap);
+        getChromeLocalStore(['delayEyesNotifyStamp'])
             .then((value) => {
               // console.log([this.eyesTime, value.delayEyesNotifyStamp, delayMinutes]);
               if (this.eyesTime < value.delayEyesNotifyStamp && value.delayEyesNotifyStamp - this.eyesTime <= 21700000) {
@@ -101,20 +102,19 @@ class EyesProtect extends Component {
                 }, delayMinutes);
               }
             });
+      }, 50);
     }
   }
-  componentWillReceiveProps(nextProps) {
-    this.eyesFunc(nextProps);
+  render() {
+    this.eyesFunc();
     getChromeLocalStore(['delayEyesNotify'])
         .then((value) => {
-          if (value.delayEyesNotify !== nextProps.delayEyesNotify) {
-            setChromeLocalStore({ delayEyesNotify: nextProps.delayEyesNotify });
-            setChromeLocalStore({ delayEyesNotifyStamp: this.eyesTime + parseInt(nextProps.delayEyesNotify, 10) * 1000 * 60 });
+          const { delayEyesNotify } = this.props;
+          if (value.delayEyesNotify !== delayEyesNotify) {
+            setChromeLocalStore({ delayEyesNotify });
+            setChromeLocalStore({ delayEyesNotifyStamp: this.eyesTime + parseInt(delayEyesNotify, 10) * 1000 * 60 });
           }
         });
-  }
-
-  render() {
     return null;
   }
 }

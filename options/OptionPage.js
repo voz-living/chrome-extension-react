@@ -9,6 +9,7 @@ import NumberConfigItem from './NumberConfigItem';
 import OnOffConfigItem from './OnOffConfigItem';
 import TextConfigItem from './TextConfigItem';
 import ScheduleConfigItem from './ScheduleConfigItem';
+import SelectConfigItem from './SelectConfigItem';
 import { setConfig } from './ConfigItem';
 
 const defaultSettings = defaultStoreStructure.settings;
@@ -56,11 +57,12 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="LinhXinhBtn" parent={parent} >Hiện LinhXinh ở thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="enableRichEditor" parent={parent} >Kích hoạt WYSIWYG Editor</OnOffConfigItem>
         <TextConfigItem configKey="userStyle" parent={parent}>
-          userStyle Url &nbsp;
+          userStyle Url (Các style ngăn cách nhau bằng dấu phấy ",") &nbsp;
           <a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-Tu%E1%BB%B3-ch%E1%BB%8Dn-style-v%E1%BB%9Bi-userStyle">
             (?)
           </a>&nbsp;
         </TextConfigItem>
+        <OnOffConfigItem configKey="disableNextVoz" parent={parent} >Chặn tự động chuyển sang theNextVoz (có độ trễ nhất định)</OnOffConfigItem>
         <h4>Bảo vệ mắt</h4>
         <OnOffConfigItem configKey="eyesSchedule" parent={parent} >Chạy theo lịch trình:</OnOffConfigItem>
         <ScheduleConfigItem configKey="eyesDuration" parent={parent}>&nbsp;&nbsp;&nbsp;Chạy từ </ScheduleConfigItem>
@@ -75,6 +77,14 @@ export default class OptionPage extends Component {
           <NumberConfigItem configKey="delayEyesNotify" parent={parent} >Nhắc nhở sau (15 - 360) (phút) </NumberConfigItem>
         </blockquote>
         <h3>Trang danh sách thớt (Thread List)</h3>
+        <SelectConfigItem
+          configKey="uploader"
+          selections={[
+          ['imgur', 'Imgur.com'],
+          ['pik', 'Pik.vn'],
+          ]}
+          parent={parent}
+        >Host up ảnh: </SelectConfigItem>
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="autoGotoNewthread" parent={parent} >Tự đi tới bài mới nhất</OnOffConfigItem>
@@ -94,6 +104,7 @@ export default class OptionPage extends Component {
           &nbsp;<a href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-L%C6%B0u-b%C3%A0i-vi%E1%BA%BFt">(?)</a>
         </OnOffConfigItem>
         <OnOffConfigItem configKey="multiAcc" parent={parent} >Sử dụng đa tài khoản</OnOffConfigItem>
+        <OnOffConfigItem configKey="lagReducer" parent={parent} >Giảm lag khi post bài</OnOffConfigItem>
         <hr />
         <div className="warning">Tuỳ chọn mới sẽ được áp dụng khi bạn tải trang mới hoặc tải lại trang</div>
       </div>

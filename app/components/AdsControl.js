@@ -1,27 +1,29 @@
-import { Component, PropTypes } from 'react';
+import { getLocalSettings } from '../utils/settings';
 import $ from 'jquery';
 
-class AdsControl extends Component {
-  static propTypes = {
-    isRemoveAds: PropTypes.bool,
+function removeAds() {
+    $('head').append(`<style>[id^=div-gpt-ad],[id^=google_ads_div],.middleads,[id^=ads_zone], tbody > tr > td:nth-child(2)[width="160"]{
+  display: none}
+  [align="center"] > div.page{ width:100%!important }
+}</style>`);
+  if ($('.middleads+table > tbody > tr > td:eq(1) [id^=div-gpt-ad]').length > 0) {
+    $('.middleads+table > tbody > tr > td:eq(1)').remove();
   }
+  $('.middleads+div > table > tbody > tr > td:eq(1)').remove();
+  $('[id^=div-gpt-ad]').hide();
+  $('[id^=google_ads_div],.middleads').hide();
+}
 
-  componentDidMount() {
-    $('#neo_logobar').append(`
-      <div style="display: block; float: right">
-        <h3><a href="https://goo.gl/forms/jgSa6ZXtIsRvLJMj1" target="_blank" style="color: white;">
-          <i class="fa fa-wechat"></i> Chat với cộng đồng VozLiving (mở ra tab mới)
-        </a></h3>
-        <h4><a href="https://vozliving.slack.com" target="_blank" style="color: white;">
-          Đã tham gia ? ghé vô chém gió (tab mới)
-        </a></h4>
-      </div>
-    `);
-    if (window.localStorage.getItem('survey_done') !== 'yes') {
-      $(document.body).prepend(`
+export function AdsControl() {
+    // const toRemove = document.querySelector('body > div > form');
+    // if (toRemove && toRemove.remove) toRemove.remove();
+
+    // https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme
+  if (window.localStorage.getItem('survey_done') !== 'theNextVoz') {
+    $(document.body).prepend(`
         <style>
         .important-survey {
-          background: #188218;
+          background: #000;
           color: white;
           padding: 5px 2px;
           font-size: 12px;
@@ -44,35 +46,30 @@ class AdsControl extends Component {
           right: 3px; 
         }
         </style>
-        <div class="important-survey">Bạn muốn VozLiving bản mới nhất trên Firefox, Edge, Mobile, ... ? Góp ý chung ? <a href="https://goo.gl/forms/z7RgIvyfpv2ElZf53" target="_blank">trả lời khảo sát ở đây</a></div>
+        <div class="important-survey"><a href="https://vozforums.com/showpost.php?p=137163821&postcount=2193" target="_blank">VozLiving update phiên bản mới. Thêm nguồn imgur vào upload nhanh(trong settings), cải thiện hiệu năng, cho phép dùng nhiều style, giảm lag khi post bài(có thể tắt ở settings)</a></div>
       `);
-      const closeBtn = $('<a href="#" class="close">Đã làm ×</a>');
-      $('.important-survey').append(closeBtn);
-      closeBtn.click(() => {
-        window.localStorage.setItem('survey_done', 'yes');
-        $('.important-survey').fadeOut(300);
+    const closeBtn = $('<a href="#" class="close">OK ×</a>');
+    $('.important-survey').append(closeBtn);
+    closeBtn.click(() => {
+      window.localStorage.setItem('survey_done', 'theNextVoz');
+      $('.important-survey').fadeOut(300);
+    });
+  }
+
+  let isRemoved = false;
+  if (localStorage.getItem('adsRemove') === 'true') {
+    setTimeout(() => {
+      removeAds();
+    }, 50);
+    isRemoved = true;
+  }
+
+  getLocalSettings()
+      .then((settings) => {
+        if (settings.adsRemove === true && !isRemoved) {
+          removeAds();
+        }
+        localStorage.setItem('adsRemove', settings.adsRemove === true ? 'true' : 'false');
       });
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.removeAds(nextProps);
-  }
-
-  removeAds(nextProps = this.props) {
-    const { isRemoveAds } = nextProps;
-
-    if (isRemoveAds) {
-      if ($('.middleads+table > tbody > tr > td:eq(1) [id^=div-gpt-ad]').length > 0) {
-        $('.middleads+table > tbody > tr > td:eq(1)').remove();
-      }
-      $('.middleads+div > table > tbody > tr > td:eq(1)').remove();
-      $('[id^=div-gpt-ad]').hide();
-      $('[id^=google_ads_div],.middleads').hide();
-    }
-  }
-
-  render() { return null; }
 }
 
-export default AdsControl;
