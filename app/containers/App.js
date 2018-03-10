@@ -215,7 +215,7 @@ class App extends Component {
           multiAcc={multiAcc}
         />
         {this.renderBaseOnCurrentView(currentView)}
-        <PasteToUpload />
+        <PasteToUpload currentView={currentView} />
         {!_.isUndefined(enableRichEditor)
           && (currentView === 'thread'
           || currentView === 'new-reply'

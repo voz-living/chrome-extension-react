@@ -16,13 +16,17 @@ function isInRichEditor(target) {
       return target;
     }
     target = target.parentElement;
-  } while(target !== null);
+  } while (target !== null);
   return false;
 }
 
 // Adapt from https://github.com/JoelBesada/pasteboard-extension/blob/master/scripts/main.js
 const CREDITS_TEXT = '[INDENT][SIZE="1"][COLOR="Navy"]Hình này được tự động upload và chèn link bởi [URL="https://chrome.google.com/webstore/detail/voz-living/bpfbcbgognjimbmabiiphhofpgdcgbgc"]Voz Living[/URL][/COLOR][/SIZE][/INDENT]';
 class PasteToUpload extends Component {
+  static propTypes = {
+    currentView: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
     this.bindPasteHandler();
@@ -33,8 +37,34 @@ class PasteToUpload extends Component {
     };
   }
 
+  openFile(event) {
+    const input = event.target;
+    const reader = new FileReader();
+    const { currentView } = this.props;
+    let target;
+    if (currentView === 'thread') {
+      target = $('#vB_Editor_QR_textarea');
+    } else {
+      target = $('#vB_Editor_001_textarea');
+    }
+    reader.onload = () => {
+      const dataURL = reader.result;
+      if (!/^data:image/i.test(dataURL)) return;
+      this.handleImageData(dataURL, target);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
   bindPasteHandler() {
     document.addEventListener('paste', this.pasteHandler.bind(this));
+    const { currentView } = this.props;
+    if (currentView === 'thread'
+      || currentView === 'new-reply'
+      || currentView === 'edit-reply'
+      || currentView === 'new-thread') {
+      $('.panelsurround a[href="http://pik.vn/"]').after('&nbsp;<input class="vl-insert-image" type="file" id="file" accept="image/*" /><label id="vl-img-label" for="file">Chọn ảnh</label>');
+      $('.vl-insert-image').change(event => this.openFile(event));
+    }
   }
 
   pasteHandler(e) {
