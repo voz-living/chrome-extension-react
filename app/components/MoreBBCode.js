@@ -21,14 +21,24 @@ export default class MoreBBCode extends Component {
       || currentView === 'pm'
       || currentView === 'insert-pm'
       || currentView === 'new-thread') {
+      let $control;
       if (currentView === 'thread' || currentView === 'pm') {
-        this.editor = $('#vB_Editor_QR_textarea');
-        $('#vB_Editor_QR_controls').after('<div id="vl_additional_cmd"></div>');
+        $control = $('#vB_Editor_QR_controls');
+        if ($control.length) {
+          this.editor = $('#vB_Editor_QR_textarea');
+          $control.css('display', 'inline-block');
+          $control.after('<div id="vl_additional_cmd"></div><br/>');
+        }
       } else {
-        this.editor = $('#vB_Editor_001_textarea');
-        $('#vB_Editor_001_controls').after('<div id="vl_additional_cmd"></div>');
+        $control = $('#vB_Editor_001_controls');
+        if ($control.length) {
+          this.editor = $('#vB_Editor_001_textarea');
+          this.editor.css('display', 'inline-block');
+          $control.css('display', 'inline-block');
+          $control.after('<div id="vl_additional_cmd"></div>');
+        }
       }
-      if (this.editor.length !== 0) {
+      if (this.editor.length !== 0 && document.getElementById('vl_additional_cmd')) {
         render(
           <div>
             <a
@@ -36,14 +46,14 @@ export default class MoreBBCode extends Component {
               data-tooltip="Gạch chéo chữ"
               onClick={e => { e.preventDefault(); this.strikeText(); }}
             >
-              <i className="fa fa-strikethrough fa-lg" />
+              <i className="fa fa-strikethrough" />
             </a>
             <a
               href="#"
               data-tooltip="Thêm tag spoiler (voz-living)"
-              onClick={e => { e.preventDefault(); this.spoilerText();}}
+              onClick={e => { e.preventDefault(); this.spoilerText(); }}
             >
-              <i className="fa fa-eye-slash fa-lg" />
+              <i className="fa fa-eye-slash" />
             </a>
           </div>
           , document.getElementById('vl_additional_cmd'));
