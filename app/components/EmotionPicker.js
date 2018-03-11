@@ -56,7 +56,7 @@ export default class EmotionPicker extends Component {
   render() {
     return (<div ref={r => this.$this = r} >
       {$('#vB_Editor_QR_textarea').length > 0 &&
-        <div className="emo-header">Smiles
+        <div className="emo-header">Smilies
           <div className="emo-expand">
             <i
               className="fa fa-expand fa-lg" aria-hidden

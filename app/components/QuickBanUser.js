@@ -31,7 +31,7 @@ export default class QuickBanUser extends Component {
       ));
       $this.find('table tbody').append(ignoreRow);
       $('.vl-option').hover(function () {
-        $(this).removeClass().addClass('vbmenu_hilite vbmenu_option_hilite vl-option');
+        $(this).removeClass().addClass('vbmenu_hilite vbmenu_hilite_alink vl-option');
       }, function () {
         $(this).removeClass().addClass('vbmenu_option vbmenu_option_alink vl-option');
       });

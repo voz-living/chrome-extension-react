@@ -2,10 +2,10 @@ body {
   color: #c9c9c9!important;
   background-color: #181818!important;
 }
-.page, .alt1, .alt1Active, .alt2, .alt2Active, #f213, #f47, #f222, #f212, #f224, .alt1Active_brother, #f281, #f254, #f257, table[cellpadding="4"] tbody, table[cellpadding="4"] tbody td, .sticker-box-wrapper ul.sticker-set-list li,.vbmenu_option {
+.page, .alt1, .alt1Active, .alt2, .alt2Active, #f213, #f47, #f222, #f212, #f224, .alt1Active_brother, #f281, #f254, #f257, .sticker-box-wrapper ul.sticker-set-list li,.vbmenu_option {
   background-color: #262626!important;
 }
-.tborder {
+.tborder, #nvozer-migrate {
   background-color: #4e4c4c!important;
 }
 .tcat, #vB_Editor_QR_textarea, #vB_Editor_001_textarea, textarea, input, .emo-header {
@@ -18,10 +18,10 @@ a[id^="thread_title"]:link, a[id^="thread_title"]:visited, .tborder [nowrap] a:v
   color: #c9c9c9 !important;
 }
 
-.panel, .panelsurround {
+.panel, .panelsurround, label#vl-img-label {
   border: 0!important;
 }
-.button {
+.button, label#vl-img-label {
   background-color: #4a4a4a!important;
 }
 .vBulletin_editor, select, .panel, .panelsurround {
@@ -40,15 +40,28 @@ img[src^="images/misc"], img[src^="images/buttons"], img[src^="https://vozforums
 img[src^="images/statusicon"], [data-tooltip="Thread preview"] {
   filter: grayscale(0.2) invert(0.9) hue-rotate(180deg)!important;
 }
-[title^="Showing results"] strong, .voz-post-message a {
+[title^="Showing results"] strong, .voz-post-message a, .thead a:hover, .thead a:active, .thead_ahover {
   color: white!important
 }
 table td .imagebutton, #vl_additional_cmd a {
   background-color: transparent!important;
   filter: invert(1) hue-rotate(180deg)!important;
 }
-[data-tooltip="Thread preview"], .thread-preview-wrapper, .preview-content .bigusername, .preview-content .smallfont,.quick-link-table input, #multi-acc-body input{
+[data-tooltip="Thread preview"], .thread-preview-wrapper, .preview-content .bigusername, .preview-content .smallfont,.voz-living-side-menu input{
   color: black!important
+}
+.voz-living-side-menu input{
+  background-color:white!important
+}
+.voz-living-side-menu input[disabled]{
+  background-color:inherit!important
+}
+.vbmenu_popup{
+  border:none!important;
+  background:#757575!important;
+}
+.vbmenu_hilite.vbmenu_hilite_alink{
+  background:#181818!important
 }
 font[color="White"], font[color="#ffffff"] {color: #212121 !important}
 a.vozsticky:link, a.vozsticky:visited {
@@ -91,11 +104,11 @@ div.alt2[dir="ltr"] {
 ::-webkit-scrollbar-corner {
   background: #4b4b4b;
 }
-.voz-post-message img {
+.voz-post-message img, .voz-postbit [href^="member"] img {
   opacity: 0.8;
   transition: 0.3s
 }
-.voz-post-message img:hover {
+.voz-post-message img:hover, .voz-postbit [href^="member"] img:hover {
   opacity: 1
 }
 .voz-post-message img[src^="images/smilies"], .voz-post-message img[src^="/images/smilies"] {
@@ -106,4 +119,8 @@ div.alt2[dir="ltr"] {
   &:hover {
     background-color: #55585c;
   }
+}
+
+#nvozer-migrate img {
+  display:none!important;
 }

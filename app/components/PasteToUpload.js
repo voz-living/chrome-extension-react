@@ -38,21 +38,28 @@ class PasteToUpload extends Component {
   }
 
   openFile(event) {
-    const input = event.target;
-    const reader = new FileReader();
+    const input = event.target.files;
     const { currentView } = this.props;
     let target;
+    let dataURL = [];
     if (currentView === 'thread') {
       target = $('#vB_Editor_QR_textarea');
     } else {
       target = $('#vB_Editor_001_textarea');
     }
-    reader.onload = () => {
-      const dataURL = reader.result;
-      if (!/^data:image/i.test(dataURL)) return;
-      this.handleImageData(dataURL, target);
-    };
-    reader.readAsDataURL(input.files[0]);
+    const obj = Object.entries(input);
+    Object.entries(input).forEach((val, i) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        dataURL.push(reader.result);
+        if (i + 1 === obj.length) {
+          if (obj.length === 1) dataURL = dataURL.join('');
+          this.handleImageData(dataURL, target);
+        }
+      };
+      if (!/image/i.test(val[1].type)) return;
+      reader.readAsDataURL(val[1]);
+    });
   }
 
   bindPasteHandler() {
@@ -62,7 +69,7 @@ class PasteToUpload extends Component {
       || currentView === 'new-reply'
       || currentView === 'edit-reply'
       || currentView === 'new-thread') {
-      $('.panelsurround a[href="http://pik.vn/"]').after('&nbsp;<input class="vl-insert-image" type="file" id="file" accept="image/*" /><label id="vl-img-label" for="file">Chọn ảnh</label>');
+      $('.panelsurround a[href="http://pik.vn/"]').after('&nbsp;<input class="vl-insert-image" type="file" id="file" accept="image/*" multiple/><label id="vl-img-label" for="file">Chọn ảnh</label>');
       $('.vl-insert-image').change(event => this.openFile(event));
     }
   }
@@ -108,21 +115,49 @@ class PasteToUpload extends Component {
   }
 
   handleImageData(imageData, target) {
+    const $this = this;
     const position = insertTextIntoEditor('__Uploading ..__', target);
     target.prop('disabled', true);
-    uploadImage(imageData).then(res => {
-      if (res.url) {
-        const text = `[img]${res.url}[/img]\n${CREDITS_TEXT}`;
-        target.prop('disabled', false);
-        insertTextIntoEditor(text, target, position);
-        this.setState({ status: 'text', text });
-      } else {
-        target.prop('disabled', false);
-        insertTextIntoEditor('', target, position);
-        this.setState({ status: null });
-        console.info('fail to upload image');
+    $('.vl-insert-image').prop('disabled', true);
+    if (Array.isArray(imageData)) {
+      let text = '';
+      let i = 0;
+      function uploadRecursively() {
+        uploadImage(imageData[i]).then(res => {
+          i++;
+          if (!res.url) {
+            text += '';
+            console.info(`failed in ${i}th image`);
+          } else {
+            text += `[img]${res.url}[/img]\n${CREDITS_TEXT}\n`;
+          }
+          if (i + 1 >= imageData.length) {
+            $('.vl-insert-image').prop('disabled', false);
+            target.prop('disabled', false);
+            insertTextIntoEditor(text, target, position);
+            $this.setState({ status: 'text', text });
+          } else {
+            uploadRecursively();
+          }
+        });
       }
-    });
+      uploadRecursively(i);
+    } else {
+      uploadImage(imageData).then(res => {
+        $('.vl-insert-image').prop('disabled', false);
+        if (res.url) {
+          const text = `[img]${res.url}[/img]\n${CREDITS_TEXT}`;
+          target.prop('disabled', false);
+          insertTextIntoEditor(text, target, position);
+          this.setState({ status: 'text', text });
+        } else {
+          target.prop('disabled', false);
+          insertTextIntoEditor('', target, position);
+          this.setState({ status: null });
+          console.info('fail to upload image');
+        }
+      });
+    }
   }
 
   handleImageDataRichEditor(imageData, target, type) {
