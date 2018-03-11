@@ -125,13 +125,13 @@ class PasteToUpload extends Component {
       function uploadRecursively() {
         uploadImage(imageData[i]).then(res => {
           i++;
-          if (!res.url) {
+          if (!res || !res.url) {
             text += '';
             console.info(`failed in ${i}th image`);
           } else {
             text += `[img]${res.url}[/img]\n${CREDITS_TEXT}\n`;
           }
-          if (i + 1 >= imageData.length) {
+          if (i >= imageData.length) {
             $('.vl-insert-image').prop('disabled', false);
             target.prop('disabled', false);
             insertTextIntoEditor(text, target, position);
@@ -145,7 +145,7 @@ class PasteToUpload extends Component {
     } else {
       uploadImage(imageData).then(res => {
         $('.vl-insert-image').prop('disabled', false);
-        if (res.url) {
+        if (res && res.url) {
           const text = `[img]${res.url}[/img]\n${CREDITS_TEXT}`;
           target.prop('disabled', false);
           insertTextIntoEditor(text, target, position);
