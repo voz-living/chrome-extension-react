@@ -18,7 +18,7 @@ function imageUploadService(request, sendResponse) {
           sendResponse(res);
         });
       } else {
-        uploadImageToImgur(request.imageData).then((res) => {
+        uploadImageToImgur(request.imageData, request.showProgress).then((res) => {
           sendResponse(res);
         });
       }

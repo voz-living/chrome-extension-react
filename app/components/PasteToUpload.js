@@ -123,7 +123,7 @@ class PasteToUpload extends Component {
       let text = '';
       let i = 0;
       function uploadRecursively() {
-        uploadImage(imageData[i]).then(res => {
+        uploadImage(imageData[i], true).then(res => {
           i++;
           if (!res || !res.url) {
             text += '';
