@@ -38,7 +38,7 @@ export default class MoreBBCode extends Component {
           $control.after('<div id="vl_additional_cmd"></div>');
         }
       }
-      if (this.editor.length !== 0 && document.getElementById('vl_additional_cmd')) {
+      if (this.editor && this.editor.length && document.getElementById('vl_additional_cmd')) {
         render(
           <div>
             <a

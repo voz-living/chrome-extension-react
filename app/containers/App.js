@@ -92,6 +92,7 @@ class App extends Component {
         'settings', 'quotes', 'authInfo',
         'quickLinks', 'followThreads', 'threadTracker',
         'cookieList', 'exportPass',
+        'filterList', 'needUpdate', 'rules', 'ignoreList',
       ]),
       getChromeSyncStore([
         'savedPosts',
@@ -196,7 +197,7 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, advancedNotifyQuote, multiAcc } = this.props.settings;
+    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, advancedNotifyQuote } = this.props.settings;
     const currentView = this.currentView;
     return (
       <div id="voz-living">
@@ -212,7 +213,6 @@ class App extends Component {
           autoHide={autoHideSidebar}
           advancedNotifyQuote={advancedNotifyQuote}
           currentView={currentView}
-          multiAcc={multiAcc}
         />
         {this.renderBaseOnCurrentView(currentView)}
         <PasteToUpload currentView={currentView} />
