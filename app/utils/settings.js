@@ -39,6 +39,7 @@ export const defaultStoreStructure = {
     uploader: 'imgur',
     lagReducer: true,
     threadFilter: false,
+    compactMenu: false,
   },
   authInfo: {},
   quotes: [],

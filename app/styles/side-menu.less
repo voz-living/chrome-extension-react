@@ -5,6 +5,30 @@ body{
     margin-left: 50px;
   }
   .voz-living-side-menu{
+    &.compact {
+      .btn-group .btn {
+        width:30px;
+        height:30px;
+        font-size:14px!important;
+        text-align: center;
+        line-height: 30px;
+        margin-top:3px;
+        i {
+          line-height: 30px;
+        }
+        .badge {
+          top:-2px;
+          left:20px;
+          min-width: 10px;
+          font-size: 11px;
+          text-align: center;
+          line-height: 10px;
+        }
+      }
+      .btn-group .btn-options {
+        left:40px
+      }
+    }
     &.trans-start {
       left: -50px;
       opacity: 0;
@@ -17,7 +41,7 @@ body{
     width: 40px;
     height: 100%;
     padding: 0 5px 0 5px;
-    z-index: 2;
+    z-index: 99999999;
 
     .btn-group{
       position: relative;

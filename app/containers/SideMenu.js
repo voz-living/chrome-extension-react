@@ -53,7 +53,7 @@ class SideMenu extends Component {
     const { settings, autoHide, advancedNotifyQuote, currentView } = this.props;
 
     return (
-      <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide })}>
+      <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide, compact: settings.compactMenu })}>
         <SettingOptions settings={settings} dispatch={this.dispatch} />
         <QuoteList dispatch={this.dispatch} advancedNotifyQuote={advancedNotifyQuote} />
         <FollowThread dispatch={this.dispatch} />
