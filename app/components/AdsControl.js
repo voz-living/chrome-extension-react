@@ -9,7 +9,7 @@ function removeAds() {
     $('.middleads+table > tbody > tr > td:eq(1)').remove();
   }
   $('.middleads+div > table > tbody > tr > td:eq(1)').remove();
-  $('[id^=div-gpt-ad], [id^=google_ads_div], .middleads').hide().parent().css('width', '100%');
+  $('[id^=div-gpt-ad], [id^=google_ads_div], .middleads').hide();
 }
 
 export function AdsControl() {
