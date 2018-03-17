@@ -38,7 +38,7 @@ export const defaultStoreStructure = {
     disableNextVoz: true,
     uploader: 'imgur',
     lagReducer: true,
-    threadFilter: true,
+    threadFilter: false,
   },
   authInfo: {},
   quotes: [],
