@@ -43,7 +43,7 @@ class MultiAccounts extends Component {
       if (currentView === 'thread') {
         thread = document.querySelector('#qr_threadid').value;
       } else if (currentView === 'new-thread') {
-        thread = window.location.href.match(/do=newthread&f=(\d+)/i)[1];
+        thread = window.location.href.match(/f=(\d+)$/i)[1];
       } else {
         thread = document.querySelector('.panelsurround input[name="t"]').value;
       }

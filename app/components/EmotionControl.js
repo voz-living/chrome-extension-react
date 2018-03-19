@@ -20,6 +20,12 @@ function insertUserId($editor, authInfo) {
   $editor.val(updatedContent);
 }
 
+function insertNoIdCheckbox() {
+  $('.fieldset div').first().append(`<label for="vl_noquotenotify" style="display:block;">
+<input type="checkbox" id="vl_noquotenotify" />
+Không nhận thông báo quote của post này (bỏ chèn id vào bài)?</label>`);
+}
+
 @autobind
 class EmotionControl extends Component {
   static propTypes = {
@@ -69,8 +75,18 @@ class EmotionControl extends Component {
           getChromeLocalStore((['authInfo', 'settings'])).then(({ authInfo, settings }) => {
             const { advancedNotifyQuote } = settings;
             if (advancedNotifyQuote) {
+              insertNoIdCheckbox();
+              $('#qrform').submit(function f(event) {
+                event.preventDefault();
+                const self = this;
+                setTimeout(() => {
+                  self.submit();
+                }, 100);
+              });
               $('#qr_submit').on('click', () => {
-                insertUserId($('#vB_Editor_QR_textarea'), authInfo);
+                if (!$('#vl_noquotenotify').is(':checked')) {
+                  insertUserId($('#vB_Editor_QR_textarea'), authInfo);
+                }
               });
             }
           });
@@ -85,8 +101,18 @@ class EmotionControl extends Component {
           getChromeLocalStore((['authInfo', 'settings'])).then(({ authInfo, settings }) => {
             const { advancedNotifyQuote } = settings;
             if (advancedNotifyQuote) {
+              insertNoIdCheckbox();
+              $('[name="vbform"]').submit(function f(event) {
+                event.preventDefault();
+                const self = this;
+                setTimeout(() => {
+                  self.submit();
+                }, 100);
+              });
               $('#vB_Editor_001_save').on('click', () => {
-                insertUserId($('#vB_Editor_001_textarea'), authInfo);
+                if (!$('#vl_noquotenotify').is(':checked')) {
+                  insertUserId($('#vB_Editor_001_textarea'), authInfo);
+                }
               });
             }
           });
