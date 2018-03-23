@@ -55,8 +55,11 @@ class ThreadFilter extends Component {
       const replies = parseInt(info[0], 10);
       const views = parseInt(info[1], 10);
       const sticky = $this.find('[id^="td_threadtitle"] .inlineimg[alt^="Sticky"]').length > 0;
-      // console.log([title, user, replies, views, sticky]);
-      const classes = oThis.verifyMatch(title, user, replies, views, sticky);
+      const pattern = $this.find('.smallfont > span > .inlineimg').prop('src');
+      let stars = 0;
+      if (pattern) stars = parseInt(pattern.match(/rating_(\d+)/i)[1], 10);
+      // console.log([title, user, replies, views, sticky, stars]);
+      const classes = oThis.verifyMatch(title, user, replies, views, sticky, stars);
       if (classes.length) {
         $this.addClass(classes.join(' '));
       }
@@ -106,7 +109,7 @@ class ThreadFilter extends Component {
     });
   }
 
-  verifyMatch(title, user, replies, views, sticky) {
+  verifyMatch(title, user, replies, views, sticky, stars) {
     const types = [];
     const { ignoreList } = this.props;
     const { mods } = this.state;
@@ -119,7 +122,8 @@ class ThreadFilter extends Component {
         (list.views.lessThan !== '' && views < list.views.lessThan) ||
         (list.replies.greaterThan !== '' && replies > list.replies.greaterThan) ||
         (list.replies.lessThan !== '' && replies <= list.replies.lessThan) ||
-        (list.mods && mods.indexOf(user) !== -1)) {
+        (list.mods && mods.indexOf(user) !== -1) ||
+        (list.stars.length && list.stars.indexOf(stars) !== -1)) {
         types.push(key);
         continue;
       }
@@ -150,7 +154,7 @@ class ThreadFilter extends Component {
 
   addNewRule() {
     const { filterList } = this.state;
-    filterList.push({ listType: 'blacklist', type: 'ignore', regEx: 'ignore-case', matchThread: '', matchMember: '', views: '', replies: '', sign: 'less-than' });
+    filterList.push({ listType: 'blacklist', type: 'ignore', regEx: 'ignore-case', matchThread: '', matchMember: '', views: '', replies: '', sign: 'less-than', stars: 0 });
     this.setState({ filterList });
   }
 
@@ -172,6 +176,7 @@ class ThreadFilter extends Component {
   handleChange(event, i, type) {
     const { filterList } = this.state;
     const value = event.target.value;
+    let number;
     switch (type) {
       case 'type':
         filterList[i].type = value;
@@ -195,10 +200,17 @@ class ThreadFilter extends Component {
         filterList[i].sign = value;
         break;
       case 'views':
-        filterList[i].views = parseInt(value, 10);
+        number = parseInt(value, 10);
+        if (isNaN(number)) return;
+        filterList[i].views = number;
         break;
       case 'replies':
-        filterList[i].replies = parseInt(value, 10);
+        number = parseInt(value, 10);
+        if (isNaN(number)) return;
+        filterList[i].replies = number;
+        break;
+      case 'stars':
+        filterList[i].stars = parseInt(value, 10);
         break;
       default: console.log('oops');
     }
@@ -233,6 +245,7 @@ class ThreadFilter extends Component {
         sticky: false,
         leaders: false,
         mods: false,
+        stars: [],
       },
       blacklist: {
         ignore: false,
@@ -249,6 +262,7 @@ class ThreadFilter extends Component {
         sticky: false,
         leaders: false,
         mods: false,
+        stars: [],
       },
       whitelist: {
         ignore: false,
@@ -265,6 +279,7 @@ class ThreadFilter extends Component {
         sticky: false,
         leaders: false,
         mods: false,
+        stars: [],
       },
     };
     for (const list of filterList) {
@@ -294,6 +309,8 @@ class ThreadFilter extends Component {
         } else {
           rule.replies.lessThan = list.replies;
         }
+      } else if (type === 'stars') {
+        rule.stars.push(list.stars);
       }
     }
     rules.blacklist.matchMember = rules.blacklist.matchMember.replace(/\|$/, '');
@@ -301,6 +318,7 @@ class ThreadFilter extends Component {
     rules.highlight.matchMember = rules.highlight.matchMember.replace(/\|$/, ''); // looks ridiculous
     this.setState({ rules });
     setChromeLocalStore({ rules });
+    // console.log(rules);
   }
 
   render() {
@@ -364,6 +382,7 @@ class ThreadFilter extends Component {
                         <option value="sticky">Sticky thread</option>
                         <option value="leaders">Thành viên BQT</option>
                         <option value="mods">Mod box này</option>
+                        <option value="stars">Số sao</option>
                       </select>
                       {filter.type === 'matchThread' && <span id="filter-by-title" >
                         &nbsp;/<input
@@ -394,6 +413,16 @@ class ThreadFilter extends Component {
                           style={{ width: '100px' }} type="number" step="1"
                           onChange={evt => this.handleChange(evt, i, filter.type)}
                         />
+                      </span>}
+                      {filter.type === 'stars' && <span id="filter-by-star" >
+                        &nbsp;<select defaultValue={filter.stars} onChange={evt => this.handleChange(evt, i, 'stars')}>
+                          <option value="0">Không có sao</option>
+                          <option value="1">1 sao</option>
+                          <option value="2">2 sao</option>
+                          <option value="3">3 sao</option>
+                          <option value="4">4 sao</option>
+                          <option value="5">5 sao</option>
+                        </select>
                       </span>}
                     </td>
                     <td>
