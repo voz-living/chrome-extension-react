@@ -14,6 +14,7 @@ class ThreadFilter extends Component {
     rules: PropTypes.object,
     needUpdate: PropTypes.bool,
     ignoreList: PropTypes.array,
+    threadsToBeRemoved: PropTypes.string,
   };
 
   static defaultProps = {
@@ -21,35 +22,45 @@ class ThreadFilter extends Component {
     rules: {},
     needUpdate: false,
     ignoreList: [],
+    threadsToBeRemoved: '',
   };
 
   constructor(props) {
     super(props);
     const mods = [];
     $('[action^="forumdisplay"] table .alt1:nth-child(2) .smallfont a').each(function f() {
-      mods.push($(this).text());
+      mods.push($(this).text());  // get all sub-forum mods
     });
     this.state = {
       isOpen: false,
       filterList: this.props.filterList,
       needUpdate: this.props.needUpdate,
       rules: this.props.rules,
+      isToggled: false,
+      threadsToBeRemoved: this.props.threadsToBeRemoved,
       mods,
     };
   }
 
   componentWillMount() {
-    const { needUpdate } = this.state;
-    if (needUpdate) this.generateRules();
+    const { needUpdate, threadsToBeRemoved } = this.state;
+    if (needUpdate) this.generateRules(); // generate rule when update
+    let hideList = threadsToBeRemoved.split('\n');
+    hideList = hideList.filter(id => /^\d+/.test(id)); // remove invalids
+    hideList = hideList.map(id => id.match(/^\d+/)[0]); // get thread id only
+    this.setState({ hideList });
   }
 
   componentDidMount() {
-    const oThis = this;
+    const oThis = this; // inside loses scope
     $('[id^="threadbits_forum"] > tr').each(function f() {
       const $this = $(this);
       if (!$this.find('td:nth-child(4)').length || // deleted posts have <= 4 columns (3 normal, 4 special)
         $this.find('td:nth-child(4)').text().match(/Thread deleted|^-$/i)) return; // moved posts have columns 3,4,5(or 4,5,6) = '-'
+      $this.find('[id^=thread_title]').after(`<a class="voz-living-hide-thread tooltip-bottom" data-tooltip="Ẩn thread này">
+<i class="fa fa-ban">&nbsp;</a>`);
       const title = $this.find('[id^=thread_title]').text();
+      const id = $this.children('[id^="td_threadtitle"]').prop('id').match(/\d+/)[0];
       const user = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
       const info = $this.find('.alt2[title]').prop('title').replace(/,/g, '').match(/(\d+)/g);
       const replies = parseInt(info[0], 10);
@@ -58,8 +69,8 @@ class ThreadFilter extends Component {
       const pattern = $this.find('.smallfont > span > .inlineimg').prop('src');
       let stars = 0;
       if (pattern) stars = parseInt(pattern.match(/rating_(\d+)/i)[1], 10);
-      // console.log([title, user, replies, views, sticky, stars]);
-      const classes = oThis.verifyMatch(title, user, replies, views, sticky, stars);
+      // console.log([title, user, replies, views, sticky, stars, id]);
+      const classes = oThis.verifyMatch(title, user, replies, views, sticky, stars, id);
       if (classes.length) {
         $this.addClass(classes.join(' '));
       }
@@ -80,41 +91,62 @@ class ThreadFilter extends Component {
         setChromeLocalStore({ ignoreList });
         alert('Update thành công');
       } else {
-        alert('Không tìm thấy user');
+        const forceSave = confirm('Không tìm thấy user, vẫn muốn lưu ?');
+        if (forceSave) {
+          setChromeLocalStore({ ignoreList: [] });
+          alert('Đã lưu thành công danh sách trống');
+        }
       }
     });
   }
 
   modifyThread() {
-    let sequence = 0;
+    let sequence = 0; // to prevent duplicate border (looks ugly because of no border-collapse)
+    const oThis = this; // workaround with outside scope
     $('[id^="threadbits_forum"] > tr').each(function f() {
       const $this = $(this);
-      let postContent = '';
-      if ($this.hasClass('highlight')) {
+      const title = $this.find('[id^=thread_title]').text();
+      const id = $this.children('[id^="td_threadtitle"]').prop('id').match(/\d+/)[0];
+      const info = `\n${id} - ${title}`;
+      if ($this.hasClass('must-hide')) {
+        $this.find('.voz-living-hide-thread').remove(); // hide this button if already in list
+      } else {
+        $this.find('.voz-living-hide-thread').one('click', () => {
+          const threadsToBeRemoved = (oThis.state.threadsToBeRemoved + info).replace(/^\s*[\r\n]/gm, ''); // regex to remove blank lines
+          oThis.setState({ threadsToBeRemoved });
+          setChromeLocalStore({ threadsToBeRemoved });
+          $this.remove();
+        });
+      }
+      if ($this.hasClass('highlight')) { // sequence counter
         sequence++;
         if (sequence > 1) $this.addClass('voz-living-in-sequence');
       } else {
         if (sequence > 0) sequence = 0;
       }
-      if ($this.hasClass('blacklist') && !$this.hasClass('whitelist')) {
+      if (($this.hasClass('blacklist') && !$this.hasClass('whitelist')) || $this.hasClass('must-hide')) {
         const name = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
-        postContent = $this.html();
-        $this.html(`<td></td>${$('table tbody tr .thead[colspan="2"]').length ? '<td></td>' : ''}
+        const postContent = $this.html();
+        $this.html(`<td></td>${$('#threadslist').find('.thead[colspan="2"]').length ? '<td></td>' : ''}
             <td style="font-size:10px;padding:2px 6px">Thớt của ${name} đã bị ẩn bởi Voz living. 
             <a class="vl-show-post">Hiện lại</a></td>`);
         $(this).find('a.vl-show-post').one('click', () => {
-          $this.hide().html(postContent).fadeIn(500);
+          $this.hide().html(postContent).fadeIn(500); // appear animation
         });
       }
     });
   }
 
-  verifyMatch(title, user, replies, views, sticky, stars) {
+  verifyMatch(title, user, replies, views, sticky, stars, id) {
     const types = [];
     const { ignoreList } = this.props;
-    const { mods } = this.state;
+    const { mods, hideList } = this.state;
+    if (hideList.length && hideList.indexOf(id) !== -1) {
+      types.push('must-hide'); // force hide no matter what
+      return types;
+    }
     for (const key of Object.keys(this.state.rules)) {
-      const list = this.state.rules[key];
+      const list = this.state.rules[key]; // the type of the list
       if ((list.ignore && ignoreList.indexOf(user) !== -1) ||
         (list.leaders && BAN_QUAN_TRI.indexOf(user) !== -1) ||
         (list.sticky && sticky) ||
@@ -154,7 +186,9 @@ class ThreadFilter extends Component {
 
   addNewRule() {
     const { filterList } = this.state;
-    filterList.push({ listType: 'blacklist', type: 'ignore', regEx: 'ignore-case', matchThread: '', matchMember: '', views: '', replies: '', sign: 'less-than', stars: 0 });
+    const uniqueTime = new Date().getTime(); // a unique key
+    filterList.push({ listType: 'blacklist', type: 'ignore', regEx: 'ignore-case', matchThread: '', matchMember: '',
+      views: '', replies: '', sign: 'less-than', stars: 0, key: uniqueTime });
     this.setState({ filterList });
   }
 
@@ -166,10 +200,10 @@ class ThreadFilter extends Component {
 
   validateRegex(event) {
     try {
-      const valid = new RegExp(event.target.value);
+      const valid = new RegExp(event.target.value); // this catches error
       if (event.target.className === 'invalid') event.target.className = '';
     } catch (err) {
-      event.target.className = 'invalid';
+      event.target.className = 'invalid';  // turn input red
     }
   }
 
@@ -201,7 +235,7 @@ class ThreadFilter extends Component {
         break;
       case 'views':
         number = parseInt(value, 10);
-        if (isNaN(number)) return;
+        if (isNaN(number)) return;  // to prevent not a number
         filterList[i].views = number;
         break;
       case 'replies':
@@ -212,24 +246,27 @@ class ThreadFilter extends Component {
       case 'stars':
         filterList[i].stars = parseInt(value, 10);
         break;
+      case 'hideList':
+        this.state.threadsToBeRemoved = value;
+        break;
       default: console.log('oops');
     }
   }
 
   saveFilter() {
-    const { filterList } = this.state;
+    const { filterList, threadsToBeRemoved } = this.state;
     if ($('.vl-filter-table').find('.invalid').length) {
       alert('Bạn hãy sửa những lỗi ở vùng màu đỏ');
     } else {
-      setChromeLocalStore({ filterList, needUpdate: true });
+      setChromeLocalStore({ filterList, needUpdate: true, threadsToBeRemoved });
       alert('Lưu thành công');
     }
   }
 
   generateRules() {
     const { filterList } = this.state;
-    setChromeLocalStore({ needUpdate: false });
-    const rules = {
+    setChromeLocalStore({ needUpdate: false }); // no unnessary rule update
+    const rules = { // an empty initial rule
       highlight: {
         ignore: false,
         matchThread: [],
@@ -296,7 +333,7 @@ class ThreadFilter extends Component {
       } else if (type === 'matchThread' && list.matchThread.length) {
         rule.matchThread.push([list.matchThread, list.regEx]);
       } else if (type === 'matchMember' && list.matchMember.length) {
-        rule.matchMember += `(?:${list.matchMember})|`;
+        rule.matchMember += `(?:${list.matchMember})|`; // nested regex proved to be more efficient
       } else if (type === 'views') {
         if (list.sign === 'greater-than') {
           rule.views.greaterThan = list.views;
@@ -323,7 +360,7 @@ class ThreadFilter extends Component {
 
   render() {
     const { currentView } = this.props;
-    const { isOpen, filterList } = this.state;
+    const { isOpen, filterList, isToggled, threadsToBeRemoved } = this.state;
     if (currentView === 'thread-list') {
       return (
         <div className={'btn-group'}>
@@ -364,7 +401,7 @@ class ThreadFilter extends Component {
                 </thead>
                 <tbody className="filter-body">
                 {filterList.map((filter, i) => (
-                  <tr key={Math.random()}>
+                  <tr key={filter.key || Math.random()}>
                     <td>
                       <select defaultValue={filter.listType} onChange={evt => this.handleChange(evt, i, 'listType')}>
                         <option value="blacklist">Blacklist</option>
@@ -433,10 +470,18 @@ class ThreadFilter extends Component {
                 </tbody>
               </table>
               <div>
-                <button onClick={() => { this.addNewRule(); }}>Thêm quy tắc mới</button>&nbsp;
-                <button onClick={() => { this.saveFilter(); }}>Lưu bộ lọc</button>
+                <button onClick={() => { this.addNewRule(); }}>Thêm quy tắc mới</button>
                 &nbsp;<button onClick={() => { this.getIgnoreList(); }}>Update ignore list</button>
+                &nbsp;<button onClick={() => { this.setState({ isToggled: !isToggled }); }}>Toggle thread ignore</button>
+                &nbsp;<button onClick={() => { this.saveFilter(); }}>Lưu bộ lọc</button>
               </div>
+              {isToggled && <div>Danh sách thread bị ẩn (mỗi dòng một id thread, nhớ lưu bộ lọc sau khi sửa):
+                <textarea
+                  defaultValue={threadsToBeRemoved}
+                  style={{ width: '97%', height: '300px' }}
+                  onChange={evt => { this.handleChange(evt, '', 'hideList'); }}
+                />
+              </div>}
             </div>,
           ])}
         </div>
@@ -447,8 +492,8 @@ class ThreadFilter extends Component {
 }
 
 const mapStateToProps = state => {
-  const { filterList, needUpdate, rules, ignoreList } = state.vozLiving;
-  return { filterList, needUpdate, rules, ignoreList };
+  const { filterList, needUpdate, rules, ignoreList, threadsToBeRemoved } = state.vozLiving;
+  return { filterList, needUpdate, rules, ignoreList, threadsToBeRemoved };
 };
 
 export default connect(mapStateToProps)(ThreadFilter);

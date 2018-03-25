@@ -85,7 +85,7 @@ class ThreadListControl extends Component {
       href="${href}"
       data-tooltip="Mở tab mới"
       target="_blank">
-        &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"/>&nbsp;&nbsp;
       </a>`);
     $link.after($a);
     $a.on('click', () => openNewTab(href));
