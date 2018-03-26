@@ -105,13 +105,13 @@ class ThreadFilter extends Component {
     const oThis = this; // workaround with outside scope
     $('[id^="threadbits_forum"] > tr').each(function f() {
       const $this = $(this);
-      const title = $this.find('[id^=thread_title]').text();
-      const id = $this.children('[id^="td_threadtitle"]').prop('id').match(/\d+/)[0];
-      const info = `\n${id} - ${title}`;
       if ($this.hasClass('must-hide')) {
         $this.find('.voz-living-hide-thread').remove(); // hide this button if already in list
       } else {
-        $this.find('.voz-living-hide-thread').one('click', () => {
+        $this.on('click', '.voz-living-hide-thread', () => { // add info to ignored thread list
+          const title = $this.find('[id^=thread_title]').text();
+          const id = $this.children('[id^="td_threadtitle"]').prop('id').match(/\d+/)[0];
+          const info = `\n${id} - ${title}`;
           const threadsToBeRemoved = (oThis.state.threadsToBeRemoved + info).replace(/^\s*[\r\n]/gm, ''); // regex to remove blank lines
           oThis.setState({ threadsToBeRemoved });
           setChromeLocalStore({ threadsToBeRemoved });
