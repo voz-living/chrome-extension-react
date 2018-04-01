@@ -58,7 +58,7 @@ class ThreadFilter extends Component {
       if (!$this.find('td:nth-child(4)').length || // deleted posts have <= 4 columns (3 normal, 4 special)
         $this.find('td:nth-child(4)').text().match(/Thread deleted|^-$/i)) return; // moved posts have columns 3,4,5(or 4,5,6) = '-'
       $this.find('[id^=thread_title]').after(`<a class="voz-living-hide-thread tooltip-bottom" data-tooltip="Ẩn thread này">
-<i class="fa fa-ban">&nbsp;</a>`);
+<i class="fa fa-trash"></a>`);
       const title = $this.find('[id^=thread_title]').text();
       const id = $this.children('[id^="td_threadtitle"]').prop('id').match(/\d+/)[0];
       const user = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
