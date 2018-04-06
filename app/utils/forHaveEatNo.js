@@ -9,6 +9,7 @@ export default function forHaveEatNo() {
   eatWarn.innerHTML = 'Dạo này mod hay kiểm tra từ khoá "ăn" ở f33 thì phải. Thím nhớ đi nhẹ, nói khẽ, cười duyên để không bị ra đảo ngắm khỉ nhé :)';
   function eatNo() {
     const text = this.value;
+    const length = text.trim().split(/\s+/).length;
     if (length && length < 50 && (/(?:[^a-z]|^)eat|(?:[^a-z]|^)(?:ă|Ă)n(?:[^a-z]|$)/i.test(text))) {
       if (!document.getElementById('cho-an-warning')) {
         this.parentElement.appendChild(div);
