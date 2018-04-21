@@ -15,6 +15,7 @@ class ThreadFilter extends Component {
     needUpdate: PropTypes.bool,
     ignoreList: PropTypes.array,
     threadsToBeRemoved: PropTypes.string,
+    noThreadSight: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -23,6 +24,7 @@ class ThreadFilter extends Component {
     needUpdate: false,
     ignoreList: [],
     threadsToBeRemoved: '',
+    noThreadSight: false,
   };
 
   constructor(props) {
@@ -39,6 +41,7 @@ class ThreadFilter extends Component {
       isToggled: false,
       threadsToBeRemoved: this.props.threadsToBeRemoved,
       mods,
+      noThreadSight: this.props.noThreadSight,
     };
   }
 
@@ -102,6 +105,7 @@ class ThreadFilter extends Component {
 
   modifyThread() {
     let sequence = 0; // to prevent duplicate border (looks ugly because of no border-collapse)
+    const { noThreadSight } = this.state;
     const oThis = this; // workaround with outside scope
     $('[id^="threadbits_forum"] > tr').each(function f() {
       const $this = $(this);
@@ -125,14 +129,18 @@ class ThreadFilter extends Component {
         if (sequence > 0) sequence = 0;
       }
       if (($this.hasClass('blacklist') && !$this.hasClass('whitelist')) || $this.hasClass('must-hide')) {
-        const name = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
-        const postContent = $this.html();
-        $this.html(`<td></td>${$('#threadslist').find('.thead[colspan="2"]').length ? '<td></td>' : ''}
-            <td style="font-size:10px;padding:2px 6px">Thớt của ${name} đã bị ẩn bởi Voz living. 
+        if (noThreadSight) {
+          $this.empty();
+        } else {
+          const name = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
+          const postContent = $this.html();
+          $this.html(`<td></td>${$('#threadslist').find('.thead[colspan="2"]').length ? '<td></td>' : ''}
+            <td style="font-size:10px;padding:2px 6px">Thớt của ${name} đã bị ẩn bởi Voz Living. 
             <a class="vl-show-post">Hiện lại</a></td>`);
-        $(this).find('a.vl-show-post').one('click', () => {
-          $this.hide().html(postContent).fadeIn(500); // appear animation
-        });
+          $(this).find('a.vl-show-post').one('click', () => {
+            $this.hide().html(postContent).fadeIn(500); // appear animation
+          });
+        }
       }
     });
   }
@@ -360,7 +368,7 @@ class ThreadFilter extends Component {
 
   render() {
     const { currentView } = this.props;
-    const { isOpen, filterList, isToggled, threadsToBeRemoved } = this.state;
+    const { isOpen, filterList, isToggled, threadsToBeRemoved, noThreadSight } = this.state;
     if (currentView === 'thread-list') {
       return (
         <div className={'btn-group'}>
@@ -391,6 +399,15 @@ class ThreadFilter extends Component {
                 >
                   Đây là gì?
                 </a></h3>
+              <label style={{ position: 'absolute', right: '5px', top: '20px' }}>
+                <input
+                  type="checkbox"
+                  checked={noThreadSight}
+                  onChange={evt => {
+                    this.setState({ noThreadSight: evt.target.checked });
+                    setChromeLocalStore({ noThreadSight: evt.target.checked });
+                  }}
+                />Ẩn thread hoàn toàn</label>
               <table className="vl-filter-table">
                 <thead>
                   <tr>
@@ -492,8 +509,8 @@ class ThreadFilter extends Component {
 }
 
 const mapStateToProps = state => {
-  const { filterList, needUpdate, rules, ignoreList, threadsToBeRemoved } = state.vozLiving;
-  return { filterList, needUpdate, rules, ignoreList, threadsToBeRemoved };
+  const { filterList, needUpdate, rules, ignoreList, threadsToBeRemoved, noThreadSight } = state.vozLiving;
+  return { filterList, needUpdate, rules, ignoreList, threadsToBeRemoved, noThreadSight };
 };
 
 export default connect(mapStateToProps)(ThreadFilter);
