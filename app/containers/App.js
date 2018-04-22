@@ -92,7 +92,8 @@ class App extends Component {
         'settings', 'quotes', 'authInfo',
         'quickLinks', 'followThreads', 'threadTracker',
         'cookieList', 'exportPass',
-        'filterList', 'needUpdate', 'rules', 'ignoreList', 'threadsToBeRemoved', 'noThreadSight'
+        'filterList', 'needUpdate', 'rules', 'ignoreList', 'threadsToBeRemoved', 'noThreadSight',
+        'threadCreationList',
       ]),
       getChromeSyncStore([
         'savedPosts',

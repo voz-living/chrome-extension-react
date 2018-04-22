@@ -40,6 +40,7 @@ export const defaultStoreStructure = {
     lagReducer: true,
     threadFilter: false,
     compactMenu: false,
+    getThreadDate: false,
   },
   authInfo: {},
   quotes: [],

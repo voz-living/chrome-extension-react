@@ -130,7 +130,7 @@ class ThreadFilter extends Component {
       }
       if (($this.hasClass('blacklist') && !$this.hasClass('whitelist')) || $this.hasClass('must-hide')) {
         if (noThreadSight) {
-          $this.empty();
+          $this.remove();
         } else {
           const name = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
           const postContent = $this.html();
@@ -399,7 +399,7 @@ class ThreadFilter extends Component {
                 >
                   Đây là gì?
                 </a></h3>
-              <label style={{ position: 'absolute', right: '5px', top: '20px' }}>
+              <label style={{ position: 'absolute', right: '5px', top: '13px' }}>
                 <input
                   type="checkbox"
                   checked={noThreadSight}

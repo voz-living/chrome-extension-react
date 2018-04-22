@@ -13,6 +13,7 @@ import FeedbackBtn from '../components/FeedbackBtn';
 import { toClassName } from '../utils';
 import MultiAccounts from "../components/MultiAccounts";
 import ThreadFilter from '../components/ThreadFilter';
+import GetThreadDate from '../components/GetThreadDate';
 
 class SideMenu extends Component {
   static propTypes = {
@@ -59,6 +60,7 @@ class SideMenu extends Component {
         <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
         {settings.threadFilter === true ? <ThreadFilter currentView={currentView} /> : null}
+        {settings.getThreadDate === true ? <GetThreadDate currentView={currentView} /> : null}
         {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
         {settings.LinhXinhBtn === true ? <LXBtn /> : null}
         {settings.multiAcc === true && <MultiAccounts currentView={currentView} />}
