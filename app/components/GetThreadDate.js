@@ -29,11 +29,11 @@ class GetThreadDate extends Component {
           const smallname = $this.find('[id^="td_threadtitle"] > .smallfont > span').last();
           let date = threadCreationList[id];
           if (date !== undefined) {
-            smallname.after(`<span> &gt;&gt; ${date}</span>`);
+            smallname.after(`<span class="vl-date"> &gt;&gt; ${date}</span>`);
           } else {
             $.get(`https://vozforums.com/showthread.php?t=${id}`, data => {
               date = $(data).find('.tborder.voz-postbit').first().find('.thead .normal:nth-child(2)').text().match(/\S+.+/)[0];
-              smallname.after(`<span> &gt;&gt; ${date}</span>`);
+              smallname.after(`<span class="vl-date"> &gt;&gt; ${date}</span>`);
               threadCreationList[id] = date;
               setChromeLocalStore({ threadCreationList });
             });

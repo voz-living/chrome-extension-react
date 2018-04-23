@@ -64,7 +64,7 @@ class ThreadFilter extends Component {
 <i class="fa fa-trash"></a>`);
       const title = $this.find('[id^=thread_title]').text();
       const id = $this.children('[id^="td_threadtitle"]').prop('id').match(/\d+/)[0];
-      const user = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
+      const user = $this.find('[id^="td_threadtitle"] > .smallfont > span:not(.vl-date)').last().text();
       const info = $this.find('.alt2[title]').prop('title').replace(/,/g, '').match(/(\d+)/g);
       const replies = parseInt(info[0], 10);
       const views = parseInt(info[1], 10);
@@ -132,7 +132,7 @@ class ThreadFilter extends Component {
         if (noThreadSight) {
           $this.remove();
         } else {
-          const name = $this.find('[id^="td_threadtitle"] > .smallfont > span').last().text();
+          const name = $this.find('[id^="td_threadtitle"] > .smallfont > span:not(.vl-date)').last().text();
           const postContent = $this.html();
           $this.html(`<td></td>${$('#threadslist').find('.thead[colspan="2"]').length ? '<td></td>' : ''}
             <td style="font-size:10px;padding:2px 6px">Thớt của ${name} đã bị ẩn bởi Voz Living. 
