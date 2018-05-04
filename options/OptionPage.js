@@ -90,7 +90,7 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="autoGotoNewthread" parent={parent} >Tự đi tới bài mới nhất</OnOffConfigItem>
         <OnOffConfigItem configKey="threadFilter" parent={parent} >Lọc bài viết theo danh sách</OnOffConfigItem>
-        <OnOffConfigItem configKey="getThreadDate" parent={parent} >Hiện ngày thread được lập</OnOffConfigItem>
+        <OnOffConfigItem configKey="getThreadDate" parent={parent} >Hiện ngày thread được tạo (mới)</OnOffConfigItem>
         <h3>Trong thớt/Bài viết (Thread/Posts)</h3>
         <OnOffConfigItem configKey="newThreadUI" parent={parent} >Giao diện mới (Tải trang nhanh) (tạm không sử dụng được)</OnOffConfigItem>
         <OnOffConfigItem configKey="smartSelection" parent={parent} >Hiện công cụ khi quét chữ</OnOffConfigItem>

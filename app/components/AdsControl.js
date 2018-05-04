@@ -8,6 +8,10 @@ function removeAds() {
   if ($('.middleads+table > tbody > tr > td:eq(1) [id^=div-gpt-ad]').length > 0) {
     $('.middleads+table > tbody > tr > td:eq(1)').remove();
   }
+  if ($('link[href$="migrate.min.css"]').length) {
+    $('link[href$="migrate.min.css"]').remove();
+    require('../styles/hide-voz-migration.less');
+  }
   $('.middleads+div > table > tbody > tr > td:eq(1)').remove();
   $('[id^=div-gpt-ad], [id^=google_ads_div], .middleads').hide();
 }
@@ -17,7 +21,7 @@ export function AdsControl() {
     // if (toRemove && toRemove.remove) toRemove.remove();
 
     // https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme
-  if (window.localStorage.getItem('survey_done') !== 'newThreadList') {
+  if (window.localStorage.getItem('survey_done') !== 'fixMigration') {
     setTimeout(() => {
     $(document.body).prepend(`
         <style>
@@ -45,12 +49,13 @@ export function AdsControl() {
           right: 3px; 
         }
         </style>
-        <div class="important-survey"><a target="_blank">VozLiving update phiên bản mới. Hỗ trợ bộ lọc thớt (bật lên ở settings)</a></div>
+        <div class="important-survey"><a target="_blank">Phiên bản mới: Sửa lỗi migrate voz: vozforums cập nhật tính năng migrate - chuyển bài sang Next Voz khiến Voz Living bị lỗi style => Voz Living sẽ xoá nút migrate này ở mọi thread để tránh xung đột).
+        <br />Thêm tính năng hiện ngày lập thread(bật trong settings), cải tiến bộ lọc thread, bug fixes,...</a></div>
       `);
     const closeBtn = $('<a href="#" class="close">OK ×</a>');
     $('.important-survey').append(closeBtn);
     closeBtn.click(() => {
-      window.localStorage.setItem('survey_done', 'newThreadList');
+      window.localStorage.setItem('survey_done', 'fixMigration');
       $('.important-survey').fadeOut(300);
     });
     }, 300);
