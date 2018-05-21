@@ -64,6 +64,7 @@ export default class StickerPicker extends Component {
       selectedSticker: window.localStorage.getItem('vozLivingStickerSelected'),
       information: null,
       stickerPanelExpand: props.stickerPanelExpand,
+      isUpdating: false,
     };
     this.getStickerConfig()
       .then(this.updateStateStickers);
@@ -214,8 +215,32 @@ export default class StickerPicker extends Component {
     });
   }
 
+  updateStickers() {
+    const { stickers } = this.state;
+    let progress = 0;
+    for (const sticker of stickers) {
+      this.setState({ isUpdating: true });
+      const k = `sticker_${sticker.key}`;
+      loadStickers(sticker.key)
+        .then(list => {
+          setChromeLocalStore({ [k]: list })
+          .then(() => {
+            progress++;
+            if (progress === stickers.length) {
+              this.getStickerConfig()
+                .then((newStickers) => {
+                  this.updateStateStickers(newStickers);
+                });
+              this.setState({ isUpdating: false });
+              alert('Làm mới danh sách thành công');
+            }
+          });
+        });
+    }
+  }
+
   render() {
-    const { stickers, selectedSticker, isAdding, information, stickerPanelExpand } = this.state;
+    const { stickers, selectedSticker, isAdding, information, stickerPanelExpand, isUpdating } = this.state;
     let selected = stickers.find(s => s.key === selectedSticker);
     if (!selected) selected = stickers[0];
     const infoStyle = {
@@ -269,6 +294,13 @@ export default class StickerPicker extends Component {
            isAdding
               ? <li data-tooltip="Đang thêm"><i className="fa fa-spinner fa-spin"></i></li>
               : <li onClick={() => this.addStickerSet()} data-tooltip="Thêm sticker">+</li>
+            : null
+          }
+          {stickers.length > 0
+            ? isUpdating
+              ? <li data-tooltip="Đang làm mới danh sách"><i className="fa fa-spinner fa-spin" /></li>
+              : <li data-tooltip="Làm mới sticker" onClick={() => this.updateStickers()}>
+                <i className="fa fa-refresh" style={{ lineHeight: 1.5, textAlign: 'center' }} /></li>
             : null
           }
           {stickers.map(sticker => (
