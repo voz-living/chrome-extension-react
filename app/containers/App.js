@@ -200,6 +200,7 @@ class App extends Component {
   render() {
     const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, advancedNotifyQuote } = this.props.settings;
     const currentView = this.currentView;
+    if (currentView === 'who-posted') return null;
     return (
       <div id="voz-living">
         <WideScreenControl isWideScreen={wideScreenSpecial} />
