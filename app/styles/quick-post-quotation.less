@@ -51,13 +51,21 @@ font[color="Spoiler"] {
 	background: black;
 	color: black;
 	&:hover {
-		color: white;
+		color: white!important;
 	}
 	font {
 		color: black;
 		&:hover {
-			color: white;
+			color: white!important;
 		}
+	}
+}
+font[color="Spoiler"]:not(:hover)  {
+	a {
+		color:black!important;
+	}
+	img[src^="/images"] {
+		visibility: hidden;
 	}
 }
 
