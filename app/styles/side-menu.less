@@ -124,12 +124,10 @@ body{
             padding: 5px 0;
             font-size: 12px;
             position: relative;
-            &.self-quote{
+            &.self-quote, &.ignored-quote{
               filter: blur(1px);
               opacity: 0.3;
-              transition: 0.3s;
               &:before{
-                content: "TỰ QUOTE";
                 color: red;
                 border: 3px double;
                 position: absolute;
@@ -147,7 +145,12 @@ body{
                 }
               }
             }
-
+            &.self-quote:before {
+              content: "TỰ QUOTE";
+            }
+            &.ignored-quote:before {
+              content: "IGNORED";
+            }
             .quote-title{
               font-weight: bold;
             }

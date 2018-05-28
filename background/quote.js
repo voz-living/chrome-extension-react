@@ -40,8 +40,7 @@ class QuoteBackground {
 
         /* eslint-disable new-cap */
           POST(url, { body: formData }).then(response => {
-            const quotes = processQuoteHtml(response);
-            resolve(quotes);
+            processQuoteHtml(response).then(quotes => resolve(quotes));
           }).catch(() => {
             resolve([]);
           });

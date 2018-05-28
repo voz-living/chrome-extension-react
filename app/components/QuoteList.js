@@ -11,6 +11,7 @@ class QuoteList extends Component {
     quoteList: PropTypes.array,
     countUnseen: PropTypes.number,
     advancedNotifyQuote: PropTypes.bool,
+    noIgnoredQuotes: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -47,8 +48,9 @@ class QuoteList extends Component {
   }
 
   renderQuote(quote) {
+    const { noIgnoredQuotes } = this.props;
     return (
-      <div className={`quote-row${quote.selfQuote ? ' self-quote' : ''}`} key={quote.post.id} style={(this.props.advancedNotifyQuote && quote.selfQuote) === true ? { display: 'none' } : null}>
+      <div className={`quote-row${quote.selfQuote ? ' self-quote' : ''}${noIgnoredQuotes && quote.isIgnored ? ' ignored-quote' : ''}`} key={quote.post.id} style={(this.props.advancedNotifyQuote && quote.selfQuote) === true ? { display: 'none' } : null}>
         <div className="quote-title">
           <a href={`showthread.php?p=${quote.post.id}#post${quote.post.id}`} target="_blank">
             {quote.thread.title}
@@ -90,21 +92,19 @@ class QuoteList extends Component {
                 key="voz-mask-quote-list"
                 className="voz-mask quote-list-mask"
                 onClick={() => this.setState({ showQuoteList: !this.state.showQuoteList })}
-              ></div>,
+              />,
               <div className="btn-options" key="quote-list">
                 <h3>Quotes
-                  <a
+                  <span
                     style={{
-                      color: 'red',
+                      color: 'darkcyan',
                       fontSize: '10px',
                       marginLeft: '8px',
                       textShadow: '0 0 3px rgba(255,255,255,1)',
                     }}
-                    title="Bấm để xem tính năng mới của voz trong tab mới"
-                    target="_blank"
-                    href="https://github.com/voz-living/chrome-extension-react/wiki/Feature:-Tr%C3%ADch-d%E1%BA%ABn-n%C3%A2ng-cao-(d%C3%A0nh-cho-c%C3%A1c-id-ph%E1%BB%95-bi%E1%BA%BFn)">
-                    Bạn bị nhận quá nhiều quote không liên quan vì tên id phổ biến ?
-                  </a>
+                  >
+                    Đã thêm tính năng <u>ẩn quote user đã ignore</u>(bật trong settings)
+                  </span>
                 </h3>
                 
                 <div className="quote-list">

@@ -41,6 +41,7 @@ export const defaultStoreStructure = {
     threadFilter: false,
     compactMenu: false,
     getThreadDate: false,
+    noIgnoredQuotes: false,
   },
   authInfo: {},
   quotes: [],

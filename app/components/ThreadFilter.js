@@ -5,6 +5,7 @@ import { setChromeLocalStore } from '../utils/settings';
 import $ from 'jquery';
 import { autobind } from 'core-decorators';
 import BAN_QUAN_TRI from '../constants/banQuanTri';
+import getIgnoreList from '../utils/getIgnoreList';
 
 @autobind
 class ThreadFilter extends Component {
@@ -81,27 +82,6 @@ class ThreadFilter extends Component {
     this.modifyThread();
   }
 
-
-  getIgnoreList() {
-    $.get('https://vozforums.com/profile.php?do=ignorelist', data => {
-      const $elem = $(data).find('#ignorelist a');
-      if ($elem.length) {
-        const ignoreList = [];
-        $elem.each(function f() {
-          ignoreList.push($(this).text());
-        });
-        console.log(ignoreList);
-        setChromeLocalStore({ ignoreList });
-        alert('Update thành công');
-      } else {
-        const forceSave = confirm('Không tìm thấy user, vẫn muốn lưu ?');
-        if (forceSave) {
-          setChromeLocalStore({ ignoreList: [] });
-          alert('Đã lưu thành công danh sách trống');
-        }
-      }
-    });
-  }
 
   modifyThread() {
     let sequence = 0; // to prevent duplicate border (looks ugly because of no border-collapse)
@@ -488,7 +468,12 @@ class ThreadFilter extends Component {
               </table>
               <div>
                 <button onClick={() => { this.addNewRule(); }}>Thêm quy tắc mới</button>
-                &nbsp;<button onClick={() => { this.getIgnoreList(); }}>Update ignore list</button>
+                &nbsp;<button onClick={() => {
+                  getIgnoreList().then(ignoreList => {
+                    setChromeLocalStore({ ignoreList });
+                    alert('Đã update xong.');
+                  });
+                }}>Update ignore list</button>
                 &nbsp;<button onClick={() => { this.setState({ isToggled: !isToggled }); }}>Toggle thread ignore</button>
                 &nbsp;<button onClick={() => { this.saveFilter(); }}>Lưu bộ lọc</button>
               </div>

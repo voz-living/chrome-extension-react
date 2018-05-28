@@ -20,7 +20,6 @@ class SideMenu extends Component {
     settings: PropTypes.object,
     dispatch: PropTypes.func,
     autoHide: PropTypes.bool,
-    advancedNotifyQuote: PropTypes.bool,
     currentView: PropTypes.string,
   }
 
@@ -51,12 +50,12 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { settings, autoHide, advancedNotifyQuote, currentView } = this.props;
+    const { settings, autoHide, currentView } = this.props;
 
     return (
       <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide, compact: settings.compactMenu })}>
         <SettingOptions settings={settings} dispatch={this.dispatch} />
-        <QuoteList dispatch={this.dispatch} advancedNotifyQuote={advancedNotifyQuote} />
+        <QuoteList dispatch={this.dispatch} advancedNotifyQuote={settings.advancedNotifyQuote} noIgnoredQuotes={settings.noIgnoredQuotes} />
         <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
         {settings.threadFilter === true ? <ThreadFilter currentView={currentView} /> : null}

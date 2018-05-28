@@ -50,7 +50,10 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="wideScreenSpecial" parent={parent} >Dàn trang ra 2 bên (Special - chọn nếu trên có lỗi)</OnOffConfigItem>
         <OnOffConfigItem configKey="adsRemove" parent={parent} >Xoá quảng cáo</OnOffConfigItem>
         <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
-        <blockquote><OnOffConfigItem configKey="advancedNotifyQuote" parent={parent} >Thêm id vào post (Dành cho tên phổ biến)</OnOffConfigItem></blockquote>
+        <blockquote>
+          <OnOffConfigItem configKey="advancedNotifyQuote" parent={parent} >Thêm id vào post (Dành cho tên phổ biến)</OnOffConfigItem>
+          <OnOffConfigItem configKey="noIgnoredQuotes" parent={parent} >Ẩn quote từ người bị ignore</OnOffConfigItem>
+        </blockquote>
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút) </NumberConfigItem>
         <NumberConfigItem configKey="delayFollowThread" parent={parent} max={60*24} min={1} >Cường độ quét thớt theo dõi (phút) </NumberConfigItem>
         <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
