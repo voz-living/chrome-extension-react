@@ -1,6 +1,6 @@
 {
   "addons": {
-    "Voz Living": {
+    "extension@vozliving.ff": {
       "updates": [
         { "version": "3.20.0.1",
           "update_link": "https://github.com/voz-living/chrome-extension-react/raw/firefox-addons/xpi/voz_living-3.9.1.3-an%2Bfx.xpi" }
