@@ -1,6 +1,6 @@
 {
   "name": "Voz Living",
-  "version": "3.9.1.3",
+  "version": "3.20.0.0",
   "manifest_version": 2,
   "description": "Voz Living - Better Voz",
   "homepage_url": "https://www.facebook.com/VozLiving/",
@@ -29,6 +29,8 @@
   "permissions": [
     "*://*.vozforums.com/*",
     "*://.vozforums.com/*",
+    "*://forums.voz.vn/*",
+    "*://.forums.voz.vn/*",
     "http://*.pik.vn/*",
     "https://api.imgur.com/*",
     "https://userstyles.org/*",
@@ -53,7 +55,8 @@
       "*://*.localhost-voz/*",
       "*://*.vozforums.com/*",
       "http://*.vozforums.com/*",
-      "http://www.vozforums.com/*"
+      "http://www.vozforums.com/*",
+      "*://forums.voz.vn/*"
     ],
     "run_at": "document_start"
   }],

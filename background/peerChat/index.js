@@ -61,7 +61,7 @@ class PeerChatBackGround {
   receivePeerMessage(message) {
     // Receive message from peer -> runtime -> tabs
     /* eslint-disable no-undef */
-    chrome.tabs.query({ url: '*://vozforums.com/*' }, tabs => {
+    chrome.tabs.query({ url: '*://forums.voz.vn/*' }, tabs => {
       tabs.forEach(tab => {
         chrome.tabs.sendMessage(tab.id, { peerChatIncomeMessage: message });
       });

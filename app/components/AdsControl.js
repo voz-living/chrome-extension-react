@@ -49,8 +49,7 @@ export function AdsControl() {
           right: 3px; 
         }
         </style>
-        <div class="important-survey"><a target="_blank">Phiên bản mới: Sửa lỗi migrate voz: vozforums cập nhật tính năng migrate - chuyển bài sang Next Voz khiến Voz Living bị lỗi style => Voz Living sẽ xoá nút migrate này ở mọi thread để tránh xung đột).
-        <br />Thêm tính năng hiện ngày lập thread(bật trong settings), cải tiến bộ lọc thread, bug fixes,...</a></div>
+        <div class="important-survey"><a target="_blank">Phiên bản mới (Firefox): Tương thích forums.voz.vn</a></div>
       `);
     const closeBtn = $('<a href="#" class="close">OK ×</a>');
     $('.important-survey').append(closeBtn);

@@ -51,7 +51,7 @@ export default class LazyPost extends Component {
 
   loadPost() {
     this.setState({ loading: true });
-    return GET(`//vozforums.com/showpost.php?p=${this.props.postId}`)
+    return GET(`//forums.voz.vn/showpost.php?p=${this.props.postId}`)
       .then(html => {
         const $ = cheerio.load(html);
         return $.html('.voz-postbit');

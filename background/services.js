@@ -39,7 +39,7 @@ const cachedHotThreads = {
 };
 
 function getToken(response) {
-  $.ajax({ url: 'https://vozforums.com', type: 'GET', dataType: 'text' }).done(data => {
+  $.ajax({ url: 'https://forums.voz.vn', type: 'GET', dataType: 'text' }).done(data => {
     const token = data.match(/SECURITYTOKEN = "(.*?)";/);
     response(token[1]);
   });
@@ -51,15 +51,15 @@ function setSessionCookie(request) {
   const passHash = request.passHash;
   const idHash = request.idHash;
   chrome.cookies.set(
-    { url: 'https://.vozforums.com/', name: 'vfsessionhash', value: sessHash, httpOnly: true });
+    { url: 'https://.forums.voz.vn/', name: 'vfsessionhash', value: sessHash, httpOnly: true });
   chrome.cookies.set(
-    { url: 'https://.vozforums.com/', name: 'vfpassword', value: passHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
+    { url: 'https://.forums.voz.vn/', name: 'vfpassword', value: passHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
   chrome.cookies.set(
-    { url: 'https://.vozforums.com/', name: 'vfuserid', value: idHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
+    { url: 'https://.forums.voz.vn/', name: 'vfuserid', value: idHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
 }
 
 function getSessionCookie(request, sendResponse) {
-  chrome.cookies.getAll({ url: 'https://.vozforums.com/' }, oldCookies => {
+  chrome.cookies.getAll({ url: 'https://.forums.voz.vn/' }, oldCookies => {
     let oldSessHash = '';
     const oldSessDir = oldCookies.filter(cookie => cookie.name === 'vfsessionhash')[0];
     if (oldSessDir !== undefined) { oldSessHash = oldSessDir.value; }
@@ -69,8 +69,8 @@ function getSessionCookie(request, sendResponse) {
     let oldIdHash = '';
     const oldIdDir = oldCookies.filter(cookie => cookie.name === 'vfuserid')[0];
     if (oldIdDir !== undefined) { oldIdHash = oldIdDir.value; }
-    chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfsessionhash' });
-    chrome.cookies.remove({ url: 'https://.vozforums.com/', name: 'vfpassword' });
+    chrome.cookies.remove({ url: 'https://.forums.voz.vn/', name: 'vfsessionhash' });
+    chrome.cookies.remove({ url: 'https://.forums.voz.vn/', name: 'vfpassword' });
     const loginForm = new FormData();
     const md5pass = md5(request.password);
     console.log('Initialize verification');
@@ -82,12 +82,12 @@ function getSessionCookie(request, sendResponse) {
       type: 'POST',
       processData: false,
       contentType: false,
-      url: 'https://vozforums.com/login.php',
+      url: 'https://forums.voz.vn/login.php',
       data: loginForm,
     })
       .done(res => {
         if (/STANDARD_REDIRECT/.test(res)) {
-          chrome.cookies.getAll({ url: 'https://.vozforums.com/' }, cookies => {
+          chrome.cookies.getAll({ url: 'https://.forums.voz.vn/' }, cookies => {
             const sessHash = cookies.filter(cookie => cookie.name === 'vfsessionhash')[0].value;
             const passHash = cookies.filter(cookie => cookie.name === 'vfpassword')[0].value;
             const idHash = cookies.filter(cookie => cookie.name === 'vfuserid')[0].value;
@@ -103,7 +103,7 @@ function getSessionCookie(request, sendResponse) {
 }
 
 function postWithCookie(request, sendResponse) {
-  chrome.cookies.getAll({ url: 'https://.vozforums.com/' }, oldCookies => {
+  chrome.cookies.getAll({ url: 'https://.forums.voz.vn/' }, oldCookies => {
     setSessionCookie({ sessHash: request.sessHash, passHash: request.passHash, idHash: request.idHash });
     let oldSessHash = '';
     const oldSessDir = oldCookies.filter(cookie => cookie.name === 'vfsessionhash')[0];
@@ -133,12 +133,12 @@ function postWithCookie(request, sendResponse) {
           type: 'POST',
           processData: false,
           contentType: false,
-          url: 'https://vozforums.com/newthread.php',
+          url: 'https://forums.voz.vn/newthread.php',
           data: postForm,
         }).done(res => {
           const threadUrl = res.match(/value="(\d+)" id="qr_threadid"/);
           setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash, idHash: oldIdHash });
-          sendResponse({ resolve: 'new-thread', url: `https://vozforums.com/showthread.php?t=${threadUrl[1]}` });
+          sendResponse({ resolve: 'new-thread', url: `https://forums.voz.vn/showthread.php?t=${threadUrl[1]}` });
         });
       } else {
         postForm.append('do', 'postreply');
@@ -149,12 +149,12 @@ function postWithCookie(request, sendResponse) {
           type: 'POST',
           processData: false,
           contentType: false,
-          url: 'https://vozforums.com/newreply.php',
+          url: 'https://forums.voz.vn/newreply.php',
           data: postForm,
         }).done(res => {
           const pageMatch = res.match(/<title>.*?Page (\d+).*<\/title>/);
           if (!!pageMatch) {
-            sendResponse({ resolve: 'post-reply', url: `https://vozforums.com/showthread.php?t=${request.thread}&page=${pageMatch[1]}` });
+            sendResponse({ resolve: 'post-reply', url: `https://forums.voz.vn/showthread.php?t=${request.thread}&page=${pageMatch[1]}` });
           }
           setSessionCookie({ sessHash: oldSessHash, passHash: oldPassHash, idHash: oldIdHash });
           sendResponse({ resolve: 'post-reply' });
@@ -174,7 +174,7 @@ function postWithCookie(request, sendResponse) {
 //     type: 'POST',
 //     processData: false,
 //     contentType: false,
-//     url: 'https://vozforums.com/login.php',
+//     url: 'https://forums.voz.vn/login.php',
 //     data: logoutForm,
 //   })
 //     .done(res => { console.log(res); })

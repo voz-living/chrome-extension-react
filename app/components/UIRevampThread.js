@@ -13,7 +13,7 @@ import { getConfig } from '../../options/OptionPage';
 import { increasePageStatusId } from '../actions/voz';
 
 let threadId;
-const genUrl = (page) => `https://vozforums.com/showthread.php?t=${threadId}&page=${page}`;
+const genUrl = (page) => `https://forums.voz.vn/showthread.php?t=${threadId}&page=${page}`;
 const _c = (e) => document.createElement(e);
 // const _t = document.createTextNode;
 const getNextPageDiv = (props) => {

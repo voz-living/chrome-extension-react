@@ -36,7 +36,7 @@ function getAllLastPost(threads, cb) {
       title,
     } = thread;
 
-    GET(`https://vozforums.com/showthread.php?t=${id}&page=${lastPage}`, { headers: headerNoCache }).then((html) => { // eslint-disable-line new-cap
+    GET(`https://forums.voz.vn/showthread.php?t=${id}&page=${lastPage}`, { headers: headerNoCache }).then((html) => { // eslint-disable-line new-cap
       try {
         const $$ = cheerio.load(html);
         if ($$('#ChallengForm').length > 0) {

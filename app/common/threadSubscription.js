@@ -27,14 +27,14 @@ export function prepare() {
 export function subscribeThread(threadId) {
   return prepare()
     .then(token => {
-      const url = `//vozforums.com/subscription.php?do=doaddsubscription&threadid=${threadId}`;
+      const url = `//forums.voz.vn/subscription.php?do=doaddsubscription&threadid=${threadId}`;
       const formData = new FormData();
 
       formData.append('do', 'doaddsubscription');
       formData.append('securitytoken', token);
       formData.append('s', '');
       formData.append('threadid', threadId);
-      formData.append('url', `http://vozforums.com/showthread.php?t=${threadId}`);
+      formData.append('url', `http://forums.voz.vn/showthread.php?t=${threadId}`);
       formData.append('emailupdate', 0);
       formData.append('folderid', 0);
 
@@ -48,7 +48,7 @@ export function subscribeThread(threadId) {
 export function unsubscribeThread(threadId) {
   return prepare()
     .then(() => {
-      const url = `//vozforums.com/subscription.php?do=removesubscription&t=${threadId}`;
+      const url = `//forums.voz.vn/subscription.php?do=removesubscription&t=${threadId}`;
       return GET(url);
     });
 }

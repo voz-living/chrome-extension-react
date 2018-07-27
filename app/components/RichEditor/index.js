@@ -8,7 +8,7 @@ import Recommendation from './Recommendation';
 
 function createToggleForEditor($table) {
   const TG_CLASS = 'hide_adv_editor';
-  const $toggle = $('<a href="#"><img src="https://vozforums.com/images/buttons/collapse_tcat.gif"> Đóng/mở Khung soạn thảo gốc</a>');
+  const $toggle = $('<a href="#"><img src="https://forums.voz.vn/images/buttons/collapse_tcat.gif"> Đóng/mở Khung soạn thảo gốc</a>');
   $toggle.on('click', (e) => {
     e.preventDefault();
     $table.toggleClass(TG_CLASS);

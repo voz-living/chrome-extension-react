@@ -4,7 +4,7 @@ import {
   headerNoCache,
 } from '../../app/utils/http';
 /* eslint-disable new-cap */
-const SUBSCRIPTION_LINK = 'https://vozforums.com/subscription.php?do=viewsubscription';
+const SUBSCRIPTION_LINK = 'https://forums.voz.vn/subscription.php?do=viewsubscription';
 
 export default function getSubscribedThreads() {
   return GET(SUBSCRIPTION_LINK, { headers: headerNoCache }).then((html) => {

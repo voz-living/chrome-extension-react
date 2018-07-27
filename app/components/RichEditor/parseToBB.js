@@ -67,8 +67,8 @@ export default function parseToBB(node, nextNode) {
           }
           case 'IMG': {
             const { src } = node;
-            if (/:\/\/vozforums\.com\/images\//.test(src)) {
-              const path = src.split(/:\/\/vozforums\.com/)[1];
+            if (/:\/\/forums\.voz\.vn\/images\//.test(src)) {
+              const path = src.split(/:\/\/forums\.voz\.vn/)[1];
               if (emoMap[path]) return emoMap[path];
             }
             return `[IMG]${src}[/IMG]`;

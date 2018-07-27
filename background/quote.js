@@ -23,7 +23,7 @@ class QuoteBackground {
       if (isLogin) {
         getChromeLocalStore((['settings'])).then(({ settings }) => {
           const { advancedNotifyQuote } = settings;
-          const url = 'https://vozforums.com/search.php';
+          const url = 'https://forums.voz.vn/search.php';
           const formData = new FormData();
 
           formData.append('do', 'process');
@@ -77,7 +77,7 @@ class QuoteBackground {
 
   saveQuotes(quotes) {
     setChromeLocalStore({ quotes }).then(() => {
-      chrome.tabs.query({ url: '*://vozforums.com/*' }, tabs => {
+      chrome.tabs.query({ url: '*://forums.voz.vn/*' }, tabs => {
         tabs.forEach(tab => {
           chrome.tabs.sendMessage(tab.id, { quotes });
         });
@@ -95,7 +95,7 @@ class QuoteBackground {
           try {
             if (hasNotSeen.length === 1) {
               const handler = () => {
-                window.open(`https://vozforums.com/showthread.php?p=${hasNotSeen[0].post.id}#post${hasNotSeen[0].post.id}`, '_blank');
+                window.open(`https://forums.voz.vn/showthread.php?p=${hasNotSeen[0].post.id}#post${hasNotSeen[0].post.id}`, '_blank');
                 chrome.notifications.clear('voz-living');
                 chrome.notifications.onClicked.removeListener(handler);
               };

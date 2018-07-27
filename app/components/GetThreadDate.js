@@ -36,7 +36,7 @@ class GetThreadDate extends Component {
             date = date.replace(today, 'Today').replace(yesterday, 'Yesterday');
             smallname.after(`<span class="vl-date"> &gt;&gt; ${date}</span>`);
           } else {
-            $.get(`https://vozforums.com/showthread.php?t=${id}`, data => {
+            $.get(`https://forums.voz.vn/showthread.php?t=${id}`, data => {
               date = $(data).find('.tborder.voz-postbit').first()
                 .find('.thead .normal:nth-child(2)').text().match(/\S+.+/)[0];
               smallname.after(`<span class="vl-date"> &gt;&gt; ${date}</span>`);

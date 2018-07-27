@@ -18,13 +18,13 @@ export default class QuickBanUser extends Component {
       const uName = $this.siblings('.tborder.voz-postbit').find('.bigusername').text();
       const ignoreRow = $((`<tr> 
         <td class='vbmenu_option vbmenu_option_alink vl-option'>
-        <a target='_blank' href='https://vozforums.com/search.php?do=finduser&u=${uid}&starteronly=1' 
+        <a target='_blank' href='https://forums.voz.vn/search.php?do=finduser&u=${uid}&starteronly=1' 
         >Find all threads by ${uName}</a>
         </td>
         </tr>
         <tr> 
         <td class='vbmenu_option vbmenu_option_alink vl-option'>
-        <a target='_blank' href='https://vozforums.com/profile.php?do=addlist&userlist=ignore&u=${uid}' 
+        <a target='_blank' href='https://forums.voz.vn/profile.php?do=addlist&userlist=ignore&u=${uid}' 
         title='Mở trong tab mới'><i class="fa fa-ban"/>&nbsp;Ignore user này (tab mới)</a>
         </td>
         </tr>`

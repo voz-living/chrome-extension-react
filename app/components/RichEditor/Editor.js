@@ -117,7 +117,7 @@ class Editor extends Component {
     quote.appendChild(content.cloneNode(true));
     this.editableNode.appendChild(quote);
     this.editableNode.appendChild(emptyLine);
-    const href = `//vozforums.com/newreply.php?do=newreply&p=${postId}`;
+    const href = `//forums.voz.vn/newreply.php?do=newreply&p=${postId}`;
     GET(href).then(response => { // eslint-disable-line
       const $ = cheerio.load(response);
       const text = $('#vB_Editor_001_textarea').val();
@@ -258,7 +258,7 @@ class Editor extends Component {
         <div className="RE-btn-control">
           <a href="#" onClick={this.addNewLine} style={{ position: 'relative' }} data-tooltip="Thêm dòng mới ở dưới cùng">Thêm dòng mới</a>&nbsp;|&nbsp;
           <a href="#" onClick={this.turnFeatureOff} style={{ position: 'relative' }} data-tooltip="Tắt và load lại trang">Tắt WYSIWYG Editor</a> &nbsp;|&nbsp;
-          <a href="https://vozforums.com/newreply.php?do=newreply&p=124977693" target="_blank" style={{ position: 'relative' }} data-tooltip="Mở ra trang mới">Góp ý</a>
+          <a href="https://forums.voz.vn/newreply.php?do=newreply&p=124977693" target="_blank" style={{ position: 'relative' }} data-tooltip="Mở ra trang mới">Góp ý</a>
           <div style={{ float: 'right' }}>
             <button onClick={this.toBBCode} data-tooltip="Không gửi bài" style={{ position: 'relative' }} data-tooltip="Không gửi bài">To BBCode</button>
             <button onClick={this.preview}>Preview</button>
@@ -274,7 +274,7 @@ class Editor extends Component {
           </div>
         </div>
         <div>
-          Ô Reply ở phía dưới chỉ nhằm mục đích tham khảo, bạn có thể nhấn vào <img src="https://vozforums.com/images/buttons/collapse_tcat.gif" /> để đóng tạm
+          Ô Reply ở phía dưới chỉ nhằm mục đích tham khảo, bạn có thể nhấn vào <img src="https://forums.voz.vn/images/buttons/collapse_tcat.gif" /> để đóng tạm
         </div>
       </div>
     );
