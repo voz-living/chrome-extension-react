@@ -20,6 +20,8 @@ export function getCurrentView() {
     currentView = 'new-thread';
   } else if (/search\.php\?searchid/.test(window.location.href)) {
     currentView = 'search-result';
+  } else if (/whoposted/.test(window.location.href)) {
+    currentView = 'who-posted';
   }
   return currentView;
 }

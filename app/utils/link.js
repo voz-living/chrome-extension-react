@@ -43,6 +43,47 @@ export function removeRedirect($html) {
   });
 }
 
+$.fn.undrag = function () {
+  $(this).off('dragstart mousedown mousemove mouseleave mouseup');
+  $(this).css({ marginLeft: '', marginTop: '', cursor: 'auto' });
+};
+
+$.fn.drag = function (deg = 0) {
+  let marginT = 0;
+  let marginL = 0;
+  let boundL;
+  let boundT;
+  let offsetX;
+  let offsetY;
+  $(this).on('dragstart', e => e.preventDefault());
+  $(this).on('mousedown', function (f) {
+    boundL = this.getBoundingClientRect().left - marginL;
+    boundT = this.getBoundingClientRect().top - marginT;
+    const type = deg / 90 % 4;
+    if (type === 1) {  // rotation kinda messed up default offset
+      offsetX = $(this).height() - f.offsetY;
+      offsetY = f.offsetX;
+    } else if (type === 2) {
+      offsetX = $(this).width() - f.offsetX;
+      offsetY = $(this).height() - f.offsetY;
+    } else if (type === 3) {
+      offsetX = f.offsetY;
+      offsetY = $(this).width() - f.offsetX;
+    } else {
+      offsetX = f.offsetX;
+      offsetY = f.offsetY;
+    }
+    $(this).on('mousemove', function (e) {
+      marginL = e.pageX - (boundL + window.scrollX) - offsetX;
+      marginT = e.pageY - (boundT + window.scrollY) - offsetY;
+      $(this).css({ marginLeft: `${marginL}px`, marginTop: `${marginT}px` });
+    });
+    $(this).on('mouseup mouseleave', function () {
+      $(this).off('mousemove mouseup mouseleave');
+    });
+  });
+};
+
 export function resolveImage($html, isThreadContentOnly) {
   let $context = null;
 
@@ -75,7 +116,7 @@ export function resolveImage($html, isThreadContentOnly) {
           $this.attr('class', 'inlineimg');
         }
         if ($this.width() > 200 && $this.height() > 200) {
-          let deg = null;
+          let deg = 0;
           let fullsize = null;
           let scale = 1;
           let transform = '';
@@ -100,6 +141,23 @@ export function resolveImage($html, isThreadContentOnly) {
             $this.css({ 'max-width': fullsize });
             $this.parent().attr({ 'data-tooltip': 'Hình được thu nhỏ bởi VozLiving' });
           }
+          function rotate90deg() {
+            if (deg / 90 % 2 !== 1) return;
+            const translate = ($this.width() - $this.height()) / 2;
+            let heSo = 1;
+            if ($this.height() > cWidth + 1) {
+              heSo = cWidth / $this.height();
+              $this.css({ 'max-height': cWidth });
+            }
+            if (deg === 90) {
+              transform = `rotate(${deg}deg) translate(${translate * heSo}px, ${translate * heSo}px)`;
+              $this.css({ transform: `${transform} scaleX(${scale})` });
+            } else if (deg === 270) {
+              transform = `rotate(${deg}deg) translate(${-translate * heSo}px, ${-translate * heSo}px)`;
+              $this.css({ transform: `${transform} scaleX(${scale})` });
+            }
+            $this.parent().css({ height: $this.width() });
+          }
           function controls() {
             control.append(`<a href="#" data-tooltip="Xoay trái"><i class="fa fa-undo fa-lg control-button" id="rotate-left" ></i></a>
                       <a href="#" data-tooltip="Xoay phải"><i class="fa fa-repeat fa-lg control-button" id="rotate-right" ></i></a>
@@ -116,23 +174,11 @@ export function resolveImage($html, isThreadContentOnly) {
                 cWidth = container.width() - 14;
               }
               deg += $(this).attr('id') === 'rotate-left' ? -90 : 90;
-              if (deg === -90) { deg = 270; }
-              if (deg === 360) { deg = 0; }
+              if (deg === -90) { deg = 270; } else
+                if (deg === 360) { deg = 0; }
+              if (fullsize === 'none') $this.drag(deg);
               if (deg / 90 % 2 === 1) {
-                const translate = ($this.width() - $this.height()) / 2;
-                let heSo = 1;
-                $this.parent().css({ height: $this.width() });
-                if ($this.height() > cWidth + 1) {
-                  heSo = cWidth / $this.height();
-                  $this.css({ 'max-height': cWidth });
-                }
-                if (deg === 90) {
-                  transform = `rotate(${deg}deg) translate(${translate * heSo}px, ${translate * heSo}px)`;
-                  $this.css({ transform: `${transform} scaleX(${scale})` });
-                } else if (deg === 270) {
-                  transform = `rotate(${deg}deg) translate(${-translate * heSo}px, ${-translate * heSo}px)`;
-                  $this.css({ transform: `${transform} scaleX(${scale})` });
-                }
+                rotate90deg();
               } else {
                 $this.parent().css({ height: '' });
                 transform = `rotate(${deg}deg)`;
@@ -148,21 +194,29 @@ export function resolveImage($html, isThreadContentOnly) {
             if (oversized) {
               control.append('&nbsp;<a href="#"  data-tooltip="Quay về kích cỡ ban đầu"><i class="fa fa-arrows-h fa-lg control-button" id="size-default"></i></a>');
               control.find('.control-button#size-default').on('click', () => {
-                $this.parent().removeAttr('data-tooltip');
                 fullsize = $this.css('max-width') === '500px' ? '100%' : '500px';
+                console.log($this.css('max-width'));
+                if ($this.css('max-width') === 'none') $this.undrag();
                 $this.css({ 'max-width': fullsize });
               });
             }
             if ($this.prop('naturalWidth') > cWidth + 1 && !$this.closest('.voz-bbcode-quote').length > 0) {
               control.append('&nbsp;<a href="#"  data-tooltip="Phóng to"><i class="fa fa-expand fa-lg control-button" id="expand"></i></a>');
               control.find('.control-button#expand').on('click', () => {
-                $this.parent().removeAttr('data-tooltip');
-                fullsize = $this.css('max-width') === '100%' ? 'initial' : '100%';
+                const isFullsize = $this.css('max-width') === '100%';
+                fullsize = isFullsize ? 'none' : '100%';
                 margin = $this.css('margin-right') === '20px' ? '0' : '20px';
                 $this.css({
                   'max-width': fullsize,
                   'margin-right': margin,
                 });
+                rotate90deg();
+                if (isFullsize) {
+                  $this.css({ cursor: 'move' });
+                  $this.drag(deg);
+                } else {
+                  $this.undrag();
+                }
               });
             }
             control.children('a').on('click', function (e) {
@@ -174,6 +228,10 @@ export function resolveImage($html, isThreadContentOnly) {
           }
           control.find('button').on('click', () => {
             control.empty();
+            if (oversized) {
+              $this.css({ 'max-width': '100%' });
+              $this.parent().removeAttr('data-tooltip');
+            }
             controls();
           });
         }

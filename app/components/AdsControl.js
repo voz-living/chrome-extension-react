@@ -4,14 +4,16 @@ import $ from 'jquery';
 function removeAds() {
     $('head').append(`<style>[id^=div-gpt-ad],[id^=google_ads_div],.middleads,[id^=ads_zone], tbody > tr > td:nth-child(2)[width="160"]{
   display: none}
-  [align="center"] > div.page{ width:100%!important }
 }</style>`);
   if ($('.middleads+table > tbody > tr > td:eq(1) [id^=div-gpt-ad]').length > 0) {
     $('.middleads+table > tbody > tr > td:eq(1)').remove();
   }
+  if ($('link[href$="migrate.min.css"]').length) {
+    $('link[href$="migrate.min.css"]').remove();
+    require('../styles/hide-voz-migration.less');
+  }
   $('.middleads+div > table > tbody > tr > td:eq(1)').remove();
-  $('[id^=div-gpt-ad]').hide();
-  $('[id^=google_ads_div],.middleads').hide();
+  $('[id^=div-gpt-ad], [id^=google_ads_div], .middleads').hide();
 }
 
 export function AdsControl() {
@@ -19,7 +21,8 @@ export function AdsControl() {
     // if (toRemove && toRemove.remove) toRemove.remove();
 
     // https://userstyles.org/styles/154630/voz-forums-u23-vietnam-theme
-  if (window.localStorage.getItem('survey_done') !== 'theNextVoz') {
+  if (window.localStorage.getItem('survey_done') !== 'fixMigration') {
+    setTimeout(() => {
     $(document.body).prepend(`
         <style>
         .important-survey {
@@ -46,14 +49,16 @@ export function AdsControl() {
           right: 3px; 
         }
         </style>
-        <div class="important-survey"><a href="https://vozforums.com/showpost.php?p=137163821&postcount=2193" target="_blank">VozLiving update phiên bản mới. Thêm nguồn imgur vào upload nhanh(trong settings), cải thiện hiệu năng, cho phép dùng nhiều style, giảm lag khi post bài(có thể tắt ở settings)</a></div>
+        <div class="important-survey"><a target="_blank">Phiên bản mới: Sửa lỗi migrate voz: vozforums cập nhật tính năng migrate - chuyển bài sang Next Voz khiến Voz Living bị lỗi style => Voz Living sẽ xoá nút migrate này ở mọi thread để tránh xung đột).
+        <br />Thêm tính năng hiện ngày lập thread(bật trong settings), cải tiến bộ lọc thread, bug fixes,...</a></div>
       `);
     const closeBtn = $('<a href="#" class="close">OK ×</a>');
     $('.important-survey').append(closeBtn);
     closeBtn.click(() => {
-      window.localStorage.setItem('survey_done', 'theNextVoz');
+      window.localStorage.setItem('survey_done', 'fixMigration');
       $('.important-survey').fadeOut(300);
     });
+    }, 300);
   }
 
   let isRemoved = false;

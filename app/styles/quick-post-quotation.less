@@ -51,13 +51,21 @@ font[color="Spoiler"] {
 	background: black;
 	color: black;
 	&:hover {
-		color: white;
+		color: white!important;
 	}
 	font {
 		color: black;
 		&:hover {
-			color: white;
+			color: white!important;
 		}
+	}
+}
+font[color="Spoiler"]:not(:hover)  {
+	a {
+		color:black!important;
+	}
+	img[src^="/images"] {
+		visibility: hidden;
 	}
 }
 
@@ -74,4 +82,6 @@ font[color="Spoiler"] {
 	background-color: #ffffff;
 	border: 1px solid #8d8d8d;
 	padding:1px;
+	-webkit-appearance: button;
+	-moz-appearance: button;
 }

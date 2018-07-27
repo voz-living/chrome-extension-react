@@ -92,6 +92,8 @@ class App extends Component {
         'settings', 'quotes', 'authInfo',
         'quickLinks', 'followThreads', 'threadTracker',
         'cookieList', 'exportPass',
+        'filterList', 'needUpdate', 'rules', 'ignoreList', 'threadsToBeRemoved', 'noThreadSight',
+        'threadCreationList',
       ]),
       getChromeSyncStore([
         'savedPosts',
@@ -196,8 +198,9 @@ class App extends Component {
   }
 
   render() {
-    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, advancedNotifyQuote, multiAcc } = this.props.settings;
+    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, advancedNotifyQuote } = this.props.settings;
     const currentView = this.currentView;
+    if (currentView === 'who-posted') return null;
     return (
       <div id="voz-living">
         <WideScreenControl isWideScreen={wideScreenSpecial} />
@@ -212,7 +215,6 @@ class App extends Component {
           autoHide={autoHideSidebar}
           advancedNotifyQuote={advancedNotifyQuote}
           currentView={currentView}
-          multiAcc={multiAcc}
         />
         {this.renderBaseOnCurrentView(currentView)}
         <PasteToUpload currentView={currentView} />

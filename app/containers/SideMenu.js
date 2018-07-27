@@ -12,14 +12,14 @@ import FeedbackBtn from '../components/FeedbackBtn';
 // import HotThreads from '../components/HotThreads';
 import { toClassName } from '../utils';
 import MultiAccounts from "../components/MultiAccounts";
+import ThreadFilter from '../components/ThreadFilter';
+import GetThreadDate from '../components/GetThreadDate';
 
 class SideMenu extends Component {
   static propTypes = {
     settings: PropTypes.object,
     dispatch: PropTypes.func,
     autoHide: PropTypes.bool,
-    advancedNotifyQuote: PropTypes.bool,
-    multiAcc: PropTypes.bool,
     currentView: PropTypes.string,
   }
 
@@ -50,18 +50,19 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { settings, autoHide, advancedNotifyQuote, multiAcc, currentView } = this.props;
+    const { settings, autoHide, currentView } = this.props;
 
     return (
-      <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide })}>
+      <div className={toClassName({ 'voz-living-side-menu': true, 'trans-start': true, 'auto-hide': autoHide, compact: settings.compactMenu })}>
         <SettingOptions settings={settings} dispatch={this.dispatch} />
-        <QuoteList dispatch={this.dispatch} advancedNotifyQuote={advancedNotifyQuote} />
+        <QuoteList dispatch={this.dispatch} advancedNotifyQuote={settings.advancedNotifyQuote} noIgnoredQuotes={settings.noIgnoredQuotes} />
         <FollowThread dispatch={this.dispatch} />
         <ReloadButton dispatch={this.dispatch} isReloadButton={settings.reloadButton} />
-
+        {settings.threadFilter === true ? <ThreadFilter currentView={currentView} /> : null}
+        {settings.getThreadDate === true ? <GetThreadDate currentView={currentView} /> : null}
         {settings.savePostEnable === true ? <SavedPostSideBarIcon dispatch={this.dispatch} /> : null}
         {settings.LinhXinhBtn === true ? <LXBtn /> : null}
-        {multiAcc && <MultiAccounts currentView={currentView} />}
+        {settings.multiAcc === true && <MultiAccounts currentView={currentView} />}
         <QuickLink dispatch={this.dispatch} />
         <div className="voz-living-size-menu__bottom">
           <FeedbackBtn />

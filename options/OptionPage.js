@@ -50,10 +50,14 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="wideScreenSpecial" parent={parent} >Dàn trang ra 2 bên (Special - chọn nếu trên có lỗi)</OnOffConfigItem>
         <OnOffConfigItem configKey="adsRemove" parent={parent} >Xoá quảng cáo</OnOffConfigItem>
         <OnOffConfigItem configKey="notifyQuote" parent={parent} >Thông báo trích dẫn</OnOffConfigItem>
-        <blockquote><OnOffConfigItem configKey="advancedNotifyQuote" parent={parent} >Thêm id vào post (Dành cho tên phổ biến)</OnOffConfigItem></blockquote>
+        <blockquote>
+          <OnOffConfigItem configKey="advancedNotifyQuote" parent={parent} >Thêm id vào post (Dành cho tên phổ biến)</OnOffConfigItem>
+          <OnOffConfigItem configKey="noIgnoredQuotes" parent={parent} >Ẩn quote từ người bị ignore</OnOffConfigItem>
+        </blockquote>
         <NumberConfigItem configKey="delay" parent={parent} >Cường độ quét trích dẫn (phút) </NumberConfigItem>
         <NumberConfigItem configKey="delayFollowThread" parent={parent} max={60*24} min={1} >Cường độ quét thớt theo dõi (phút) </NumberConfigItem>
         <OnOffConfigItem configKey="autoHideSidebar" parent={parent} >Tự động ẩn thanh công cụ</OnOffConfigItem>
+        <OnOffConfigItem configKey="compactMenu" parent={parent} >Thanh công cụ cỡ nhỏ</OnOffConfigItem>
         <OnOffConfigItem configKey="LinhXinhBtn" parent={parent} >Hiện LinhXinh ở thanh công cụ</OnOffConfigItem>
         <OnOffConfigItem configKey="enableRichEditor" parent={parent} >Kích hoạt WYSIWYG Editor</OnOffConfigItem>
         <TextConfigItem configKey="userStyle" parent={parent}>
@@ -88,6 +92,8 @@ export default class OptionPage extends Component {
         <OnOffConfigItem configKey="threadPreview" parent={parent} >Xem trước thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="reloadButton" parent={parent} >Làm mới nhanh danh sách thớt</OnOffConfigItem>
         <OnOffConfigItem configKey="autoGotoNewthread" parent={parent} >Tự đi tới bài mới nhất</OnOffConfigItem>
+        <OnOffConfigItem configKey="threadFilter" parent={parent} >Lọc bài viết theo danh sách</OnOffConfigItem>
+        <OnOffConfigItem configKey="getThreadDate" parent={parent} >Hiện ngày thread được tạo (mới)</OnOffConfigItem>
         <h3>Trong thớt/Bài viết (Thread/Posts)</h3>
         <OnOffConfigItem configKey="newThreadUI" parent={parent} >Giao diện mới (Tải trang nhanh) (tạm không sử dụng được)</OnOffConfigItem>
         <OnOffConfigItem configKey="smartSelection" parent={parent} >Hiện công cụ khi quét chữ</OnOffConfigItem>

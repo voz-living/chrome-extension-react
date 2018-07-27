@@ -23,7 +23,7 @@ function checkAddStyle(userStyleUrl) {
     const oldCss = window.localStorage.getItem(storeId);
     if (oldCss !== null) {
       addStyle(oldCss, storeId);
-      return;
+      if (Math.floor(Math.random() * 20) !== 19) return;
     }
     GET(`https://userstyles.org/styles/${userStyleId}.css`, {
       credentials: 'same-origin',
@@ -32,6 +32,9 @@ function checkAddStyle(userStyleUrl) {
         if (oldCss === null) {
           addStyle(css, storeId);
           window.localStorage.setItem(storeId, css);
+        } else if (css !== oldCss) {
+          window.localStorage.setItem(storeId, css);
+          console.log('Style updated');
         }
       });
   } catch (e) {

@@ -1,0 +1,17 @@
+const BAN_QUAN_TRI = ['911', 'alex_noob', 'amdbarton', 'anhsemaiyeuem',
+  'Baby | DieHard', 'black jack', 'brothervietnam', 'caoquy8x',
+  'CoolerMaster_VN', 'cpc', 'CPUIZ', 'daden203', 'DeaStyleX', 'debutant',
+  'DellVietnam', 'Dizzy', 'dtieubinh', 'DuongMedia', 'Eagle', 'emmeo',
+  'gelu567890', 'giobien', 'Global Hell', 'gthn', 'HaNoi Computer', 'hanoinew.vn',
+  'hddgiarevn', 'hoanghamobile', 'hoanghamobileonline', 'HoneyLove', 'huythach83',
+  'Hợp Nhất ICT', 'khanh3t', 'khanhvu', 'KingOFighter', 'kingtea', 'l0000gold',
+  'lebao', 'lizone', 'loasvhouse', 'Minion', 'moi\'tapchoi', 'Mr - Ai - Tee',
+  'Mr2006', 'NCQ', 'NgonBoReNo1', 'nhatthanh.com.vn', 'nhenhophach', 'Nothing31',
+  'phucanh_hitech', 'prescolt', 'private.com.vn', 'pvthanh100', 'Rockie', 'SuKiy0',
+  'tadinha', 'tanquangmedia', 'thanhvova', 'thetrungbk', 'thienloipc', 'thuydung2209',
+  'thuylinhmobile', 'tlgod', 'Trác Đông Lai', 'Tuanngoc2304', 't_hoanganh', 'vdz',
+  'Vigitech.vn', 'vozExpress', 'Voz_Support', 'vungocanh', 'WD Vietnam', 'willrock114',
+  'Www.KhoiDiem.Vn', 'Zanr Zij®', 'fRzzy', 'Kuang2', 'styleadmin', 'Yukumi',
+  '486-33Mhz', 'chiphu', 'duc4eyes', 'haroavatar', 'Jay', 'Kacee', 'Squall',
+  'tengtengvn', 'TNTANH', 'vtalinh', 'walkmansky'];
+export default BAN_QUAN_TRI;
