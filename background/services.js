@@ -51,15 +51,15 @@ function setSessionCookie(request) {
   const passHash = request.passHash;
   const idHash = request.idHash;
   chrome.cookies.set(
-    { url: 'https://.forums.voz.vn/', name: 'vfsessionhash', value: sessHash, httpOnly: true });
+    { url: 'https://forums.voz.vn/', name: 'vfsessionhash', value: sessHash, httpOnly: true });
   chrome.cookies.set(
-    { url: 'https://.forums.voz.vn/', name: 'vfpassword', value: passHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
+    { url: 'https://forums.voz.vn/', name: 'vfpassword', value: passHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
   chrome.cookies.set(
-    { url: 'https://.forums.voz.vn/', name: 'vfuserid', value: idHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
+    { url: 'https://forums.voz.vn/', name: 'vfuserid', value: idHash, secure: true, httpOnly: true, expirationDate: 2147483647 });
 }
 
 function getSessionCookie(request, sendResponse) {
-  chrome.cookies.getAll({ url: 'https://.forums.voz.vn/' }, oldCookies => {
+  chrome.cookies.getAll({ url: 'https://forums.voz.vn/' }, oldCookies => {
     let oldSessHash = '';
     const oldSessDir = oldCookies.filter(cookie => cookie.name === 'vfsessionhash')[0];
     if (oldSessDir !== undefined) { oldSessHash = oldSessDir.value; }
@@ -69,8 +69,8 @@ function getSessionCookie(request, sendResponse) {
     let oldIdHash = '';
     const oldIdDir = oldCookies.filter(cookie => cookie.name === 'vfuserid')[0];
     if (oldIdDir !== undefined) { oldIdHash = oldIdDir.value; }
-    chrome.cookies.remove({ url: 'https://.forums.voz.vn/', name: 'vfsessionhash' });
-    chrome.cookies.remove({ url: 'https://.forums.voz.vn/', name: 'vfpassword' });
+    chrome.cookies.remove({ url: 'https://forums.voz.vn/', name: 'vfsessionhash' });
+    chrome.cookies.remove({ url: 'https://forums.voz.vn/', name: 'vfpassword' });
     const loginForm = new FormData();
     const md5pass = md5(request.password);
     console.log('Initialize verification');
@@ -87,7 +87,7 @@ function getSessionCookie(request, sendResponse) {
     })
       .done(res => {
         if (/STANDARD_REDIRECT/.test(res)) {
-          chrome.cookies.getAll({ url: 'https://.forums.voz.vn/' }, cookies => {
+          chrome.cookies.getAll({ url: 'https://forums.voz.vn/' }, cookies => {
             const sessHash = cookies.filter(cookie => cookie.name === 'vfsessionhash')[0].value;
             const passHash = cookies.filter(cookie => cookie.name === 'vfpassword')[0].value;
             const idHash = cookies.filter(cookie => cookie.name === 'vfuserid')[0].value;
@@ -103,7 +103,7 @@ function getSessionCookie(request, sendResponse) {
 }
 
 function postWithCookie(request, sendResponse) {
-  chrome.cookies.getAll({ url: 'https://.forums.voz.vn/' }, oldCookies => {
+  chrome.cookies.getAll({ url: 'https://forums.voz.vn/' }, oldCookies => {
     setSessionCookie({ sessHash: request.sessHash, passHash: request.passHash, idHash: request.idHash });
     let oldSessHash = '';
     const oldSessDir = oldCookies.filter(cookie => cookie.name === 'vfsessionhash')[0];

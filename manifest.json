@@ -29,8 +29,7 @@
   "permissions": [
     "*://*.vozforums.com/*",
     "*://.vozforums.com/*",
-    "*://forums.voz.vn/*",
-    "*://.forums.voz.vn/*",
+    "*://*.forums.voz.vn/*",
     "http://*.pik.vn/*",
     "https://api.imgur.com/*",
     "https://userstyles.org/*",
