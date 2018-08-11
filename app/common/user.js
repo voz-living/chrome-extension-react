@@ -9,8 +9,8 @@ import { prepare } from './threadSubscription';
 export function banUser(userId) {
   return prepare()
     .then(token => {
-      // const url = `//vozforums.com/subscription.php?do=doaddsubscription&threadid=${threadId}`;
-      const url = `//vozforums.com/profile.php?do=doaddlist&list=&userid=${userId}`;
+      // const url = `//forums.voz.vn/subscription.php?do=doaddsubscription&threadid=${threadId}`;
+      const url = `//forums.voz.vn/profile.php?do=doaddlist&list=&userid=${userId}`;
       const formData = new FormData();
 
       formData.append('do', 'doaddlist');
@@ -29,7 +29,7 @@ export function banUser(userId) {
 }
 
 export function searchUser(username) {
-  return POST_FORM('//vozforums.com/ajax.php', {
+  return POST_FORM('//forums.voz.vn/ajax.php', {
     do: usersearch,
     fragment: username
   })

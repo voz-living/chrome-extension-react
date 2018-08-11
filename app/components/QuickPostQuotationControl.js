@@ -39,10 +39,10 @@ class QuickPostQuotation extends PureComponent {
 
   clearQuotes() {
     Cookie.set('vbulletin_multiquote', '');
-    const httpsOn = '[src="https://vozforums.com/images/buttons/multiquote_on.gif"]';
-    const httpsOff = 'https://vozforums.com/images/buttons/multiquote_off.gif';
-    const httpOn = '[src="http://vozforums.com/images/buttons/multiquote_on.gif"]';
-    const httpOff = 'http://vozforums.com/images/buttons/multiquote_off.gif';
+    const httpsOn = '[src="https://forums.voz.vn/images/buttons/multiquote_on.gif"]';
+    const httpsOff = 'https://forums.voz.vn/images/buttons/multiquote_off.gif';
+    const httpOn = '[src="http://forums.voz.vn/images/buttons/multiquote_on.gif"]';
+    const httpOff = 'http://forums.voz.vn/images/buttons/multiquote_off.gif';
 
     // this look stupid
     if ($(httpsOn)) $(httpsOn).attr('src', httpsOff);
@@ -53,7 +53,7 @@ class QuickPostQuotation extends PureComponent {
     return (
       <div className="voz-living-quick-post-quotation">
         <div className="text">
-          Click vào nút <img src="https://vozforums.com/images/buttons/multiquote_off.gif" alt="" /> ở bên dưới-phải của mỗi bài viết để Load Quotes <br />
+          Click vào nút <img src="https://forums.voz.vn/images/buttons/multiquote_off.gif" alt="" /> ở bên dưới-phải của mỗi bài viết để Load Quotes <br />
         </div>
         <div className="control">
           <a onClick={this.clearQuotes}>Reset Quotes</a>

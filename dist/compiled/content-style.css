@@ -2426,20 +2426,21 @@ a.voz-living-newtab:hover {
 [id^=div-gpt-ad],
 [id^=google_ads_div],
 .middleads,
-[id^=ads_zone] {
+[id^=ads_zone],
+tbody > tr > td:nth-child(2)[width="160"] {
   display: none;
 }
 td[id^="td_threadtitle_"] {
   position: relative;
 }
-td[id^="td_threadtitle_"] > div > span {
+td[id^="td_threadtitle_"] > div > span:not([style^="cursor"]) {
   margin-right: 50px;
 }
 .btn-view {
   float: right;
   margin-top: -33px;
   background: #ddd;
-  z-index: 1000;
+  z-index: 3;
   font-weight: bold;
 }
 .btn-next-post,
@@ -2506,7 +2507,29 @@ body .voz-living-side-menu {
   width: 40px;
   height: 100%;
   padding: 0 5px 0 5px;
-  z-index: 2;
+  z-index: 99999999;
+}
+body .voz-living-side-menu.compact .btn-group .btn {
+  width: 30px;
+  height: 30px;
+  font-size: 14px!important;
+  text-align: center;
+  line-height: 30px;
+  margin-top: 3px;
+}
+body .voz-living-side-menu.compact .btn-group .btn i {
+  line-height: 30px;
+}
+body .voz-living-side-menu.compact .btn-group .btn .badge {
+  top: -2px;
+  left: 20px;
+  min-width: 10px;
+  font-size: 11px;
+  text-align: center;
+  line-height: 10px;
+}
+body .voz-living-side-menu.compact .btn-group .btn-options {
+  left: 40px;
 }
 body .voz-living-side-menu.trans-start {
   left: -50px;
@@ -2589,13 +2612,13 @@ body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row {
   font-size: 12px;
   position: relative;
 }
-body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote {
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote,
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.ignored-quote {
   filter: blur(1px);
   opacity: 0.3;
-  transition: 0.3s;
 }
-body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:before {
-  content: "T\1EF0   QUOTE";
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:before,
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.ignored-quote:before {
   color: red;
   border: 3px double;
   position: absolute;
@@ -2605,12 +2628,20 @@ body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-q
   font-weight: bold;
   transform: translate(-50%, -50%) rotate(1deg);
 }
-body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:hover {
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:hover,
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.ignored-quote:hover {
   opacity: 1;
   filter: none;
 }
-body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:hover:before {
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:hover:before,
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.ignored-quote:hover:before {
   content: none;
+}
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.self-quote:before {
+  content: "T\1EF0   QUOTE";
+}
+body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row.ignored-quote:before {
+  content: "IGNORED";
 }
 body .voz-living-side-menu .btn-group .btn-options .quote-list .quote-row .quote-title {
   font-weight: bold;
@@ -2658,6 +2689,59 @@ body .voz-living-side-menu.auto-hide:hover .btn-group {
 }
 .voz-living-quick-post-quotation .control a:first-child {
   background: #cb3837;
+}
+#vl_additional_cmd {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 5px;
+  top: -7px;
+}
+#vl_additional_cmd a {
+  position: relative;
+  padding: 1px 2px;
+  margin-right: 5px;
+  color: black!important;
+  border: 1px solid #9e9e9e;
+  background: #f7f7f7;
+}
+#vl_additional_cmd a:hover {
+  background-color: #98b5e2;
+  border: 1px solid blue;
+}
+font[color="Spoiler"] {
+  background: black;
+  color: black;
+}
+font[color="Spoiler"]:hover {
+  color: white!important;
+}
+font[color="Spoiler"] font {
+  color: black;
+}
+font[color="Spoiler"] font:hover {
+  color: white!important;
+}
+font[color="Spoiler"]:not(:hover) a {
+  color: black!important;
+}
+font[color="Spoiler"]:not(:hover) img[src^="/images"] {
+  visibility: hidden;
+}
+.vl-insert-image {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+#vl-img-label {
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #8d8d8d;
+  padding: 1px;
+  -webkit-appearance: button;
+  -moz-appearance: button;
 }
 .voz-living-size-menu__bottom {
   position: absolute;
@@ -3153,4 +3237,32 @@ body .voz-living-side-menu .btn-group .btn-options.bookmark-list .bookmark-item-
   cursor: pointer;
   padding: 5px;
   display: inline-block;
+}
+.blacklist .vl-show-post,
+.must-hide .vl-show-post {
+  color: #23497C;
+  cursor: pointer;
+}
+.highlight > td:nth-child(2) {
+  border: 2px dashed #3e79e0;
+}
+.voz-living-in-sequence > td {
+  border-top: none!important;
+}
+.vl-filter-table input.invalid {
+  background-color: #ff5a5a!important;
+}
+.voz-living-hide-thread {
+  cursor: pointer;
+  position: relative;
+  text-decoration: none!important;
+}
+[align="center"] > div.page,
+.clearfix,
+.page > div > div:nth-child(1) {
+  width: 100%!important;
+  min-width: 0 !important;
+}
+.voz-living-hide-thread i {
+  color: #6d6d6d;
 }

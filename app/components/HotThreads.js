@@ -60,7 +60,7 @@ export default class HotThreads extends Component {
           <div>
             <i>(Đang được xem trong 30 phút trước cho tới hiện tại)</i><br/>
             <p>Chức năng này đang được cân nhắc đóng tạm vì tốn kém chi phí duy trì cũng như lợi ích mang lại không thiết thực lắm.</p>
-            <p>Nếu có ý kiến khắc xin mời góp ý ở dưới hoặc trong <a href="https://vozforums.com/showthread.php?t=2846050" target="_blank">thớt</a><br/></p>
+            <p>Nếu có ý kiến khắc xin mời góp ý ở dưới hoặc trong <a href="https://forums.voz.vn/showthread.php?t=2846050" target="_blank">thớt</a><br/></p>
             Xin lỗi nếu có gì bất tiện, message này sẽ được xoá trong 1 tháng tới.
           </div>
         </div>

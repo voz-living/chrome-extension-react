@@ -40,7 +40,7 @@ class ThreadPreview extends Component {
   }
 
   getPageUrl(page = 1) {
-    return `https://vozforums.com/showthread.php?t=${this.props.id}&page=${page}`;
+    return `https://forums.voz.vn/showthread.php?t=${this.props.id}&page=${page}`;
   }
 
   getPageByIndex(index = this.state.currentPageIndex) {

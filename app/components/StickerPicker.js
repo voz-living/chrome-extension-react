@@ -279,7 +279,7 @@ export default class StickerPicker extends Component {
                   return false;
                 }}>Tự thêm vào</a>
               }
-              &nbsp;hoặc <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank">vào đây để xem 1 số bộ stickers </a></span>}
+              &nbsp;hoặc <a href="https://forums.voz.vn/showpost.php?p=123774893&postcount=1555" target="_blank">vào đây để xem 1 số bộ stickers </a></span>}
         </div>
         <ul className="sticker-set-list">
           {stickers.length > 0 &&
@@ -320,7 +320,7 @@ export default class StickerPicker extends Component {
             </li>
           ))}
           {stickers.length > 0 && <li>
-            <a href="https://vozforums.com/showpost.php?p=123774893&postcount=1555" target="_blank" data-tooltip="Sticker List">ℹ</a>
+            <a href="https://forums.voz.vn/showpost.php?p=123774893&postcount=1555" target="_blank" data-tooltip="Sticker List">ℹ</a>
           </li>}
         </ul>
       </div>

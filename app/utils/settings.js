@@ -49,12 +49,12 @@ export const defaultStoreStructure = {
     {
       id: 'voz_living_f17',
       label: 'F17',
-      link: 'https://vozforums.com/forumdisplay.php?f=17',
+      link: 'https://forums.voz.vn/forumdisplay.php?f=17',
     },
     {
       id: 'voz_living_f33',
       label: 'F33',
-      link: 'https://vozforums.com/forumdisplay.php?f=33',
+      link: 'https://forums.voz.vn/forumdisplay.php?f=33',
     },
   ],
   followThreads: {},

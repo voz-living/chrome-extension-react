@@ -279,7 +279,7 @@ class MultiAccounts extends Component {
         if (res.url) {
           window.location.href = res.url;
         } else {
-          window.location.href = `https://vozforums.com/showthread.php?t=${thread}`;
+          window.location.href = `https://forums.voz.vn/showthread.php?t=${thread}`;
         }
       } else if (res.resolve === 'new-thread') {
         window.location.href = res.url;
@@ -380,7 +380,7 @@ class MultiAccounts extends Component {
               {!document.getElementsByClassName('thead').length &&
               <button
                 onClick={() => {
-                  location.href = 'https://vozforums.com/login.php?do=logout';
+                  location.href = 'https://forums.voz.vn/login.php?do=logout';
                 }}
               >
                 Logout banned account

@@ -16,7 +16,7 @@ function prepareEmotionUrl(url) {
   let out = url;
   if (out.indexOf('http') > -1) return '';
   if (out.charAt(0) !== '/') out = `/${out}`;
-  return `https://vozforums.com${out}`;
+  return `https://forums.voz.vn${out}`;
 }
 
 function splitArray(str, arr) {

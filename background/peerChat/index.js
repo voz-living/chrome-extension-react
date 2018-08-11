@@ -1,5 +1,5 @@
-const io = require('socket.io-client');
-const P2P = require('socket.io-p2p');
+const io = require("socket.io-client");
+const P2P = require("socket.io-p2p");
 
 class PeerChatBackGround {
   constructor(url) {
@@ -9,16 +9,16 @@ class PeerChatBackGround {
     this.numClients = 100;
 
     // Send Chat Message listener tab -> runtime -> send
-    chrome.runtime.onMessage.addListener((request) => {
+    chrome.runtime.onMessage.addListener(request => {
       if (request.peerChatSendMessage) {
         this.sendPeerMessage(request.peerChatSendMessage);
       }
       if (request.peerChatConnect) {
-        this.log('Connect');
+        this.log("Connect");
         this.connect();
       }
       if (request.peerChatDisconnect) {
-        this.log('Disconnect');
+        this.log("Disconnect");
         this.disconnect();
       }
     });
@@ -28,15 +28,15 @@ class PeerChatBackGround {
     if (this.url && this.socket === null && this.p2p === null) {
       this.socket = io(this.url);
       this.p2p = new P2P(this.socket, { numClients: this.numClients }, () => {
-        this.p2p.emit('peer-obj', { peerId: this.p2p.peerId });
+        this.p2p.emit("peer-obj", { peerId: this.p2p.peerId });
       });
 
-      this.socket.on('disconnect', () => this.log('Socket Disconnected'));
+      this.socket.on("disconnect", () => this.log("Socket Disconnected"));
 
       // this event will be triggered over the socket transport
       // until `usePeerConnection` is set to `true`
-      this.p2p.on('peer-msg', (data) => {
-        this.log('Receive Chat Message', data.message);
+      this.p2p.on("peer-msg", data => {
+        this.log("Receive Chat Message", data.message);
         this.receivePeerMessage(data.message);
       });
     }
@@ -53,15 +53,15 @@ class PeerChatBackGround {
 
   sendPeerMessage(message) {
     if (this.p2p) {
-      this.log('Send Message', message);
-      this.p2p.emit('peer-msg', { message });
+      this.log("Send Message", message);
+      this.p2p.emit("peer-msg", { message });
     }
   }
 
   receivePeerMessage(message) {
     // Receive message from peer -> runtime -> tabs
     /* eslint-disable no-undef */
-    chrome.tabs.query({ url: '*://vozforums.com/*' }, tabs => {
+    chrome.tabs.query({ url: "*://forums.voz.vn/*" }, tabs => {
       tabs.forEach(tab => {
         chrome.tabs.sendMessage(tab.id, { peerChatIncomeMessage: message });
       });
@@ -71,8 +71,8 @@ class PeerChatBackGround {
 
   joinRoom(room) {
     if (this.socket) {
-      this.log('Join Room', room);
-      this.socket.emit('join-room', room);
+      this.log("Join Room", room);
+      this.socket.emit("join-room", room);
     }
   }
 

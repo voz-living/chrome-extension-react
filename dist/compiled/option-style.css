@@ -13,3 +13,8 @@
   margin: 10px 0 0 0;
   text-shadow: 1px 1px 1px rgba(119, 49, 49, 0.8);
 }
+#root {
+  max-height: 85vh;
+  min-width: 400px;
+  overflow: auto;
+}
