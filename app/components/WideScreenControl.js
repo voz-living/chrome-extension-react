@@ -3,8 +3,8 @@ import $ from 'jquery';
 
 class WideScreenControl extends Component {
   static propTypes = {
-    isWideScreen: PropTypes.bool,
-  }
+    isWideScreen: PropTypes.bool
+  };
 
   componentWillReceiveProps(nextProps) {
     this.triggerWideScreen(nextProps);
@@ -15,13 +15,18 @@ class WideScreenControl extends Component {
 
     if (isWideScreen) {
       $('.page').css({
-        width: '100%',
-        maxWidth: '5000px',
+        width: 'calc(100% - 100px)',
+        maxWidth: '5000px'
+      });
+      $('.neo_column.main').css({
+        maxWidth: '999999px'
       });
     }
   }
 
-  render() { return null; }
+  render() {
+    return null;
+  }
 }
 
 export default WideScreenControl;

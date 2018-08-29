@@ -25,35 +25,28 @@ import forHaveEatNo from '../utils/forHaveEatNo';
 import MoreBBCode from '../components/MoreBBCode';
 import InputLagReducer from '../components/InputLagReducer';
 
-import {
-  init,
-  getThreadList,
-  updateQuotes,
-} from '../actions/voz';
+import { init, getThreadList, updateQuotes } from '../actions/voz';
 
 import {
   getChromeLocalStore,
   getChromeSyncStore,
   setChromeLocalStore,
-  defaultStoreStructure,
+  defaultStoreStructure
 } from '../utils/settings';
 
-import {
-  getCurrentView,
-  getAuthenticationInformation,
-} from '../utils';
+import { getCurrentView, getAuthenticationInformation } from '../utils';
 
 import postHelper from '../utils/postHelper';
 
 class App extends Component {
   static propTypes = {
     settings: PropTypes.object,
-    dispatch: PropTypes.func,
-  }
+    dispatch: PropTypes.func
+  };
 
   static defaultProps = {
-    settings: {},
-  }
+    settings: {}
+  };
 
   constructor(comProps) {
     super(comProps);
@@ -66,7 +59,10 @@ class App extends Component {
         const postInfo = postHelper($(document.body));
         trackEvent('view-thread-id', postInfo.getThreadId());
         trackEvent('view-thread-title', postInfo.getThreadTitle());
-        trackEvent('view-thread-combine', postInfo.getThreadId() + ':|:' + postInfo.getThreadTitle());
+        trackEvent(
+          'view-thread-combine',
+          postInfo.getThreadId() + ':|:' + postInfo.getThreadTitle()
+        );
         break;
       }
       case 'thread-list': {
@@ -84,28 +80,35 @@ class App extends Component {
   componentDidMount() {
     const postInfo = postHelper($(document.body));
     setTimeout(() => {
-      document.querySelector('.voz-living-side-menu').classList.remove('trans-start');
+      document
+        .querySelector('.voz-living-side-menu')
+        .classList.remove('trans-start');
     }, 1000);
 
     Promise.all([
       getChromeLocalStore([
-        'settings', 'quotes', 'authInfo',
-        'quickLinks', 'followThreads', 'threadTracker',
-        'cookieList', 'exportPass',
-        'filterList', 'needUpdate', 'rules', 'ignoreList', 'threadsToBeRemoved', 'noThreadSight',
-        'threadCreationList',
+        'settings',
+        'quotes',
+        'authInfo',
+        'quickLinks',
+        'followThreads',
+        'threadTracker',
+        'cookieList',
+        'exportPass',
+        'filterList',
+        'needUpdate',
+        'rules',
+        'ignoreList',
+        'threadsToBeRemoved',
+        'noThreadSight',
+        'threadCreationList'
       ]),
-      getChromeSyncStore([
-        'savedPosts',
-      ]),
-    ])
-    .then(([storage, syncStore]) => {
-      const {
-        settings: _settings, authInfo,
-      } = storage;
+      getChromeSyncStore(['savedPosts'])
+    ]).then(([storage, syncStore]) => {
+      const { settings: _settings, authInfo } = storage;
       const settings = {
         ...defaultStoreStructure.settings,
-        ..._settings,
+        ..._settings
       };
       const misc = {};
       misc.currentView = this.currentView;
@@ -115,14 +118,20 @@ class App extends Component {
       storage.settings = settings; // eslint-disable-line
       this.props.dispatch(init({ ...storage, ...syncStore, misc }));
 
-      if (settings.threadPreview === true && (this.currentView === 'thread-list' || this.currentView === 'search-result')) {
+      if (
+        settings.threadPreview === true &&
+        (this.currentView === 'thread-list' ||
+          this.currentView === 'search-result')
+      ) {
         this.props.dispatch(getThreadList());
       }
 
       if (_.isEmpty(authInfo) || !_.isEqual(authInfo, this.authInfo)) {
         setChromeLocalStore({ authInfo: this.authInfo });
       }
-      const f33 = document.querySelector('tr:nth-child(1) > td:nth-child(3) > span:nth-child(4) > a');
+      const f33 = document.querySelector(
+        'tr:nth-child(1) > td:nth-child(3) > span:nth-child(4) > a'
+      );
       if (f33) {
         if (f33.innerText === 'Điểm báo') {
           forHaveEatNo();
@@ -134,7 +143,7 @@ class App extends Component {
     });
 
     /* eslint-disable no-undef */
-    chrome.runtime.onMessage.addListener((request) => {
+    chrome.runtime.onMessage.addListener(request => {
       if (request.quotes) this.dispatch(updateQuotes(request.quotes));
     });
     /* eslint-enable no-undef */
@@ -142,10 +151,12 @@ class App extends Component {
   }
 
   renderBaseOnCurrentView(currentView) {
-    const settings = (_.isEmpty(this.props.settings)) ? {} : {
-      ...defaultStoreStructure.settings,
-      ...this.props.settings,
-    };
+    const settings = _.isEmpty(this.props.settings)
+      ? {}
+      : {
+          ...defaultStoreStructure.settings,
+          ...this.props.settings
+        };
     const {
       linkHelper,
       minimizeQuote,
@@ -156,7 +167,7 @@ class App extends Component {
       newThreadUI,
       smartSelection,
       stickerPanelExpand,
-      enableRichEditor,
+      enableRichEditor
     } = settings;
     let { pageStatusId } = this.props;
     if (typeof linkHelper === 'undefined') pageStatusId = -1;
@@ -164,51 +175,101 @@ class App extends Component {
       return [
         <ThreadListControl
           key="voz-living-thread-list-control"
-          dispatch={this.dispatch} currentView={this.currentView} isThreadPreview={threadPreview}
+          dispatch={this.dispatch}
+          currentView={this.currentView}
+          isThreadPreview={threadPreview}
           autoGotoNewthread={this.props.settings.autoGotoNewthread}
-        />,
+        />
       ];
     } else if (currentView === 'thread') {
       return [
-        <LinkHelperControl linkHelper={linkHelper} pageStatusId={pageStatusId} key="voz-living-link-helper" />,
-        <ThreadControl currentView={this.currentView} key="voz-living-thread-control" />,
+        <LinkHelperControl
+          linkHelper={linkHelper}
+          pageStatusId={pageStatusId}
+          key="voz-living-link-helper"
+        />,
+        <ThreadControl
+          currentView={this.currentView}
+          key="voz-living-thread-control"
+        />,
         <MinimizeQuoteControl
-          isMinimizeQuote={minimizeQuote} key="voz-living-minimize-quote-control"
+          isMinimizeQuote={minimizeQuote}
+          key="voz-living-minimize-quote-control"
         />,
         <QuickPostQuotationControl
-          isQuickPostQuotation={quickPostQuotation} key="voz-living-quick-post-control"
+          isQuickPostQuotation={quickPostQuotation}
+          key="voz-living-quick-post-control"
         />,
         smartSelection && <SmartSelection key="smart-selection" />,
         // (typeof newThreadUI !== 'undefined')
         //   && <UIRevampThread key="ui-revamp-thread" enable={newThreadUI} />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
-        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
-        capturePostEnable ? <CapturePost key="capture-post" /> : null,
+        savePostEnable ? (
+          <SavedPostThreadBinder
+            dispatch={this.dispatch}
+            pageStatusId={pageStatusId}
+            key="saved-post-thread-binder"
+          />
+        ) : null,
+        capturePostEnable ? <CapturePost key="capture-post" /> : null
       ];
     } else if (currentView === 'post') {
       return [
-        <LinkHelperControl linkHelper={linkHelper} pageStatusId={pageStatusId} key="voz-living-link-helper" />,
+        <LinkHelperControl
+          linkHelper={linkHelper}
+          pageStatusId={pageStatusId}
+          key="voz-living-link-helper"
+        />,
         <QuickBanUser key="voz-living-quick-ban-user" />,
-        savePostEnable ? <SavedPostThreadBinder dispatch={this.dispatch} pageStatusId={pageStatusId} key="saved-post-thread-binder" /> : null,
+        savePostEnable ? (
+          <SavedPostThreadBinder
+            dispatch={this.dispatch}
+            pageStatusId={pageStatusId}
+            key="saved-post-thread-binder"
+          />
+        ) : null,
         capturePostEnable ? <CapturePost key="capture-post" /> : null,
-        <div style={{ display: 'none' }}><StickerPicker /></div>,
+        <div style={{ display: 'none' }}>
+          <StickerPicker />
+        </div>
       ];
     }
     return null;
   }
 
   render() {
-    const { wideScreenSpecial, emotionHelper, autoHideSidebar, stickerPanelExpand, enableRichEditor, advancedNotifyQuote } = this.props.settings;
+    const {
+      wideScreenSpecial,
+      emotionHelper,
+      autoHideSidebar,
+      stickerPanelExpand,
+      enableRichEditor,
+      advancedNotifyQuote,
+      wideScreen
+    } = this.props.settings;
     const currentView = this.currentView;
     if (currentView === 'who-posted') return null;
     return (
       <div id="voz-living">
-        <WideScreenControl isWideScreen={wideScreenSpecial} />
+        <WideScreenControl isWideScreen={wideScreen || wideScreenSpecial} />
         <PostTracker dispatch={this.dispatch} />
         {this.currentView !== 'edit-reply'
-          ? !_.isUndefined(enableRichEditor) && enableRichEditor === false && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
-          : !_.isUndefined(emotionHelper) && emotionHelper === true && <EmotionControl currentView={this.currentView} emotionHelper={emotionHelper} stickerPanelExpand={stickerPanelExpand} />
-        }
+          ? !_.isUndefined(enableRichEditor) &&
+            enableRichEditor === false && (
+              <EmotionControl
+                currentView={this.currentView}
+                emotionHelper={emotionHelper}
+                stickerPanelExpand={stickerPanelExpand}
+              />
+            )
+          : !_.isUndefined(emotionHelper) &&
+            emotionHelper === true && (
+              <EmotionControl
+                currentView={this.currentView}
+                emotionHelper={emotionHelper}
+                stickerPanelExpand={stickerPanelExpand}
+              />
+            )}
         <SideMenu
           dispatch={this.dispatch}
           settings={this.props.settings}
@@ -218,13 +279,20 @@ class App extends Component {
         />
         {this.renderBaseOnCurrentView(currentView)}
         <PasteToUpload currentView={currentView} />
-        {!_.isUndefined(enableRichEditor)
-          && (currentView === 'thread'
-          || currentView === 'new-reply'
-          || currentView === 'new-thread'
-          || currentView === 'pm'
-          || currentView === 'insert-pm')
-          && (enableRichEditor ? <RichEditor stickerPanelExpand={stickerPanelExpand} currentView={currentView} /> : <RichEditor.Recommendation />)}
+        {!_.isUndefined(enableRichEditor) &&
+          (currentView === 'thread' ||
+            currentView === 'new-reply' ||
+            currentView === 'new-thread' ||
+            currentView === 'pm' ||
+            currentView === 'insert-pm') &&
+          (enableRichEditor ? (
+            <RichEditor
+              stickerPanelExpand={stickerPanelExpand}
+              currentView={currentView}
+            />
+          ) : (
+            <RichEditor.Recommendation />
+          ))}
         <MoreBBCode currentView={currentView} />
       </div>
     );

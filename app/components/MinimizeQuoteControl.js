@@ -4,13 +4,13 @@ import { render } from 'react-dom';
 
 class MinimizeQuote extends Component {
   static propTypes = {
-    element: PropTypes.any,
-  }
+    element: PropTypes.any
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      isOpen: false
     };
   }
 
@@ -19,17 +19,24 @@ class MinimizeQuote extends Component {
     const { element } = this.props;
 
     return (
-      <div className="mini-quote-wrapper" >
+      <div className="mini-quote-wrapper">
         <div
           className={isOpen ? 'quote open' : 'quote'}
-          onClick={() => { if (isOpen === false) { this.setState({ isOpen: !this.state.isOpen }); } }}
+          onClick={() => {
+            if (isOpen === false) {
+              this.setState({ isOpen: !this.state.isOpen });
+            }
+          }}
           dangerouslySetInnerHTML={{ __html: element }}
-        >
-        </div>
+        />
         <div
           className="btn btn-minimize-quote"
-          onClick={() => { this.setState({ isOpen: !this.state.isOpen }); }}
-        >{isOpen ? 'Click to collapse quote' : 'Click to see full quote'}</div>
+          onClick={() => {
+            this.setState({ isOpen: !this.state.isOpen });
+          }}
+        >
+          {isOpen ? 'Click to collapse quote' : 'Click to see full quote'}
+        </div>
       </div>
     );
   }
@@ -38,16 +45,16 @@ class MinimizeQuote extends Component {
 class MinimizeQuoteControl extends Component {
   static propTypes = {
     isMinimizeQuote: PropTypes.bool,
-    maxHeight: PropTypes.number,
-  }
+    maxHeight: PropTypes.number
+  };
 
   static defaultProps = {
     isMinimizeQuote: true,
-    maxHeight: 200,
-  }
+    maxHeight: 200
+  };
 
   componentWillReceiveProps(nextProps) {
-    this.minimizeQuotes(nextProps);
+    // this.minimizeQuotes(nextProps); wtf
   }
 
   minimizeQuotes(nextProps = this.props) {
@@ -72,7 +79,9 @@ class MinimizeQuoteControl extends Component {
     }
   }
 
-  render() { return null; }
+  render() {
+    return null;
+  }
 }
 
 export default MinimizeQuoteControl;

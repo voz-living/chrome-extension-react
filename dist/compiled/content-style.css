@@ -2199,9 +2199,11 @@
 }
 body {
   margin: 0!important;
+  padding-left: 50px;
 }
 .page {
   box-shadow: none;
+  margin: 0 auto !important;
 }
 .pull-right {
   float: right;
