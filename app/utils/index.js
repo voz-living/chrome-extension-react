@@ -27,7 +27,7 @@ export function getCurrentView() {
 }
 
 export function getAuthenticationInformation() {
-  const queryString = "*:contains('You last') > *:contains('Welcome') > a[href*='member.php?u']";
+  const queryString = "*:contains('You last') > *:contains('Chào') > a[href*='member.php?u']";
   const $user = $(queryString).eq(0);
   const username = $(queryString).eq(0).text();
   let userId = -1;
