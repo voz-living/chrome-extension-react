@@ -81,7 +81,7 @@
     "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^2.0.0",
     "json-loader": "^0.5.4",
-    "jsx-test-helpers": "^1.1.0",
+    "jsx-test-helpers": "^2.0.0",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
