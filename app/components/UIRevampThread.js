@@ -255,7 +255,7 @@ class UIRevampThread extends Component {
         document.querySelector('#page-control-next-end').classList.add('hide-nav');
       }
     } else {
-      $('#page-control-prev-top, #page-control-next-end').css('visbility', 'hidden');
+      $('#page-control-prev-top, #page-control-next-end').css('visibility', 'hidden');
     }
   }
 
